@@ -6,12 +6,6 @@
 #include <sys/uio.h>
 #include <unistd.h>
 
-typedef struct  s_vector2D
-{
-    int x;
-    int y;
-}   t_vector2D;
-
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;

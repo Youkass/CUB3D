@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   singleton.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/26 17:45:31 by yobougre         ###   ########.fr       */
+/*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
+/*   Updated: 2022/09/26 17:46:11 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-int main(int argc, char **argv)
+/*
+-Singleton for the image
+*/
+t_data	*_img()
 {
-    if (argc != 2)
-    {
-        printf("Arguments error\n");
-        return (1);
-    }
-    (void)argv;
-	ft_init_mlx();
-	ft_init_img();
+	static t_data	img;
 
-    return (0);
+	return (&img);
+}
+
+/*
+-Singleton for the mlx datas
+*/
+t_mlx	*_mlx()
+{
+	static t_mlx	mlx;
+
+	return (&mlx);
 }
