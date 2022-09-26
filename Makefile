@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/09/20 12:06:27 by denissereno      ###   ########.fr        #
+#    Updated: 2022/09/26 16:46:12 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ RED			= \033[0;31m
 RST			= \033[0m
 END			= \e[0m
 
-SRCS		= srcs/main.c
+SRCS		= srcs/main.c\
+			  srcs/raycasting/raycasting_utils.c\
+			  srcs/mlx_utils/mlx_utils.c\
 
 NAME		= cub3D
 minilibx	= mlx/libmlx.a
@@ -33,6 +35,8 @@ MLB_FLAGS	= -I -g3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -
 $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)srcs
+	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
+	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 

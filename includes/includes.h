@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/26 14:34:28 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/26 16:56:48 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define INCLUDES_H
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <math.h>
 # include "../mlx/mlx.h"
 
