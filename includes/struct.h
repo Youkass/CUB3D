@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/26 15:16:59 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:00:23 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct	s_mlx
 }	t_mlx;
 
 typedef struct	s_data
-{
+{	
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/26 17:45:31 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/26 18:10:59 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(int argc, char **argv)
     (void)argv;
 	ft_init_mlx();
 	ft_init_img();
-
+	mlx_key_hook(_mlx()->mlx_win, test_hook, _mlx());
+	mlx_loop(_mlx());
     return (0);
 }

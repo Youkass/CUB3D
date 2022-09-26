@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   singleton.c                                        :+:      :+:    :+:   */
+/*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/26 18:17:25 by yobougre         ###   ########.fr       */
+/*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
+/*   Updated: 2022/09/26 18:09:01 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub.h"
+#include "../includes/cub.h"
 
-/*
--Singleton for the image
-*/
-t_data	*_img()
+int	test_hook(int keycode, t_mlx *mlx)
 {
-	static t_data	img;
-
-	return (&img);
-}
-
-/*
--Singleton for the mlx datas
-*/
-t_mlx	*_mlx()
-{
-	static t_mlx	mlx;
-
-	return (&mlx);
+	printf("mon keycode est : %d\n", keycode);
+	return (0);
 }

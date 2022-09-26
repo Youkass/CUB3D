@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/26 17:40:34 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:00:23 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ The following function will initialize our mlx pointer and our mlx window
 */
 void	ft_init_mlx()
 {
-	t_mlx	*data;
+	t_mlx	*mlx;
 
-	data = _mlx();
-	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, WIN_W, WIN_H, PRG_NAME)
+	mlx = _mlx();
+	mlx->mlx = mlx_init();
+	mlx->mlx_win = mlx_new_window(mlx->mlx, WIN_W, WIN_H, PRG_NAME);
 }
 
 /*
@@ -29,10 +29,10 @@ The following function will initialize our first image inside the window
 */
 void	ft_init_img()
 {
-	t_mlx	*data;
+	t_mlx	*mlx;
 	t_data	*img;
 
-	data = _mlx();
+	mlx = _mlx();
 	img = _img();
 	img->img = mlx_new_image(mlx, WIN_W, WIN_H);
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
@@ -48,13 +48,11 @@ outside the window.
 */
 void	ft_pixel_put(float x, float y, int color)
 {
-	char	*dst;
 	t_data	*img;
 
 	img = _img();
 	if (x < 0 || y < 0 || x > WIN_W - 1 || y > WIN_H)
 		return ;
-	dst = img->addr + (y * img->line_length + x * 
-		(img->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	*(unsigned int *)(img->addr + (int)(y * img->line_length + x * 
+		(img->bits_per_pixel / 8))) = color;
 }
