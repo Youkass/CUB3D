@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/26 19:00:23 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:54:29 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ The following function will initialize our mlx pointer and our mlx window
 */
 void	ft_init_mlx()
 {
-	t_mlx	*mlx;
-
-	mlx = _mlx();
-	mlx->mlx = mlx_init();
-	mlx->mlx_win = mlx_new_window(mlx->mlx, WIN_W, WIN_H, PRG_NAME);
+	_mlx()->mlx = mlx_init();
+	_mlx()->mlx_win = mlx_new_window(_mlx()->mlx, WIN_W, WIN_H, PRG_NAME);
 }
 
 /*
@@ -29,14 +26,9 @@ The following function will initialize our first image inside the window
 */
 void	ft_init_img()
 {
-	t_mlx	*mlx;
-	t_data	*img;
-
-	mlx = _mlx();
-	img = _img();
-	img->img = mlx_new_image(mlx, WIN_W, WIN_H);
-	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
-		&(img->line_length), &(img->endian));
+	_img()->img = mlx_new_image(_mlx(), WIN_W, WIN_H);
+	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
+		&(_img()->line_length), &(_img()->endian));
 }
 
 /*

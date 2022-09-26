@@ -6,13 +6,13 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/26 18:09:01 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/26 19:21:52 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub.h"
+#include "../../includes/cub.h"
 
-int	test_hook(int keycode, t_mlx *mlx)
+int	test_hook(int keycode)
 {
 	printf("mon keycode est : %d\n", keycode);
 	return (0);
