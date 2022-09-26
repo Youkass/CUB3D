@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/26 13:32:25 by denissereno      ###   ########.fr       */
+/*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
+/*   Updated: 2022/09/26 13:31:50 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub.h"
+#ifndef INCLUDES_H
+# define INCLUDES_H
 
-int main(int argc, char **argv)
-{
-    if (argc != 2)
-    {
-        printf("Arguments error\n");
-        return (1);
-    }
-    (void)argv;
-    return (0);
-}
+#include <stdio.h>
+
+#endif
