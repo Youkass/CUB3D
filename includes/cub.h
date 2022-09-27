@@ -23,13 +23,25 @@
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
 /* -------------------------------------------------------------------------- */
-t_data	*_img();
-t_mlx	*_mlx();
+t_data	*_img(void);
+t_mlx	*_mlx(void);
+t_enum_key *_enum_key(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
 /* -------------------------------------------------------------------------- */
-int	test_hook(int keycode, t_mlx *mlx);
+int	ft_hook(int keycode, t_mlx *mlx);
+int	ft_forward(void);
+int	ft_back(void);
+int	ft_left(void);
+int	ft_right(void);
+int	ft_escape(void);
+
+/* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/utils/malloc_hooks_enum.c                    */
+/* -------------------------------------------------------------------------- */
+int	ft_malloc_enum_key();
+void	ft_init_enum_key(void);
 
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */

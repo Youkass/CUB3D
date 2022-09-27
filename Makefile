@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/09/26 20:19:46 by yobougre         ###   ########.fr        #
+#    Updated: 2022/09/27 14:59:40 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ SRCS		= srcs/main.c\
 			  srcs/raycasting/raycasting_utils.c\
 			  srcs/mlx_utils/mlx_utils.c\
 			  srcs/utils/singleton.c\
-			  srcs/utils/key_hooks.c
+			  srcs/utils/malloc_hooks_enum.c\
+			  srcs/utils/key_hooks.c\
+			  srcs/drawing/draw_player.c
 
 NAME		= cub3D
 minilibx	= mlx/libmlx.a
@@ -40,6 +42,7 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
 	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@mkdir -p $(OBJS_DIR)srcs/utils
+	@mkdir -p $(OBJS_DIR)srcs/drawing
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 

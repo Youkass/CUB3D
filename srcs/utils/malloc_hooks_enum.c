@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 11:19:44 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/27 12:34:00 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/27 14:15:45 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int	ft_malloc_enum_key()
 {
-	_enum_key() = malloc(sizeof(t_enum_key) * MAX_KEYS);
-	if (!_enum())
+	t_enum_key	*tab;
+
+	tab = _enum_key();
+	tab = malloc(sizeof(t_enum_key) * MAX_KEYS);
+	if (!tab)
 		return (1);
+	ft_init_enum_key();
+	return (0);
 }
 
 void	ft_init_enum_key(void)
