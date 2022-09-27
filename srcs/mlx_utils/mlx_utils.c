@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/26 20:19:45 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/27 10:45:12 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ The following function will initialize our first image inside the window
 */
 void	ft_init_img()
 {
-	_img()->img = mlx_new_image(_mlx(), WIN_W, WIN_H);
+	_img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
+	_img()->bits_per_pixel /= 8;
 }
 
 /*
