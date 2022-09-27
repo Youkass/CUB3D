@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/27 10:51:26 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/27 12:16:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 -Singleton for the image
 */
-t_data	*_img()
+t_data	*_img(void)
 {
 	static t_data	img;
 
@@ -25,9 +25,19 @@ t_data	*_img()
 /*
 -Singleton for the mlx datas
 */
-t_mlx	*_mlx()
+t_mlx	*_mlx(void)
 {
 	static t_mlx	mlx;
 
 	return (&mlx);
+}
+
+/*
+-Singleton for the enum tab 
+*/
+t_enum_key **_enum_key(void)
+{
+	static t_enum_key *tab;
+
+	return (&tab);
 }
