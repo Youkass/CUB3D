@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/27 10:45:12 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/27 18:25:36 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_init_mlx()
 }
 
 /*
-The following function will initialize our first image inside the window
+The following function will initialize our frames inside the window
 */
 void	ft_init_img()
 {
@@ -30,6 +30,7 @@ void	ft_init_img()
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
 	_img()->bits_per_pixel /= 8;
+	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
 
 /*
@@ -48,4 +49,21 @@ void	ft_pixel_put(float x, float y, int color)
 		return ;
 	*(unsigned int *)(img->addr + (int)(y * img->line_length + x * 
 		(img->bits_per_pixel / 8))) = color;
+}
+
+void	ft_reload_frame()
+{
+	mlx_destroy_image(_mlx()->mlx, _img()->img);
+	_img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
+	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
+		&(_img()->line_length), &(_img()->endian));
+	_img()->bits_per_pixel /= 8;
+	//mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
+}
+
+int	ft_loop()
+{
+	ft_draw_player();
+	ft_reload_frame();
+	return (0);
 }

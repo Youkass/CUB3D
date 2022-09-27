@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/27 13:59:44 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:05:43 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,11 @@ t_enum_key *_enum_key(void)
 	static t_enum_key tab;
 
 	return (&tab);
+}
+
+t_player	*_player(void)
+{
+	static t_player	player;
+
+	return (&player);
 }
