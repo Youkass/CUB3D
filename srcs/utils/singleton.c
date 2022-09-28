@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   singleton.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
 /*   Updated: 2022/09/28 11:09:46 by yobougre         ###   ########.fr       */
@@ -53,4 +53,14 @@ t_player	*_player(void)
 		return (NULL);
 
 	return (player);
+}
+
+/*
+-Singleton for all var
+*/
+t_var	*_var(void)
+{
+	static	t_var	var;
+
+	return (&var);
 }

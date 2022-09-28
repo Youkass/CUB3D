@@ -6,9 +6,10 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/27 11:18:55 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/27 17:17:54 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 /*
 w : 119
 a : 97
@@ -27,6 +28,7 @@ esc : 65307
 # include <stdlib.h>
 # include <math.h>
 # include "../mlx/mlx.h"
+//# include "../libft/libft.h"
 
 # define PI 3.14159 
 # define P2 PI/2

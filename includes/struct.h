@@ -47,6 +47,8 @@ typedef struct	s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		height;
+	int		width;
 }	t_data;
 
 typedef struct	s_enum_key
@@ -54,6 +56,17 @@ typedef struct	s_enum_key
 	int	id;
 	int	(*ft_hook_key)(void);
 }	t_enum_key;
+
+typedef struct  s_menu
+{
+    t_data  **buttons;
+    t_data  **bar;
+}   t_menu;
+
+typedef struct  s_var
+{
+    t_menu  *menu;
+}   t_var;
 
 typedef struct	s_player
 {
