@@ -1,14 +1,14 @@
-///* ************************************************************************** */
-///*                                                                            */
-///*                                                        :::      ::::::::   */
-///*   menu.c                                             :+:      :+:    :+:   */
-///*                                                    +:+ +:+         +:+     */
-///*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
-///*                                                +#+#+#+#+#+   +#+           */
-///*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-///*   Updated: 2022/09/28 10:58:37 by denissereno      ###   ########.fr       */
-///*                                                                            */
-///* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   generate.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
+/*   Updated: 2022/09/28 15:02:28 by denissereno      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
@@ -99,12 +99,36 @@ static void	gen_menu_buttons(void)
 	}
 }
 
+void	generate_button_state(void)
+{
+	int	i;
+
+	_var()->menu->start_state = malloc(sizeof(int) * 4);
+	i = 0;
+	while (i < 4)
+		_var()->menu->start_state[i++] = 0;
+}
+
 /*
 The following function will generate all images for the menu
 */
 void    gen_menu_images(void)
 {
-	_var()->menu = malloc(sizeof(t_menu *));
+	_var()->menu = malloc(sizeof(t_menu));
+	_var()->mode = MENU;
+	_var()->menu->img.img = mlx_new_image(_mlx()->mlx, 1920, 1080);
+	_var()->menu->img.addr = mlx_get_data_addr(_var()->menu->img.img, &_var()->menu->img.bits_per_pixel, &_var()->menu->img.line_length, &_var()->menu->img.endian);
+	_var()->menu->img.height = 1080;
+	_var()->menu->img.width = 1920;
+	_var()->menu->mode = 0;
+	generate_button_state();
 	gen_menu_bars();
 	gen_menu_buttons();
+	_var()->menu->logo = generate_image("./img/menu/img/logo.xpm");
+	_var()->menu->bg = generate_image("./img/menu/img/background.xpm");
+	if (!_var()->menu->bg.img || !_var()->menu->logo.img)
+	{
+		printf("image error\n");
+		return ;
+	}
 }

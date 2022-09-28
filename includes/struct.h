@@ -6,12 +6,15 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/27 16:08:04 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 15:02:20 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUC_H
 # define STRUC_H
+
+# define GAME 0
+# define MENU 1
 
 typedef struct s_int
 {
@@ -66,12 +69,19 @@ typedef struct	s_enum_mouse
 typedef struct  s_menu
 {
     t_data  **buttons;
+	int		*start_state;
     t_data  **bar;
+	t_data	logo;
+	t_data	bg;
+	t_data	img;
+	int		mode;
 }   t_menu;
 
 typedef struct  s_var
 {
-    t_menu  *menu;
+    t_menu  	*menu;
+	t_vector2D	mouse_pos;
+	int			mode;
 }   t_var;
 
 typedef struct	s_player

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/27 17:17:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 15:02:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,32 @@ esc : 65307
 # define S 115
 # define D 100
 # define ESC 65307
+
+# define PLAY 0
+# define OPTIONS 1
+# define CREDITS 2
+# define EXIT 3
+# define RESTART 4
+# define QUIT 5
+# define MUTE_M 6
+# define MUTE_S 7
+# define MUSIC 8
+# define SOUND 9
+# define L_ARR 10
+# define R_ARR 11
+
+# define NORMAL 0
+# define HOVER 1
+# define ACTIVE 2
+
+# define BAR_LEFT 2
+# define BAR_MID 1
+# define BAR_RIGHT 0
+
+# define EMPTY 0
+# define FILL 1 
+
+# define MENU_START 0
+# define MENU_OPTION 1
 
 #endif

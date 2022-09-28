@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 11:09:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:46:31 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-int	ft_hook(int keycode, t_mlx *mlx)
+int	ft_game_hook(int keycode)
 {
 	int			i;
 	t_enum_key	tab[MAX_KEYS];
 
 	i = 0;
-	(void)mlx;
 	tab[0].id = 119;
 	tab[0].ft_hook_key = &ft_forward;
 	tab[1].id = 115;
