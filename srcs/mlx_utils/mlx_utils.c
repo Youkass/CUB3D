@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 11:26:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 14:51:33 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_reload_frame()
 
 int	ft_loop()
 {
-	ft_draw_player();
+	ft_draw_map();
 	ft_reload_frame();
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 12:35:45 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 14:51:54 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-void	ft_draw_player(void)
+void	ft_draw_player(t_obj player)
 {
 	t_int	var;
 
@@ -22,10 +22,9 @@ void	ft_draw_player(void)
 		var.j = 0;
 		while (var.j < 10)
 		{
-			ft_pixel_put(_player()->x + var.i, _player()->y + var.j, 0x00FF0000);
+			ft_pixel_put(player.x + var.i, player.y + var.j, 0x00FF0000);
 			var.j++;
 		}
 		var.i++;
 	}
-	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }

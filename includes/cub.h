@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 10:58:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
 /* -------------------------------------------------------------------------- */
-t_data		*_img(void);
-t_mlx		*_mlx(void);
-t_enum_key	*_enum_key(void);
-t_var		*_var(void);
-t_player	*_player(void);
+t_data	*_img(void);
+t_mlx	*_mlx(void);
+t_obj	*_player(void);
+t_var	*_var(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
@@ -42,14 +41,19 @@ int	ft_escape(void);
 /* -------------------------------------------------------------------------- */
 /*                   FILE = srcs/utils/malloc_hooks_enum.c                    */
 /* -------------------------------------------------------------------------- */
-int	ft_malloc_enum_key();
-void	ft_init_enum_key(void);
 
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
 void	ft_init_player_pos(void);
+void	ft_print_tab(char **s);
 int main(int argc, char **argv);
+
+/* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/menu/menu.c                           */
+/* -------------------------------------------------------------------------- */
+t_data	generate_image(char *path);
+void    gen_menu_images(void);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
@@ -76,13 +80,22 @@ int	get_longest_line(char **map);
 char	*copy_line_and_add(char *str, int size);
 char	**resize_map(char **map);
 int main(int argc, char **argv);
-void    gen_menu_images(void);
-t_data	generate_image(char *path);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/drawing/draw_map.c                       */
+/* -------------------------------------------------------------------------- */
+void	ft_find_wall_scale(void);
+void	ft_give_id(void);
+t_obj	*ft_copy_map_line(char *line, int index);
+void	ft_malloc_map(void);
+void	ft_draw_wall(t_obj wall);
+void	ft_draw_floor(t_obj wall);
+void	ft_draw_map(void);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
-void	ft_draw_player(void);
+void	ft_draw_player(t_obj player);
 
 
 #endif

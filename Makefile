@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/09/28 12:35:46 by yobougre         ###   ########.fr        #
+#    Updated: 2022/09/28 14:55:18 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS		= srcs/main.c\
 			  srcs/utils/malloc_hooks_enum.c\
 			  srcs/utils/key_hooks.c\
 			  srcs/drawing/draw_player.c\
+			  srcs/drawing/draw_map.c\
 			  srcs/menu/menu.c\
 			  srcs/parsing/parsing.c
 

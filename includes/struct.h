@@ -6,12 +6,20 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 12:35:47 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 14:54:18 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUC_H
 # define STRUC_H
+
+typedef struct	s_obj
+{
+	int		id;
+	int		x;
+	int		y;
+	char	c;
+}	t_obj;
 
 typedef struct s_int
 {
@@ -44,6 +52,11 @@ typedef struct	s_data
 {	
 	void	*img;
 	char	*addr;
+	char	**map;
+	t_obj	**coord_map;
+	int		map_width;
+	int		map_height;
+	int		scale;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -67,11 +80,5 @@ typedef struct  s_var
 {
     t_menu  *menu;
 }   t_var;
-
-typedef struct	s_player
-{
-	int	x;
-	int	y;
-}	t_player;
 
 #endif
