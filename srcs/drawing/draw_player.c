@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 11:09:46 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:13:44 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_draw_player(void)
 			ft_pixel_put(_player()->x + var.i, _player()->y + var.j, 0x00FF0000);
 			var.j++;
 		}
-		//ft_pixel_put(_player()->x + var.i, _player()->y, 0x00FF0000);
 		var.i++;
 	}
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);

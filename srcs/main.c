@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 11:09:47 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:17:11 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 	ft_init_mlx();
 	ft_init_img();
 	ft_init_player_pos();
-	mlx_key_hook(_mlx()->mlx_win, &ft_hook, _mlx());
+	mlx_hook(_mlx()->mlx_win, 2, 1L<<0, &ft_hook, _mlx());
 	mlx_loop_hook(_mlx()->mlx, &ft_loop, NULL);
 	mlx_loop(_mlx()->mlx);
     return (0);
