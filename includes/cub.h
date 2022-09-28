@@ -27,6 +27,7 @@ t_data		*_img(void);
 t_mlx		*_mlx(void);
 t_enum_key	*_enum_key(void);
 t_var		*_var(void);
+t_player	*_player(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
@@ -47,6 +48,7 @@ void	ft_init_enum_key(void);
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
+void	ft_init_player_pos(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
@@ -55,6 +57,8 @@ int main(int argc, char **argv);
 void	ft_init_mlx();
 void	ft_init_img();
 void	ft_pixel_put(float x, float y, int color);
+void	ft_reload_frame();
+int	ft_loop();
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/parsing/parsing.c                        */
@@ -74,6 +78,11 @@ char	**resize_map(char **map);
 int main(int argc, char **argv);
 void    gen_menu_images(void);
 t_data	generate_image(char *path);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/drawing/draw_player.c                      */
+/* -------------------------------------------------------------------------- */
+void	ft_draw_player(void);
 
 
 #endif
