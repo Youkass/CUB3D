@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/27 14:59:41 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:13:48 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct	s_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		height;
+	int		width;
 }	t_data;
 
 typedef struct	s_enum_key
@@ -52,5 +54,16 @@ typedef struct	s_enum_mouse
 	int	id;
 	int	(*ft_hook_mouse)(void);
 }	t_enum_mouse;
+
+typedef struct  s_menu
+{
+    t_data  **buttons;
+    t_data  **bar;
+}   t_menu;
+
+typedef struct  s_var
+{
+    t_menu  *menu;
+}   t_var;
 
 #endif

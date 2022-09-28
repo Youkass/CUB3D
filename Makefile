@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/09/27 14:59:40 by yobougre         ###   ########.fr        #
+#    Updated: 2022/09/27 18:16:15 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ SRCS		= srcs/main.c\
 			  srcs/utils/singleton.c\
 			  srcs/utils/malloc_hooks_enum.c\
 			  srcs/utils/key_hooks.c\
-			  srcs/drawing/draw_player.c
+			  srcs/drawing/draw_player.c\
+			  srcs/menu/menu.c\
+			  srcs/parsing/parsing.c
 
 NAME		= cub3D
 minilibx	= mlx/libmlx.a
@@ -34,15 +36,16 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra
-MLB_FLAGS	= -I -g3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm libft/libft.a
+MLB_FLAGS	= -I -g -fsanitize=address -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)
-	@mkdir -p $(OBJS_DIR)srcs
+	@mkdir -p $(OBJS_DIR)srcs/parsing
 	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
 	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@mkdir -p $(OBJS_DIR)srcs/utils
 	@mkdir -p $(OBJS_DIR)srcs/drawing
+	@mkdir -p $(OBJS_DIR)srcs/menu
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 
@@ -60,17 +63,14 @@ bonus:	$(NAME_B)
 
 maker:
 	@make -C mlx
-	@make bonus -C libft
 
 clean:
 	@rm -rf $(OBJS_DIR)
 	@rm -rf $(OBJS_DIR_B)
-	@make clean -C libft
 	@echo "${GRN}[CLEAN]${RST} done"
 
 fclean: clean
 	@make clean -C mlx
-	@make fclean -C libft
 	@rm -f $(NAME)
 	@rm -f $(NAME_B)
 	@echo "${GRN}[FCLEAN]${RST} done"

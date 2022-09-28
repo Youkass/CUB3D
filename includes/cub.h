@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prototypes.h                                       :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 10:58:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
 /* -------------------------------------------------------------------------- */
-t_data	*_img(void);
-t_mlx	*_mlx(void);
-t_enum_key *_enum_key(void);
+t_data		*_img(void);
+t_mlx		*_mlx(void);
+t_enum_key	*_enum_key(void);
+t_var		*_var(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
@@ -71,6 +72,8 @@ int	get_longest_line(char **map);
 char	*copy_line_and_add(char *str, int size);
 char	**resize_map(char **map);
 int main(int argc, char **argv);
+void    gen_menu_images(void);
+t_data	generate_image(char *path);
 
 
 #endif

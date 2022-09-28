@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   singleton.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/27 13:59:44 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:08:56 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,14 @@ t_enum_key *_enum_key(void)
 	static t_enum_key tab;
 
 	return (&tab);
+}
+
+/*
+-Singleton for all var
+*/
+t_var	*_var(void)
+{
+	static	t_var	var;
+
+	return (&var);
 }

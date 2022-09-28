@@ -128,196 +128,196 @@ char	*ft_strjoin(char const *s1, char const *s2)
 }
 
 
-char	*read_file(int fd)
-{
-	int		read_val;
-	char	*str;
-	char	*tmp;
-	char	buff[1084];
+//char	*read_file(int fd)
+//{
+//	int		read_val;
+//	char	*str;
+//	char	*tmp;
+//	char	buff[1084];
 
-	str = NULL;
-	read_val = 1;
-	while (read_val)
-	{
-		read_val = read(fd, buff, 1084);
-		buff[read_val] = 0;
-		tmp = str;
-		str = ft_strjoin(tmp, buff);
-	}
-	return (str);
-}
+//	str = NULL;
+//	read_val = 1;
+//	while (read_val)
+//	{
+//		read_val = read(fd, buff, 1084);
+//		buff[read_val] = 0;
+//		tmp = str;
+//		str = ft_strjoin(tmp, buff);
+//	}
+//	return (str);
+//}
 
-t_vector2D  get_pos(char **map, char c)
-{
-    int i;
-    int j;
+//t_vector2D  get_pos(char **map, char c)
+//{
+//    int i;
+//    int j;
 
-    i = 0;
-    while (map[i])
-    {
-        j = 0;
-        while(map[i][j])
-        {
-            if (map[i][j] == c)
-                return ((t_vector2D){j, i});
-            j++;
-        }
-        i++;
-    }
-    return ((t_vector2D){-1, -1});
-}
+//    i = 0;
+//    while (map[i])
+//    {
+//        j = 0;
+//        while(map[i][j])
+//        {
+//            if (map[i][j] == c)
+//                return ((t_vector2D){j, i});
+//            j++;
+//        }
+//        i++;
+//    }
+//    return ((t_vector2D){-1, -1});
+//}
 
-int	is_char_in_range(t_vector2D pos, char **map)
-{
-	t_vector2D	it;
-	int			ok;
+//int	is_char_in_range(t_vector2D pos, char **map)
+//{
+//	t_vector2D	it;
+//	int			ok;
 
-	it = pos;
-	ok = 0;
-	while (map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
-	{
-		if (map[pos.y][pos.x] == '1')
-		{
-			ok++;
-			break;
-		}
-		pos.x++;
-	}
-	pos = it;
-	while (pos.x >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
-	{
-		if (map[pos.y][pos.x] == '1')
-		{
-			ok++;
-			break;
-		}
-		pos.x--;
-	}
-	pos = it;
-	while (map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
-	{
-		if (map[pos.y][pos.x] == '1')
-		{
-			ok++;
-			break;
-		}
-		pos.y++;
-	}
-	pos = it;
-	while (pos.y >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
-	{
-		if (map[pos.y][pos.x] == '1')
-		{
-			ok++;
-			break;
-		}
-		pos.y--;
-	}
-	if (ok == 4)
-		return (1);
-	return (0);
-}
+//	it = pos;
+//	ok = 0;
+//	while (map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+//	{
+//		if (map[pos.y][pos.x] == '1')
+//		{
+//			ok++;
+//			break;
+//		}
+//		pos.x++;
+//	}
+//	pos = it;
+//	while (pos.x >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+//	{
+//		if (map[pos.y][pos.x] == '1')
+//		{
+//			ok++;
+//			break;
+//		}
+//		pos.x--;
+//	}
+//	pos = it;
+//	while (map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+//	{
+//		if (map[pos.y][pos.x] == '1')
+//		{
+//			ok++;
+//			break;
+//		}
+//		pos.y++;
+//	}
+//	pos = it;
+//	while (pos.y >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+//	{
+//		if (map[pos.y][pos.x] == '1')
+//		{
+//			ok++;
+//			break;
+//		}
+//		pos.y--;
+//	}
+//	if (ok == 4)
+//		return (1);
+//	return (0);
+//}
 
-int	is_player(char c)
-{
-	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
-		return (1);
-	return (0);
-}
+//int	is_player(char c)
+//{
+//	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
+//		return (1);
+//	return (0);
+//}
 
-int check_map(char **map)
-{
-	t_vector2D	it;
+//int check_map(char **map)
+//{
+//	t_vector2D	it;
 
-	it = (t_vector2D){0, 0};
-	while (map[it.y])
-	{
-		it.x = 0;
-		while (map[it.y][it.x])
-		{
-			if (map[it.y][it.x] == '0' || is_player(map[it.y][it.x]))
-			{
-				if (!is_char_in_range(it, map))
-				{
-					printf("SCANDLAEUX CA MARCHE PAS\n");
-						return (0);
-				}
-			}
-			it.x++;
-		}
-		it.y++;
-	}
-	return (1);
-}
+//	it = (t_vector2D){0, 0};
+//	while (map[it.y])
+//	{
+//		it.x = 0;
+//		while (map[it.y][it.x])
+//		{
+//			if (map[it.y][it.x] == '0' || is_player(map[it.y][it.x]))
+//			{
+//				if (!is_char_in_range(it, map))
+//				{
+//					printf("SCANDLAEUX CA MARCHE PAS\n");
+//						return (0);
+//				}
+//			}
+//			it.x++;
+//		}
+//		it.y++;
+//	}
+//	return (1);
+//}
 
-int	get_longest_line(char **map)
-{
-	int	i;
-	int	max;
+//int	get_longest_line(char **map)
+//{
+//	int	i;
+//	int	max;
 
-	i = 0;
-	max = 0;
-	while (map[i])
-	{
-		if (ft_strlen(map[i]) > max)
-			max = ft_strlen(map[i]);
-		i++;
-	}
-	return (max);
-}
+//	i = 0;
+//	max = 0;
+//	while (map[i])
+//	{
+//		if (ft_strlen(map[i]) > max)
+//			max = ft_strlen(map[i]);
+//		i++;
+//	}
+//	return (max);
+//}
 
-char	*copy_line_and_add(char *str, int size)
-{
-	int		i;
-	char	*new;
+//char	*copy_line_and_add(char *str, int size)
+//{
+//	int		i;
+//	char	*new;
 
-	i = 0;
-	new	= malloc(sizeof(char) * (size + 1));
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			new[i] = 'Z';
-		else
-			new[i] = str[i];
-		i++;
-	}
-	while (i < size)
-		new[i++] = 'Z';
-	new[i] = 0;
-	return (new);
-}
+//	i = 0;
+//	new	= malloc(sizeof(char) * (size + 1));
+//	while (str[i])
+//	{
+//		if (str[i] == ' ')
+//			new[i] = 'Z';
+//		else
+//			new[i] = str[i];
+//		i++;
+//	}
+//	while (i < size)
+//		new[i++] = 'Z';
+//	new[i] = 0;
+//	return (new);
+//}
 
-char	**resize_map(char **map)
-{
-	int		max;
-	int		i;
-	char	**new;
+//char	**resize_map(char **map)
+//{
+//	int		max;
+//	int		i;
+//	char	**new;
 
-	max = get_longest_line(map);
-	new = malloc(sizeof(char *) * 100);
-	i = 0;
-	while (map[i])
-	{
-		new[i] = copy_line_and_add(map[i], max);
-		i++;
-	}
-	new[i] = NULL;
-	return (new);
-}
+//	max = get_longest_line(map);
+//	new = malloc(sizeof(char *) * 100);
+//	i = 0;
+//	while (map[i])
+//	{
+//		new[i] = copy_line_and_add(map[i], max);
+//		i++;
+//	}
+//	new[i] = NULL;
+//	return (new);
+//}
 
-int main(int argc, char **argv)
-{
-    int     fd;
-    char    *str;
-    char    **map;
+//int main(int argc, char **argv)
+//{
+//    int     fd;
+//    char    *str;
+//    char    **map;
 
-    fd = open(argv[1], O_RDONLY);
-    str = read_file(fd);
-    map = ft_split(str, '\n');
-    //for (int i = 0; map[i]; i++)
-    //    printf("{%s}\n", map[i]);
-	char **new = resize_map(map);
-    //for (int i = 0; new[i]; i++)
-    //    printf("{%s}\n", new[i]);
-	printf("HEY-> %d\n", check_map(new));
-}
+//    fd = open(argv[1], O_RDONLY);
+//    str = read_file(fd);
+//    map = ft_split(str, '\n');
+//    //for (int i = 0; map[i]; i++)
+//    //    printf("{%s}\n", map[i]);
+//	char **new = resize_map(map);
+//    //for (int i = 0; new[i]; i++)
+//    //    printf("{%s}\n", new[i]);
+//	printf("HEY-> %d\n", check_map(new));
+//}
