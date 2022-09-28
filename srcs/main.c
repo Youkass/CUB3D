@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 11:17:11 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:26:09 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,9 @@ int main(int argc, char **argv)
 	ft_init_mlx();
 	ft_init_img();
 	ft_init_player_pos();
+	gen_menu_images();
 	mlx_hook(_mlx()->mlx_win, 2, 1L<<0, &ft_hook, _mlx());
 	mlx_loop_hook(_mlx()->mlx, &ft_loop, NULL);
-	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _var()->menu->buttons[0][1].img, 0, 0);
-	gen_menu_images();
 	mlx_loop(_mlx()->mlx);
     return (0);
 }
