@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 16:53:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 17:36:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	ft_hook(int keycode)
 
 int	ft_mouse_hook(int keycode)
 {
-	printf("lol\n");
 	if (_var()->mode == MENU)
 		menu_mouse_hook(keycode);
 	return (0);

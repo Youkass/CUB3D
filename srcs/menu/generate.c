@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 15:02:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 17:45:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,10 @@ void	generate_button_state(void)
 	i = 0;
 	while (i < 4)
 		_var()->menu->start_state[i++] = 0;
+	_var()->menu->options_state = malloc(sizeof(int) * 7);
+	i = 0;
+	while (i < 7)
+		_var()->menu->options_state[i++] = 0;
 }
 
 /*

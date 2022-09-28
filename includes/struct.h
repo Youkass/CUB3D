@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 15:02:20 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 17:45:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct  s_menu
 {
     t_data  **buttons;
 	int		*start_state;
+	int		*options_state;
     t_data  **bar;
 	t_data	logo;
 	t_data	bg;

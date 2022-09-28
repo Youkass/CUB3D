@@ -71,10 +71,12 @@ int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
 t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
 void	menu_option(void);
 void	check_button_state(void);
+void	check_button_state_options(void);
 void	menu_start(void);
 int	menu_loop(void);
 int	menu_hook(int keycode);
 void	check_button_state_mouse(int keycode);
+void	check_button_state_mouse_options(int keycode);
 int	menu_mouse_hook(int keycode);
 
 /* -------------------------------------------------------------------------- */

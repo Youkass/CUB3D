@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 16:47:41 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 18:05:56 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 
 # define OFFSET_Y 128
 # define OFFSET_X 230
+
+void	restart_button(void)
+{
+	int	i;
+	
+	i = 0;
+	while (i < 4)
+		_var()->menu->start_state[i++] = 0;
+	i = 0;
+	while (i < 7)
+		_var()->menu->options_state[i++] = 0;
+}
 
 /*
 -Check if position is in the hitbox given in parameter.
@@ -85,26 +97,27 @@ t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos)
 */
 void	menu_option(void)
 {
+	printf("%d\n", _var()->menu->options_state[0]);
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bg, (t_vector2D){0, 0});
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->logo, (t_vector2D){716 - OFFSET_X - 45, 155 - OFFSET_Y + 50});
-	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[NORMAL][MUTE_S], (t_vector2D){678 - OFFSET_X, 460 - OFFSET_Y});
-	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[NORMAL][L_ARR], (t_vector2D){774 - OFFSET_X, 460 - OFFSET_Y});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu->options_state[0]][MUTE_S], (t_vector2D){678 - OFFSET_X, 460 - OFFSET_Y});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu->options_state[1]][L_ARR], (t_vector2D){774 - OFFSET_X, 460 - OFFSET_Y});
 
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bar[EMPTY][BAR_LEFT], (t_vector2D){819 - OFFSET_X, 443 - OFFSET_Y});
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bar[EMPTY][BAR_MID], (t_vector2D){912 - OFFSET_X, 443 - OFFSET_Y});
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bar[EMPTY][BAR_RIGHT], (t_vector2D){1005 - OFFSET_X, 443 - OFFSET_Y});
 
-	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[NORMAL][R_ARR], (t_vector2D){1083 - OFFSET_X, 460 - OFFSET_Y});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu->options_state[2]][R_ARR], (t_vector2D){1083 - OFFSET_X, 460 - OFFSET_Y});
 
-	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[NORMAL][MUTE_M],(t_vector2D){ 678 - OFFSET_X, 560 - OFFSET_Y});
-	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[NORMAL][L_ARR], (t_vector2D){774 - OFFSET_X, 560 - OFFSET_Y});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu->options_state[3]][MUTE_M],(t_vector2D){ 678 - OFFSET_X, 560 - OFFSET_Y});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu->options_state[4]][L_ARR], (t_vector2D){774 - OFFSET_X, 560 - OFFSET_Y});
 
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bar[EMPTY][BAR_LEFT], (t_vector2D){819 - OFFSET_X, 542 - OFFSET_Y});
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bar[EMPTY][BAR_MID], (t_vector2D){912 - OFFSET_X, 542 - OFFSET_Y});
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bar[EMPTY][BAR_RIGHT], (t_vector2D){1005 - OFFSET_X, 542 - OFFSET_Y});
 
-	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[NORMAL][R_ARR], (t_vector2D){1083 - OFFSET_X, 560 - OFFSET_Y});
-	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[NORMAL][QUIT], (t_vector2D){928 - OFFSET_X - 40, 668 - OFFSET_Y});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu->options_state[5]][R_ARR], (t_vector2D){1083 - OFFSET_X, 560 - OFFSET_Y});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu->options_state[6]][QUIT], (t_vector2D){928 - OFFSET_X - 40, 668 - OFFSET_Y});
 }
 
 /*
@@ -120,6 +133,24 @@ void	check_button_state(void)
 		_var()->menu->start_state[2] = ft_hitbox((t_vector2D [4]){(t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X + _var()->menu->buttons[NORMAL][OPTIONS].width , 650 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y + _var()->menu->buttons[NORMAL][OPTIONS].height}, (t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y + _var()->menu->buttons[NORMAL][OPTIONS].width + _var()->menu->buttons[NORMAL][OPTIONS].height}}, _var()->mouse_pos);
 	if (_var()->menu->start_state[3] != 2)
 		_var()->menu->start_state[3] = ft_hitbox((t_vector2D [4]){(t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X + _var()->menu->buttons[NORMAL][OPTIONS].width , 750 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y + _var()->menu->buttons[NORMAL][OPTIONS].height}, (t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y + _var()->menu->buttons[NORMAL][OPTIONS].width + _var()->menu->buttons[NORMAL][OPTIONS].height}}, _var()->mouse_pos);
+}
+
+void	check_button_state_options(void)
+{
+	if (_var()->menu->options_state[0] != 2)
+		_var()->menu->options_state[0] = ft_hitbox((t_vector2D [4]){(t_vector2D){678 - OFFSET_X, 460 - OFFSET_Y}, (t_vector2D){678 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 460 - OFFSET_Y}, (t_vector2D){678 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){678 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos);
+	if (_var()->menu->options_state[1] != 2)
+		_var()->menu->options_state[1] = ft_hitbox((t_vector2D [4]){(t_vector2D){774 - OFFSET_X, 460 - OFFSET_Y}, (t_vector2D){774 - OFFSET_X + _var()->menu->buttons[NORMAL][L_ARR].width , 460 - OFFSET_Y}, (t_vector2D){774 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][L_ARR].height}, (t_vector2D){774 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][L_ARR].width + _var()->menu->buttons[NORMAL][L_ARR].height}}, _var()->mouse_pos);
+	if (_var()->menu->options_state[2] != 2)
+		_var()->menu->options_state[2] = ft_hitbox((t_vector2D [4]){(t_vector2D){1083 - OFFSET_X, 460 - OFFSET_Y}, (t_vector2D){1083 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 460 - OFFSET_Y}, (t_vector2D){1083 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){1083 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos);
+	if (_var()->menu->options_state[3] != 2)
+		_var()->menu->options_state[3] = ft_hitbox((t_vector2D [4]){(t_vector2D){678 - OFFSET_X, 560 - OFFSET_Y}, (t_vector2D){678 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 560 - OFFSET_Y}, (t_vector2D){678 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){678 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos);
+	if (_var()->menu->options_state[4] != 2)
+		_var()->menu->options_state[4] = ft_hitbox((t_vector2D [4]){(t_vector2D){774 - OFFSET_X, 560 - OFFSET_Y}, (t_vector2D){774 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 560 - OFFSET_Y}, (t_vector2D){774 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){774 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos);
+	if (_var()->menu->options_state[5] != 2)
+		_var()->menu->options_state[5] = ft_hitbox((t_vector2D [4]){(t_vector2D){1083 - OFFSET_X, 560 - OFFSET_Y}, (t_vector2D){1083 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 560 - OFFSET_Y}, (t_vector2D){1083 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){1083 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos);
+	if (_var()->menu->options_state[6] != 2)
+		_var()->menu->options_state[6] = ft_hitbox((t_vector2D [4]){(t_vector2D){928 - 40 - OFFSET_X, 668 - OFFSET_Y}, (t_vector2D){928 - 40 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 668 - OFFSET_Y}, (t_vector2D){928 - 40 - OFFSET_X, 668 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){928 - 40 - OFFSET_X, 668 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos);
 }
 
 /*
@@ -140,7 +171,10 @@ void	menu_start(void)
 */
 int	menu_loop(void)
 {
-	check_button_state();
+	if (_var()->menu->mode == MENU_START)
+		check_button_state();
+	else if (_var()->menu->mode == MENU_OPTION)
+		check_button_state_options();
 	mlx_mouse_get_pos(_mlx()->mlx, _mlx()->mlx_win, &_var()->mouse_pos.x, &_var()->mouse_pos.y);
 	if (_var()->menu->mode == MENU_START)
 		menu_start();
@@ -184,18 +218,47 @@ void	check_button_state_mouse(int keycode)
 		_var()->menu->start_state[1] = 2;
 		_var()->menu->mode = MENU_OPTION;
 	}
-	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X + _var()->menu->buttons[NORMAL][OPTIONS].width , 650 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y + _var()->menu->buttons[NORMAL][OPTIONS].height}, (t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y + _var()->menu->buttons[NORMAL][OPTIONS].width + _var()->menu->buttons[NORMAL][OPTIONS].height}}, _var()->mouse_pos))
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X + _var()->menu->buttons[NORMAL][CREDITS].width , 650 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y + _var()->menu->buttons[NORMAL][CREDITS].height}, (t_vector2D){861 - OFFSET_X, 650 - OFFSET_Y + _var()->menu->buttons[NORMAL][CREDITS].width + _var()->menu->buttons[NORMAL][CREDITS].height}}, _var()->mouse_pos))
 		_var()->menu->start_state[2] = 2;
-	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X + _var()->menu->buttons[NORMAL][OPTIONS].width , 750 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y + _var()->menu->buttons[NORMAL][OPTIONS].height}, (t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y + _var()->menu->buttons[NORMAL][OPTIONS].width + _var()->menu->buttons[NORMAL][OPTIONS].height}}, _var()->mouse_pos))
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X + _var()->menu->buttons[NORMAL][EXIT].width , 750 - OFFSET_Y}, (t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y + _var()->menu->buttons[NORMAL][EXIT].height}, (t_vector2D){861 - OFFSET_X, 750 - OFFSET_Y + _var()->menu->buttons[NORMAL][EXIT].width + _var()->menu->buttons[NORMAL][EXIT].height}}, _var()->mouse_pos))
+	{
 		_var()->menu->start_state[3] = 2;
+		// TODO FREE TOUT
+		exit(0);
+	}
 }
+
+void	check_button_state_mouse_options(int keycode)
+{
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){678 - OFFSET_X, 460 - OFFSET_Y}, (t_vector2D){678 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 460 - OFFSET_Y}, (t_vector2D){678 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){678 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos))
+		_var()->menu->options_state[0] = 2;
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){774 - OFFSET_X, 460 - OFFSET_Y}, (t_vector2D){774 - OFFSET_X + _var()->menu->buttons[NORMAL][L_ARR].width , 460 - OFFSET_Y}, (t_vector2D){774 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][L_ARR].height}, (t_vector2D){774 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][L_ARR].width + _var()->menu->buttons[NORMAL][L_ARR].height}}, _var()->mouse_pos))
+		_var()->menu->options_state[1] = 2;
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){1083 - OFFSET_X, 460 - OFFSET_Y}, (t_vector2D){1083 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 460 - OFFSET_Y}, (t_vector2D){1083 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){1083 - OFFSET_X, 460 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos))
+		_var()->menu->options_state[2] = 2;
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){678 - OFFSET_X, 560 - OFFSET_Y}, (t_vector2D){678 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 560 - OFFSET_Y}, (t_vector2D){678 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){678 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos))
+		_var()->menu->options_state[3] = 2;
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){774 - OFFSET_X, 560 - OFFSET_Y}, (t_vector2D){774 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 560 - OFFSET_Y}, (t_vector2D){774 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){774 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos))
+		_var()->menu->options_state[4] = 2;
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){1083 - OFFSET_X, 560 - OFFSET_Y}, (t_vector2D){1083 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 560 - OFFSET_Y}, (t_vector2D){1083 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){1083 - OFFSET_X, 560 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos))
+		_var()->menu->options_state[5] = 2;
+	if (keycode == 1 && ft_hitbox((t_vector2D [4]){(t_vector2D){928 - 40 - OFFSET_X, 668 - OFFSET_Y}, (t_vector2D){928 - 40 - OFFSET_X + _var()->menu->buttons[NORMAL][MUTE_S].width , 668 - OFFSET_Y}, (t_vector2D){928 - 40 - OFFSET_X, 668 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height}, (t_vector2D){928 - 40 - OFFSET_X, 668 - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width + _var()->menu->buttons[NORMAL][MUTE_S].height}}, _var()->mouse_pos))
+	{
+		_var()->menu->options_state[6] = 2;
+		_var()->menu->mode = MENU_START;
+		restart_button();
+	}
+}
+
 
 /*
 -Function for menu mouse inputs.
 */
 int	menu_mouse_hook(int keycode)
 {
-	check_button_state_mouse(keycode);
-	printf("%d\n", keycode);
+	if (_var()->menu->mode == MENU_START)
+		check_button_state_mouse(keycode);
+	if (_var()->menu->mode == MENU_OPTION)
+		check_button_state_mouse_options(keycode);
 	return (0);
 }
