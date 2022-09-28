@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 14:55:20 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 15:03:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_give_id(void)
 	}
 }
 
-t_obj	*ft_copy_map_line(char *line, int index)
+t_obj	*ft_copy_map_line(char *line)
 {
 	int		i;
 	t_obj	*new_line;
@@ -72,12 +72,13 @@ void	ft_malloc_map(void)
 	int	i;
 
 	i = 0;
+	ft_find_wall_scale();
 	_img()->coord_map = malloc(sizeof(t_obj *) * _img()->map_width);
 	if (!_img()->coord_map)
 		return ; //TODO call garbage collector
 	while (_img()->map[i])
 	{
-		_img()->coord_map[i] = ft_copy_map_line(_img()->map[i], i);
+		_img()->coord_map[i] = ft_copy_map_line(_img()->map[i]);
 		if (_img()->coord_map[i])
 			return ; //TODO call garbage collector
 		++i;
@@ -124,17 +125,18 @@ void	ft_draw_map(void)
 	t_int	var;
 
 	var.i = 0;
+	ft_malloc_map();
 	while (var.i < _img()->map_height)
 	{
 		var.j = 0;
 		while (var.j < _img()->map_width)
 		{
-			if (_img()->map_coord[i][j].id == PLAYER)
-				ft_draw_player(_img()->map_coord[i][j]);
-			else if (_img()->map_coord[i][j].id == WALL)
-				ft_draw_wall(_img()->map_coord[i][j]);
-			else if (_img()->map_coord[i][j].id == MAP)
-				ft_draw_floor(_img()->map_coord[i][j]);
+			if (_img()->coord_map[var.i][var.j].id == PLAYER)
+				ft_draw_player(_img()->coord_map[var.i][var.j]);
+			else if (_img()->coord_map[var.i][var.j].id == WALL)
+				ft_draw_wall(_img()->coord_map[var.i][var.j]);
+			else if (_img()->coord_map[var.i][var.j].id == MAP)
+				ft_draw_floor(_img()->coord_map[var.i][var.j]);
 			var.j++;
 		}
 		var.i++;

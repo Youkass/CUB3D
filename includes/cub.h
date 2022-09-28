@@ -86,7 +86,7 @@ int main(int argc, char **argv);
 /* -------------------------------------------------------------------------- */
 void	ft_find_wall_scale(void);
 void	ft_give_id(void);
-t_obj	*ft_copy_map_line(char *line, int index);
+t_obj	*ft_copy_map_line(char *line);
 void	ft_malloc_map(void);
 void	ft_draw_wall(t_obj wall);
 void	ft_draw_floor(t_obj wall);
