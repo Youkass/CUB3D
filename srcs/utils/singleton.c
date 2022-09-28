@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/27 16:05:43 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:09:46 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@
 */
 t_data	*_img(void)
 {
-	static t_data	img;
-
-	return (&img);
+	static t_data	*img = NULL;
+	
+	if (!img)
+		img = malloc(sizeof(t_data));
+	if (!img)
+		return (NULL);
+	return (img);
 }
 
 /*
@@ -27,24 +31,26 @@ t_data	*_img(void)
 */
 t_mlx	*_mlx(void)
 {
-	static t_mlx	mlx;
+	static t_mlx	*mlx = NULL;
 
-	return (&mlx);
+	if (!mlx)
+		mlx = malloc(sizeof(t_mlx));
+	if (!mlx)
+		return (NULL);
+	return (mlx);
 }
 
 /*
 -Singleton for the enum tab 
 */
-t_enum_key *_enum_key(void)
-{
-	static t_enum_key tab;
-
-	return (&tab);
-}
 
 t_player	*_player(void)
 {
-	static t_player	player;
+	static t_player	*player = NULL;
+	if (!player)
+		player = malloc(sizeof(t_player));
+	if (!player)
+		return (NULL);
 
-	return (&player);
+	return (player);
 }

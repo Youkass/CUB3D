@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/27 18:25:36 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:09:51 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	ft_init_mlx()
 
 /*
 The following function will initialize our frames inside the window
+    if (argc != 2)
+    {
+        printf("Arguments error\n");
+        return (1);
+    }
 */
 void	ft_init_img()
 {
@@ -30,7 +35,7 @@ void	ft_init_img()
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
 	_img()->bits_per_pixel /= 8;
-	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
+//	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
 
 /*
@@ -43,12 +48,14 @@ outside the window.
 void	ft_pixel_put(float x, float y, int color)
 {
 	t_data	*img;
+	char	*dst;
 
 	img = _img();
 	if (x < 0 || y < 0 || x > WIN_W - 1 || y > WIN_H)
 		return ;
-	*(unsigned int *)(img->addr + (int)(y * img->line_length + x * 
-		(img->bits_per_pixel / 8))) = color;
+	dst = img->addr + (int)(y * img->line_length + x * 
+		(img->bits_per_pixel / 8)); 
+	*(unsigned int*)dst = color;
 }
 
 void	ft_reload_frame()
@@ -57,7 +64,7 @@ void	ft_reload_frame()
 	_img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
-	_img()->bits_per_pixel /= 8;
+//	_img()->bits_per_pixel /= 8;
 	//mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
 
