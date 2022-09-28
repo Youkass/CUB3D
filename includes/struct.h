@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/27 16:08:04 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:36:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,6 @@ typedef struct	s_enum_key
 	int	id;
 	int	(*ft_hook_key)(void);
 }	t_enum_key;
-
-typedef struct	s_enum_mouse
-{
-	int	id;
-	int	(*ft_hook_mouse)(void);
-}	t_enum_mouse;
 
 typedef struct	s_player
 {

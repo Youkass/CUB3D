@@ -304,20 +304,3 @@ char	**resize_map(char **map)
 	new[i] = NULL;
 	return (new);
 }
-
-int main(int argc, char **argv)
-{
-    int     fd;
-    char    *str;
-    char    **map;
-
-    fd = open(argv[1], O_RDONLY);
-    str = read_file(fd);
-    map = ft_split(str, '\n');
-    //for (int i = 0; map[i]; i++)
-    //    printf("{%s}\n", map[i]);
-	char **new = resize_map(map);
-    //for (int i = 0; new[i]; i++)
-    //    printf("{%s}\n", new[i]);
-	printf("HEY-> %d\n", check_map(new));
-}

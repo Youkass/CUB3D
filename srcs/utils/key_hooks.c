@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 11:09:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 11:23:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int	ft_hook(int keycode, t_mlx *mlx)
 	tab[3].ft_hook_key = &ft_right;
 	tab[4].id = 65307;
 	tab[4].ft_hook_key = &ft_escape;
-	printf("keycode : %d\n", keycode);
 	while (i < MAX_KEYS)
 	{
-		printf("id : %d\n",tab[i].id);
 		if (tab[i].id == keycode)
 			return (tab[i].ft_hook_key());
 		++i;
@@ -57,14 +55,14 @@ int	ft_back(void)
 int	ft_left(void)
 {
 	printf("i'm moving left\n");
-	_player()->x -= 3;
+	_player()->x -= 5;
 	return (0);
 }
 
 int	ft_right(void)
 {
 	printf("i'm moving right\n");
-	_player()->x += 3;
+	_player()->x += 5;
 	return (0);
 }
 
