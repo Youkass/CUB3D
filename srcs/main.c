@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 15:03:23 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:31:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ void	ft_init_player_pos(void)
 void	ft_print_tab(char **s)
 {
 	int	i;
+	int	line;
 
 	i = 0;
 	while (s[i])
 	{
 		printf("%s\n", s[i]);
+		line = ft_strlen(s[i]);
 		++i;
 	}
+	_img()->map_width = line;
 	_img()->map_height = i;
 }
 
