@@ -79,7 +79,7 @@ void	ft_malloc_map(void)
 	while (_img()->map[i])
 	{
 		_img()->coord_map[i] = ft_copy_map_line(_img()->map[i]);
-		if (_img()->coord_map[i])
+		if (!_img()->coord_map[i])
 			return ; //TODO call garbage collector
 		++i;
 	}
