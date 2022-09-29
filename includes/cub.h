@@ -17,6 +17,11 @@
 # include "includes.h"
 
 /* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/raycasting/raycasting.c                     */
+/* -------------------------------------------------------------------------- */
+void	draw_rays(void);
+
+/* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/raycasting/raycasting_utils.c                  */
 /* -------------------------------------------------------------------------- */
 
@@ -34,6 +39,7 @@ void	ft_draw_map(void);
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
+void plot_line (int x0, int y0, int x1, int y1);
 void	ft_draw_player(t_obj player);
 
 /* -------------------------------------------------------------------------- */
@@ -48,6 +54,7 @@ unsigned long	get_clock(struct timeval start);
 t_data	*_img(void);
 t_mlx	*_mlx(void);
 t_obj	*_player(void);
+t_raycasting	*_ray(void);
 t_var	*_var(void);
 
 /* -------------------------------------------------------------------------- */
@@ -76,6 +83,7 @@ int	ft_mouse_hook(int keycode);
 int	ft_loop_hook(void);
 int	ft_mouse_release(int keycode);
 int	ft_game(void);
+void	init_key(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
