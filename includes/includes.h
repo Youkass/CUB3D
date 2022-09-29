@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 11:53:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/29 16:22:07 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@ esc : 65307
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <sys/time.h>
+#include <unistd.h>
 # include "../mlx/mlx.h"
-//# include "../libft/libft.h"
+# include <sys/time.h>
+
+# define GAME 0
+# define MENU 1
 
 # define PI 3.14159 
 # define P2 PI/2
@@ -73,5 +78,10 @@ esc : 65307
 
 # define OFFSET_Y 128
 # define OFFSET_X 230
+# define BUT_CL_TIME 100000
+
+# define BAR_INC 2.04
+# define BAR_MAX 204
+# define BAR_H 27
 
 #endif

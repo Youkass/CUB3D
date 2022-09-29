@@ -26,6 +26,12 @@
 void	ft_draw_player(void);
 
 /* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/utils/clock.c                          */
+/* -------------------------------------------------------------------------- */
+struct timeval	start_clock();
+unsigned long	get_clock(struct timeval start);
+
+/* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
 /* -------------------------------------------------------------------------- */
 t_data	*_img(void);
@@ -50,10 +56,13 @@ int	ft_escape(void);
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
+void	get_key(int keycode);
+int	ft_release(int keycode);
 void	ft_init_player_pos(void);
 int	ft_hook(int keycode);
 int	ft_mouse_hook(int keycode);
 int	ft_loop_hook(void);
+int	ft_mouse_release(int keycode);
 int	ft_game(void);
 int main(int argc, char **argv);
 
@@ -68,6 +77,8 @@ void    gen_menu_images(void);
 /*                          FILE = srcs/menu/loop.c                           */
 /* -------------------------------------------------------------------------- */
 void	check_button_state(void);
+void	check_action_state_bar(int i);
+void	check_action_state_options(int i);
 void	check_button_state_options(void);
 int	menu_loop(void);
 int	menu_hook(int keycode);
@@ -90,7 +101,18 @@ int	menu_mouse_hook(int keycode);
 /* -------------------------------------------------------------------------- */
 void	restart_button(void);
 int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
+void	draw_pixel(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
 t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
+void	draw_pixel_color(t_data *big, t_vector2D rel_pos, char pix[4]);
+void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
+void	draw_bar_fill(void);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/menu/dragbar.c                         */
+/* -------------------------------------------------------------------------- */
+void	s_bar_drag(void);
+void	m_bar_drag(void);
+void	drag_bar(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/parsing/parsing.c                        */
