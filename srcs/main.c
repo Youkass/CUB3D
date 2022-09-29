@@ -48,6 +48,22 @@ void	ft_init_player_pos(void)
 	_player()->y = 300;
 }
 
+void	ft_print_tab(char **s)
+{
+	int	i;
+	int	line;
+
+	i = 0;
+	while (s[i])
+	{
+		printf("%s\n", s[i]);
+		line = ft_strlen(s[i]);
+		++i;
+	}
+	_img()->map_width = line;
+	_img()->map_height = i;
+}
+
 int	ft_hook(int keycode)
 {
 	get_key(keycode);
@@ -93,11 +109,18 @@ int	ft_game(void)
 
 int main(int argc, char **argv)
 {
+	int		fd;
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		exit(139);
+	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
+	if (!_img()->map)
+		exit(139);
+	ft_print_tab(_img()->map);
 	(void)argc;
-	(void)argv;
 	ft_init_mlx();
 	ft_init_img();
-	ft_init_player_pos();
 	gen_menu_images();
 	ft_game();
 	mlx_loop(_mlx()->mlx);

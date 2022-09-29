@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 17:03:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/29 17:08:45 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define STRUCT_H
 
 # include <sys/time.h>
+
+typedef struct	s_obj
+{
+	int		id;
+	int		x;
+	int		y;
+	char	c;
+}	t_obj;
 
 typedef struct s_int
 {
@@ -44,13 +52,18 @@ typedef struct s_mlx
 
 typedef struct s_data
 {	
-	void		*img;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	int			height;
-	int			width;
+	void	*img;
+	char	*addr;
+	char	**map;
+	t_obj	**coord_map;
+	int		map_width;
+	int		map_height;
+	int		scale;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		height;
+	int		width;
 }	t_data;
 
 typedef struct s_enum_key

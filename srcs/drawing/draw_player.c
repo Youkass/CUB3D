@@ -6,17 +6,24 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 12:34:02 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:08:46 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-void	ft_draw_player(void)
+void	ft_draw_player(t_obj player)
 {
 	t_int	var;
+	static int	flag = 0;
 
 	var.i = 0;
+	if (!flag)
+	{
+		_player()->x = player.x;
+		_player()->y = player.y;
+		++flag;
+	}
 	while (var.i < 10)
 	{
 		var.j = 0;
@@ -27,5 +34,4 @@ void	ft_draw_player(void)
 		}
 		var.i++;
 	}
-	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }

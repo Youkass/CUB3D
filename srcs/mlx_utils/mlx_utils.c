@@ -70,7 +70,7 @@ void	ft_reload_frame()
 
 int	ft_loop()
 {
-	ft_draw_player();
+	ft_draw_map();
 	ft_reload_frame();
 	return (0);
 }

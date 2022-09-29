@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 16:22:07 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 14:10:14 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ esc : 65307
 #ifndef INCLUDES_H
 # define INCLUDES_H
 
+# include <fcntl.h>
+# include <string.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
@@ -47,6 +52,10 @@ esc : 65307
 # define S 115
 # define D 100
 # define ESC 65307
+# define WALL 1
+# define PLAYER 2
+# define VOID 3
+# define MAP 4
 
 # define PLAY 0
 # define OPTIONS 1
