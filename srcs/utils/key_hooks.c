@@ -56,14 +56,14 @@ int	ft_back(void)
 int	ft_left(void)
 {
 	printf("i'm moving left\n");
-	_player()->x -= 3;
+	_player()->x -= 5;
 	return (0);
 }
 
 int	ft_right(void)
 {
 	printf("i'm moving right\n");
-	_player()->x += 3;
+	_player()->x += 5;
 	return (0);
 }
 
