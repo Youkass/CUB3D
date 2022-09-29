@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 14:37:00 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:08:44 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_give_id(void)
 	}
 }
 
-t_obj	*ft_copy_map_line(char *line)
+t_obj	*ft_copy_map_line(char *line, int index)
 {
 	int		i;
 	t_obj	*new_line;
@@ -61,7 +61,7 @@ t_obj	*ft_copy_map_line(char *line)
 	{
 		new_line[i].c = line[i];
 		new_line[i].x = new_line[i - 1].x + _img()->scale;
-		new_line[i].y = new_line[i - 1].y + _img()->scale;
+		new_line[i].y = _img()->scale * index;
 		++i;
 	}
 	return (new_line);
@@ -78,7 +78,7 @@ void	ft_malloc_map(void)
 		return ; //TODO call garbage collector
 	while (_img()->map[i])
 	{
-		_img()->coord_map[i] = ft_copy_map_line(_img()->map[i]);
+		_img()->coord_map[i] = ft_copy_map_line(_img()->map[i], i);
 		if (!_img()->coord_map[i])
 			return ; //TODO call garbage collector
 		++i;
@@ -132,7 +132,10 @@ void	ft_draw_map(void)
 		while (var.j < _img()->map_width)
 		{
 			if (_img()->coord_map[var.i][var.j].id == PLAYER)
+			{	
+				ft_draw_floor(_img()->coord_map[var.i][var.j]);
 				ft_draw_player(_img()->coord_map[var.i][var.j]);
+			}
 			else if (_img()->coord_map[var.i][var.j].id == WALL)
 				ft_draw_wall(_img()->coord_map[var.i][var.j]);
 			else if (_img()->coord_map[var.i][var.j].id == MAP)

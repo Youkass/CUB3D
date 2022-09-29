@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 14:37:00 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:09:26 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_obj	*_player(void)
 		player = malloc(sizeof(t_obj));
 	if (!player)
 		return (NULL);
-
 	return (player);
 }
 
@@ -61,7 +60,11 @@ t_obj	*_player(void)
 */
 t_var	*_var(void)
 {
-	static	t_var	var;
-
-	return (&var);
+	static t_var	*var = NULL;
+	
+	if (!var)
+		var = malloc(sizeof(t_var));
+	if (!var)
+		return (NULL);
+	return (var);
 }
