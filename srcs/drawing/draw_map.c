@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 17:34:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/29 11:56:43 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_obj	*ft_copy_map_line(char *line)
 		new_line[i].y = new_line[i - 1].y + _img()->scale;
 		++i;
 	}
-	return (free(line), new_line);
+	return (new_line);
 }
 
 void	ft_malloc_map(void)
