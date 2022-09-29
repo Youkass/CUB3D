@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 17:36:22 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/29 11:53:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,8 @@ esc : 65307
 # define MENU_START 0
 # define MENU_OPTION 1
 # define MENU_GAME 2
+
+# define OFFSET_Y 128
+# define OFFSET_X 230
 
 #endif

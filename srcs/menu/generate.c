@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 17:45:57 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/29 13:28:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ static void	gen_menu_buttons(void)
 {
 	static char	*name[12] = {"play.xpm", "options.xpm", "credits.xpm",
 		"exit.xpm", "restart.xpm", "quit.xpm", "mute_m.xpm", "mute_s.xpm",
-			"music.xpm", "sound.xpm", "l_arr.xpm", "r_arr.xpm"};
+		"music.xpm", "sound.xpm", "l_arr.xpm", "r_arr.xpm"};
 	static char	*paths[3] = {"./img/menu/btns/nm/", "./img/menu/btns/hv/",
 		"./img/menu/btns/ac/"};
+	char		*tmp;
 	t_vector2D	it;
 
 	it = (t_vector2D){0, 0};
@@ -87,12 +88,14 @@ static void	gen_menu_buttons(void)
 		it.x = 0;
 		while (it.x < 12)
 		{
-			_var()->menu->buttons[it.y][it.x] = generate_image(ft_strjoin(paths[it.y], name[it.x]));
+			tmp = ft_strjoin(paths[it.y], name[it.x]);
+			_var()->menu->buttons[it.y][it.x] = generate_image(tmp);
 			if (!_var()->menu->buttons[it.y][it.x].img)
 			{
 				printf("error image\n");
 				return ;
 			}
+			free(tmp);
 			it.x++;
 		}
 		it.y++;
@@ -101,16 +104,46 @@ static void	gen_menu_buttons(void)
 
 void	generate_button_state(void)
 {
-	int	i;
+	int					i;
+	int					offset;
+	static t_vector2D	btn[7] = (t_vector2D [7]){{678, 460}, {774, 460},
+	{1083, 460}, {678, 560}, {774, 560}, {1083, 560}, {888, 668}};
 
-	_var()->menu->start_state = malloc(sizeof(int) * 4);
+	offset = 450;
+	_var()->menu->s_state = malloc(sizeof(t_button) * 4);
 	i = 0;
 	while (i < 4)
-		_var()->menu->start_state[i++] = 0;
-	_var()->menu->options_state = malloc(sizeof(int) * 7);
+	{
+		_var()->menu->s_state[i].state = 0;
+		_var()->menu->s_state[i].hitbox[0] = (t_vector2D){861 - OFFSET_X,
+		offset - OFFSET_Y};
+		_var()->menu->s_state[i].hitbox[1] = (t_vector2D){861 - OFFSET_X
+		+ _var()->menu->buttons[NORMAL][PLAY].width, offset - OFFSET_Y};
+		_var()->menu->s_state[i].hitbox[2] = (t_vector2D){861 - OFFSET_X,
+		offset - OFFSET_Y + _var()->menu->buttons[NORMAL][PLAY].height};
+		_var()->menu->s_state[i].hitbox[3] = (t_vector2D){861 - OFFSET_X
+		+ _var()->menu->buttons[NORMAL][PLAY].width, offset - OFFSET_Y
+		+ _var()->menu->buttons[NORMAL][PLAY].height};
+		i++;
+		offset += 100;	
+	}
+	_var()->menu->o_state = malloc(sizeof(t_button) * 7);
 	i = 0;
 	while (i < 7)
-		_var()->menu->options_state[i++] = 0;
+	{
+		_var()->menu->o_state[i].state = 0;
+		_var()->menu->o_state[i].hitbox[0] = (t_vector2D){btn[i].x - OFFSET_X,
+			btn[i].y - OFFSET_Y};
+		_var()->menu->o_state[i].hitbox[1] = (t_vector2D){btn[i].x - OFFSET_X
+			+ _var()->menu->buttons[NORMAL][MUTE_S].width , btn[i].y
+			- OFFSET_Y};
+		_var()->menu->o_state[i].hitbox[2] = (t_vector2D){btn[i].x - OFFSET_X,
+			btn[i].y - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height};
+		_var()->menu->o_state[i].hitbox[3] = (t_vector2D){btn[i].x - OFFSET_X,
+			btn[i].y - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width
+			+ _var()->menu->buttons[NORMAL][MUTE_S].height};
+		i++;
+	}
 }
 
 /*
@@ -120,14 +153,14 @@ void    gen_menu_images(void)
 {
 	_var()->menu = malloc(sizeof(t_menu));
 	_var()->mode = MENU;
-	_var()->menu->img.img = mlx_new_image(_mlx()->mlx, 1920, 1080);
+	_var()->menu->img.img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	_var()->menu->img.addr = mlx_get_data_addr(_var()->menu->img.img, &_var()->menu->img.bits_per_pixel, &_var()->menu->img.line_length, &_var()->menu->img.endian);
-	_var()->menu->img.height = 1080;
-	_var()->menu->img.width = 1920;
+	_var()->menu->img.height = WIN_H;
+	_var()->menu->img.width = WIN_W;
 	_var()->menu->mode = 0;
-	generate_button_state();
 	gen_menu_bars();
 	gen_menu_buttons();
+	generate_button_state();
 	_var()->menu->logo = generate_image("./img/menu/img/logo.xpm");
 	_var()->menu->bg = generate_image("./img/menu/img/background.xpm");
 	if (!_var()->menu->bg.img || !_var()->menu->logo.img)

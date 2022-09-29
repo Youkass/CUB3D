@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/28 16:46:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 21:16:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	ft_game_hook(int keycode)
 	tab[3].ft_hook_key = &ft_right;
 	tab[4].id = 65307;
 	tab[4].ft_hook_key = &ft_escape;
-	printf("keycode : %d\n", keycode);
+	//printf("keycode : %d\n", keycode);
 	while (i < MAX_KEYS)
 	{
-		printf("id : %d\n",tab[i].id);
+		//printf("id : %d\n",tab[i].id);
 		if (tab[i].id == keycode)
 			return (tab[i].ft_hook_key());
 		++i;

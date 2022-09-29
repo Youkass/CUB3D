@@ -67,17 +67,30 @@ void    gen_menu_images(void);
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/loop.c                           */
 /* -------------------------------------------------------------------------- */
-int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
-t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
-void	menu_option(void);
 void	check_button_state(void);
 void	check_button_state_options(void);
-void	menu_start(void);
 int	menu_loop(void);
 int	menu_hook(int keycode);
-void	check_button_state_mouse(int keycode);
-void	check_button_state_mouse_options(int keycode);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/menu/render.c                          */
+/* -------------------------------------------------------------------------- */
+void	menu_start(void);
+void	menu_option(void);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/menu/mouse_hook.c                        */
+/* -------------------------------------------------------------------------- */
+void	check_button_state_mouse(int kc);
+void	check_button_state_mouse_options(int kc);
 int	menu_mouse_hook(int keycode);
+
+/* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/menu/utils.c                          */
+/* -------------------------------------------------------------------------- */
+void	restart_button(void);
+int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
+t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/parsing/parsing.c                        */
