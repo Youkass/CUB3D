@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
+/*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
+/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,20 @@
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/drawing/draw_map.c                       */
+/* -------------------------------------------------------------------------- */
+void	ft_find_wall_scale(void);
+void	ft_give_id(void);
+t_obj	*ft_copy_map_line(char *line, int index);
+void	ft_malloc_map(void);
+void	ft_draw_wall(t_obj wall);
+void	ft_draw_floor(t_obj wall);
+void	ft_draw_map(void);
+
+/* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
-void	ft_draw_player(void);
+void	ft_draw_player(t_obj player);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/utils/clock.c                          */
@@ -59,12 +70,12 @@ int	ft_escape(void);
 void	get_key(int keycode);
 int	ft_release(int keycode);
 void	ft_init_player_pos(void);
+void	ft_print_tab(char **s);
 int	ft_hook(int keycode);
 int	ft_mouse_hook(int keycode);
 int	ft_loop_hook(void);
 int	ft_mouse_release(int keycode);
 int	ft_game(void);
-void	ft_print_tab(char **s);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
@@ -133,9 +144,13 @@ char	**resize_map(char **map);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
-/*                     FILE = srcs/drawing/draw_player.c                      */
+/*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
 /* -------------------------------------------------------------------------- */
-void	ft_draw_player(t_obj player);
+void	ft_init_mlx();
+void	ft_init_img();
+void	ft_pixel_put(float x, float y, int color);
+void	ft_reload_frame();
+int	ft_loop();
 
 
 #endif

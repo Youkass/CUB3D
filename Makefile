@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/09/28 12:34:04 by yobougre         ###   ########.fr        #
+#    Updated: 2022/09/29 17:29:29 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS		=	srcs/main.c\
 				srcs/utils/key_hooks.c\
 				srcs/utils/clock.c\
 				srcs/drawing/draw_player.c\
+				srcs/drawing/draw_map.c\
 				srcs/menu/generate.c\
 				srcs/menu/loop.c\
 				srcs/menu/render.c\
@@ -31,7 +32,6 @@ SRCS		=	srcs/main.c\
 				srcs/menu/mouse_hook.c\
 				srcs/menu/dragbar.c\
 				srcs/parsing/parsing.c
-			  srcs/drawing/draw_map.c\
 
 NAME		= cub3D
 minilibx	= mlx/libmlx.a
