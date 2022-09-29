@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/09/29 13:09:56 by denissereno      ###   ########.fr        #
+#    Updated: 2022/09/29 17:10:38 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,14 @@ SRCS		=	srcs/main.c\
 				srcs/utils/singleton.c\
 				srcs/utils/malloc_hooks_enum.c\
 				srcs/utils/key_hooks.c\
+				srcs/utils/clock.c\
 				srcs/drawing/draw_player.c\
 				srcs/menu/generate.c\
 				srcs/menu/loop.c\
 				srcs/menu/render.c\
 				srcs/menu/utils.c\
 				srcs/menu/mouse_hook.c\
+				srcs/menu/dragbar.c\
 				srcs/parsing/parsing.c
 
 NAME		= cub3D
@@ -40,7 +42,7 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra
-MLB_FLAGS	= -I -g -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm
+MLB_FLAGS	= -I -g -fsanitize=address -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)

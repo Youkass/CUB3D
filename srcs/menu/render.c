@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 13:15:27 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/29 16:11:52 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	menu_start(void)
 static void	menu_bot_options(void)
 {
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()
-		->menu->o_state[3].state][MUTE_M], _var()->menu->o_state[3].hitbox[0]);
+		->menu->o_state[3].state][_var()->menu->mute_m_state],
+		_var()->menu->o_state[3].hitbox[0]);
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu
 		->o_state[4].state][L_ARR], _var()->menu->o_state[4].hitbox[0]);
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bar[EMPTY][BAR_LEFT],
@@ -65,8 +66,10 @@ void	menu_option(void)
 		(t_vector2D){0, 0});
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->logo,
 		(t_vector2D){716 - OFFSET_X - 45, 155 - OFFSET_Y + 50});
+	draw_bar_fill();
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu
-		->o_state[0].state][MUTE_S], _var()->menu->o_state[0].hitbox[0]);
+		->o_state[0].state][_var()->menu->mute_s_state],
+		_var()->menu->o_state[0].hitbox[0]);
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons[_var()->menu
 		->o_state[1].state][L_ARR], _var()->menu->o_state[1].hitbox[0]);
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bar[EMPTY][BAR_LEFT],

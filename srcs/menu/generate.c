@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 13:28:41 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/29 17:05:54 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,15 +149,28 @@ void	generate_button_state(void)
 /*
 The following function will generate all images for the menu
 */
+
 void    gen_menu_images(void)
 {
 	_var()->menu = malloc(sizeof(t_menu));
+	_var()->menu->pos_m_bar = (t_vector2D){819 - OFFSET_X + 42,
+	542 - OFFSET_Y + 36};
+	_var()->menu->pos_s_bar = (t_vector2D){819 - OFFSET_X + 42,
+	443 - OFFSET_Y + 36};
 	_var()->mode = MENU;
 	_var()->menu->img.img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
-	_var()->menu->img.addr = mlx_get_data_addr(_var()->menu->img.img, &_var()->menu->img.bits_per_pixel, &_var()->menu->img.line_length, &_var()->menu->img.endian);
+	_var()->menu->img.addr = mlx_get_data_addr(_var()->menu->img.img,
+	&_var()->menu->img.bits_per_pixel, &_var()->menu->img.line_length,
+	&_var()->menu->img.endian);
 	_var()->menu->img.height = WIN_H;
 	_var()->menu->img.width = WIN_W;
 	_var()->menu->mode = 0;
+	_var()->menu->mute_m_state = MUTE_M;
+	_var()->menu->mute_s_state = MUTE_S;
+	_var()->menu->s_bar = 0;
+	_var()->menu->m_bar = 0;
+	_var()->menu->draging_m = 0;
+	_var()->menu->draging_s = 0;
 	gen_menu_bars();
 	gen_menu_buttons();
 	generate_button_state();
