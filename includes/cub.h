@@ -1,9 +1,9 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
 /*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
@@ -34,22 +34,34 @@ float	ray_dist(t_vector2F a, t_vector2F b, float angle);
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/drawing/draw_map.c                       */
 /* -------------------------------------------------------------------------- */
-float	ray_dist(t_vector2F a, t_vector2F b, float angle);
+void	ft_find_wall_scale(void);
+void	ft_give_id(void);
+t_obj	*ft_copy_map_line(char *line, int index);
+void	ft_malloc_map(void);
+void	ft_draw_wall(t_obj wall);
+void	ft_draw_floor(t_obj wall);
+void	ft_draw_map(void);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
-t_data	*_img(void);
-t_mlx	*_mlx(void);
-t_obj	*_player(void);
-t_raycasting	*_ray(void);
-t_var	*_var(void);
+void plot_line (int x0, int y0, int x1, int y1, int color);
+void	ft_draw_player(t_obj player);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/utils/clock.c                          */
 /* -------------------------------------------------------------------------- */
 struct timeval	start_clock();
 unsigned long	get_clock(struct timeval start);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/singleton.c                        */
+/* -------------------------------------------------------------------------- */
+t_data	*_img(void);
+t_mlx	*_mlx(void);
+t_obj	*_player(void);
+t_raycasting	*_ray(void);
+t_var	*_var(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
@@ -154,10 +166,5 @@ void	ft_pixel_put(float x, float y, int color);
 void	ft_reload_frame();
 int	ft_loop();
 
-/* -------------------------------------------------------------------------- */
-/*                     FILE = srcs/drawing/draw_player.c                      */
-/* -------------------------------------------------------------------------- */
-void plot_line (int x0, int y0, int x1, int y1, int color);
-void	ft_draw_player(t_obj player);
 
 #endif
