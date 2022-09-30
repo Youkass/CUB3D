@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 17:19:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/29 18:39:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_obj	*ft_copy_map_line(char *line, int index)
 		return (NULL);
 	new_line[0].c = line[0];
 	new_line[0].x = 0;
-	new_line[0].y = 0;
+	new_line[0].y = _img()->scale * index;
 	while (line[i])
 	{
 		new_line[i].c = line[i];
