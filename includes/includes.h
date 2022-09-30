@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/28 14:10:14 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/30 13:10:36 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ esc : 65307
 # define PI 3.14159 
 # define P2 PI/2
 # define P3 3*PI/2
+# define DR 0.0174533
 # define WIN_H 1080
 # define WIN_W 1920
 # define PRG_NAME "Cub3d by Curly Squad"
@@ -85,8 +86,8 @@ esc : 65307
 # define MENU_OPTION 1
 # define MENU_GAME 2
 
-# define OFFSET_Y 128
-# define OFFSET_X 230
+# define OFFSET_Y 0
+# define OFFSET_X 0
 # define BUT_CL_TIME 100000
 
 # define BAR_INC 2.04

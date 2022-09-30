@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/30 10:41:45 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:49:20 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ int	ft_release(int keycode)
 
 void	ft_init_player_pos(void)
 {
+	_player()->angle = 0;
 	_player()->x = 300;
-	_player()->y = 300;
+	_player()->dx = 0;
+	_player()->dy = 0;
 }
 
 void	ft_print_tab(char **s)
@@ -69,7 +71,7 @@ int	ft_hook(int keycode)
 	get_key(keycode);
 	if (_var()->mode == GAME)
 		ft_game_hook(keycode);
-	else if (_var()->mode == MENU)
+	if (_var()->mode == MENU)
 		menu_hook(keycode);
 	return (0);
 }
@@ -107,6 +109,16 @@ int	ft_game(void)
 	return (0);
 }
 
+void	init_key(void)
+{
+	_var()->key.a = 0;
+	_var()->key.d = 0;
+	_var()->key.esc = 0;
+	_var()->key.mouse = 0;
+	_var()->key.s = 0;
+	_var()->key.w = 0;
+}
+
 int main(int argc, char **argv)
 {
 	int		fd;
@@ -115,13 +127,16 @@ int main(int argc, char **argv)
 	if (fd < 0)
 		exit(139);
 	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
+	ft_init_player_pos();
 	if (!_img()->map)
 		exit(139);
 	ft_print_tab(_img()->map);
 	(void)argc;
 	ft_init_mlx();
 	ft_init_img();
+	init_key();
 	gen_menu_images();
+	_var()->mode = GAME;
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);

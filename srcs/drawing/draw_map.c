@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:03:35 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/29 18:39:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ map.
 void	ft_find_wall_scale(void)
 {
 	if (WIN_W > WIN_H)
-		_img()->scale = (size_t)WIN_W / ft_strlen(_img()->map[0]);
+		_img()->scale = (size_t)WIN_W / (ft_strlen(_img()->map[0]));
 	else
-		_img()->scale = (size_t)WIN_H / ft_strlen(_img()->map[0]);
+		_img()->scale = (size_t)WIN_H / (ft_strlen(_img()->map[0]));
+	//_img()->scale = 64;
 }
 
 /*
@@ -130,6 +131,9 @@ void	ft_draw_wall(t_obj wall)
 		while (var.j < _img()->scale)
 		{
 			ft_pixel_put(wall.x + var.i, wall.y + var.j, 0x0000FF00);
+			if (var.j == 0 || var.j == _img()->scale - 1 || var.i == 0 ||
+			var.i == _img()->scale - 1)
+				ft_pixel_put(wall.x + var.i, wall.y + var.j, 0x00000000);
 			var.j++;
 		}
 		var.i++;
@@ -147,6 +151,9 @@ void	ft_draw_floor(t_obj wall)
 		while (var.j < _img()->scale)
 		{
 			ft_pixel_put(wall.x + var.i, wall.y + var.j, 0xFFFFFF);
+			if (var.j == 0 || var.j == _img()->scale - 1 || var.i == 0 ||
+			var.i == _img()->scale - 1)
+				ft_pixel_put(wall.x + var.i, wall.y + var.j, 0x00000000);
 			var.j++;
 		}
 		var.i++;
@@ -184,5 +191,6 @@ void	ft_draw_map(void)
 	}
 	ft_draw_floor(_img()->coord_map[p_pos.y][p_pos.x]);
 	ft_draw_player(_img()->coord_map[p_pos.y][p_pos.x]);
+	draw_rays();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
