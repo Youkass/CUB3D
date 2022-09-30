@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:29:47 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/30 14:57:13 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,27 @@ void	ft_reload_frame()
 	//mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
 
+void	ft_draw_void()
+{
+	t_int	var;
+
+	var.i = 0;
+	while (var.i < WIN_H)
+	{
+		var.j = 0;
+		while (var.j < WIN_W)
+		{
+			ft_pixel_put(var.i, var.j, 0xD3D3D3);
+			var.j++;
+		}
+		var.i++;
+	}
+
+}
+
 int	ft_loop()
 {
+	ft_draw_void();
 	ft_draw_map();
 	ft_reload_frame();
 	return (0);
