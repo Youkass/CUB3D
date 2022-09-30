@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:32:03 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/30 13:38:14 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ this is the function that will draw our player on the 2D map.
 
 we need to use a flag for the first drawing, because we're getting the player
 position from the cartesian plan, then, we'll move our player directly by
-the keyhooks functions (see key_hooks.c), modifying the position by its
+the keyhooks functions 'see key_hooks.c', modifying the position by its
 singleton.
 ===============================================================================
 */
