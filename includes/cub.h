@@ -17,8 +17,14 @@
 # include "includes.h"
 
 /* -------------------------------------------------------------------------- */
-/*                     FILE = srcs/raycasting/check_box.c                     */
+/*                    FILE = srcs/raycasting/raycasting.c                     */
 /* -------------------------------------------------------------------------- */
+void	draw_rays(void);
+
+/* -------------------------------------------------------------------------- */
+/*                 FILE = srcs/raycasting/raycasting_utils.c                  */
+/* -------------------------------------------------------------------------- */
+float	ray_dist(t_vector2F a, t_vector2F b, float angle);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/raycasting/raycasting_utils.c                  */
@@ -27,16 +33,21 @@
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
 /* -------------------------------------------------------------------------- */
-t_data	*_img(void);
-t_mlx	*_mlx(void);
-t_obj	*_player(void);
-t_var	*_var(void);
+void	ft_draw_player(t_obj player);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/utils/clock.c                          */
 /* -------------------------------------------------------------------------- */
 struct timeval	start_clock();
 unsigned long	get_clock(struct timeval start);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/singleton.c                        */
+/* -------------------------------------------------------------------------- */
+t_data	*_img(void);
+t_mlx	*_mlx(void);
+t_obj	*_player(void);
+t_var	*_var(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
@@ -64,6 +75,7 @@ int	ft_mouse_hook(int keycode);
 int	ft_loop_hook(void);
 int	ft_mouse_release(int keycode);
 int	ft_game(void);
+void	init_key(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */

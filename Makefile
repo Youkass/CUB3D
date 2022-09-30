@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/09/29 17:29:29 by denissereno      ###   ########.fr        #
+#    Updated: 2022/09/29 20:14:40 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ END			= \e[0m
 
 SRCS		=	srcs/main.c\
 				srcs/raycasting/raycasting_utils.c\
+				srcs/raycasting/raycasting.c\
 				srcs/mlx_utils/mlx_utils.c\
 				srcs/utils/singleton.c\
 				srcs/utils/malloc_hooks_enum.c\
@@ -43,7 +44,7 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra
-MLB_FLAGS	= -I -g3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm
+MLB_FLAGS	= -I -g -fsanitize=address -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/30 13:03:34 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:08:45 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,21 @@
 
 # include <sys/time.h>
 
+typedef struct s_vector2F
+{
+	float	x;
+	float	y;
+}	t_vector2F;
+
 typedef struct	s_obj
 {
 	int		id;
 	int		x;
 	int		y;
 	char	c;
+	float		dx;
+	float		dy;
+	float		angle;
 }	t_obj;
 
 typedef struct s_int
@@ -84,6 +93,30 @@ typedef struct s_button
 	struct timeval	clock;
 	t_vector2D		hitbox[4];
 }	t_button;
+
+typedef struct s_raycasting
+{
+	int			r;
+	int			mx;
+	int			my;
+	int			mp;
+	int			dof;
+	float		rx;
+	float		ry;
+	float		ra;
+	float		xo;
+	float		yo;
+	float		a_tan;
+	float		disH;
+	float		disV;
+	float		disT;
+	t_vector2F	h;
+	t_vector2F	v;
+	float		line_h;
+	float		line_o;
+	float		ca;
+	int			color;
+}	t_raycasting;
 
 typedef struct s_menu
 {
