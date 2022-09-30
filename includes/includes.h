@@ -32,8 +32,13 @@ esc : 65307
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
+# include <sys/time.h>
+#include <unistd.h>
 # include "../mlx/mlx.h"
-//# include "../libft/libft.h"
+# include <sys/time.h>
+
+# define GAME 0
+# define MENU 1
 
 # define PI 3.14159 
 # define P2 PI/2
@@ -51,5 +56,41 @@ esc : 65307
 # define PLAYER 2
 # define VOID 3
 # define MAP 4
+
+# define PLAY 0
+# define OPTIONS 1
+# define CREDITS 2
+# define EXIT 3
+# define RESTART 4
+# define QUIT 5
+# define MUTE_M 6
+# define MUTE_S 7
+# define MUSIC 8
+# define SOUND 9
+# define L_ARR 10
+# define R_ARR 11
+
+# define NORMAL 0
+# define HOVER 1
+# define ACTIVE 2
+
+# define BAR_LEFT 2
+# define BAR_MID 1
+# define BAR_RIGHT 0
+
+# define EMPTY 0
+# define FILL 1 
+
+# define MENU_START 0
+# define MENU_OPTION 1
+# define MENU_GAME 2
+
+# define OFFSET_Y 128
+# define OFFSET_X 230
+# define BUT_CL_TIME 100000
+
+# define BAR_INC 2.04
+# define BAR_MAX 204
+# define BAR_H 27
 
 #endif
