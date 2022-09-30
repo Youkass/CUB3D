@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
+/*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
+/*   Updated: 2022/09/30 13:03:33 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 
 # include "struct.h"
 # include "includes.h"
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/raycasting/check_box.c                     */
+/* -------------------------------------------------------------------------- */
+int	ft_check_box(t_vector2D pos);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/raycasting/raycasting.c                     */
@@ -27,7 +32,7 @@ void	draw_rays(void);
 int	ft_check_box(t_vector2D pos);
 
 /* -------------------------------------------------------------------------- */
-/*                 FILE = srcs/raycasting/raycasting_utils.c                  */
+/*                       FILE = srcs/drawing/draw_map.c                       */
 /* -------------------------------------------------------------------------- */
 void	ft_find_wall_scale(void);
 void	ft_give_id(void);
@@ -38,7 +43,7 @@ void	ft_draw_floor(t_obj wall);
 void	ft_draw_map(void);
 
 /* -------------------------------------------------------------------------- */
-/*                       FILE = srcs/utils/singleton.c                        */
+/*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
 void plot_line (int x0, int y0, int x1, int y1, int color);
 void	ft_draw_player(t_obj player);
@@ -88,17 +93,11 @@ void	init_key(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
-/*                         FILE = srcs/menu/dragbar.c                         */
+/*                        FILE = srcs/menu/generate.c                         */
 /* -------------------------------------------------------------------------- */
-void	s_bar_drag(void);
-void	m_bar_drag(void);
-void	drag_bar(void);
-
-/* -------------------------------------------------------------------------- */
-/*                         FILE = srcs/menu/render.c                          */
-/* -------------------------------------------------------------------------- */
-void	menu_start(void);
-void	menu_option(void);
+t_data	generate_image(char *path);
+void	generate_button_state(void);
+void    gen_menu_images(void);
 
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/loop.c                           */
@@ -111,11 +110,10 @@ int	menu_loop(void);
 int	menu_hook(int keycode);
 
 /* -------------------------------------------------------------------------- */
-/*                        FILE = srcs/menu/generate.c                         */
+/*                         FILE = srcs/menu/render.c                          */
 /* -------------------------------------------------------------------------- */
-t_data	generate_image(char *path);
-void	generate_button_state(void);
-void    gen_menu_images(void);
+void	menu_start(void);
+void	menu_option(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/mouse_hook.c                        */
@@ -136,13 +134,11 @@ void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
 void	draw_bar_fill(void);
 
 /* -------------------------------------------------------------------------- */
-/*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
+/*                         FILE = srcs/menu/dragbar.c                         */
 /* -------------------------------------------------------------------------- */
-void	ft_init_mlx();
-void	ft_init_img();
-void	ft_pixel_put(float x, float y, int color);
-void	ft_reload_frame();
-int	ft_loop();
+void	s_bar_drag(void);
+void	m_bar_drag(void);
+void	drag_bar(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/parsing/parsing.c                        */
@@ -162,16 +158,13 @@ char	**resize_map(char **map);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
-/*                       FILE = srcs/drawing/draw_map.c                       */
+/*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
 /* -------------------------------------------------------------------------- */
-void	ft_find_wall_scale(void);
-void	ft_give_id(void);
-t_obj	*ft_copy_map_line(char *line, int index);
-void	ft_malloc_map(void);
-void	ft_draw_wall(t_obj wall);
-void	ft_draw_floor(t_obj wall);
-void	ft_draw_map(void);
-
+void	ft_init_mlx();
+void	ft_init_img();
+void	ft_pixel_put(float x, float y, int color);
+void	ft_reload_frame();
+int	ft_loop();
 
 
 #endif
