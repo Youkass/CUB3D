@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/30 13:08:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/30 13:34:11 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	draw_rays(void)
 			_ray()->ry = _ray()->v.y;
 			_ray()->disT = _ray()->disV;
 		}
-		plot_line(_player()->x, _player()->y, (int)_ray()->rx, (int)_ray()->ry, _ray()->color);
+		plot_line(_player()->x + 5, _player()->y + 5, (int)_ray()->rx, (int)_ray()->ry, _ray()->color);
 
 		// ----- DRAWING 3D ------
 		//_ray()->ca = _player()->angle - _ray()->ra;
