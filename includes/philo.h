@@ -1,45 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:03:33 by yobougre         ###   ########.fr       */
+/*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include "struct.h"
 # include "includes.h"
 
 /* -------------------------------------------------------------------------- */
-/*                    FILE = srcs/raycasting/raycasting.c                     */
+/*                     FILE = srcs/raycasting/check_box.c                     */
 /* -------------------------------------------------------------------------- */
-void	draw_rays(void);
+int	ft_check_box(t_vector2D pos);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/raycasting/raycasting_utils.c                  */
 /* -------------------------------------------------------------------------- */
-float	ray_dist(t_vector2F a, t_vector2F b, float angle);
-
-/* -------------------------------------------------------------------------- */
-/*                 FILE = srcs/raycasting/raycasting_utils.c                  */
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-/*                       FILE = srcs/utils/singleton.c                        */
-/* -------------------------------------------------------------------------- */
-void	ft_draw_player(t_obj player);
-
-/* -------------------------------------------------------------------------- */
-/*                         FILE = srcs/utils/clock.c                          */
-/* -------------------------------------------------------------------------- */
-struct timeval	start_clock();
-unsigned long	get_clock(struct timeval start);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
@@ -48,6 +32,12 @@ t_data	*_img(void);
 t_mlx	*_mlx(void);
 t_obj	*_player(void);
 t_var	*_var(void);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/utils/clock.c                          */
+/* -------------------------------------------------------------------------- */
+struct timeval	start_clock();
+unsigned long	get_clock(struct timeval start);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
@@ -75,7 +65,6 @@ int	ft_mouse_hook(int keycode);
 int	ft_loop_hook(void);
 int	ft_mouse_release(int keycode);
 int	ft_game(void);
-void	init_key(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
@@ -166,6 +155,7 @@ void	ft_draw_map(void);
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
+the keyhooks functions (see key_hooks.c), and modifying the position by its;
 void	ft_draw_player(t_obj player);
 
 

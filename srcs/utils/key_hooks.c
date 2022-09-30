@@ -6,12 +6,28 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 20:38:30 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/28 11:23:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
+/*
+===============================================================================
+instead of making a condition branch for each case 
+(and to stay in the 42 norm of coding)
+we assign for each element of 'tab' who is an array of t_enum_key a keycode as
+an ID, that will call the corresponding function
+t_enum_key struct composition :
+
+typedef struct s_enum_key
+{
+	int	id;
+	int	(*ft_hook_key)(void);
+}	t_enum_key;
+
+===============================================================================
+*/
 int	ft_game_hook(int keycode)
 {
 	int			i;
@@ -28,17 +44,19 @@ int	ft_game_hook(int keycode)
 	tab[3].ft_hook_key = &ft_right;
 	tab[4].id = ESC;
 	tab[4].ft_hook_key = &ft_escape;
-	//printf("keycode : %d\n", keycode);
 	while (i < MAX_KEYS)
 	{
-		//printf("id : %d\n",tab[i].id);
 		if (tab[i].id == keycode)
 			return (tab[i].ft_hook_key());
 		++i;
 	}
 	return (0);
 }
-
+/*
+================================================================================
+all the following functions are the function we assigned just above this comment
+================================================================================
+*/
 int	ft_forward(void)
 {
 	printf("i'm moving up\n");

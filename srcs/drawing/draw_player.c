@@ -26,6 +26,16 @@ void plot_line (int x0, int y0, int x1, int y1, int color)
   }
 }
 
+/*
+===============================================================================
+this is the function that will draw our player on the 2D map.
+
+we need to use a flag for the first drawing, because we're getting the player
+position from the cartesian plan, then, we'll move our player directly by
+the keyhooks functions (see key_hooks.c), and modifying the position by its
+singleton.
+===============================================================================
+*/
 void	ft_draw_player(t_obj player)
 {
 	t_int	var;
