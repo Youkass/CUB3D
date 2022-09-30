@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/30 14:20:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/30 14:38:21 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,18 +141,18 @@ void	draw_rays(void)
 		plot_line(_player()->x + 5, _player()->y + 5, (int)_ray()->rx, (int)_ray()->ry, _ray()->color);
 
 		// ----- DRAWING 3D ------
-		//_ray()->ca = _player()->angle - _ray()->ra;
-		//if (_ray()->ca < 0)
-		//	_ray()->ca += 2 * PI;
-		//if (_ray()->ca > 2 * PI)
-		//	_ray()->ca -= 2 * PI;
-		//_ray()->disT = _ray()->disT * cos(_ray()->ca);
-		//_ray()->line_h = (_img()->scale * WIN_H) / _ray()->disT;
-		//_ray()->line_o = 300 - _ray()->line_h / 2;
-		//if (_ray()->line_h > WIN_H)
-		//	_ray()->line_h = WIN_H;
-		//for (int j = 0; j < 8; j++)
-		//	plot_line(j + i * 8, _ray()->line_o, j + i * 8, _ray()->line_h + _ray()->line_o, _ray()->color);
+		_ray()->ca = _player()->angle - _ray()->ra;
+		if (_ray()->ca < 0)
+			_ray()->ca += 2 * PI;
+		if (_ray()->ca > 2 * PI)
+			_ray()->ca -= 2 * PI;
+		_ray()->disT = _ray()->disT * cos(_ray()->ca);
+		_ray()->line_h = (_img()->scale * WIN_H) / _ray()->disT;
+		_ray()->line_o = 300 - _ray()->line_h / 2;
+		if (_ray()->line_h > WIN_H)
+			_ray()->line_h = WIN_H;
+		for (int j = 0; j < 8; j++)
+			plot_line(j + i * 8, _ray()->line_o, j + i * 8, _ray()->line_h + _ray()->line_o, _ray()->color);
 
 		_ray()->ra += DR;
 		if (_ray()->ra < 0)
