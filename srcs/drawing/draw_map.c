@@ -6,12 +6,18 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 18:39:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/30 10:25:32 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
+/*
+===============================================================================
+The following function will give us the right size for the elements in the 2D 
+map.
+===============================================================================
+*/
 void	ft_find_wall_scale(void)
 {
 	if (WIN_W > WIN_H)
@@ -20,6 +26,11 @@ void	ft_find_wall_scale(void)
 		_img()->scale = (size_t)WIN_H / ft_strlen(_img()->map[0]);
 }
 
+/*
+===============================================================================
+Here we're giving to each objects in the cartesian plan an ID 
+===============================================================================
+*/
 void	ft_give_id(void)
 {
 	int	i;
@@ -45,6 +56,23 @@ void	ft_give_id(void)
 	}
 }
 
+/*
+===============================================================================
+With the two next function we will transform our map parsed in char** to a 
+cartesian plan by making a copy in t_obj.
+
+reminder of our t_obj struct composition : 
+
+typedef struct	s_obj
+{
+	int		id;
+	int		x;
+	int		y;
+	char	c;
+}	t_obj;
+
+===============================================================================
+*/
 t_obj	*ft_copy_map_line(char *line, int index)
 {
 	int		i;
@@ -86,6 +114,11 @@ void	ft_malloc_map(void)
 	ft_give_id();
 }
 
+/*
+===============================================================================
+The two following functions will draw square for the Wall obj and Floor obj
+===============================================================================
+*/
 void	ft_draw_wall(t_obj wall)
 {
 	t_int	var;
@@ -119,6 +152,13 @@ void	ft_draw_floor(t_obj wall)
 		var.i++;
 	}
 }
+
+/*
+===============================================================================
+This is our main drawing function, we'll check every objects in the cartesian 
+plan and draw it if needed it
+===============================================================================
+*/
 
 void	ft_draw_map(void)
 {
