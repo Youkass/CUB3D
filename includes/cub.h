@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:03:33 by yobougre         ###   ########.fr       */
+/*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
+/*   Updated: 2022/09/30 13:31:55 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	ft_check_box(t_vector2D pos);
 void	draw_rays(void);
 
 /* -------------------------------------------------------------------------- */
-/*                     FILE = srcs/raycasting/check_box.c                     */
+/*                 FILE = srcs/raycasting/raycasting_utils.c                  */
 /* -------------------------------------------------------------------------- */
-int	ft_check_box(t_vector2D pos);
+float	ray_dist(t_vector2F a, t_vector2F b, float angle);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/drawing/draw_map.c                       */
