@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 22:30:50 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/30 13:05:08 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_find_wall_scale(void)
 		_img()->scale = (size_t)WIN_W / (ft_strlen(_img()->map[0]));
 	else
 		_img()->scale = (size_t)WIN_H / (ft_strlen(_img()->map[0]));
-	//_img()->scale++;
+	//_img()->scale = 64;
 }
 
 void	ft_give_id(void)

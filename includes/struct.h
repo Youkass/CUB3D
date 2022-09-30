@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 22:29:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/30 00:08:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define STRUCT_H
 
 # include <sys/time.h>
+
+typedef struct s_vector2F
+{
+	float	x;
+	float	y;
+}	t_vector2F;
 
 typedef struct	s_obj
 {
@@ -90,16 +96,26 @@ typedef struct s_button
 
 typedef struct s_raycasting
 {
-	int		r;
-	int		mx;
-	int		my;
-	int		mp;
-	int		dof;
-	float	rx;
-	float	ry;
-	float	ra;
-	float	xo;
-	float	yo;
+	int			r;
+	int			mx;
+	int			my;
+	int			mp;
+	int			dof;
+	float		rx;
+	float		ry;
+	float		ra;
+	float		xo;
+	float		yo;
+	float		a_tan;
+	float		disH;
+	float		disV;
+	float		disT;
+	t_vector2F	h;
+	t_vector2F	v;
+	float		line_h;
+	float		line_o;
+	float		ca;
+	int			color;
 }	t_raycasting;
 
 typedef struct s_menu
