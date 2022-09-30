@@ -6,14 +6,16 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 18:03:49 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/09/30 10:41:43 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
 /*
+===============================================================================
 The following function will initialize our mlx pointer and our mlx window
+===============================================================================
 */
 void	ft_init_mlx()
 {
@@ -22,12 +24,14 @@ void	ft_init_mlx()
 }
 
 /*
+===============================================================================
 The following function will initialize our frames inside the window
     if (argc != 2)
     {
         printf("Arguments error\n");
         return (1);
     }
+===============================================================================
 */
 void	ft_init_img()
 {
@@ -39,11 +43,13 @@ void	ft_init_img()
 }
 
 /*
+===============================================================================
 As you can see, if you followed the @Harm_smits tutorial, our pixel put function
 is quite different, in our pixel_put function you can see a condition that will
 prevent any segmentation fault that could  occure if you tried to put a pixel
 outside the window.
 -> this function will be call by other functions before pushing the image into the window
+===============================================================================
 */
 void	ft_pixel_put(float x, float y, int color)
 {

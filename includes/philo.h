@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:03:33 by yobougre         ###   ########.fr       */
+/*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB_H
-# define CUB_H
+#ifndef PHILO_H
+# define PHILO_H
 
 # include "struct.h"
 # include "includes.h"
@@ -19,6 +19,7 @@
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/raycasting/check_box.c                     */
 /* -------------------------------------------------------------------------- */
+int	ft_check_box(t_vector2D pos);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/raycasting/raycasting_utils.c                  */
@@ -154,6 +155,7 @@ void	ft_draw_map(void);
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
+the keyhooks functions (see key_hooks.c), and modifying the position by its;
 void	ft_draw_player(t_obj player);
 
 
