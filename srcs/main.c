@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 16:49:20 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/30 13:48:52 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	ft_init_player_pos(void)
 {
 	_player()->angle = 0;
 	_player()->x = 300;
-	_player()->dx = 0;
-	_player()->dy = 0;
+	_player()->dx = cos(_player()->angle) * 5;
+	_player()->dy = sin(_player()->angle) * 5;;
 }
 
 void	ft_print_tab(char **s)

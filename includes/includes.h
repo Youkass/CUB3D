@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/30 13:10:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/09/30 14:51:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ esc : 65307
 # define P2 PI/2
 # define P3 3*PI/2
 # define DR 0.0174533
-# define WIN_H 1080
-# define WIN_W 1920
+# define WIN_H 800 
+# define WIN_W 800
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119

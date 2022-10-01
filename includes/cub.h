@@ -130,6 +130,7 @@ void	ft_init_mlx();
 void	ft_init_img();
 void	ft_pixel_put(float x, float y, int color);
 void	ft_reload_frame();
+void	ft_draw_void();
 int	ft_loop();
 
 /* -------------------------------------------------------------------------- */
