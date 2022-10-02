@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/09/29 20:14:40 by denissereno      ###   ########.fr        #
+#    Updated: 2022/10/02 17:43:23 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRCS		=	srcs/main.c\
 				srcs/utils/malloc_hooks_enum.c\
 				srcs/utils/key_hooks.c\
 				srcs/utils/clock.c\
+				srcs/utils/math.c\
+				srcs/utils/collisions.c\
 				srcs/drawing/draw_player.c\
 				srcs/drawing/draw_map.c\
 				srcs/menu/generate.c\

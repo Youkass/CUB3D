@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 17:07:34 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/02 14:27:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int	menu_loop(void)
 		menu_start();
 	else if (_var()->menu->mode == MENU_OPTION)
 		menu_option();
+	
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win,
 		_var()->menu->img.img, 0, 0);
 	return (0);

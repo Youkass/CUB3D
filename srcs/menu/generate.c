@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 17:05:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/02 04:09:19 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void    gen_menu_images(void)
 	gen_menu_bars();
 	gen_menu_buttons();
 	generate_button_state();
+	_var()->menu->wall = generate_image("./img/wall.xpm");
 	_var()->menu->logo = generate_image("./img/menu/img/logo.xpm");
 	_var()->menu->bg = generate_image("./img/menu/img/background.xpm");
 	if (!_var()->menu->bg.img || !_var()->menu->logo.img)

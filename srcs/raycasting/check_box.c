@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_box.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 10:16:43 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:03:34 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/02 03:19:33 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+
 
 int	ft_check_box(t_vector2D pos)
 {

@@ -24,12 +24,17 @@ int	ft_check_box(t_vector2D pos);
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/raycasting/raycasting.c                     */
 /* -------------------------------------------------------------------------- */
+void	init_ray(void);
+void	compute_side_distance(void);
+void	dda(void);
+void	compute_drawing_data();
+void	draw_wall(void);
 void	draw_rays(void);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/raycasting/raycasting_utils.c                  */
 /* -------------------------------------------------------------------------- */
-float	ray_dist(t_vector2F a, t_vector2F b, float angle);
+int intersects(t_circle circle, t_rect rect);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/drawing/draw_map.c                       */
@@ -39,20 +44,37 @@ void	ft_give_id(void);
 t_obj	*ft_copy_map_line(char *line, int index);
 void	ft_malloc_map(void);
 void	ft_draw_wall(t_obj wall);
-void	ft_draw_floor(t_obj wall);
+void	ft_draw_floor(t_obj wall, t_vector2D pos);
+void DrawCircle(int xp, int yp, float radius, int color);
 void	ft_draw_map(void);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
-void plot_line (int x0, int y0, int x1, int y1, int color);
-void	ft_draw_player(t_obj player);
+void plot_line (t_vector2D a, t_vector2D b, int color);
+void	ft_draw_player();
+
+/* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/utils/math.c                          */
+/* -------------------------------------------------------------------------- */
+float	mag(t_vector2F v);
+t_vector2F	norm(t_vector2F v);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/utils/clock.c                          */
 /* -------------------------------------------------------------------------- */
 struct timeval	start_clock();
 unsigned long	get_clock(struct timeval start);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/collisions.c                       */
+/* -------------------------------------------------------------------------- */
+void	detect_neighbors(void);
+float	max_f(float a, float b);
+float	min_f(float a, float b);
+int	is_neighbor(t_vector2D pos);
+t_vector2F	init_potential_dist(int up);
+int	check_neighbor(int up);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
@@ -66,11 +88,13 @@ t_var	*_var(void);
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
 /* -------------------------------------------------------------------------- */
+void	key_hook(void);
 int	ft_game_hook(int keycode);
 int	ft_forward(void);
+int	ft_is_wall(t_vector2D pos);
 int	ft_back(void);
-int	ft_left(void);
 int	ft_right(void);
+int	ft_left(void);
 int	ft_escape(void);
 
 /* -------------------------------------------------------------------------- */
@@ -164,6 +188,7 @@ void	ft_init_mlx();
 void	ft_init_img();
 void	ft_pixel_put(float x, float y, int color);
 void	ft_reload_frame();
+void	ft_fps(void);
 int	ft_loop();
 
 

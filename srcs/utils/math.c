@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clock.c                                            :+:      :+:    :+:   */
+/*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/01 15:24:34 by denissereno      ###   ########.fr       */
+/*   Created: 2022/10/02 17:43:05 by denissereno       #+#    #+#             */
+/*   Updated: 2022/10/02 17:43:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-struct timeval	start_clock()
+/*
+-Function to compute magnitude of a vector.
+*/
+float	mag(t_vector2F v)
 {
-	struct timeval	start;
-
-	gettimeofday(&start, NULL);
-	return (start);
+	return (sqrt(powf(v.x, 2) + powf(v.y, 2)));
 }
 
-unsigned long	get_clock(struct timeval start)
+/*
+-Function to normalize a vector between 0 and 1.
+*/
+t_vector2F	norm(t_vector2F v)
 {
-	struct timeval	stop;
+	float	r;
 
-	gettimeofday(&stop, NULL);
-	return ((stop.tv_sec - start.tv_sec) * 1000000
-		+ stop.tv_usec - start.tv_usec);
+	r = 1 / mag(v);
+	return ((t_vector2F){v.x * r, v.y * r});
 }
