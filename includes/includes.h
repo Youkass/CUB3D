@@ -45,8 +45,8 @@ esc : 65307
 # define P2 (PI/2)
 # define P3 (3*PI/2)
 # define DR 0.0174533
-# define WIN_H 900
-# define WIN_W 1440
+# define WIN_H 1080
+# define WIN_W 1920
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119
