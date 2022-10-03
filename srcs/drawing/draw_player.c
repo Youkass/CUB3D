@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 14:13:26 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:15:18 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,51 @@ singleton.
 ===============================================================================
 */
 
+t_vectord2D	ft_first_vector(void)
+{
+	t_vector2D	vector;
+
+	vector.x = (_player()->x * (float)_img()->scale)
+		+ _img()->half_scale_offset;
+	vector.y = (_player()->x * (float)_img()->scale) + _img()->half_scale;
+	return (vector);
+}
+
+t_vector2D	ft_scnd_vector(void)
+{
+	t_vectord2D	vector
+
+	vector.x = (_player()->x * (float)_img()->scale + _img()->half_scale_offset)
+		+ _player()->dx * 10;
+	vector.y = (_player()->y * (float)_img()->scale)
+		+ (_player()->dy * 10) + _img()->half_scale;
+	return (vector);
+}
+
+/*
+===============================================================================
+fonction a ajouter dans un fichier utils_draw_circle.c //TODO
+===============================================================================
+*/
+
+int	ft_return_xp(void)
+{
+	return ((int)(_player()->hb.hit.x
+		* _img()->scale) + _img()->half_scale_offset);
+}
+
+int	ft_return_yp(void)
+{
+	return ((int)(_player()->hb.hit.y * _img()->scale) + _img()->half_scale);
+}
+
+float	ft_return_radius(void)
+{
+	return ((_player()->hb.hit.radius) * _img()->scale);
+}
+
 void	ft_draw_player()
+
 {
 	//t_int	var;
 
@@ -52,18 +96,7 @@ void	ft_draw_player()
 	//	}
 	//	var.i++;
 	//}
-	
 	DRAW CIRCLE ():
-	FIRST ARG : (int)(_player()->hb.hit.x * _img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET
-	SCND ARG :  (int)(_player()->hb.hit.y* _img()->scale) + _img()->scale / 2
-	THIRD ARG :  (_player()->hb.hit.radius) * _img()->scale, 0xFFFF0000)
-
-	PLOT_LINE ():
-	FIRST ARG : (t_vector2D){(_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET 
-	SCND ARG :(_player()->y * (float)_img()->scale) + _img()->scale / 2}
-	THIRD ARG :(t_vector2D){((_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET) + _player()->dx * 10
-	FOURTH ARG :  ((_player()->y * (float)_img()->scale)) + (_player()->dy * 10) + _img()->scale / 2}
-	FIFTH ARG :  0xcf34eb
-	
-
+	FIRST ARG : 	SCND ARG :  
+	THIRD ARG :  , 0xFFFF0000)
 }
