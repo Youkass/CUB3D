@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/02 16:54:37 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/03 16:10:02 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ int main(int argc, char **argv)
 	ft_init_mlx();
 	ft_init_img();
 	ft_init_player_pos();
+	ft_malloc_map();
 	init_key();
 	gen_menu_images();
 	_var()->mode = GAME;
