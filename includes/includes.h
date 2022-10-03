@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/30 14:51:19 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/03 11:57:20 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ esc : 65307
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
-# include <sys/time.h>
-#include <unistd.h>
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <netdb.h>
+# include <arpa/inet.h>
+# include <netinet/in.h>
+# include <unistd.h>
 # include "../mlx/mlx.h"
 # include <sys/time.h>
 
