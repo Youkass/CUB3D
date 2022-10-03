@@ -6,7 +6,7 @@
 /*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 15:58:08 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:07:41 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int main(int argc, char **argv);
 void	ft_find_wall_scale(void);
 void	ft_give_id(void);
 t_obj	*ft_copy_map_line(char *line, int index);
-void	ft_malloc_map(void);
+int	ft_malloc_map(void);
 void	ft_draw_wall(t_obj wall);
 void	ft_draw_floor(t_obj wall, t_vector2D pos);
 void DrawCircle(int xp, int yp, float radius, int color);
