@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/01 12:57:32 by yobougre         ###   ########.fr       */
+/*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
+/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_check_box(t_vector2D pos);
 /*                    FILE = srcs/raycasting/raycasting.c                     */
 /* -------------------------------------------------------------------------- */
 void	init_ray(void);
-void	compute_side_distance(void);
+void	init_dda(void);
 void	dda(void);
 void	compute_drawing_data();
 void	draw_wall(void);
@@ -35,6 +35,10 @@ void	draw_rays(void);
 /*                 FILE = srcs/raycasting/raycasting_utils.c                  */
 /* -------------------------------------------------------------------------- */
 int intersects(t_circle circle, t_rect rect);
+
+/* -------------------------------------------------------------------------- */
+/*                  FILE = srcs/raycasting/new_raycasting.c                   */
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/drawing/draw_map.c                       */
