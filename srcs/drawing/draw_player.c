@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 15:27:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:46:33 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_vector2D	ft_first_vector(void)
 
 	vector.x = (_player()->x * (float)_img()->scale)
 		+ _img()->half_scale_offset;
-	vector.y = (_player()->x * (float)_img()->scale) + _img()->half_scale;
+	vector.y = (_player()->y * (float)_img()->scale) + _img()->half_scale;
 	return (vector);
 }
 
@@ -51,8 +51,8 @@ t_vector2D	ft_scnd_vector(void)
 {
 	t_vector2D	vector;
 
-	vector.x = (_player()->x * (float)_img()->scale + _img()->half_scale_offset)
-		+ _player()->dx * 10;
+	vector.x = ((_player()->x * (float)_img()->scale)
+		+ _img()->half_scale_offset) + _player()->dx * 10;
 	vector.y = (_player()->y * (float)_img()->scale)
 		+ (_player()->dy * 10) + _img()->half_scale;
 	return (vector);
