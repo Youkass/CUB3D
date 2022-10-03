@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 18:21:43 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:54:05 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,25 +184,33 @@ void	draw_wall(void)
 
 void	draw_rays(void)
 {
+	int max;
+	int	min;
+
+	max = WIN_H;
+	min = 0;
 	_ray()->x = 0;
-	int 	max = WIN_H;
-	
 	while (_ray()->x < WIN_W)
 	{
 		init_ray();
 		init_dda();
 		dda();
 		if (_ray()->hit == 0)
-			continue;
+			continue ;
 		compute_drawing_data();
 		if (_ray()->draw_start < max)
 			max = _ray()->draw_start;
+		if (_ray()->draw_end > min)
+			min = _ray()->draw_end;
 		draw_wall();
 		_ray()->x++;
 	}
 	if (_ray()->max_y >= 0)
 		_ray()->max_y = max;
-	plot_line((t_vector2D){0, _ray()->max_y}, (t_vector2D){WIN_W, _ray()->max_y}, 0xcc1111);
+	if (_ray()->min_y >= 0)
+		_ray()->min_y = min;
+	// plot_line((t_vector2D){0, _ray()->max_y}, (t_vector2D){WIN_W, _ray()->max_y}, 0xcc1111);
+	// plot_line((t_vector2D){0, _ray()->min_y}, (t_vector2D){WIN_W, _ray()->min_y}, 0xcc1111);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 18:21:31 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:53:01 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	ft_fps(void)
 void	ft_draw_void()
 {
 	t_int	var;
+	int		min;
 
 	var.i = 0;
 	while (var.i < WIN_W)
@@ -94,7 +95,10 @@ void	ft_draw_void()
 		var.j = _ray()->max_y;
 		if (var.j < 0)
 			var.j = 0;
-		while (var.j < WIN_H)
+		min = _ray()->min_y;
+		if (min < 0)
+			min = 0;
+		while (var.j < min)
 		{
 			if (var.j < WIN_H / 2)
 				ft_pixel_put(var.i, var.j, 0xD3D3D3);
@@ -111,5 +115,9 @@ int	ft_loop()
 	ft_draw_void();
 	ft_draw_map();
 	ft_reload_frame();
+	if (_ray()->max_y < 0)
+		_ray()->max_y = 0;
+	if (_ray()->min_y < 0)
+		_ray()->min_y = WIN_H;
 	return (0);
 }
