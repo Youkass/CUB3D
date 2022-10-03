@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 18:39:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/01 12:57:33 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,6 @@ void	ft_draw_map(void)
 	}
 	ft_draw_floor(_img()->coord_map[p_pos.y][p_pos.x]);
 	ft_draw_player(_img()->coord_map[p_pos.y][p_pos.x]);
-	draw_rays();
+//	draw_rays();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
