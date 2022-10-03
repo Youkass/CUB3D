@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/01 12:57:33 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:12:49 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_find_wall_scale(void)
 	else
 		_img()->scale = (size_t)WIN_H / (ft_strlen(_img()->map[0]));
 	//_img()->scale = 64;
+	_img()->scale = MINIMAP_SIZE / ft_strlen(_img()->map[0]);
 }
 
 /*
@@ -130,17 +131,17 @@ void	ft_draw_wall(t_obj wall)
 		var.j = 0;
 		while (var.j < _img()->scale)
 		{
-			ft_pixel_put(wall.x + var.i, wall.y + var.j, 0x0000FF00);
+			ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0x0000FF00);
 			if (var.j == 0 || var.j == _img()->scale - 1 || var.i == 0 ||
 			var.i == _img()->scale - 1)
-				ft_pixel_put(wall.x + var.i, wall.y + var.j, 0x00000000);
+				ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0x00000000);
 			var.j++;
 		}
 		var.i++;
 	}
 }
 
-void	ft_draw_floor(t_obj wall)
+void	ft_draw_floor(t_obj wall, t_vector2D pos)
 {
 	t_int	var;
 
@@ -150,10 +151,13 @@ void	ft_draw_floor(t_obj wall)
 		var.j = 0;
 		while (var.j < _img()->scale)
 		{
-			ft_pixel_put(wall.x + var.i, wall.y + var.j, 0xFFFFFF);
+			if (is_neighbor(pos))
+				ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0x6b6b69);
+			else
+				ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0xFFFFFF);
 			if (var.j == 0 || var.j == _img()->scale - 1 || var.i == 0 ||
 			var.i == _img()->scale - 1)
-				ft_pixel_put(wall.x + var.i, wall.y + var.j, 0x00000000);
+				ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0x00000000);
 			var.j++;
 		}
 		var.i++;
@@ -167,6 +171,25 @@ plan and draw it if needed it
 ===============================================================================
 */
 
+void DrawCircle(int xp, int yp, float radius, int color)
+{
+	double	angle;
+	double	i;
+	int		x;
+	int		y;
+
+	i = 0.0;
+	while (i < 360.0)
+	{
+		angle = i *  PI / 180;
+		x = (int)(radius * cos(angle));
+		y = (int)(radius * sin(angle));
+		ft_pixel_put(x + xp, y + yp, color);
+		i += 0.1;
+	}
+}
+
+
 void	ft_draw_map(void)
 {
 	t_int		var;
@@ -174,6 +197,7 @@ void	ft_draw_map(void)
 
 	var.i = 0;
 	ft_malloc_map();
+	draw_rays();
 	while (var.i < _img()->map_height)
 	{
 		var.j = 0;
@@ -182,15 +206,18 @@ void	ft_draw_map(void)
 			if (_img()->coord_map[var.i][var.j].id == WALL)
 				ft_draw_wall(_img()->coord_map[var.i][var.j]);
 			if (_img()->coord_map[var.i][var.j].id == MAP)
-				ft_draw_floor(_img()->coord_map[var.i][var.j]);
+				ft_draw_floor(_img()->coord_map[var.i][var.j], (t_vector2D){var.j, var.i});
 			if (_img()->coord_map[var.i][var.j].id == PLAYER)
+			{
 				p_pos = (t_vector2D){var.j, var.i};
+				ft_draw_floor(_img()->coord_map[p_pos.y][p_pos.x], (t_vector2D){var.j, var.i});
+			}
 			var.j++;
 		}
 		var.i++;
 	}
-	ft_draw_floor(_img()->coord_map[p_pos.y][p_pos.x]);
-	ft_draw_player(_img()->coord_map[p_pos.y][p_pos.x]);
-//	draw_rays();
+	DrawCircle((int)(_player()->hb.hit.x * _img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET, (int)(_player()->hb.hit.y* _img()->scale) + _img()->scale / 2, (_player()->hb.hit.radius) * _img()->scale, 0xFFFF0000);
+	plot_line((t_vector2D){(_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET , (_player()->y * (float)_img()->scale) + _img()->scale / 2},(t_vector2D){((_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET) + _player()->dx * 10, ((_player()->y * (float)_img()->scale)) + (_player()->dy * 10) + _img()->scale / 2}, 0xcf34eb);
+	ft_draw_player();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }

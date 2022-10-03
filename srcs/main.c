@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/30 13:48:52 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/02 16:54:37 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,15 @@ int	ft_release(int keycode)
 
 void	ft_init_player_pos(void)
 {
-	_player()->angle = 0;
-	_player()->x = 300;
-	_player()->dx = cos(_player()->angle) * 5;
-	_player()->dy = sin(_player()->angle) * 5;;
+	//_player()->angle = 0;
+	_player()->x = 5;
+	_player()->y = 3;
+	_player()->dx = -1;
+	_player()->dy = 0;
+	_ray()->plane = (t_vector2F){0, -0.66};
+	_ray()->time = 0;
+	_ray()->old_time = 0;
+	_player()->hb.hit.radius = 0.5;
 }
 
 void	ft_print_tab(char **s)
@@ -69,8 +74,8 @@ void	ft_print_tab(char **s)
 int	ft_hook(int keycode)
 {
 	get_key(keycode);
-	if (_var()->mode == GAME)
-		ft_game_hook(keycode);
+	//if (_var()->mode == GAME)
+	//	ft_game_hook(keycode);
 	if (_var()->mode == MENU)
 		menu_hook(keycode);
 	return (0);
@@ -85,6 +90,8 @@ int	ft_mouse_hook(int keycode)
 
 int	ft_loop_hook(void)
 {
+	ft_fps();
+	key_hook();
 	if (_var()->mode == GAME)
 		ft_loop();
 	else if (_var()->mode == MENU)
@@ -124,16 +131,17 @@ int main(int argc, char **argv)
 	int		fd;
 
 	fd = open(argv[1], O_RDONLY);
+	_ray()->clock = start_clock();
 	if (fd < 0)
 		exit(139);
 	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
-	ft_init_player_pos();
 	if (!_img()->map)
 		exit(139);
 	ft_print_tab(_img()->map);
 	(void)argc;
 	ft_init_mlx();
 	ft_init_img();
+	ft_init_player_pos();
 	init_key();
 	gen_menu_images();
 	_var()->mode = GAME;

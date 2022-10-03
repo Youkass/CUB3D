@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:43:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/02 17:24:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,23 @@ typedef struct s_enum_key
 
 ===============================================================================
 */
+
+void	key_hook(void)
+{
+	detect_neighbors();
+
+	if (_var()->key.a)
+		ft_left();
+	if (_var()->key.w)
+		ft_forward();
+	if (_var()->key.s)
+		ft_back();
+	if (_var()->key.esc)
+		ft_escape();
+	if (_var()->key.d)
+		ft_right();
+}
+
 int	ft_game_hook(int keycode)
 {
 	int			i;
@@ -46,6 +63,7 @@ int	ft_game_hook(int keycode)
 	tab[4].ft_hook_key = &ft_escape;
 	while (i < MAX_KEYS)
 	{
+		//if (_var()->key)
 		if (tab[i].id == keycode)
 			return (tab[i].ft_hook_key());
 		++i;
@@ -57,45 +75,61 @@ int	ft_game_hook(int keycode)
 all the following functions are the function we assigned just above this comment
 ================================================================================
 */
+
 int	ft_forward(void)
 {
-	printf("i'm moving up\n");
-	_player()->y += _player()->dy;
-	_player()->x += _player()->dx;
+
+	if (!check_neighbor(1))
+	{
+		_player()->y += (_player()->dy * _player()->move_speed);
+		_player()->x += (_player()->dx * _player()->move_speed);
+	}
+	printf("UP : %d, %d\n", (int)_player()->x, (int)_player()->y);
+	return (0);
+}
+
+int	ft_is_wall(t_vector2D pos)
+{
+	if (pos.x >= 0 && pos.y >= 0 && pos.x < _img()->map_width
+		&& pos.y < _img()->map_height && _img()->map[pos.y][pos.x] == '1')
+			return (1);
 	return (0);
 }
 
 int	ft_back(void)
 {
-	printf("i'm moving down\n");
-	_player()->y -= _player()->dy;
-	_player()->x -= _player()->dx;
-	return (0);
-}
-
-int	ft_left(void)
-{
-	printf("i'm moving left %f\n", _player()->angle);
-	_player()->angle -= 0.1;
-	printf("%f\n", _player()->angle);
-	if (_player()->angle < 0)
-		_player()->angle += 2 * PI;
-	_player()->dx = cos(_player()->angle) * 5;
-	_player()->dy = sin(_player()->angle) * 5;
+	if (!check_neighbor(0))
+	{
+		_player()->y -= (_player()->dy * _player()->move_speed);
+		_player()->x -= (_player()->dx * _player()->move_speed);
+	}
+	printf("DOWN : %d, %d\n", (int)_player()->x, (int)_player()->y);
 	return (0);
 }
 
 int	ft_right(void)
 {
-	printf("i'm moving right %f\n", _player()->angle);
-	_player()->angle += 0.1;
-	printf("%f\n", _player()->angle);
-	if (_player()->angle > 2 * PI)
-		_player()->angle -= 2 * PI;
-	_player()->dx = cos(_player()->angle) * 5;
-	_player()->dy = sin(_player()->angle) * 5;
+	_player()->old_dx = _player()->dx;
+	_player()->dx = _player()->dx * cos(_player()->rot_speed) - _player()->dy * sin(_player()->rot_speed);
+	_player()->dy = _player()->old_dx * sin(_player()->rot_speed) + _player()->dy * cos(_player()->rot_speed);
+	_ray()->old_plane.x = _ray()->plane.x;
+	_ray()->plane.x = _ray()->plane.x * cos(_player()->rot_speed) - _ray()->plane.y * sin(_player()->rot_speed);
+	_ray()->plane.y = _ray()->old_plane.x * sin(_player()->rot_speed) + _ray()->plane.y * cos(_player()->rot_speed);
 	return (0);
 }
+
+int	ft_left(void)
+{
+
+	_player()->old_dx = _player()->dx;
+	_player()->dx = _player()->dx * cos(-_player()->rot_speed) - _player()->dy * sin(-_player()->rot_speed);
+	_player()->dy = _player()->old_dx * sin(-_player()->rot_speed) + _player()->dy * cos(-_player()->rot_speed);
+	_ray()->old_plane.x = _ray()->plane.x;
+	_ray()->plane.x = _ray()->plane.x * cos(-_player()->rot_speed) - _ray()->plane.y * sin(-_player()->rot_speed);
+	_ray()->plane.y = _ray()->old_plane.x * sin(-_player()->rot_speed) + _ray()->plane.y * cos(-_player()->rot_speed);
+	return (0);
+}
+
 
 int	ft_escape(void)
 {

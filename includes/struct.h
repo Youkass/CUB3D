@@ -21,24 +21,11 @@ typedef struct s_vector2F
 	float	y;
 }	t_vector2F;
 
-typedef struct	s_obj
+typedef struct s_vector2FD
 {
-	int		id;
-	int		x;
-	int		y;
-	char	c;
-	float		dx;
-	float		dy;
-	float		angle;
-}	t_obj;
-
-typedef struct s_int
-{
-	int	i;
-	int	j;
-	int	x;
-	int	y;
-}	t_int;
+	double	x;
+	double	y;
+}	t_vector2FD;
 
 typedef struct s_vector2D
 {
@@ -52,6 +39,43 @@ typedef struct s_vector3D
 	int	y;
 	int	z;
 }	t_vector3D;
+
+typedef struct	s_circle
+{
+	float	x;
+	float	y;
+	float	radius;
+}	t_circle;
+
+typedef struct	s_hitbox
+{
+	t_circle	hit;
+	t_vector2D	nb[8];
+}	t_hitbox;
+
+typedef struct	s_obj
+{
+	int			id;
+	float		x;
+	float		y;
+	char		c;
+	float		dx;
+	float		dy;
+	float		old_dx;
+	float		old_dy;
+	float		angle;
+	double		move_speed;
+	double		rot_speed;
+	t_hitbox	hb;
+}	t_obj;
+
+typedef struct s_int
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+}	t_int;
 
 typedef struct s_mlx
 {
@@ -96,26 +120,30 @@ typedef struct s_button
 
 typedef struct s_raycasting
 {
-	int			r;
-	int			mx;
-	int			my;
-	int			mp;
-	int			dof;
-	float		rx;
-	float		ry;
-	float		ra;
-	float		xo;
-	float		yo;
-	float		a_tan;
-	float		disH;
-	float		disV;
-	float		disT;
-	t_vector2F	h;
-	t_vector2F	v;
-	float		line_h;
-	float		line_o;
-	float		ca;
-	int			color;
+	t_vector2D		step;
+	t_vector2D		map;
+	t_vector2F		plane;
+	t_vector2F		old_plane;
+	t_vector2FD		cam;
+	t_vector2FD		dir;
+	t_vector2FD		side_dist;
+	t_vector2FD		delta;
+	int				hit;
+	int				x;
+	int				side;
+	int				line_h;
+	int				draw_start;
+	double			wall_x;
+	double			tex_step;
+	t_vector2D		tex;
+	double			tex_pos;
+	int				draw_end;
+	int				color;
+	double			perp_wall_dist;
+	struct timeval	clock;
+	unsigned long	time;
+	unsigned long	old_time;
+	double			frame_time;
 }	t_raycasting;
 
 typedef struct s_menu
@@ -136,7 +164,16 @@ typedef struct s_menu
 	t_vector2D	pos_m_bar;
 	int			draging_m;
 	int			mode;
+	t_data		wall;
 }	t_menu;
+
+typedef struct	s_rect
+{
+	float	width;
+	float	height;
+	float	x;
+	float	y;
+}	t_rect;
 
 typedef struct s_key
 {

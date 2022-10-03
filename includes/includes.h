@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 11:57:20 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/02 18:34:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ esc : 65307
 # define GAME 0
 # define MENU 1
 
+
 # define PI 3.14159 
-# define P2 PI/2
-# define P3 3*PI/2
+# define P2 (PI/2)
+# define P3 (3*PI/2)
 # define DR 0.0174533
-# define WIN_H 800 
-# define WIN_W 800
+# define WIN_H 900
+# define WIN_W 1440
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119
@@ -61,6 +62,9 @@ esc : 65307
 # define PLAYER 2
 # define VOID 3
 # define MAP 4
+
+# define MINIMAP_SIZE 512
+# define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)
 
 # define PLAY 0
 # define OPTIONS 1

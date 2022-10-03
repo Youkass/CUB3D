@@ -6,161 +6,144 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/01 12:07:39 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/03 12:07:49 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-void	draw_rays(void)
+void	init_ray(void)
 {
-	float	a_tan;
+		_ray()->draw_end = 0;
+		_ray()->draw_start = 0;
+		_ray()->cam.x = 2 * _ray()->x / (double)WIN_H - 1;
+		_ray()->dir.x =  _player()->dx + _ray()->plane.x * _ray()->cam.x;
+		_ray()->dir.y =  _player()->dy + _ray()->plane.y * _ray()->cam.x;
+		_ray()->map = (t_vector2D){(_player()->x + 0.5), (_player()->y + 0.5)};
+		if (_ray()->dir.y == 0)
+			_ray()->delta.x = 0;
+		else if (_ray()->dir.x == 0)
+			_ray()->delta.x = 1;
+		else
+			_ray()->delta.x = fabs(1 / _ray()->dir.x);
+		if (_ray()->dir.x == 0)
+			_ray()->delta.y = 0;
+		else if (_ray()->dir.y == 0)
+			_ray()->delta.y = 1;
+		else
+			_ray()->delta.y = fabs(1 / _ray()->dir.y);
+}
 
-	_ray()->ra =_player()->angle - 30 * DR;
-	if (_ray()->ra < 0)
-		_ray()->ra += 2 * PI;
-	if (_ray()->ra >= 2 * PI)
-		_ray()->ra -= 2 * PI;
-	for (int i = 0; i < 60; i++)
+void	compute_side_distance(void)
+{
+	_ray()->hit = 0;
+	if (_ray()->dir.x < 0)
 	{
-		// ---------- HORIZONTAL ----------------
-		a_tan = -1/tan(_ray()->ra);
-		_ray()->dof = 0;
-		_ray()->disH = 100000;
-		_ray()->h.x = (_player()->x + 5);
-		_ray()->h.y = (_player()->y + 5);
-		if (_ray()->ra > PI) // if looking up
-		{
-			_ray()->ry = (((int)(_player()->y + 5) / _img()->scale) * _img()->scale) - 0.0001; // found the next 64px next horintozal line
-			_ray()->rx = ((_player()->y + 5) - _ray()->ry) * a_tan + (_player()->x + 5);
-			_ray()->yo = -_img()->scale;
-			_ray()->xo = -_ray()->yo * a_tan;
-			//printf("1\n");
-		}
-		if (_ray()->ra < PI && _ray()->ra > 0) // if looking up
-		{
-			_ray()->ry = (((int)(_player()->y + 5) / _img()->scale) * _img()->scale) + _img()->scale; // found the next 64px next horintozal line
-			_ray()->rx = ((_player()->y + 5) - _ray()->ry) * a_tan + (_player()->x + 5);
-			_ray()->yo = _img()->scale;
-			_ray()->xo = -_ray()->yo * a_tan;
-			//printf("%f, 2\n",  _ray()->ra);
-		}
-		if (_ray()->ra <= 0 || _ray()->ra == PI)
-		{
-			_ray()->rx = (_player()->x + 5);
-			_ray()->ry = (_player()->y + 5);
-			_ray()->dof = _img()->map_height;
-			//printf("3\n");
-		}
-		while (_ray()->dof < _img()->map_height)
-		{
-			_ray()->mx = (int)(_ray()->rx) / _img()->scale;
-			_ray()->my = (int)(_ray()->ry) / _img()->scale;
-			_ray()->mp = _ray()->my * _img()->width + _ray()->mx;
-			if (_ray()->mx >= 0 && _ray()->my >= 0 &&_ray()->mx < _img()->map_width && _ray()->my < _img()->map_height && 
-			_img()->map[_ray()->my][_ray()->mx] == '1')
-			{
-				_ray()->h = (t_vector2F){_ray()->rx, _ray()->ry};
-				_ray()->disH = ray_dist((t_vector2F){(_player()->x + 5), (_player()->y + 5)}, _ray()->h, _ray()->ra);
-				_ray()->dof = _img()->map_height;
-			}
-			else
-			{
-				_ray()->rx += _ray()->xo;
-				_ray()->ry += _ray()->yo;
-				_ray()->dof++;
-			}
-		}
-		//plot_line((_player()->x + 5), (_player()->y + 5), (int)_ray()->rx, (int)_ray()->ry, 0xFFFF0000);
-		// -----   VERTICAL LINE -------
+		_ray()->step.x = -1;
+		_ray()->side_dist.x = (((_player()->x + 0.5)) - _ray()->map.x) * _ray()->delta.x;
+	}
+	else
+	{
+		_ray()->step.x = 1;
+		_ray()->side_dist.x = (_ray()->map.x + 1 - ((_player()->x + 0.5))) * _ray()->delta.x;
+	}
+	if (_ray()->dir.y < 0)
+	{
+		_ray()->step.y = -1;
+		_ray()->side_dist.y = ((_player()->y + 0.5) - _ray()->map.y) * _ray()->delta.y;
+	}
+	else
+	{
+		_ray()->step.y = 1;
+		_ray()->side_dist.y = (_ray()->map.y + 1 - (_player()->y + 0.5)) * _ray()->delta.y;
+	}
+}
 
-		a_tan = -tan(_ray()->ra);
-		_ray()->dof = 0;
-		_ray()->disV = 100000;
-		_ray()->v.x = (_player()->x + 5);
-		_ray()->v.y = (_player()->y + 5);
-		if (_ray()->ra > P2 && _ray()->ra < P3) // if looking left
+void	dda(void)
+{
+	while (!_ray()->hit)
+	{
+		if (_ray()->side_dist.x < _ray()->side_dist.y)
 		{
-			_ray()->rx = (((int)(_player()->x + 5) / _img()->scale) * _img()->scale) - 0.0001; // found the next 64px next horintozal line
-			_ray()->ry = ((_player()->x + 5) - _ray()->rx) * a_tan +( _player()->y + 5);
-			_ray()->xo = -_img()->scale;
-			_ray()->yo = -_ray()->xo * a_tan;
-		}
-		if (_ray()->ra < P2 || _ray()->ra > P3) // if looking right
-		{
-			_ray()->rx = (((int)(_player()->x + 5) / _img()->scale) * _img()->scale) + _img()->scale; // found the next 64px next horintozal line
-			_ray()->ry = ((_player()->x + 5) - _ray()->rx) * a_tan + (_player()->y + 5);
-			_ray()->xo = _img()->scale;
-			_ray()->yo = -_ray()->xo * a_tan;
-		}
-		if (_ray()->ra == 0 || _ray()->ra == PI)
-		{
-			_ray()->ry = (_player()->y + 5);
-			_ray()->rx = (_player()->x + 5);
-			_ray()->dof = _img()->map_width;
-		}
-		while (_ray()->dof < _img()->map_width)
-		{
-			//if (_ray()->mx >= 0 && _ray()->my >= 0 &&_ray()->mx < _img()->map_width && _ray()->my < _img()->map_height)
-            //	printf("=> %d, %d, %c, %d, %d\n", _ray()->mx, _ray()->my, _img()->map[_ray()->my][_ray()->mx], (_player()->x + 5) / _img()->scale, _player()->y + 5 / _img()->scale);
-			_ray()->mx = (int)(_ray()->rx) / _img()->scale;
-			_ray()->my = (int)(_ray()->ry) / _img()->scale;
-			_ray()->mp = _ray()->my * _img()->width + _ray()->mx;
-			if (_ray()->mx >= 0 && _ray()->my >= 0 &&_ray()->mx < _img()->map_width && _ray()->my < _img()->map_height && 
-			_img()->map[_ray()->my][_ray()->mx] == '1')
-			{
-				_ray()->v = (t_vector2F){_ray()->rx, _ray()->ry};
-				_ray()->disV = ray_dist((t_vector2F){(_player()->x + 5), (_player()->y + 5)}, _ray()->v, _ray()->ra);
-				_ray()->dof = _img()->map_width;
-			}
-			else
-			{
-				_ray()->rx += _ray()->xo;
-				_ray()->ry += _ray()->yo;
-				_ray()->dof++;
-			}
-		}
-		//plot_line(_player()->x + 5, _player()->y + 5, (int)_ray()->rx, (int)_ray()->ry, _ray()->color);
-		if (_ray()->disV > _ray()->disH)
-		{
-			_ray()->color = 0xFF2D00;
-			_ray()->rx = _ray()->h.x;
-			_ray()->ry = _ray()->h.y;
-			_ray()->disT = _ray()->disH;
+			_ray()->side_dist.x += _ray()->delta.x;
+			_ray()->map.x += _ray()->step.x;
+			_ray()->side = 0;
 		}
 		else
 		{
-			_ray()->color = 0xFF7254;
-			_ray()->rx = _ray()->v.x;
-			_ray()->ry = _ray()->v.y;
-			_ray()->disT = _ray()->disV;
+			_ray()->side_dist.y+= _ray()->delta.y;
+			_ray()->map.y += _ray()->step.y;
+			_ray()->side = 1;
 		}
-		printf("rx = %d, ry = %d\n", (int)_ray()->rx, (int)_ray()->ry);
-		//if (_ray()->ry >= 250)
-		//	_ray()->ry = 50;
-		plot_line(_player()->x + 5, _player()->y + 5, (int)_ray()->rx, (int)_ray()->ry, _ray()->color);
-
-		// ----- DRAWING 3D ------
-		_ray()->ca = _player()->angle - _ray()->ra;
-		if (_ray()->ca < 0)
-			_ray()->ca += 2 * PI;
-		if (_ray()->ca > 2 * PI)
-			_ray()->ca -= 2 * PI;
-		_ray()->disT = _ray()->disT * cos(_ray()->ca);
-		_ray()->line_h = (_img()->scale * WIN_H) / _ray()->disT;
-		_ray()->line_o = 300 - _ray()->line_h / 2;
-		if (_ray()->line_h > WIN_H)
-			_ray()->line_h = WIN_H;
-		for (int j = 0; j < 8; j++)
-			plot_line(j + i * 8, _ray()->line_o, j + i * 8, _ray()->line_h + _ray()->line_o, _ray()->color);
-
-		_ray()->ra += DR;
-		if (_ray()->ra < 0)
-			_ray()->ra += 2 * PI;
-		if (_ray()->ra > 2 * PI)
-			_ray()->ra -= 2 * PI;
-		//plot_line(_player()->x, _player()->y, (int)_ray()->rx, (int)_ray()->ry, 0xFFFF0000);
+		if (_ray()->map.y < _img()->map_height && _ray()->map.y >= 0 &&
+			_ray()->map.x < _img()->map_width && _ray()->map.x >= 0
+			&& _img()->map[_ray()->map.y][_ray()->map.x] == '1') // ! Possible crash si pas de mur ( rajouter condition pour break)
+			_ray()->hit = 1;
 	}
+}
 
+void	compute_drawing_data()
+{
 
+	if (_ray()->side == 0)
+		_ray()->perp_wall_dist = (_ray()->side_dist.x - _ray()->delta.x);
+	else
+		_ray()->perp_wall_dist = (_ray()->side_dist.y - _ray()->delta.y);
+
+	_ray()->line_h = (int)(WIN_H / _ray()->perp_wall_dist);
+	_ray()->draw_start = -_ray()->line_h / 2 + WIN_H / 2;
+	if (_ray()->draw_start < 0)
+		_ray()->draw_start = 0;
+	_ray()->draw_end = _ray()->line_h / 2 + WIN_H / 2;
+	if (_ray()->draw_end > WIN_H)
+		_ray()->draw_end = WIN_H - 1;
+	if (_ray()->side == 0)
+		_ray()->wall_x = (_player()->y + 0.5) + _ray()->perp_wall_dist * _ray()->dir.y;
+	else
+		_ray()->wall_x = (_player()->x + 0.5) + _ray()->perp_wall_dist * _ray()->dir.x;
+	_ray()->wall_x -= floor(_ray()->wall_x);
+}
+
+void	draw_wall(void)
+{
+	_ray()->tex.x = (int){_ray()->wall_x * 64.0};
+	if (_ray()->side == 0 && _ray()->dir.x > 0)
+		_ray()->tex.x = 64 - _ray()->tex.x - 1;
+	else if (_ray()->side == 1 && _ray()->dir.y < 0)
+		_ray()->tex.x = 64 - _ray()->tex.x - 1;
+
+	_ray()->tex_pos = (_ray()->draw_start - WIN_H / 2 + _ray()->line_h / 2);
+	for(int y = _ray()->draw_start; y < _ray()->draw_end; y++)
+	{
+		_ray()->tex_step = y * _var()->menu->wall.line_length - WIN_H
+			* _var()->menu->wall.line_length / 2 + _ray()->line_h * _var()->menu->wall.line_length / 2;
+		_ray()->tex.y = ((_ray()->tex_step * _var()->menu->wall.height) / _ray()->line_h)
+			/ _var()->menu->wall.line_length;
+		_ray()->tex_pos += _ray()->tex_step;
+		_ray()->color = (int)_var()->menu->wall.addr[(_ray()->tex.y * _var()->menu->wall.line_length)  + (_ray()->tex.x * 4)];
+		if(_ray()->side == 1)
+			_ray()->color = (_ray()->color >> 1) & 8355711;
+		ft_pixel_put((float)_ray()->x, (float)y, _ray()->color);
+	}
+}
+
+/*
+-Algorithm to draw raycasting.
+*/
+
+void	draw_rays(void)
+{
+	_ray()->x = 0;
+
+	while (_ray()->x <= WIN_W)
+	{
+		init_ray();
+		compute_side_distance();
+		dda();
+		if (_ray()->hit == 0)
+			continue;
+		compute_drawing_data();
+		draw_wall();
+		_ray()->x++;
+	}
 }
