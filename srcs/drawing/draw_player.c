@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 15:15:18 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:27:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ singleton.
 ===============================================================================
 */
 
-t_vectord2D	ft_first_vector(void)
+t_vector2D	ft_first_vector(void)
 {
 	t_vector2D	vector;
 
@@ -49,7 +49,7 @@ t_vectord2D	ft_first_vector(void)
 
 t_vector2D	ft_scnd_vector(void)
 {
-	t_vectord2D	vector
+	t_vector2D	vector;
 
 	vector.x = (_player()->x * (float)_img()->scale + _img()->half_scale_offset)
 		+ _player()->dx * 10;
@@ -78,25 +78,4 @@ int	ft_return_yp(void)
 float	ft_return_radius(void)
 {
 	return ((_player()->hb.hit.radius) * _img()->scale);
-}
-
-void	ft_draw_player()
-
-{
-	//t_int	var;
-
-	//var.i = 0;
-	//while (var.i < _img()->scale)
-	//{
-	//	var.j = 0;
-	//	while (var.j < _img()->scale)
-	//	{
-	//		ft_pixel_put((int)(_player()->x * (float)_img()->scale) + var.i + MINIMAP_OFFSET, (int)(_player()->y * (float)_img()->scale) + var.j, 0x00FF0000);
-	//		var.j++;
-	//	}
-	//	var.i++;
-	//}
-	DRAW CIRCLE ():
-	FIRST ARG : 	SCND ARG :  
-	THIRD ARG :  , 0xFFFF0000)
 }
