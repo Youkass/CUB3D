@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/30 13:29:47 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/02 18:34:35 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,15 @@ void	ft_draw_void()
 	t_int	var;
 
 	var.i = 0;
-	while (var.i < WIN_H)
+	while (var.i < WIN_W)
 	{
 		var.j = 0;
-		while (var.j < WIN_W)
+		while (var.j < WIN_H)
 		{
-			ft_pixel_put(var.i, var.j, 0xD3D3D3);
+			if (var.j < WIN_H / 2)
+				ft_pixel_put(var.i, var.j, 0xD3D3D3);
+			else
+				ft_pixel_put(var.i, var.j, 0x32a852);
 			var.j++;
 		}
 		var.i++;

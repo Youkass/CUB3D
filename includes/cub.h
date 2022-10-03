@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
+/*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
+/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "includes.h"
 
 /* -------------------------------------------------------------------------- */
-/*                    FILE = srcs/raycasting/raycasting.c                     */
+/*                     FILE = srcs/raycasting/check_box.c                     */
 /* -------------------------------------------------------------------------- */
-void	draw_rays(void);
+int	ft_check_box(t_vector2D pos);
 
 /* -------------------------------------------------------------------------- */
-/*                     FILE = srcs/raycasting/check_box.c                     */
+/*                    FILE = srcs/raycasting/raycasting.c                     */
 /* -------------------------------------------------------------------------- */
 void	init_ray(void);
 void	compute_side_distance(void);
@@ -37,7 +37,7 @@ void	draw_rays(void);
 int intersects(t_circle circle, t_rect rect);
 
 /* -------------------------------------------------------------------------- */
-/*                       FILE = srcs/utils/singleton.c                        */
+/*                       FILE = srcs/drawing/draw_map.c                       */
 /* -------------------------------------------------------------------------- */
 void	ft_find_wall_scale(void);
 void	ft_give_id(void);
@@ -117,17 +117,11 @@ void	init_key(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
-/*                         FILE = srcs/menu/dragbar.c                         */
+/*                        FILE = srcs/menu/generate.c                         */
 /* -------------------------------------------------------------------------- */
-void	s_bar_drag(void);
-void	m_bar_drag(void);
-void	drag_bar(void);
-
-/* -------------------------------------------------------------------------- */
-/*                         FILE = srcs/menu/render.c                          */
-/* -------------------------------------------------------------------------- */
-void	menu_start(void);
-void	menu_option(void);
+t_data	generate_image(char *path);
+void	generate_button_state(void);
+void    gen_menu_images(void);
 
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/loop.c                           */
@@ -140,11 +134,10 @@ int	menu_loop(void);
 int	menu_hook(int keycode);
 
 /* -------------------------------------------------------------------------- */
-/*                        FILE = srcs/menu/generate.c                         */
+/*                         FILE = srcs/menu/render.c                          */
 /* -------------------------------------------------------------------------- */
-t_data	generate_image(char *path);
-void	generate_button_state(void);
-void    gen_menu_images(void);
+void	menu_start(void);
+void	menu_option(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/mouse_hook.c                        */
@@ -165,14 +158,11 @@ void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
 void	draw_bar_fill(void);
 
 /* -------------------------------------------------------------------------- */
-/*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
+/*                         FILE = srcs/menu/dragbar.c                         */
 /* -------------------------------------------------------------------------- */
-void	ft_init_mlx();
-void	ft_init_img();
-void	ft_pixel_put(float x, float y, int color);
-void	ft_reload_frame();
-void	ft_draw_void();
-int	ft_loop();
+void	s_bar_drag(void);
+void	m_bar_drag(void);
+void	drag_bar(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/parsing/parsing.c                        */
@@ -192,20 +182,15 @@ char	**resize_map(char **map);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
-/*                       FILE = srcs/drawing/draw_map.c                       */
+/*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
 /* -------------------------------------------------------------------------- */
 void	ft_init_mlx();
 void	ft_init_img();
 void	ft_pixel_put(float x, float y, int color);
 void	ft_reload_frame();
 void	ft_fps(void);
+void	ft_draw_void();
 int	ft_loop();
-
-/* -------------------------------------------------------------------------- */
-/*                     FILE = srcs/drawing/draw_player.c                      */
-/* -------------------------------------------------------------------------- */
-void plot_line (int x0, int y0, int x1, int y1, int color);
-void	ft_draw_player(t_obj player);
 
 
 #endif
