@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 17:57:01 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:45:53 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct s_raycasting
 	unsigned long	old_time;
 	double			frame_time;
 	int				max_y;
+	int				min_y;
 }	t_raycasting;
 
 typedef struct s_menu

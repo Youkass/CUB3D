@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 18:21:49 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/03 18:55:09 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_init_player_pos(void)
 	_ray()->old_time = 0;
 	_player()->hb.hit.radius = 0.5;
 	_ray()->max_y = -1;
+	_ray()->min_y = -1;
 }
 
 void	ft_print_tab(char **s)
@@ -145,7 +146,7 @@ int main(int argc, char **argv)
 	ft_init_player_pos();
 	init_key();
 	gen_menu_images();
-	_var()->mode = GAME;
+	_var()->mode = MENU;
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);
