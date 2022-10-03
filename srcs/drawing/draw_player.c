@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 12:31:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/03 14:13:26 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_draw_player()
 	//	}
 	//	var.i++;
 	//}
-	/*
+	
 	DRAW CIRCLE ():
 	FIRST ARG : (int)(_player()->hb.hit.x * _img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET
 	SCND ARG :  (int)(_player()->hb.hit.y* _img()->scale) + _img()->scale / 2
@@ -64,6 +64,6 @@ void	ft_draw_player()
 	THIRD ARG :(t_vector2D){((_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET) + _player()->dx * 10
 	FOURTH ARG :  ((_player()->y * (float)_img()->scale)) + (_player()->dy * 10) + _img()->scale / 2}
 	FIFTH ARG :  0xcf34eb
-	*/
+	
 
 }
