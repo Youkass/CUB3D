@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/02 18:34:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/03 18:21:31 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	ft_pixel_put(float x, float y, int color)
 
 void	ft_reload_frame()
 {
-	mlx_destroy_image(_mlx()->mlx, _img()->img);
-	_img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
+	// mlx_destroy_image(_mlx()->mlx, _img()->img);
+	// _img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
 //	_img()->bits_per_pixel /= 8;
@@ -91,7 +91,9 @@ void	ft_draw_void()
 	var.i = 0;
 	while (var.i < WIN_W)
 	{
-		var.j = 0;
+		var.j = _ray()->max_y;
+		if (var.j < 0)
+			var.j = 0;
 		while (var.j < WIN_H)
 		{
 			if (var.j < WIN_H / 2)
@@ -102,7 +104,6 @@ void	ft_draw_void()
 		}
 		var.i++;
 	}
-
 }
 
 int	ft_loop()

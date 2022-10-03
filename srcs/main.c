@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/02 16:54:37 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/03 18:21:49 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	ft_init_player_pos(void)
 	_ray()->time = 0;
 	_ray()->old_time = 0;
 	_player()->hb.hit.radius = 0.5;
+	_ray()->max_y = -1;
 }
 
 void	ft_print_tab(char **s)
