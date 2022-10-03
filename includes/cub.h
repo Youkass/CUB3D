@@ -1,12 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prototypes.h                                       :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
+=======
+/*   Updated: 2022/10/03 15:58:08 by yobougre         ###   ########.fr       */
+>>>>>>> youri
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,8 +160,18 @@ void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
 void	draw_bar_fill(void);
 
 /* -------------------------------------------------------------------------- */
+<<<<<<< HEAD
 /*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
 /* -------------------------------------------------------------------------- */
+=======
+/*                        FILE = srcs/network/server.c                        */
+/* -------------------------------------------------------------------------- */
+//int	main(void);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
+/* -------------------------------------------------------------------------- */
+>>>>>>> youri
 void	ft_init_mlx();
 void	ft_init_img();
 void	ft_pixel_put(float x, float y, int color);
@@ -199,7 +213,15 @@ void	ft_draw_map(void);
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
 void plot_line (t_vector2D a, t_vector2D b, int color);
+<<<<<<< HEAD
 void	ft_draw_player();
+=======
+t_vector2D	ft_first_vector(void);
+t_vector2D	ft_scnd_vector(void);
+int	ft_return_xp(void);
+int	ft_return_yp(void);
+float	ft_return_radius(void);
+>>>>>>> youri
 
 
 #endif

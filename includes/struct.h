@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/01 12:57:31 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:08:55 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ typedef struct s_data
 	int		map_width;
 	int		map_height;
 	int		scale;
+	int		half_scale;
+	int		half_scale_offset;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

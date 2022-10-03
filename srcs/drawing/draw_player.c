@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 12:31:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/03 15:27:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,45 @@ singleton.
 ===============================================================================
 */
 
-void	ft_draw_player()
+t_vector2D	ft_first_vector(void)
 {
-	//t_int	var;
+	t_vector2D	vector;
 
-	//var.i = 0;
-	//while (var.i < _img()->scale)
-	//{
-	//	var.j = 0;
-	//	while (var.j < _img()->scale)
-	//	{
-	//		ft_pixel_put((int)(_player()->x * (float)_img()->scale) + var.i + MINIMAP_OFFSET, (int)(_player()->y * (float)_img()->scale) + var.j, 0x00FF0000);
-	//		var.j++;
-	//	}
-	//	var.i++;
-	//}
+	vector.x = (_player()->x * (float)_img()->scale)
+		+ _img()->half_scale_offset;
+	vector.y = (_player()->x * (float)_img()->scale) + _img()->half_scale;
+	return (vector);
+}
+
+t_vector2D	ft_scnd_vector(void)
+{
+	t_vector2D	vector;
+
+	vector.x = (_player()->x * (float)_img()->scale + _img()->half_scale_offset)
+		+ _player()->dx * 10;
+	vector.y = (_player()->y * (float)_img()->scale)
+		+ (_player()->dy * 10) + _img()->half_scale;
+	return (vector);
+}
+
+/*
+===============================================================================
+fonction a ajouter dans un fichier utils_draw_circle.c //TODO
+===============================================================================
+*/
+
+int	ft_return_xp(void)
+{
+	return ((int)(_player()->hb.hit.x
+		* _img()->scale) + _img()->half_scale_offset);
+}
+
+int	ft_return_yp(void)
+{
+	return ((int)(_player()->hb.hit.y * _img()->scale) + _img()->half_scale);
+}
+
+float	ft_return_radius(void)
+{
+	return ((_player()->hb.hit.radius) * _img()->scale);
 }

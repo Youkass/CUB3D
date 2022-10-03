@@ -32,8 +32,12 @@ esc : 65307
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
-# include <sys/time.h>
-#include <unistd.h>
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <netdb.h>
+# include <arpa/inet.h>
+# include <netinet/in.h>
+# include <unistd.h>
 # include "../mlx/mlx.h"
 # include <sys/time.h>
 
