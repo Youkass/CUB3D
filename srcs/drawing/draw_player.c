@@ -32,7 +32,7 @@ this is the function that will draw our player on the 2D map.
 
 we need to use a flag for the first drawing, because we're getting the player
 position from the cartesian plan, then, we'll move our player directly by
-the keyhooks functions see key_hooks.c, modifying the position by its
+the keyhooks functions (see key_hooks.c), modifying the position by its
 singleton.
 ===============================================================================
 */
