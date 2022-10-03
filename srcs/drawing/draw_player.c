@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/02 15:58:34 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/03 13:48:36 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,18 @@ void	ft_draw_player()
 	//	}
 	//	var.i++;
 	//}
+	/*
+	DRAW CIRCLE ():
+	FIRST ARG : (int)(_player()->hb.hit.x * _img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET
+	SCND ARG :  (int)(_player()->hb.hit.y* _img()->scale) + _img()->scale / 2
+	THIRD ARG :  (_player()->hb.hit.radius) * _img()->scale, 0xFFFF0000)
+
+	PLOT_LINE ():
+	FIRST ARG : (t_vector2D){(_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET 
+	SCND ARG :(_player()->y * (float)_img()->scale) + _img()->scale / 2}
+	THIRD ARG :(t_vector2D){((_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET) + _player()->dx * 10
+	FOURTH ARG :  ((_player()->y * (float)_img()->scale)) + (_player()->dy * 10) + _img()->scale / 2}
+	FIFTH ARG :  0xcf34eb
+	*/
+
 }
