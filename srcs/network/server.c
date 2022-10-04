@@ -1,14 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_box.c                                        :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 10:16:43 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 15:09:32 by yobougre         ###   ########.fr       */
+/*   Created: 2022/10/03 11:52:12 by yobougre          #+#    #+#             */
+/*   Updated: 2022/10/03 11:57:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
+int	main(void)
+{
+	int					socket_server;
+	struct sockaddr_in	addr_server;
+	struct sockaddr_in	addr_client;
+}
