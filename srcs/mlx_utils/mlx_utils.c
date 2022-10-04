@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 18:53:01 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:22:49 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	ft_fps(void)
 	_ray()->old_time = _ray()->time;
 	_ray()->time = get_clock(_ray()->clock);
 	_ray()->frame_time = (get_clock(_ray()->clock) - _ray()->old_time) / 1000000.0;
-	//printf("FPS = %d\n",  (int)(1.0 / _ray()->frame_time));
+	//printf("FPS = %d\n",  (int)(1.0 / _ray()->frame_time));ft_
 	_player()->move_speed = _ray()->frame_time * 5.0;
-	_player()->rot_speed = _ray()->frame_time * 3.0;
+	_player()->rot_speed = _ray()->frame_time * 2.0;
 }
 
 void	ft_draw_void()
