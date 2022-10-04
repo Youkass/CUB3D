@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 18:45:53 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:08:55 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ typedef struct s_raycasting
 	t_vector2FD		delta;
 	int				hit;
 	int				x;
-	int				y;
 	int				side;
 	int				line_h;
 	int				draw_start;
@@ -147,8 +146,6 @@ typedef struct s_raycasting
 	unsigned long	time;
 	unsigned long	old_time;
 	double			frame_time;
-	int				max_y;
-	int				min_y;
 }	t_raycasting;
 
 typedef struct s_menu
