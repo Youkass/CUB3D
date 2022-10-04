@@ -3,23 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 18:55:24 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:36:08 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*
-w : 119
-a : 97
-s : 115
-d : 100
-esc : 65307
-+ : 61
-- : 45
-
-*/
 
 #ifndef INCLUDES_H
 # define INCLUDES_H
@@ -49,8 +38,8 @@ esc : 65307
 # define P2 (PI/2)
 # define P3 (3*PI/2)
 # define DR 0.0174533
-# define WIN_H 1080
-# define WIN_W 1920
+# define WIN_H 900
+# define WIN_W 1440
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119
