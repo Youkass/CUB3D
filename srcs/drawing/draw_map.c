@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/02 17:12:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/03 18:22:12 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@ map.
 */
 void	ft_find_wall_scale(void)
 {
-	if (WIN_W > WIN_H)
-		_img()->scale = (size_t)WIN_W / (ft_strlen(_img()->map[0]));
-	else
-		_img()->scale = (size_t)WIN_H / (ft_strlen(_img()->map[0]));
-	//_img()->scale = 64;
 	_img()->scale = MINIMAP_SIZE / ft_strlen(_img()->map[0]);
+	_img()->half_scale = _img()->scale / 2;
+	_img()->half_scale_offset = _img()->half_scale + MINIMAP_OFFSET;
 }
 
 /*
@@ -97,7 +94,7 @@ t_obj	*ft_copy_map_line(char *line, int index)
 	return (new_line);
 }
 
-void	ft_malloc_map(void)
+int	ft_malloc_map(void)
 {
 	int	i;
 
@@ -105,15 +102,16 @@ void	ft_malloc_map(void)
 	ft_find_wall_scale();
 	_img()->coord_map = malloc(sizeof(t_obj *) * _img()->map_width);
 	if (!_img()->coord_map)
-		return ; //TODO call garbage collector
+		return (1); //TODO call garbage collector
 	while (_img()->map[i])
 	{
 		_img()->coord_map[i] = ft_copy_map_line(_img()->map[i], i);
 		if (!_img()->coord_map[i])
-			return ; //TODO call garbage collector
+			return (1); //TODO call garbage collector
 		++i;
 	}
 	ft_give_id();
+	return (0);
 }
 
 /*
@@ -196,7 +194,6 @@ void	ft_draw_map(void)
 	t_vector2D	p_pos;
 
 	var.i = 0;
-	ft_malloc_map();
 	draw_rays();
 	while (var.i < _img()->map_height)
 	{
@@ -216,8 +213,7 @@ void	ft_draw_map(void)
 		}
 		var.i++;
 	}
-	DrawCircle((int)(_player()->hb.hit.x * _img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET, (int)(_player()->hb.hit.y* _img()->scale) + _img()->scale / 2, (_player()->hb.hit.radius) * _img()->scale, 0xFFFF0000);
-	plot_line((t_vector2D){(_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET , (_player()->y * (float)_img()->scale) + _img()->scale / 2},(t_vector2D){((_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET) + _player()->dx * 10, ((_player()->y * (float)_img()->scale)) + (_player()->dy * 10) + _img()->scale / 2}, 0xcf34eb);
-	ft_draw_player();
+	DrawCircle(ft_return_xp(), ft_return_yp(), ft_return_radius(), 0xFFFF0000);
+	plot_line(ft_first_vector(), ft_scnd_vector(), 0xcf34eb);
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }

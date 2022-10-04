@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 15:58:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/03 18:55:24 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ esc : 65307
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
-# include <sys/time.h>
-#include <unistd.h>
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <netdb.h>
+# include <arpa/inet.h>
+# include <netinet/in.h>
+# include <unistd.h>
 # include "../mlx/mlx.h"
 # include <sys/time.h>
 
@@ -45,8 +49,8 @@ esc : 65307
 # define P2 (PI/2)
 # define P3 (3*PI/2)
 # define DR 0.0174533
-# define WIN_H 900
-# define WIN_W 1440
+# define WIN_H 1080
+# define WIN_W 1920
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119
