@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 15:58:11 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:42:25 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int	check_neighbor(int up)
 				potential.y = potential.y - norm(nearest[1]).y * overlap;
 				_player()->x = potential.x;
 				_player()->y = potential.y;
+				printf("UP : %d, %d\n", (int)_player()->x, (int)_player()->y);
 				ret = 1;
 			}
 		}
