@@ -29,6 +29,7 @@ void	draw_rays(void);
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/raycasting/check_box.c                     */
 /* -------------------------------------------------------------------------- */
+int	ft_check_box(t_vector2D pos);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/raycasting/raycasting_utils.c                  */
@@ -198,6 +199,7 @@ void	ft_draw_map(void);
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
 void plot_line (t_vector2D a, t_vector2D b, int color);
+void	ft_draw_player();
 t_vector2D	ft_first_vector(void);
 t_vector2D	ft_scnd_vector(void);
 int	ft_return_xp(void);
