@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/04 12:03:47 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/04 12:35:16 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ int	ft_forward(void)
 	{
 		_player()->y += (_player()->dy * _player()->move_speed);
 		_player()->x += (_player()->dx * _player()->move_speed);
+		printf("UP : %d, %d\n", (int)_player()->x, (int)_player()->y);
 	}
-	printf("UP : %d, %d\n", (int)_player()->x, (int)_player()->y);
 	return (0);
 }
 
