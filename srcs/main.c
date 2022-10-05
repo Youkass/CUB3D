@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/04 11:42:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:21:56 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_init_player_pos(void)
 	_player()->hb.hit.radius = 0.5;
 	_ray()->max_y = -1;
 	_ray()->min_y = -1;
+	
 }
 
 void	ft_print_tab(char **s)
@@ -147,7 +148,7 @@ int main(int argc, char **argv)
 	ft_malloc_map();
 	init_key();
 	gen_menu_images();
-	_var()->mode = MENU;
+	_var()->mode = GAME;
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);
