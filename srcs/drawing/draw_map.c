@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/03 18:22:12 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:32:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	ft_malloc_map(void)
 The two following functions will draw square for the Wall obj and Floor obj
 ===============================================================================
 */
-void	ft_draw_wall(t_obj wall)
+void	ft_draw_wall(t_obj wall, t_vector2D pos)
 {
 	t_int	var;
 
@@ -129,7 +129,10 @@ void	ft_draw_wall(t_obj wall)
 		var.j = 0;
 		while (var.j < _img()->scale)
 		{
-			ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0x0000FF00);
+			if (is_neighbor(pos))
+				ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0x005916);
+			else
+				ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0x0000FF00);
 			if (var.j == 0 || var.j == _img()->scale - 1 || var.i == 0 ||
 			var.i == _img()->scale - 1)
 				ft_pixel_put(wall.x + var.i + MINIMAP_OFFSET, wall.y + var.j, 0x00000000);
@@ -201,7 +204,7 @@ void	ft_draw_map(void)
 		while (var.j < _img()->map_width)
 		{
 			if (_img()->coord_map[var.i][var.j].id == WALL)
-				ft_draw_wall(_img()->coord_map[var.i][var.j]);
+				ft_draw_wall(_img()->coord_map[var.i][var.j], (t_vector2D){var.j, var.i});
 			if (_img()->coord_map[var.i][var.j].id == MAP)
 				ft_draw_floor(_img()->coord_map[var.i][var.j], (t_vector2D){var.j, var.i});
 			if (_img()->coord_map[var.i][var.j].id == PLAYER)
