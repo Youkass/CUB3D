@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/04 15:21:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/05 18:38:54 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,17 @@ void	ft_init_player_pos(void)
 	_player()->y = 3;
 	_player()->dx = -1;
 	_player()->dy = 0;
-	_ray()->plane = (t_vector2F){0, -0.66};
-	_ray()->time = 0;
-	_ray()->old_time = 0;
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	_ray()[i]->max_y = -1;
+	//	_ray()[i]->min_y = -1;
+	//}
+	_player()->plane = (t_vector2F){0, -0.66};
+	_var()->time = 0;
+	_var()->old_time = 0;
 	_player()->hb.hit.radius = 0.5;
-	_ray()->max_y = -1;
-	_ray()->min_y = -1;
+	_player()->hb.n = 0;
+
 	
 }
 
@@ -134,7 +139,7 @@ int main(int argc, char **argv)
 	int		fd;
 
 	fd = open(argv[1], O_RDONLY);
-	_ray()->clock = start_clock();
+	_var()->clock = start_clock();
 	if (fd < 0)
 		exit(139);
 	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
@@ -144,6 +149,7 @@ int main(int argc, char **argv)
 	(void)argc;
 	ft_init_mlx();
 	ft_init_img();
+	_ray();
 	ft_init_player_pos();
 	ft_malloc_map();
 	init_key();
