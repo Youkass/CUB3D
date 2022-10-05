@@ -40,16 +40,16 @@ beacause we are in a normalised tile world {pos player x = 1.5 mean that we
 are in 1x tile of the map}.
 
 The side_dist is the distance between the current pos to the next X side. So we
-calculate the offset of the player onto his tile (((_player()->x + 0.5 + 0.5)) - _ray()->map.x).
-Map.x is the current tile of player (example : 4) and (player().x +0.5 )is the actual
-real position in this tile (example : 4.57). So the offset on x axis is :
+calculate the offset of the player onto his tile {_player{)->x + 0.5}} - _ray{}->map.x}.
+Map.x is the current tile of player {example : 4} and {player{}.x +0.5 }is the actual
+real position in this tile {example : 4.57}. So the offset on x axis is :
 4.57 - 4 = 0.57.
 
 The delta X value is normalize between 0 and 1 because of the direction of the 
 X ray. If its totally straight it will be 1 or -1 because we have a step of 1 to
 acces of 1 side to the other side of the cell. But if the ray_dir is not straight
 we dont travel 1 by 1 to each side of x cell because of the inclinaison of
-the camera. So we calculate the delta by : fabs(1 / _ray()->dir.x) that give
+the camera. So we calculate the delta by : fabs{1 / _ray{}->dir.x} that give
 us the % between 0 and 1 of the direction of the camera and we know the step
 to access to another side of X.
 
@@ -97,7 +97,7 @@ Check dda.png in the root folder.
 
 Like in the drawing we have a red line that show the ray. The blue line is the
 first offset to start at x side and the orange if for the y side. This is what we calculate
-on _ray()->side_dist.
+on _ray{}->side_dist.
 So we start after that. The green and yello line is one unit of x and y and the
 green dots are the X side intersection with the ray and yellow is for the y one.
 
