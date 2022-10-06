@@ -17,6 +17,11 @@
 # include "includes.h"
 
 /* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/raycasting/spritecasting.c                   */
+/* -------------------------------------------------------------------------- */
+void	sprite_casting(void);
+
+/* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/raycasting/check_box.c                     */
 /* -------------------------------------------------------------------------- */
 
@@ -37,8 +42,11 @@ void	draw_rays(void);
 int intersects(t_circle circle, t_rect rect);
 
 /* -------------------------------------------------------------------------- */
-/*                  FILE = srcs/raycasting/new_raycasting.c                   */
+/*                  FILE = srcs/raycasting/player_casting.c                   */
 /* -------------------------------------------------------------------------- */
+void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b);
+void	ft_put_pixel_color(t_data *a, char color[4], int x, int y);
+void	player_casting(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/drawing/draw_map.c                       */
@@ -48,7 +56,7 @@ void	ft_give_id(void);
 t_obj	*ft_copy_map_line(char *line, int index);
 int	ft_malloc_map(void);
 void	ft_draw_wall(t_obj wall, t_vector2D pos);
-void	ft_draw_floor(t_obj wall, t_vector2D pos);
+void	ft_draw_floor(t_obj wall);
 void DrawCircle(int xp, int yp, float radius, int color);
 void	ft_draw_map(void);
 
@@ -87,6 +95,12 @@ void	*compute_nb(int i);
 int	check_neighbor(int up);
 
 /* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/utils/singleton_2.c                       */
+/* -------------------------------------------------------------------------- */
+t_obj	*_player2();
+t_spritecasting	*_pc();
+
+/* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
 /* -------------------------------------------------------------------------- */
 t_data	*_img(void);
@@ -117,6 +131,7 @@ int	ft_escape(void);
 void	get_key(int keycode);
 int	ft_release(int keycode);
 void	ft_init_player_pos(void);
+void	ft_init_player2(void);
 void	ft_print_tab(char **s);
 int	ft_hook(int keycode);
 int	ft_mouse_hook(int keycode);

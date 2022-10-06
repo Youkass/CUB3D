@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/05 18:44:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/06 13:29:35 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	ft_init_img()
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
 	_img()->bits_per_pixel /= 8;
+	_img()->height = WIN_H;
+	_img()->width = WIN_W;
 //	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
 
@@ -61,7 +63,7 @@ void	ft_pixel_put(float x, float y, int color)
 		return ;
 	dst = img->addr + (int)(y * img->line_length + x * 
 		(img->bits_per_pixel / 8)); 
-	*(unsigned int*)dst = color;
+	*( int*)dst = color;
 }
 
 void	ft_reload_frame()
@@ -117,9 +119,9 @@ void	*ft_draw_void(void *r)
 		while (var.j < WIN_H)
 		{
 			if (var.j < WIN_H / 2)
-				ft_pixel_put(var.i, var.j, 0xD3D3D3);
+				ft_put_pixel_color(_img(), (char [4]){211, 211, 211, 0}, (int)var.i, (int)var.j);
 			else
-				ft_pixel_put(var.i, var.j, 0x32a852);
+				ft_put_pixel_color(_img(), (char [4]){50, 168, 82, 0}, (int)var.i, (int)var.j);
 			var.j++;
 		}
 		var.i++;
@@ -147,7 +149,12 @@ void	draw_void_thread()
 int	ft_loop()
 {
 	draw_void_thread();
+	//ft_put_image_to_image(*_img(), _player()->sprite, (t_vector2D){500, 400});
+	draw_rays();
+	player_casting();
 	ft_draw_map();
+	//ft_put_image_to_image(*_img(), _player2()->sprite, (t_vector2D){500, 400});
+	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);
 }
