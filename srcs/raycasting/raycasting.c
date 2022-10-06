@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/03 18:54:05 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/05 18:43:36 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-void	init_ray(void)
+void	init_ray(t_raycasting *r)
 {
-	_ray()->draw_end = 0;
-	_ray()->draw_start = 0;
-	_ray()->cam.x = 2 * (_ray()->x / (double)WIN_H - 0.8);
-	_ray()->dir.x =  _player()->dx + (_ray()->plane.x * _ray()->cam.x);
-	_ray()->dir.y =  _player()->dy + (_ray()->plane.y * _ray()->cam.x);
-	_ray()->map = (t_vector2D){(_player()->x + 0.5), (_player()->y + 0.5)};
-	if (_ray()->dir.y == 0)
-		_ray()->delta.x = 0;
-	else if (_ray()->dir.x == 0)
-		_ray()->delta.x = 1;
+	r->draw_end = 0;
+	r->draw_start = 0;
+	r->cam.x = 2 * (r->x / (double)WIN_H - 0.8);
+	r->dir.x =  r->pl.dx + (r->pl.plane.x * r->cam.x);
+	r->dir.y =  r->pl.dy + (r->pl.plane.y * r->cam.x);
+	r->map = (t_vector2D){(r->pl.x + 0.5), (r->pl.y + 0.5)};
+	if (r->dir.y == 0)
+		r->delta.x = 0;
+	else if (r->dir.x == 0)
+		r->delta.x = 1;
 	else
-		_ray()->delta.x = fabs(1 / _ray()->dir.x);
-	if (_ray()->dir.x == 0)
-		_ray()->delta.y = 0;
-	else if (_ray()->dir.y == 0)
-		_ray()->delta.y = 1;
+		r->delta.x = fabs(1 / r->dir.x);
+	if (r->dir.x == 0)
+		r->delta.y = 0;
+	else if (r->dir.y == 0)
+		r->delta.y = 1;
 	else
-		_ray()->delta.y = fabs(1 / _ray()->dir.y);
+		r->delta.y = fabs(1 / r->dir.y);
 }
 
 /*
@@ -59,33 +59,33 @@ side of the cell that we are in.
 And its the same for y axis.
 */
 
-void	init_dda(void)
+void	init_dda(t_raycasting *r)
 {
-	_ray()->hit = 0;
-	if (_ray()->dir.x < 0)
+	r->hit = 0;
+	if (r->dir.x < 0)
 	{
-		_ray()->step.x = -1;
-		_ray()->side_dist.x = (((_player()->x + 0.5)) - _ray()->map.x)
-		* _ray()->delta.x;
+		r->step.x = -1;
+		r->side_dist.x = (((r->pl.x + 0.5)) - r->map.x)
+		* r->delta.x;
 
 	}
 	else
 	{
-		_ray()->step.x = 1;
-		_ray()->side_dist.x = (_ray()->map.x + 1 - ((_player()->x + 0.5)))
-		* _ray()->delta.x;
+		r->step.x = 1;
+		r->side_dist.x = (r->map.x + 1 - ((r->pl.x + 0.5)))
+		* r->delta.x;
 	}
-	if (_ray()->dir.y < 0)
+	if (r->dir.y < 0)
 	{
-		_ray()->step.y = -1;
-		_ray()->side_dist.y = ((_player()->y + 0.5) - _ray()->map.y)
-		* _ray()->delta.y;
+		r->step.y = -1;
+		r->side_dist.y = ((r->pl.y + 0.5) - r->map.y)
+		* r->delta.y;
 	}
 	else
 	{
-		_ray()->step.y = 1;
-		_ray()->side_dist.y = (_ray()->map.y + 1 - (_player()->y + 0.5))
-		* _ray()->delta.y;
+		r->step.y = 1;
+		r->side_dist.y = (r->map.y + 1 - (r->pl.y + 0.5))
+		* r->delta.y;
 	}
 }
 
@@ -112,70 +112,98 @@ So when we encounter a '1' we stop the dda and we have the coordinate of the
 ray finishing.
 */
 
-void	dda(void)
+void	dda(t_raycasting *r)
 {
-	while (!_ray()->hit)
+	while (!r->hit)
 	{
-		if (_ray()->side_dist.x < _ray()->side_dist.y)
+		if (r->side_dist.x < r->side_dist.y)
 		{
-			_ray()->side_dist.x += _ray()->delta.x;
-			_ray()->map.x += _ray()->step.x;
-			_ray()->side = 0;
+			r->side_dist.x += r->delta.x;
+			r->map.x += r->step.x;
+			r->side = 0;
 		}
 		else
 		{
-			_ray()->side_dist.y += _ray()->delta.y;
-			_ray()->map.y += _ray()->step.y;
-			_ray()->side = 1;
+			r->side_dist.y += r->delta.y;
+			r->map.y += r->step.y;
+			r->side = 1;
 		}
-		if (_ray()->map.y < _img()->map_height && _ray()->map.y >= 0 &&
-			_ray()->map.x < _img()->map_width && _ray()->map.x >= 0
-			&& _img()->map[_ray()->map.y][_ray()->map.x] == '1') // ! Possible crash si pas de mur ( rajouter condition pour break)
-			_ray()->hit = 1;
+		if (r->map.y < _img()->map_height && r->map.y >= 0 &&
+			r->map.x < _img()->map_width && r->map.x >= 0
+			&& _img()->map[r->map.y][r->map.x] == '1') // ! Possible crash si pas de mur ( rajouter condition pour break)
+			r->hit = 1;
 	}
 }
 
-void	compute_drawing_data()
+void	compute_drawing_data(t_raycasting *r)
 {
 
-	if (_ray()->side == 0)
-		_ray()->perp_wall_dist = (_ray()->side_dist.x - _ray()->delta.x);
+	if (r->side == 0)
+		r->perp_wall_dist = (r->side_dist.x - r->delta.x);
 	else
-		_ray()->perp_wall_dist = (_ray()->side_dist.y - _ray()->delta.y);
-	_ray()->line_h = (int)(WIN_H / _ray()->perp_wall_dist);
-	_ray()->draw_start = -_ray()->line_h / 2 + WIN_H / 2;
-	if (_ray()->draw_start < 0)
-		_ray()->draw_start = 0;
-	_ray()->draw_end = _ray()->line_h / 2 + WIN_H / 2;
-	if (_ray()->draw_end > WIN_H)
-		_ray()->draw_end = WIN_H - 1;
-	if (_ray()->side == 0)
-		_ray()->wall_x = (_player()->y + 0.5) + _ray()->perp_wall_dist * _ray()->dir.y;
+		r->perp_wall_dist = (r->side_dist.y - r->delta.y);
+	r->line_h = (int)(WIN_H / r->perp_wall_dist);
+	r->draw_start = -r->line_h / 2 + WIN_H / 2;
+	if (r->draw_start < 0)
+		r->draw_start = 0;
+	r->draw_end = r->line_h / 2 + WIN_H / 2;
+	if (r->draw_end > WIN_H)
+		r->draw_end = WIN_H - 1;
+	if (r->side == 0)
+		r->wall_x = (r->pl.y + 0.5) + r->perp_wall_dist * r->dir.y;
 	else
-		_ray()->wall_x = (_player()->x + 0.5) + _ray()->perp_wall_dist * _ray()->dir.x;
-	_ray()->wall_x -= floor(_ray()->wall_x);
+		r->wall_x = (r->pl.x + 0.5) + r->perp_wall_dist * r->dir.x;
+	r->wall_x -= floor(r->wall_x);
 }
 
-void	draw_wall(void)
+void	draw_wall(t_raycasting *r)
 {
-	_ray()->tex.x = (int){_ray()->wall_x * 64.0};
-	if (_ray()->side == 0 && _ray()->dir.x > 0)
-		_ray()->tex.x = 64 - _ray()->tex.x - 1;
-	else if (_ray()->side == 1 && _ray()->dir.y < 0)
-		_ray()->tex.x = 64 - _ray()->tex.x - 1;
-	_ray()->y = _ray()->draw_start;
-	while(_ray()->y < _ray()->draw_end)
+	r->tex.x = (int){r->wall_x * 64.0};
+	if (r->side == 0 && r->dir.x > 0)
+		r->tex.x = 64 - r->tex.x - 1;
+	else if (r->side == 1 && r->dir.y < 0)
+		r->tex.x = 64 - r->tex.x - 1;
+	r->y = r->draw_start;
+	while(r->y < r->draw_end)
 	{
-		_ray()->tex_step = _ray()->y * _var()->menu->wall.line_length - WIN_H
-		* _var()->menu->wall.line_length / 2 + _ray()->line_h * _var()->menu->wall.line_length / 2;
-		_ray()->tex.y = ((_ray()->tex_step * _var()->menu->wall.height) / _ray()->line_h)
+		r->tex_step = r->y * _var()->menu->wall.line_length - WIN_H
+		* _var()->menu->wall.line_length / 2 + r->line_h * _var()->menu->wall.line_length / 2;
+		r->tex.y = ((r->tex_step * _var()->menu->wall.height) / r->line_h)
 			/ _var()->menu->wall.line_length;
-		_ray()->color = (int)_var()->menu->wall.addr[(_ray()->tex.y * _var()->menu->wall.line_length)  + (_ray()->tex.x * 4)];
-		if(_ray()->side == 1)
-			_ray()->color = (_ray()->color >> 1) & 8355711;
-		ft_pixel_put((float)_ray()->x, (float)_ray()->y, _ray()->color);
-		_ray()->y++;
+		r->color = (int)_var()->menu->wall.addr[(r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)];
+		if(r->side == 1)
+			r->color = (r->color >> 1) & 8355711;
+		ft_pixel_put((float)r->x, (float)r->y, r->color);
+		r->y++;
 	}
+}
+
+typedef struct	s_ray_th
+{
+	t_vector2D	start_end;
+	int			i;
+	t_obj		pl;
+}	t_ray_th;
+
+void	*ray_draw(void *t)
+{
+	t_ray_th	r;
+
+	r = *(t_ray_th *)t;
+	_ray()[r.i]->x = r.start_end.x;
+	_ray()[r.i]->pl = r.pl;
+	while (_ray()[r.i]->x < r.start_end.y)
+	{
+		init_ray(_ray()[r.i]);
+		init_dda(_ray()[r.i]);
+		dda(_ray()[r.i]);
+		if (_ray()[r.i]->hit == 0)
+			continue ;
+		compute_drawing_data(_ray()[r.i]);
+		draw_wall(_ray()[r.i]);
+		_ray()[r.i]->x++;
+	}
+	return (NULL);
 }
 
 /*
@@ -184,33 +212,24 @@ void	draw_wall(void)
 
 void	draw_rays(void)
 {
-	int max;
-	int	min;
+	static t_ray_th	r[TH_RAY];
+	static int		started = 0;
 
-	max = WIN_H;
-	min = 0;
-	_ray()->x = 0;
-	while (_ray()->x < WIN_W)
+	if (!started)
 	{
-		init_ray();
-		init_dda();
-		dda();
-		if (_ray()->hit == 0)
-			continue ;
-		compute_drawing_data();
-		if (_ray()->draw_start < max)
-			max = _ray()->draw_start;
-		if (_ray()->draw_end > min)
-			min = _ray()->draw_end;
-		draw_wall();
-		_ray()->x++;
+		for (int i = 0; i < TH_RAY; i++)
+		{
+			r[i].start_end = (t_vector2D){ (WIN_W / TH_RAY) * i, (WIN_W / TH_RAY) * (i + 1)};
+			r[i].i = i;
+		}
 	}
-	if (_ray()->max_y >= 0)
-		_ray()->max_y = max;
-	if (_ray()->min_y >= 0)
-		_ray()->min_y = min;
-	// plot_line((t_vector2D){0, _ray()->max_y}, (t_vector2D){WIN_W, _ray()->max_y}, 0xcc1111);
-	// plot_line((t_vector2D){0, _ray()->min_y}, (t_vector2D){WIN_W, _ray()->min_y}, 0xcc1111);
+	for (int i = 0; i < TH_RAY; i++)
+	{
+		r[i].pl = *_player();
+		pthread_create(&_var()->th[i], NULL, ray_draw, &r[i]);
+	}
+	for (int i = 0; i < TH_RAY; i++)
+		pthread_join(_var()->th[i], NULL);
 }
 
 /*

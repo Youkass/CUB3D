@@ -6,13 +6,13 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/04 12:35:14 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/05 17:54:48 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-void	detect_neighbors(void)
+void	*detect_neighbors(void)
 {
 	t_vector2D	it;
 	int			n;
@@ -26,26 +26,16 @@ void	detect_neighbors(void)
 		it.y = 1;
 		while (it.y > -2)
 		{
-			_player()->hb.nb[n] = (t_vector2D){(int)(_player()->x + it.x + 0.5), (int)(_player()->y + it.y + 0.5)};
+			if ((int)(_player()->x + it.x + 0.5) >= 0 && (int)(_player()->x + it.x + 0.5) < _img()->map_width
+			&& (int)(_player()->y + it.y + 0.5) >= 0 && (int)(_player()->y + it.y + 0.5) < _img()->map_height
+			&& _img()->map[(int)(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x + 0.5)] == '1')
+				_player()->hb.nb[n++] = (t_vector2D){(int)(_player()->x + it.x + 0.5), (int)(_player()->y + it.y + 0.5)};
 			it.y--;
-			n++;
 		}
 		it.x--;
 	}
-}
-
-float	max_f(float a, float b)
-{
-	if (a > b)
-		return (a);
-	return (b);
-}
-
-float	min_f(float a, float b)
-{
-	if (a < b)
-		return (a);
-	return (b);
+	_player()->hb.n = n;
+	return (NULL);
 }
 
 int	is_neighbor(t_vector2D pos)
@@ -53,7 +43,7 @@ int	is_neighbor(t_vector2D pos)
 	int	i;
 
 	i = 0;
-	while (i < 9)
+	while (i < _player()->hb.n)
 	{
 		if (_player()->hb.nb[i].x == pos.x && _player()->hb.nb[i].y == pos.y)
 			return (1);
@@ -100,38 +90,54 @@ segment. So we move the circle in the nearest[1] direction overlap time to stop
 overlaping the box.
 
 */
+
+t_nb	*_nb(void)
+{
+	static t_nb	*img = NULL;
+	
+	if (!img)
+		img = malloc(sizeof(t_nb));
+	if (!img)
+		return (NULL);
+	return (img);
+}
+
+void	*compute_nb(int i)
+{
+	float	overlap;
+
+	if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0 && _img()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x] == '1')
+	{
+		_nb()->nearest[0].x = max_f((float)(_player()->hb.nb[i].x - 0.5), min_f(_nb()->potential.x,(float)_player()->hb.nb[i].x + 0.5));
+		_nb()->nearest[0].y = max_f((float)(_player()->hb.nb[i].y- 0.5), min_f(_nb()->potential.y,(float)_player()->hb.nb[i].y + 0.5));
+		_nb()->nearest[1].x = _nb()->nearest[0].x - _nb()->potential.x;
+		_nb()->nearest[1].y = _nb()->nearest[0].y - _nb()->potential.y;
+		overlap = _player()->hb.hit.radius - mag(_nb()->nearest[1]);
+		if (powf(_nb()->nearest[1].x, 2) + powf(_nb()->nearest[1].y, 2) < 0)
+			overlap = 0;
+		if (overlap > 0)
+		{
+			_nb()->potential.x = _nb()->potential.x - norm(_nb()->nearest[1]).x * overlap;
+			_nb()->potential.y = _nb()->potential.y - norm(_nb()->nearest[1]).y * overlap;
+			_player()->x = _nb()->potential.x;
+			_player()->y = _nb()->potential.y;
+			_nb()->ret = 1;
+		}
+	}
+	return (NULL);
+}
 int	check_neighbor(int up)
 {
-	int			i;
-	int			ret;
-	t_vector2F	nearest[2];
-	t_vector2F	potential;
-	float		overlap;
+	int				i;
 
-	ret = 0;
-	potential = init_potential_dist(up);
 	i = 0;
-	while (i < 9)
+	detect_neighbors();
+	_nb()->ret = 0;
+	_nb()->potential = init_potential_dist(up);
+	while (i < _player()->hb.n)
 	{
-		if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0 && _img()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x] == '1')
-		{
-			nearest[0].x = max_f((float)(_player()->hb.nb[i].x - 0.5), min_f(potential.x,(float)_player()->hb.nb[i].x + 0.5));
-			nearest[0].y = max_f((float)(_player()->hb.nb[i].y- 0.5), min_f(potential.y,(float)_player()->hb.nb[i].y + 0.5));
-			nearest[1].x = nearest[0].x - potential.x;
-			nearest[1].y = nearest[0].y - potential.y;
-			overlap = _player()->hb.hit.radius - mag(nearest[1]); // calculate magnitude
-			if (powf(nearest[1].x, 2) + powf(nearest[1].y, 2) < 0)
-				overlap = 0;
-			if (overlap > 0)
-			{
-				potential.x = potential.x - norm(nearest[1]).x * overlap;
-				potential.y = potential.y - norm(nearest[1]).y * overlap;
-				_player()->x = potential.x;
-				_player()->y = potential.y;
-				ret = 1;
-			}
-		}
+		compute_nb(i);
 		i++;
 	}
-	return (ret);
+	return (_nb()->ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/04 12:35:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/05 17:30:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_enum_key
 
 void	key_hook(void)
 {
-	detect_neighbors();
+	//detect_neighbors();
 	if (_var()->key.a)
 		ft_left();
 	if (_var()->key.w)
@@ -110,11 +110,11 @@ int	ft_right(void)
 	- _player()->dy * sin(_player()->rot_speed);
 	_player()->dy = _player()->old_dx * sin(_player()->rot_speed)
 	+ _player()->dy * cos(_player()->rot_speed);
-	_ray()->old_plane.x = _ray()->plane.x;
-	_ray()->plane.x = _ray()->plane.x * cos(_player()->rot_speed)
-	- _ray()->plane.y * sin(_player()->rot_speed);
-	_ray()->plane.y = _ray()->old_plane.x * sin(_player()->rot_speed)
-	+ _ray()->plane.y * cos(_player()->rot_speed);
+	_player()->old_plane.x = _player()->plane.x;
+	_player()->plane.x = _player()->plane.x * cos(_player()->rot_speed)
+	- _player()->plane.y * sin(_player()->rot_speed);
+	_player()->plane.y = _player()->old_plane.x * sin(_player()->rot_speed)
+	+ _player()->plane.y * cos(_player()->rot_speed);
 	return (0);
 }
 
@@ -125,11 +125,11 @@ int	ft_left(void)
 	- _player()->dy * sin(-_player()->rot_speed);
 	_player()->dy = _player()->old_dx * sin(-_player()->rot_speed)
 	+ _player()->dy * cos(-_player()->rot_speed);
-	_ray()->old_plane.x = _ray()->plane.x;
-	_ray()->plane.x = _ray()->plane.x * cos(-_player()->rot_speed)
-	- _ray()->plane.y * sin(-_player()->rot_speed);
-	_ray()->plane.y = _ray()->old_plane.x * sin(-_player()->rot_speed)
-	+ _ray()->plane.y * cos(-_player()->rot_speed);
+	_player()->old_plane.x = _player()->plane.x;
+	_player()->plane.x = _player()->plane.x * cos(-_player()->rot_speed)
+	- _player()->plane.y * sin(-_player()->rot_speed);
+	_player()->plane.y = _player()->old_plane.x * sin(-_player()->rot_speed)
+	+ _player()->plane.y * cos(-_player()->rot_speed);
 	return (0);
 }
 
