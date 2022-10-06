@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/04 15:22:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/05 18:44:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,45 @@ void	ft_reload_frame()
 
 void	ft_fps(void)
 {
-	_ray()->old_time = _ray()->time;
-	_ray()->time = get_clock(_ray()->clock);
-	_ray()->frame_time = (get_clock(_ray()->clock) - _ray()->old_time) / 1000000.0;
-	//printf("FPS = %d\n",  (int)(1.0 / _ray()->frame_time));ft_
-	_player()->move_speed = _ray()->frame_time * 5.0;
-	_player()->rot_speed = _ray()->frame_time * 2.0;
+	_var()->old_time = _var()->time;
+	_var()->time = get_clock(_var()->clock);
+	_var()->frame_time = (get_clock(_var()->clock) - _var()->old_time) / 1000000.0;
+	//printf("FPS = %d\n",  (int)(1.0 / _var()->frame_time));ft_
+	_player()->move_speed = _var()->frame_time * 5.0;
+	_player()->rot_speed = _var()->frame_time * 2.0;
 }
 
-void	ft_draw_void()
-{
-	t_int	var;
-	int		min;
+//void	ft_draw_void()
+//{
+//	t_int	var;
 
-	var.i = 0;
-	while (var.i < WIN_W)
+//	var.i = 0;
+//	while (var.i < WIN_W)
+//	{
+//		var.j = 0;
+//		while (var.j < WIN_H)
+//		{
+//			if (var.j < WIN_H / 2)
+//				ft_pixel_put(var.i, var.j, 0xD3D3D3);
+//			else
+//				ft_pixel_put(var.i, var.j, 0x32a852);
+//			var.j++;
+//		}
+//		var.i++;
+//	}
+//}
+
+void	*ft_draw_void(void *r)
+{
+	t_int		var;
+	t_vector2D	start_end;
+
+	start_end = *(t_vector2D *)r;
+	var.i = start_end.x;
+	while (var.i < start_end.y)
 	{
-		var.j = _ray()->max_y;
-		if (var.j < 0)
-			var.j = 0;
-		min = _ray()->min_y;
-		if (min < 0)
-			min = 0;
-		while (var.j < min)
+		var.j = 0;
+		while (var.j < WIN_H)
 		{
 			if (var.j < WIN_H / 2)
 				ft_pixel_put(var.i, var.j, 0xD3D3D3);
@@ -108,16 +124,30 @@ void	ft_draw_void()
 		}
 		var.i++;
 	}
+	return (NULL);
+}
+
+void	draw_void_thread()
+{
+	static t_vector2D	r[10];
+	static int			started = 0;
+
+	if (!started)
+	{
+		for (int i = 0; i < 10; i++)
+			r[i] = (t_vector2D){ (WIN_W / 10) * i, (WIN_W / 10) * (i + 1)};
+		started = 1;
+	}
+	for (int i = 0; i < 10; i++)
+		pthread_create(&_var()->th_void[i], NULL, ft_draw_void, &r[i]);
+	for (int i = 0; i < 10; i++)
+		pthread_join(_var()->th_void[i], NULL);
 }
 
 int	ft_loop()
 {
-	ft_draw_void();
+	draw_void_thread();
 	ft_draw_map();
 	ft_reload_frame();
-	if (_ray()->max_y < 0)
-		_ray()->max_y = 0;
-	if (_ray()->min_y < 0)
-		_ray()->min_y = WIN_H;
 	return (0);
 }
