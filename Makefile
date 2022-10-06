@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/10/05 18:43:59 by denissereno      ###   ########.fr        #
+#    Updated: 2022/10/05 23:35:02 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,11 @@ END			= \e[0m
 SRCS		=	srcs/main.c\
 				srcs/raycasting/raycasting_utils.c\
 				srcs/raycasting/raycasting.c\
+				srcs/raycasting/spritecasting.c\
+				srcs/raycasting/player_casting.c\
 				srcs/mlx_utils/mlx_utils.c\
 				srcs/utils/singleton.c\
+				srcs/utils/singleton_2.c\
 				srcs/utils/malloc_hooks_enum.c\
 				srcs/utils/key_hooks.c\
 				srcs/utils/clock.c\

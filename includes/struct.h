@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/05 18:38:50 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/05 23:26:46 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include "includes.h"
+
+struct s_data;
 
 typedef struct s_vector2F
 {
@@ -56,24 +58,6 @@ typedef struct	s_hitbox
 	int			n;
 }	t_hitbox;
 
-typedef struct	s_obj
-{
-	int			id;
-	float		x;
-	float		y;
-	char		c;
-	float		dx;
-	float		dy;
-	float		old_dx;
-	float		old_dy;
-	float		angle;
-	double		move_speed;
-	double		rot_speed;
-	t_vector2F		plane;
-	t_vector2F		old_plane;
-	t_hitbox	hb;
-}	t_obj;
-
 typedef struct s_int
 {
 	int	i;
@@ -93,7 +77,6 @@ typedef struct s_data
 	void	*img;
 	char	*addr;
 	char	**map;
-	t_obj	**coord_map;
 	int		map_width;
 	int		map_height;
 	int		scale;
@@ -105,6 +88,25 @@ typedef struct s_data
 	int		height;
 	int		width;
 }	t_data;
+
+typedef struct	s_obj
+{
+	int			id;
+	float		x;
+	float		y;
+	char		c;
+	float		dx;
+	float		dy;
+	float		old_dx;
+	float		old_dy;
+	float		angle;
+	double		move_speed;
+	double		rot_speed;
+	t_vector2F	plane;
+	t_vector2F	old_plane;
+	t_hitbox	hb;
+	t_data		sprite;
+}	t_obj;
 
 typedef struct s_enum_key
 {
@@ -150,6 +152,25 @@ typedef struct s_raycasting
 	int				min_y;
 	t_obj			pl;
 }	t_raycasting;
+
+typedef struct s_spritecasting
+{
+	int			nb_sprites;
+	int			*sprite_order;
+	int			*sprite_dist;
+	t_vector2FD	pos;
+	double		inv_det;
+	t_vector2FD	trans;
+	int			sprite_screen_x;
+	t_vector2D	size;
+	t_vector2D	draw_start;
+	t_vector2D	draw_end;
+	int			stripe;
+	int			i;
+	t_vector2D	tex;
+	int			d;
+	int			color;
+}	t_spritecasting;
 
 typedef struct s_menu
 {
@@ -202,6 +223,9 @@ typedef struct s_var
 	double			frame_time;
 	pthread_t		th[TH_RAY];
 	pthread_t		th_void[10];
+	t_obj			**coord_map;
+	t_obj			player2;
+	int				zbuffer[WIN_W];
 }	t_var;
 
 typedef struct s_player
