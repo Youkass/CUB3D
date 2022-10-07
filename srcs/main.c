@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/05 18:38:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/06 00:03:33 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,29 @@ int	ft_release(int keycode)
 
 void	ft_init_player_pos(void)
 {
-	//_player()->angle = 0;
 	_player()->x = 5;
 	_player()->y = 3;
 	_player()->dx = -1;
 	_player()->dy = 0;
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	_ray()[i]->max_y = -1;
-	//	_ray()[i]->min_y = -1;
-	//}
 	_player()->plane = (t_vector2F){0, -0.66};
 	_var()->time = 0;
 	_var()->old_time = 0;
 	_player()->hb.hit.radius = 0.5;
 	_player()->hb.n = 0;
-
-	
 }
+
+void	ft_init_player2(void)
+{
+	_player2()->x = 7;
+	_player2()->y = 8;
+	_player2()->dx = -1;
+	_player2()->dy = 0;
+	_player2()->sprite = generate_image("./img/front.xpm");
+	_player2()->plane = (t_vector2F){0, -0.66};
+	_player2()->hb.hit.radius = 0.5;
+	_player2()->hb.n = 0;
+}
+
 
 void	ft_print_tab(char **s)
 {
@@ -151,6 +156,7 @@ int main(int argc, char **argv)
 	ft_init_img();
 	_ray();
 	ft_init_player_pos();
+	ft_init_player2();
 	ft_malloc_map();
 	init_key();
 	gen_menu_images();
