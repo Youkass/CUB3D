@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/05 23:26:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/06 14:32:35 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include "includes.h"
-
-struct s_data;
 
 typedef struct s_vector2F
 {
