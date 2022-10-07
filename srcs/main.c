@@ -1,6 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/*                                                                            */ /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
@@ -151,7 +150,10 @@ int main(int argc, char **argv)
 	if (!_img()->map)
 		exit(139);
 	ft_print_tab(_img()->map);
-	(void)argc;
+	if (argc == 3)
+		ft_network_type(argv[2]);
+	else
+		_img()->network = NONE;
 	ft_init_mlx();
 	ft_init_img();
 	_ray();
