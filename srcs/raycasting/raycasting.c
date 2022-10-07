@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/05 18:43:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/06 00:21:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,10 @@ void	draw_wall(t_raycasting *r)
 		r->color = (int)_var()->menu->wall.addr[(r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)];
 		if(r->side == 1)
 			r->color = (r->color >> 1) & 8355711;
-		ft_pixel_put((float)r->x, (float)r->y, r->color);
+		_img()->addr[r->y * _img()->line_length + r->x * 4] = _var()->menu->wall.addr[(r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)];
+		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 1] = _var()->menu->wall.addr[((r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)) + 1];
+		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 2] = _var()->menu->wall.addr[((r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)) + 2];
+		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 3] = _var()->menu->wall.addr[((r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)) + 3];
 		r->y++;
 	}
 }
@@ -201,6 +204,7 @@ void	*ray_draw(void *t)
 			continue ;
 		compute_drawing_data(_ray()[r.i]);
 		draw_wall(_ray()[r.i]);
+		_var()->zbuffer[_ray()[r.i]->x] = _ray()[r.i]->perp_wall_dist;
 		_ray()[r.i]->x++;
 	}
 	return (NULL);
