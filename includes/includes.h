@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/05 18:44:55 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/07 14:34:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,12 @@ esc : 65307
 # define BAR_INC 2.04
 # define BAR_MAX 204
 # define BAR_H 27
+
+# define NONE 0
+# define CLIENT 1
+# define SERVER 2
+
+# define FAILURE 1
+# define SUCCESS 0
 
 #endif

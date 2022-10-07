@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/06 14:32:35 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/07 13:51:28 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include <pthread.h>
 # include "includes.h"
 
-typedef struct s_vector2F
-{
+typedef struct s_vector2F {
 	float	x;
 	float	y;
 }	t_vector2F;
@@ -85,6 +84,8 @@ typedef struct s_data
 	int		endian;
 	int		height;
 	int		width;
+	int		socket;
+	int		network;
 }	t_data;
 
 typedef struct	s_obj
