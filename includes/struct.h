@@ -17,8 +17,6 @@
 # include <pthread.h>
 # include "includes.h"
 
-struct s_data;
-
 typedef struct s_vector2F
 {
 	float	x;
