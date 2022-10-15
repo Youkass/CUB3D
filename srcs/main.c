@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/06 00:03:33 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/07 02:03:34 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,16 @@ void	get_key(int keycode)
 		_var()->key.d = 1;
 	if (keycode == ESC)
 		_var()->key.esc = 1;
+	if (keycode == ARR_UP)
+		_var()->key.up = 1;
+	if (keycode == ARR_DOWN)
+		_var()->key.down = 1;
+	if (keycode == ARR_LEFT)
+		_var()->key.left = 1;
+	if (keycode == ARR_RIGHT)
+		_var()->key.right = 1;
+	if (keycode == SPACE)
+		_var()->key.space = 1;
 }
 
 int	ft_release(int keycode)
@@ -39,13 +49,26 @@ int	ft_release(int keycode)
 		_var()->key.d = 0;
 	if (keycode == ESC)
 		_var()->key.esc = 0;
+	if (keycode == ARR_UP)
+		_var()->key.up = 0;
+	if (keycode == ARR_DOWN)
+		_var()->key.down = 0;
+	if (keycode == ARR_LEFT)
+		_var()->key.left = 0;
+	if (keycode == ARR_RIGHT)
+		_var()->key.right = 0;
+	if (keycode == SPACE)
+		_var()->key.space = 0;
 	return (0);
 }
 
 void	ft_init_player_pos(void)
 {
+	double	dist;
+
 	_player()->x = 5;
 	_player()->y = 3;
+	_player()->z = 0;
 	_player()->dx = -1;
 	_player()->dy = 0;
 	_player()->plane = (t_vector2F){0, -0.66};
@@ -53,18 +76,26 @@ void	ft_init_player_pos(void)
 	_var()->old_time = 0;
 	_player()->hb.hit.radius = 0.5;
 	_player()->hb.n = 0;
+	_player()->pitch = 0;
+	dist = hypot(_player()->dx, _player()->dy);
+	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;	
 }
 
 void	ft_init_player2(void)
 {
+	double	dist;
+
 	_player2()->x = 7;
 	_player2()->y = 8;
+	_player2()->z = 20;
 	_player2()->dx = -1;
 	_player2()->dy = 0;
 	_player2()->sprite = generate_image("./img/front.xpm");
 	_player2()->plane = (t_vector2F){0, -0.66};
 	_player2()->hb.hit.radius = 0.5;
 	_player2()->hb.n = 0;
+	dist = hypot(_player2()->dx, _player2()->dy);
+	_player2()->angle = 360 - acos(_player2()->dx / dist) * 180 / M_PI;	
 }
 
 
@@ -137,6 +168,11 @@ void	init_key(void)
 	_var()->key.mouse = 0;
 	_var()->key.s = 0;
 	_var()->key.w = 0;
+	_var()->key.up = 0;
+	_var()->key.down = 0;
+	_var()->key.left = 0;
+	_var()->key.right = 0;
+	_var()->key.space = 0;
 }
 
 int main(int argc, char **argv)
@@ -160,7 +196,7 @@ int main(int argc, char **argv)
 	ft_malloc_map();
 	init_key();
 	gen_menu_images();
-	_var()->mode = GAME;
+	_var()->mode = MENU;
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);

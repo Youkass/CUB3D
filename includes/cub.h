@@ -40,12 +40,12 @@ void	draw_rays(void);
 /*                 FILE = srcs/raycasting/raycasting_utils.c                  */
 /* -------------------------------------------------------------------------- */
 int intersects(t_circle circle, t_rect rect);
+void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b);
+void	ft_put_pixel_color(t_data *a, char color[4], int x, int y);
 
 /* -------------------------------------------------------------------------- */
 /*                  FILE = srcs/raycasting/player_casting.c                   */
 /* -------------------------------------------------------------------------- */
-void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b);
-void	ft_put_pixel_color(t_data *a, char color[4], int x, int y);
 void	player_casting(void);
 
 /* -------------------------------------------------------------------------- */
@@ -69,6 +69,9 @@ t_vector2D	ft_scnd_vector(void);
 int	ft_return_xp(void);
 int	ft_return_yp(void);
 float	ft_return_radius(void);
+int	ft_return_xp_2(void);
+int	ft_return_yp_2(void);
+float	ft_return_radius_2(void);
 
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/utils/math.c                          */
@@ -114,6 +117,9 @@ t_var	*_var(void);
 /* -------------------------------------------------------------------------- */
 void	key_hook(void);
 int	ft_game_hook(int keycode);
+int	ft_up_head(void);
+int	ft_down_head(void);
+int	ft_jump(void);
 int	ft_forward(void);
 int	ft_is_wall(t_vector2D pos);
 int	ft_back(void);
@@ -145,6 +151,7 @@ int main(int argc, char **argv);
 /*                        FILE = srcs/menu/generate.c                         */
 /* -------------------------------------------------------------------------- */
 t_data	generate_image(char *path);
+t_vector2D	*_butp(void);
 void	generate_button_state(void);
 void    gen_menu_images(void);
 
@@ -161,6 +168,8 @@ int	menu_hook(int keycode);
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/menu/render.c                          */
 /* -------------------------------------------------------------------------- */
+void	draw_bg(void);
+int	perc(int a, int b);
 void	menu_start(void);
 void	menu_option(void);
 
@@ -178,6 +187,7 @@ void	restart_button(void);
 int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
 void	draw_pixel(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
 t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
+t_data	ft_put_sprite_to_image(t_data big, t_data lil, t_vector2D pos,t_vector2D sp_pos, t_vector2D size);
 void	draw_pixel_color(t_data *big, t_vector2D rel_pos, char pix[4]);
 void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
 void	draw_bar_fill(void);

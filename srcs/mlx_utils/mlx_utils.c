@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/06 13:29:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/07 00:33:36 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	*ft_draw_void(void *r)
 		var.j = 0;
 		while (var.j < WIN_H)
 		{
-			if (var.j < WIN_H / 2)
+			if (var.j < (WIN_H / 2) + _player()->pitch)
 				ft_put_pixel_color(_img(), (char [4]){211, 211, 211, 0}, (int)var.i, (int)var.j);
 			else
 				ft_put_pixel_color(_img(), (char [4]){50, 168, 82, 0}, (int)var.i, (int)var.j);

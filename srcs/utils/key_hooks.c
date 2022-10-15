@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/05 17:30:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/07 01:43:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ void	key_hook(void)
 		ft_escape();
 	if (_var()->key.d)
 		ft_right();
+	if (_var()->key.up)
+		ft_up_head();
+	if (_var()->key.down)
+		ft_down_head();
 }
 
 int	ft_game_hook(int keycode)
@@ -74,6 +78,28 @@ all the following functions are the function we assigned just above this comment
 ================================================================================
 */
 
+int	ft_up_head(void)
+{
+	_player()->pitch += 200 * _player()->move_speed;
+	if(_player()->pitch > 400)
+		_player()->pitch = 400;
+	return (0);
+}
+
+int	ft_down_head(void)
+{
+	_player()->pitch -= 200 * _player()->move_speed;
+	if(_player()->pitch < -400)
+		_player()->pitch = -400;
+	return (0);
+}
+
+int	ft_jump(void)
+{
+	_player()->z = 200;
+	return (0);
+}
+
 int	ft_forward(void)
 {
 	if (!check_neighbor(1))
@@ -104,6 +130,8 @@ int	ft_back(void)
 
 int	ft_right(void)
 {
+	double	dist;
+
 	_player()->old_dx = _player()->dx;
 	_player()->dx = _player()->dx * cos(_player()->rot_speed)
 	- _player()->dy * sin(_player()->rot_speed);
@@ -114,6 +142,11 @@ int	ft_right(void)
 	- _player()->plane.y * sin(_player()->rot_speed);
 	_player()->plane.y = _player()->old_plane.x * sin(_player()->rot_speed)
 	+ _player()->plane.y * cos(_player()->rot_speed);
+	dist = hypot(_player()->dx, _player()->dy);
+	if (_player()->dy <= 0)
+		_player()->angle = acos(_player()->dx / dist) * 180 / M_PI;
+	else
+		_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
 	return (0);
 }
 
@@ -129,10 +162,16 @@ int	ft_left(void)
 	- _player()->plane.y * sin(-_player()->rot_speed);
 	_player()->plane.y = _player()->old_plane.x * sin(-_player()->rot_speed)
 	+ _player()->plane.y * cos(-_player()->rot_speed);
+	double dist = hypot(_player()->dx, _player()->dy);
+	if (_player()->dy <= 0)
+		_player()->angle = acos(_player()->dx / dist) * 180 / M_PI;
+	else
+		_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
 	return (0);
 }
 
 int	ft_escape(void)
 {
 	exit(1);
+	return (0);
 }
