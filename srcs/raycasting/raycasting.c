@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/06 00:21:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/07 00:25:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	init_ray(t_raycasting *r)
 {
 	r->draw_end = 0;
 	r->draw_start = 0;
-	r->cam.x = 2 * (r->x / (double)WIN_H - 0.8);
-	r->dir.x =  r->pl.dx + (r->pl.plane.x * r->cam.x);
-	r->dir.y =  r->pl.dy + (r->pl.plane.y * r->cam.x);
+	r->cam.x = 2 * r->x / (double)WIN_W - 1;
+	r->dir.x =  r->pl.dx + r->pl.plane.x * r->cam.x;
+	r->dir.y =  r->pl.dy + r->pl.plane.y * r->cam.x;
 	r->map = (t_vector2D){(r->pl.x + 0.5), (r->pl.y + 0.5)};
 	if (r->dir.y == 0)
 		r->delta.x = 0;
@@ -65,27 +65,23 @@ void	init_dda(t_raycasting *r)
 	if (r->dir.x < 0)
 	{
 		r->step.x = -1;
-		r->side_dist.x = (((r->pl.x + 0.5)) - r->map.x)
-		* r->delta.x;
+		r->side_dist.x = (((r->pl.x + 0.5)) - r->map.x) * r->delta.x;
 
 	}
 	else
 	{
 		r->step.x = 1;
-		r->side_dist.x = (r->map.x + 1 - ((r->pl.x + 0.5)))
-		* r->delta.x;
+		r->side_dist.x = (r->map.x + 1 - ((r->pl.x + 0.5))) * r->delta.x;
 	}
 	if (r->dir.y < 0)
 	{
 		r->step.y = -1;
-		r->side_dist.y = ((r->pl.y + 0.5) - r->map.y)
-		* r->delta.y;
+		r->side_dist.y = ((r->pl.y + 0.5) - r->map.y) * r->delta.y;
 	}
 	else
 	{
 		r->step.y = 1;
-		r->side_dist.y = (r->map.y + 1 - (r->pl.y + 0.5))
-		* r->delta.y;
+		r->side_dist.y = (r->map.y + 1 - (r->pl.y + 0.5)) * r->delta.y;
 	}
 }
 
@@ -130,7 +126,7 @@ void	dda(t_raycasting *r)
 		}
 		if (r->map.y < _img()->map_height && r->map.y >= 0 &&
 			r->map.x < _img()->map_width && r->map.x >= 0
-			&& _img()->map[r->map.y][r->map.x] == '1') // ! Possible crash si pas de mur ( rajouter condition pour break)
+			&& _img()->map[r->map.y][r->map.x] == '1')
 			r->hit = 1;
 	}
 }
@@ -143,10 +139,10 @@ void	compute_drawing_data(t_raycasting *r)
 	else
 		r->perp_wall_dist = (r->side_dist.y - r->delta.y);
 	r->line_h = (int)(WIN_H / r->perp_wall_dist);
-	r->draw_start = -r->line_h / 2 + WIN_H / 2;
+	r->draw_start = (-r->line_h / 2 + WIN_H / 2) + _player()->pitch + (_player()->z / r->perp_wall_dist);
 	if (r->draw_start < 0)
 		r->draw_start = 0;
-	r->draw_end = r->line_h / 2 + WIN_H / 2;
+	r->draw_end = (r->line_h / 2 + WIN_H / 2) + _player()->pitch  + (_player()->z / r->perp_wall_dist);
 	if (r->draw_end > WIN_H)
 		r->draw_end = WIN_H - 1;
 	if (r->side == 0)
@@ -163,13 +159,13 @@ void	draw_wall(t_raycasting *r)
 		r->tex.x = 64 - r->tex.x - 1;
 	else if (r->side == 1 && r->dir.y < 0)
 		r->tex.x = 64 - r->tex.x - 1;
+	r->tex_step = 1.0 * 64 / r->line_h;
+	r->tex_pos = (r->draw_start - _player()->pitch - (_player()->z / r->perp_wall_dist) - WIN_H / 2 + r->line_h / 2) * r->tex_step;
 	r->y = r->draw_start;
 	while(r->y < r->draw_end)
 	{
-		r->tex_step = r->y * _var()->menu->wall.line_length - WIN_H
-		* _var()->menu->wall.line_length / 2 + r->line_h * _var()->menu->wall.line_length / 2;
-		r->tex.y = ((r->tex_step * _var()->menu->wall.height) / r->line_h)
-			/ _var()->menu->wall.line_length;
+		r->tex.y = (int)r->tex_pos & (128 - 1);
+        r->tex_pos += r->tex_step;
 		r->color = (int)_var()->menu->wall.addr[(r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)];
 		if(r->side == 1)
 			r->color = (r->color >> 1) & 8355711;

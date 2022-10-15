@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/06 13:27:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/06 15:23:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,6 @@ void	ft_draw_map(void)
 	}
 	DrawCircle(ft_return_xp(), ft_return_yp(), ft_return_radius(), 0xFFFF0000);
 	plot_line(ft_first_vector(), ft_scnd_vector(), 0xcf34eb);
+	DrawCircle(ft_return_xp_2(), ft_return_yp_2(), ft_return_radius_2(), 0xFFFF0000);
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
