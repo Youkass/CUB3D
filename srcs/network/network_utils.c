@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/17 17:30:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 00:07:24 by yuro4ka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*ft_get_host_ip()
 		exit(127); //TODO
 	if (read(fd, &buf, BUFFER_SIZE) < 0)
 		exit(127); //TODO
+	unlink(TMP_FILE);
+	return (buf);
 }
 
 int	ft_network_type(char *argv)

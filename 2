@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:45:15 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 00:22:03 by yuro4ka          ###   ########.fr       */
+/*   Updated: 2022/10/18 00:18:31 by yuro4ka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ int	ft_init_client(void)
 	ret = connect(client.socket,
 		(const struct sockaddr *)&(client.addr), sizeof(client.addr));
 	if (ret < 0)
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	printf("connecté\n");
-	return (EXIT_SUCCESS);
+	_img()->socket = client.socket;
+	return (SUCCESS);
 }
 
 void	ft_pong_client()
