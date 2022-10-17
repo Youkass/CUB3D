@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/07 14:34:31 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:30:18 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,6 @@ esc : 65307
 # define FAILURE 1
 # define SUCCESS 0
 
+# define TMP_FILE ".tmp"
+# define CMD_PRINT_IP "hostname -i > .tmp"
 #endif

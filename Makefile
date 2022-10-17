@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre             #+#    #+#          #
-#    Updated: 2022/10/17 12:08:24 by yobougre         ###   ########.fr        #
+#    Updated: 2022/10/17 17:30:18 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,13 @@ SRCS		=	srcs/main.c\
 				srcs/menu/utils.c\
 				srcs/menu/mouse_hook.c\
 				srcs/menu/dragbar.c\
-				srcs/parsing/parsing.c
+				srcs/parsing/parsing.c\
+				srcs/network/network_utils.c\
+				srcs/network/client.c
+
+SERVER_SRCS		= srcs/network/server.c\
+				  srcs/network/network_utils.c
+
 
 NAME		= cub3D
 minilibx	= mlx/libmlx.a
@@ -59,6 +65,7 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/utils
 	@mkdir -p $(OBJS_DIR)srcs/drawing
 	@mkdir -p $(OBJS_DIR)srcs/menu
+	@mkdir -p $(OBJS_DIR)srcs/network
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 
