@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/06 13:25:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/06 15:23:02 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,20 @@ int	ft_return_yp(void)
 float	ft_return_radius(void)
 {
 	return ((_player()->hb.hit.radius) * _img()->scale);
+}
+
+int	ft_return_xp_2(void)
+{
+	return ((int)(_player2()->hb.hit.x
+		* _img()->scale) + _img()->half_scale_offset);
+}
+
+int	ft_return_yp_2(void)
+{
+	return ((int)(_player2()->hb.hit.y * _img()->scale) + _img()->half_scale);
+}
+
+float	ft_return_radius_2(void)
+{
+	return ((_player2()->hb.hit.radius) * _img()->scale);
 }

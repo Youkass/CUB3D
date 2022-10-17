@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"cub.h": "c",
-		"complex": "c"
+		"complex": "c",
+		"struct.h": "c",
+		"includes.h": "c"
 	}
 }

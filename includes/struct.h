@@ -71,21 +71,20 @@ typedef struct s_mlx
 
 typedef struct s_data
 {	
-	void	*img;
-	char	*addr;
-	char	**map;
-	int		map_width;
-	int		map_height;
-	int		scale;
-	int		half_scale;
-	int		half_scale_offset;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		height;
-	int		width;
-	int		socket;
-	int		network;
+	void		*img;
+	char		*addr;
+	char		**map;
+	int			map_width;
+	int			map_height;
+	int			scale;
+	int			half_scale;
+	int			half_scale_offset;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			height;
+	int			width;
+	t_vector2D	pos;
 }	t_data;
 
 typedef struct	s_obj
@@ -93,9 +92,11 @@ typedef struct	s_obj
 	int			id;
 	float		x;
 	float		y;
+	float		z;
 	char		c;
 	float		dx;
 	float		dy;
+	float		da;
 	float		old_dx;
 	float		old_dy;
 	float		angle;
@@ -105,6 +106,7 @@ typedef struct	s_obj
 	t_vector2F	old_plane;
 	t_hitbox	hb;
 	t_data		sprite;
+	int				pitch;
 }	t_obj;
 
 typedef struct s_enum_key
@@ -169,6 +171,7 @@ typedef struct s_spritecasting
 	t_vector2D	tex;
 	int			d;
 	int			color;
+	int			move_screen;
 }	t_spritecasting;
 
 typedef struct s_menu
@@ -190,6 +193,10 @@ typedef struct s_menu
 	int			draging_m;
 	int			mode;
 	t_data		wall;
+	t_data		planet;
+	int			n;
+	int			ny;
+	unsigned long	start;
 }	t_menu;
 
 typedef struct	s_rect
@@ -208,6 +215,11 @@ typedef struct s_key
 	int	s;
 	int	d;
 	int	esc;
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+	int	space;
 }	t_key;
 
 typedef struct s_var
