@@ -6,11 +6,25 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/07 14:47:09 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:30:16 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes.h"
+
+void	ft_ping_server()
+{
+	t_obj	player;
+
+	player = ft_get_data(_player());
+	send(_img()->socket, &player, sizeof(player), 0);
+	printf("my player.x : %f my player.y : %f\n", player.x, player.y);
+	recv(_img()->socket, &player, sizeof(player), 0);
+	printf("other player.x : %f other player.y : %f\n", player.x, player.y);
+	_player2()->x = player.x;
+	_player2()->y = player.y;
+	draw_void_thread();
+}
 
 int	ft_init_server(void)
 {
@@ -20,7 +34,7 @@ int	ft_init_server(void)
 	int			ret;
 
 	server.socket = socket(AF_INET, SOCK_STREAM, 0);
-	server.addr.sin_addr.s_addr = inet_addr("10.11.6.21");
+	server.addr.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	server.addr.sin_family = AF_INET;
 	server.addr.sin_port = htons(30000);
 	ret = bind(server.socket,
@@ -40,16 +54,6 @@ int	ft_init_server(void)
 	return (SUCCESS);
 }
 
-void	ft_ping_server()
+int main(int ac, char **av)
 {
-	t_obj	player;
-
-	player = ft_get_data(_player());
-	send(_img()->socket, &player, sizeof(player), 0);
-	printf("my player.x : %f my player.y : %f\n", player.x, player.y);
-	recv(_img()->socket, &player, sizeof(player), 0);
-	printf("other player.x : %f other player.y : %f\n", player.x, player.y);
-	_player2()->x = player.x;
-	_player2()->y = player.y;
-	draw_void_thread();
 }

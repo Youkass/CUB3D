@@ -1,9 +1,6 @@
 /* ************************************************************************** */
 /*                                                                            */ /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*   main.c                                             :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */ /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
 /*   Updated: 2022/10/07 02:03:34 by denissereno      ###   ########.fr       */
 /*                                                                            */
@@ -186,10 +183,6 @@ int main(int argc, char **argv)
 	if (!_img()->map)
 		exit(139);
 	ft_print_tab(_img()->map);
-	if (argc == 3)
-		ft_network_type(argv[2]);
-	else
-		_img()->network = NONE;
 	ft_init_mlx();
 	ft_init_img();
 	_ray();

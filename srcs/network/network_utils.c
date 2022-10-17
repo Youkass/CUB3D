@@ -6,11 +6,42 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/07 14:36:29 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:30:16 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes.h"
+
+static int	ft_is(char c)
+{
+	if ((c >= '0' && c <= '9') || c == '.')
+		return (0);
+	return (1);
+}
+
+static int	end_of_line(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && !ft_is(s[i]))
+		++i;
+	return (i);
+}
+
+char	*ft_get_host_ip()
+{
+	int		fd;
+	char	buf[30];
+
+	if (system(CMD_PRINT_IP) < 0)
+		exit(127); //TODO
+	fd = open(TMP_FILE, O_RDONLY);
+	if (fd < 0)
+		exit(127); //TODO
+	if (read(fd, &buf, BUFFER_SIZE) < 0)
+		exit(127); //TODO
+}
 
 int	ft_network_type(char *argv)
 {
