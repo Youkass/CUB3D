@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/02 14:27:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/07 13:17:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,32 @@ void	check_button_state_options(void)
 }
 
 /*
+-Planet frame calculation
+*/
+void	planet_clock(void)
+{
+	if (get_clock(_var()->clock) - _var()->menu->start > 100000 )
+	{
+		_var()->menu->n++;
+		if (_var()->menu->n >= 120)
+			_var()->menu->n = 0;
+		if (!((_var()->menu->n + 1) % 12))
+		{
+			_var()->menu->n = 0;
+			_var()->menu->ny++;
+		}
+		if (_var()->menu->ny >= 10)
+			_var()->menu->ny = 0;
+		_var()->menu->start = get_clock(_var()->clock);
+	}
+}
+
+/*
 -Loop for menu displaying.
 */
 int	menu_loop(void)
 {
+	planet_clock();
 	drag_bar();
 	if (_var()->menu->mode == MENU_START)
 		check_button_state();

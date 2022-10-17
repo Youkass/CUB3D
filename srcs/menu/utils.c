@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/06 00:08:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/07 02:46:50 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,35 @@ t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos)
 		while (it.x < lil.width)
 		{
 			draw_pixel(&big, lil, it, rel_pos[0]);
+			rel_pos[0].x += 4;
+			pos.x++;
+			it.x++;
+		}
+		pos.y++;
+		rel_pos[0].y = pos.y * big.line_length;
+		rel_pos[0].x = rel_pos[1].x;
+		it.y++;
+	}
+	return (big);
+}
+
+t_data	ft_put_sprite_to_image(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size)
+{
+	t_vector2D	rel_pos[2];
+	t_vector2D	it;
+
+	if (pos.x >= big.width || pos.y >= big.height || lil.height + pos.x
+		> big.height || lil.width + pos.y > big.width)
+		return (big);
+	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
+	rel_pos[1] = rel_pos[0];
+	it = (t_vector2D){0, 0};
+	while (it.y < size.y)
+	{
+		it.x = 0;
+		while (it.x < size.x)
+		{
+			draw_pixel(&big, lil, (t_vector2D){it.x + sp_pos.x, it.y + sp_pos.y}, rel_pos[0]);
 			rel_pos[0].x += 4;
 			pos.x++;
 			it.x++;

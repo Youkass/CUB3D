@@ -45,7 +45,7 @@ esc : 65307
 # define GAME 0
 # define MENU 1
 
-# define TH_RAY 10
+# define TH_RAY 5
 
 # define PI 3.14159 
 # define P2 (PI/2)
@@ -60,6 +60,11 @@ esc : 65307
 # define S 115
 # define D 100
 # define ESC 65307
+# define ARR_UP 65362
+# define ARR_DOWN 65364
+# define ARR_LEFT 65361
+# define ARR_RIGHT 65363
+# define SPACE 32
 # define WALL 1
 # define PLAYER 2
 # define VOID 3
@@ -68,6 +73,9 @@ esc : 65307
 # define MINIMAP_SIZE 512
 # define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)
 
+#define uDiv 1
+#define vDiv 1
+#define vMove 0.0
 # define PLAY 0
 # define OPTIONS 1
 # define CREDITS 2
