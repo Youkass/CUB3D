@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/07 13:51:28 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 00:16:15 by yuro4ka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include "includes.h"
+
+typedef struct	s_network_data
+{
+	struct sockaddr_in	client;
+	int					socket;
+	int					is_host;
+}
 
 typedef struct s_vector2F {
 	float	x;
@@ -71,42 +78,45 @@ typedef struct s_mlx
 
 typedef struct s_data
 {	
-	void		*img;
-	char		*addr;
-	char		**map;
-	int			map_width;
-	int			map_height;
-	int			scale;
-	int			half_scale;
-	int			half_scale_offset;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	int			height;
-	int			width;
-	t_vector2D	pos;
+	void			*img;
+	char			*addr;
+	char			**map;
+	int				map_width;
+	int				map_height;
+	int				scale;
+	int				half_scale;
+	int				half_scale_offset;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+	int				height;
+	int				width;
+	int				nb_player;
+	t_vector2D		pos;
+	t_network_data	client;
 }	t_data;
 
 typedef struct	s_obj
 {
-	int			id;
-	float		x;
-	float		y;
-	float		z;
-	char		c;
-	float		dx;
-	float		dy;
-	float		da;
-	float		old_dx;
-	float		old_dy;
-	float		angle;
-	double		move_speed;
-	double		rot_speed;
-	t_vector2F	plane;
-	t_vector2F	old_plane;
-	t_hitbox	hb;
-	t_data		sprite;
+	int				id;
+	float			x;
+	float			y;
+	float			z;
+	char			c;
+	float			dx;
+	float			dy;
+	float			da;
+	float			old_dx;
+	float			old_dy;
+	float			angle;
+	double			move_speed;
+	double			rot_speed;
+	t_vector2F		plane;
+	t_vector2F		old_plane;
+	t_hitbox		hb;
+	t_data			sprite;
 	int				pitch;
+	struct s_obj	players[MAX_PLAYER];
 }	t_obj;
 
 typedef struct s_enum_key
@@ -252,5 +262,25 @@ typedef struct	s_nb
 	t_vector2F	nearest[2];
 	t_vector2F	potential;
 }	t_nb;
+
+typedef struct	s_client_thread
+{
+	pthread_mutex_t	mutex;
+	pthread_t		thread_id;
+	t_obj			player_data;
+	int				id;
+	int				nb_players;
+	int				socket;
+}	t_client_thread;
+
+typedef struct	s_server_data
+{
+	struct sockaddr_in		server;
+	t_client_thread			clients[MAX_PLAYER];
+	t_obj					player_data[MAX_PLAYER];
+	socklen_t				csize;
+	int						socket;
+	int						nb_players;
+}	t_server_data;
 
 #endif

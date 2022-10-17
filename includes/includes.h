@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/17 17:30:18 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 00:16:35 by yuro4ka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,7 @@ esc : 65307
 
 # define TMP_FILE ".tmp"
 # define CMD_PRINT_IP "hostname -i > .tmp"
+# define MAX_PLAYER 6
+# define HOST 1
+# define CLIENT 0
 #endif
