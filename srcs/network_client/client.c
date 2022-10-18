@@ -31,9 +31,9 @@ int	ft_init_client(void)
 	int			ret;
 
 	_img()->socket = socket(AF_INET, SOCK_STREAM, 0);
-	if (_img()->is_host == HOST)
+	if (_img()->is_host == SERVER)
 		_img()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
-	else 
+	else if (_img()->is_host == CLIENT) 
 		_img()->client.sin_addr.s_addr = inet_addr(ft_get_ip_input());
 	_img()->client.sin_family = AF_INET;
 	_img()->client.sin_port = htons(30000);
