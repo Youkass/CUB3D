@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 19:05:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:24:44 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ int main(int ac, char **av)
 
 	(void)ac;
 	data.nb_players = atoi(av[1]);
-	if (ft_init_server(&data))
+	if (ft_init_server(&data) == EXIT_FAILURE)
+	{
 		exit(EXIT_FAILURE);
+	}
 	if (ft_init_client_thread(&data))
 		exit(EXIT_FAILURE);
 	if (ft_connect_clients(&data))
