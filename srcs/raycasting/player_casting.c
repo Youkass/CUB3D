@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/18 17:51:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:15:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,11 @@ void	player_casting(void)
 	i = 0;
 	while (i < _img()->nb_player)
 	{
-		init_cast(&(_var()->o_player[i]));
-		draw(&(_var()->o_player[i]));
+		if (i != _player()->id)
+		{
+			init_cast(&(_var()->o_player[i]));
+			draw(&(_var()->o_player[i]));
+		}
+		++i;
 	}
 }

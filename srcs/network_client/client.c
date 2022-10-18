@@ -45,6 +45,8 @@ int	ft_init_client(void)
 	if (ret < 0)
 		return (EXIT_FAILURE);
 	printf("connecté\n");
+	recv(_img()->socket, &ret, sizeof(ret), 0);
+	_player()->id = ret;
 	return (EXIT_SUCCESS);
 }
 
@@ -52,25 +54,14 @@ void	ft_pong_client()
 {
 	t_obj	player;
 	int		i;
-	int		id;
 	
 	player = *_player();
-	id = -1;
 	i = 0;
 	send(_img()->socket, &player, sizeof(player), 0);
-	recv(_img()->socket, &id, sizeof(id), 0);
-	if (id < 0)
-		exit(EXIT_FAILURE);//TODO
-	while (i < _img()->nb_player)
+	while (i < _img()->nb_player - 1)
 	{
-		if (i != id)
-		{
-			recv(_img()->socket, &player, sizeof(player), 0);
-			++i;
-		}
-		else
-			++i;
+		recv(_img()->socket, &player, sizeof(player), 0);
 		_var()->o_player[player.id] = player;
+		++i;
 	}
-	_img()->id = id;
 }

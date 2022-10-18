@@ -1,12 +1,18 @@
 /* ************************************************************************** */
-/*                                                                            */ /*                                                        :::      ::::::::   */ /*   main.c                                             :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */ /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/07 02:03:34 by denissereno      ###   ########.fr       */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
+/*   Updated: 2022/10/18 19:34:17 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
-#include <unistd.h>
+#include <unistd.h> 
+
 void	get_key(int keycode)
 {
 	if (keycode == A)
@@ -201,6 +207,7 @@ int main(int argc, char **argv)
 			}
 			else
 			{
+				sleep(2);
 				ft_init_client();
 				ft_print_tab(_img()->map);
 				ft_init_mlx();
@@ -211,7 +218,7 @@ int main(int argc, char **argv)
 				ft_malloc_map();
 				init_key();
 				gen_menu_images();
-				_var()->mode = MENU;
+				_var()->mode = GAME;
 				ft_game();
 				mlx_loop(_mlx()->mlx);
 			}
@@ -230,7 +237,7 @@ int main(int argc, char **argv)
 			ft_malloc_map();
 			init_key();
 			gen_menu_images();
-			_var()->mode = MENU;
+			_var()->mode = GAME;
 			ft_game();
 			mlx_loop(_mlx()->mlx);
 		}
@@ -244,7 +251,7 @@ int main(int argc, char **argv)
 	ft_malloc_map();
 	init_key();
 	gen_menu_images();
-	_var()->mode = MENU;
+	_var()->mode = GAME;
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);
