@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre             #+#    #+#          #
-#    Updated: 2022/10/18 18:24:31 by yobougre         ###   ########.fr        #
+#    Updated: 2022/10/18 18:33:20 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
-	@$(CC) $(CC_FLAGS) -pthread -Lincludes -c $< -o $@
+	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS_PREFIXED) maker
 	@$(CC) -o $(NAME) $(OBJECTS_PREFIXED) $(CC_FLAGS) $(MLB_FLAGS)
