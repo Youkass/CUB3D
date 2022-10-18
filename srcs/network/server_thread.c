@@ -6,7 +6,7 @@
 /*   By: yuro4ka <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/18 20:12:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 20:18:07 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	*client_routine(void *client_t)
 	t_client_thread	*client;
 
 	client = (t_client_thread *)client_t;
+	send(client->socket, &(client->id), sizeof(client->id));
 	while (1)
 	{
 		if (ft_recv_first_data(client) == EXIT_FAILURE)
