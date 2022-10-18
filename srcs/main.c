@@ -8,7 +8,6 @@
 
 #include "../includes/cub.h"
 #include <unistd.h>
-
 void	get_key(int keycode)
 {
 	if (keycode == A)
@@ -80,18 +79,24 @@ void	ft_init_player_pos(void)
 void	ft_init_player2(void)
 {
 	double	dist;
+	int		i;
 
-	_player2()->x = 7;
-	_player2()->y = 8;
-	_player2()->z = 20;
-	_player2()->dx = -1;
-	_player2()->dy = 0;
-	_player2()->sprite = generate_image("./img/front.xpm");
-	_player2()->plane = (t_vector2F){0, -0.66};
-	_player2()->hb.hit.radius = 0.5;
-	_player2()->hb.n = 0;
-	dist = hypot(_player2()->dx, _player2()->dy);
-	_player2()->angle = 360 - acos(_player2()->dx / dist) * 180 / M_PI;	
+	i = 0;
+	while (i < _img()->nb_player)
+	{
+		_var()->o_player[i].x = 7;
+		_var()->o_player[i].y = 8;
+		_var()->o_player[i].z = 20;
+		_var()->o_player[i].dx = -1;
+		_var()->o_player[i].dy = 0;
+		_var()->o_player[i].sprite = generate_image("./img/front.xpm");
+		_var()->o_player[i].plane = (t_vector2F){0, -0.66};
+		_var()->o_player[i].hb.hit.radius = 0.5;
+		_var()->o_player[i].hb.n = 0;
+		dist = hypot(_var()->o_player[i].dx, _var()->o_player[i].dy);
+		_var()->o_player[i].angle = 360 - acos(_var()->o_player[i].dx / dist) * 180 / M_PI;	
+		++i;
+	}
 }
 
 
@@ -182,6 +187,15 @@ int main(int argc, char **argv)
 	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
 	if (!_img()->map)
 		exit(139);
+	if (argc == 4)
+	{
+		if (atoi(argv[2]) == 1)
+			_img()->network = SERVER;
+		else
+			_img()->network = CLIENT;
+		_img()->nb_player = atoi(argv[3]);
+		system(ft_strjoin("./server ", argv[3]));
+	}
 	ft_print_tab(_img()->map);
 	ft_init_mlx();
 	ft_init_img();

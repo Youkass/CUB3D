@@ -6,11 +6,11 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 00:07:24 by yuro4ka          ###   ########.fr       */
+/*   Updated: 2022/10/18 18:03:07 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes.h"
+#include "../../includes/cub.h"
 
 static int	ft_is(char c)
 {
@@ -19,7 +19,7 @@ static int	ft_is(char c)
 	return (1);
 }
 
-static int	end_of_line(char *s)
+int	end_of_line(char *s)
 {
 	int	i;
 
@@ -29,22 +29,27 @@ static int	end_of_line(char *s)
 	return (i);
 }
 
-char	*ft_get_host_ip()
+char	*ft_get_host_ip(void)
 {
 	int		fd;
-	char	buf[30];
+	char	*buf;
 
 	if (system(CMD_PRINT_IP) < 0)
 		exit(127); //TODO
+	buf = NULL;
+	buf = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
 	fd = open(TMP_FILE, O_RDONLY);
 	if (fd < 0)
 		exit(127); //TODO
-	if (read(fd, &buf, BUFFER_SIZE) < 0)
+	if (read(fd, buf, BUFFER_SIZE) < 0)
 		exit(127); //TODO
 	unlink(TMP_FILE);
+	printf("partager cette ip avec vos amis : %s\n", buf);
 	return (buf);
 }
-
+/*
 int	ft_network_type(char *argv)
 {
 	if (*argv == '1')
@@ -52,13 +57,13 @@ int	ft_network_type(char *argv)
 	else if (*argv == '2')
 		_img()->network = SERVER;
 	else
-		return (FAILURE);
+		return (FAILURE);*/
 	/*=================================================*/
 	/*THE NEXT PART NEED TO BE PUT IN THE UI LATER TODO*/
 	/*=================================================*/
-	if (_img()->network == CLIENT)
+/*	if (_img()->network == CLIENT)
 	{
-		if (ft_init_client())
+		if (ft_init_client(&(_img()->client)))
 			return (FAILURE);
 	}
 	else if (_img()->network == SERVER)
@@ -67,7 +72,7 @@ int	ft_network_type(char *argv)
 			return (FAILURE);
 	}
 	return (SUCCESS);
-}
+}*/
 
 t_obj	ft_get_data(t_obj *player)
 {

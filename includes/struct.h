@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/18 00:16:15 by yuro4ka          ###   ########.fr       */
+/*   Updated: 2022/10/18 18:18:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,6 @@
 # include <pthread.h>
 # include "includes.h"
 
-typedef struct	s_network_data
-{
-	struct sockaddr_in	client;
-	int					socket;
-	int					is_host;
-}
 
 typedef struct s_vector2F {
 	float	x;
@@ -78,22 +72,26 @@ typedef struct s_mlx
 
 typedef struct s_data
 {	
-	void			*img;
-	char			*addr;
-	char			**map;
-	int				map_width;
-	int				map_height;
-	int				scale;
-	int				half_scale;
-	int				half_scale_offset;
-	int				bits_per_pixel;
-	int				line_length;
-	int				endian;
-	int				height;
-	int				width;
-	int				nb_player;
-	t_vector2D		pos;
-	t_network_data	client;
+	void				*img;
+	char				*addr;
+	char				**map;
+	int					map_width;
+	int					map_height;
+	int					scale;
+	int					half_scale;
+	int					half_scale_offset;
+	int					bits_per_pixel;
+	int					line_length;
+	int					endian;
+	int					height;
+	int					width;
+	int					nb_player;
+	int					socket;
+	int					id;
+	int					network;
+	int					is_host;
+	t_vector2D			pos;
+	struct sockaddr_in	client;
 }	t_data;
 
 typedef struct	s_obj
@@ -116,9 +114,14 @@ typedef struct	s_obj
 	t_hitbox		hb;
 	t_data			sprite;
 	int				pitch;
-	struct s_obj	players[MAX_PLAYER];
 }	t_obj;
 
+typedef struct	s_network_data
+{
+	t_obj				player;
+	int					socket;
+	int					is_host;
+}	t_network_data;
 typedef struct s_enum_key
 {
 	int	id;
@@ -245,7 +248,7 @@ typedef struct s_var
 	pthread_t		th[TH_RAY];
 	pthread_t		th_void[10];
 	t_obj			**coord_map;
-	t_obj			player2;
+	t_obj			o_player[MAX_PLAYER];
 	int				zbuffer[WIN_W];
 }	t_var;
 
@@ -265,12 +268,15 @@ typedef struct	s_nb
 
 typedef struct	s_client_thread
 {
-	pthread_mutex_t	mutex;
-	pthread_t		thread_id;
-	t_obj			player_data;
-	int				id;
-	int				nb_players;
-	int				socket;
+	pthread_mutex_t			mutex;
+	struct sockaddr_in		sockclient;
+	pthread_t				thread_id;
+	t_obj					player_data;
+	socklen_t				csize;
+	int						id;
+	int						nb_players;
+	int						socket;
+	int						is_recv;
 }	t_client_thread;
 
 typedef struct	s_server_data
