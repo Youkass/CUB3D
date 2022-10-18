@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 17:05:25 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:21:26 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int	ft_loop()
 	draw_void_thread();
 	//ft_put_image_to_image(*_img(), _player()->sprite, (t_vector2D){500, 400});
 	draw_rays();
-	if (_img()->network == CLIENT)
+	if (_img()->is_host == CLIENT || _img()->is_host == SERVER)
 	{
 		ft_pong_client();
 		player_casting();
