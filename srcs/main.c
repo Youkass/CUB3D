@@ -190,11 +190,13 @@ int main(int argc, char **argv)
 	if (argc == 4)
 	{
 		if (atoi(argv[2]) == 1)
+		{
 			_img()->is_host = SERVER;
+			system(ft_strjoin("./server ", argv[3]));
+		}
 		else if (atoi(argv[2]) == 2)
 			_img()->is_host = CLIENT;
 		_img()->nb_player = atoi(argv[3]);
-		system(ft_strjoin("./server ", argv[3]));
 	}
 	ft_print_tab(_img()->map);
 	ft_init_mlx();
