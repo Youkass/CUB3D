@@ -190,9 +190,9 @@ int main(int argc, char **argv)
 	if (argc == 4)
 	{
 		if (atoi(argv[2]) == 1)
-			_img()->network = SERVER;
-		else
-			_img()->network = CLIENT;
+			_img()->is_host = SERVER;
+		else if (atoi[2] == 2)
+			_img()->is_host = CLIENT;
 		_img()->nb_player = atoi(argv[3]);
 		system(ft_strjoin("./server ", argv[3]));
 	}
