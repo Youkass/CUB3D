@@ -1,6 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/*                                                                            */ /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
@@ -10,12 +9,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes.h"
+#include "../../includes/cub.h"
 
 char	*ft_get_ip_input(void)
 {
-	char	buf[30];
+	char	*buf;
 
+	printf("Enter Host Ip on the next line : \n");
+	buf = malloc(sizeof(char) * BUFFER_SIZE);
+	if (!buf)
+		return (NULL);
 	if (read(STDIN_FILENO, &buf, sizeof(buf)))
 		return (NULL);
 	buf[end_of_line(buf)] = 0;
@@ -27,15 +30,15 @@ int	ft_init_client(void)
 {
 	int			ret;
 
-	_img()->client.socket = socket(AF_INET, SOCK_STREAM, 0);
+	_img()->socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (_img()->is_host == HOST)
-		client.addr.sin_addr.s_addr = inet_addr(ft_get_host_ip());
+		_img()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	else 
-		_img()->client.addr.sin_addr.s_addr = inet_addr(ft_get_ip_input);
-	client.addr.sin_family = AF_INET;
-	client.addr.sin_port = htons(30000);
-	ret = connect(client.socket,
-		(const struct sockaddr *)&(client.addr), sizeof(client.addr));
+		_img()->client.sin_addr.s_addr = inet_addr(ft_get_ip_input());
+	_img()->client.sin_family = AF_INET;
+	_img()->client.sin_port = htons(30000);
+	ret = connect(_img()->socket,
+		(const struct sockaddr *)&(_img()->client), sizeof(_img()->client));
 	if (ret < 0)
 		return (EXIT_FAILURE);
 	printf("connecté\n");
@@ -46,14 +49,25 @@ void	ft_pong_client()
 {
 	t_obj	player;
 	int		i;
+	int		id;
 	
 	player = *_player();
+	id = -1;
 	i = 0;
 	send(_img()->socket, &player, sizeof(player), 0);
-	while (i < _img()->)
-	recv(_img()->socket, &player, sizeof(player), 0);
-	_player2()->x = player.x;
-	_player2()->y = player.y;
-	player = ft_get_data(_player());
-	send(_img()->socket, &player, sizeof(player), 0);
+	recv(_img()->socket, &id, sizeof(id), 0);
+	if (id < 0)
+		exit(EXIT_FAILURE);//TODO
+	while (i < _img()->nb_player)
+	{
+		if (i != id)
+		{
+			recv(_img()->socket, &player, sizeof(player), 0);
+			++i;
+		}
+		else
+			++i;
+		_var()->o_player[player.id] = player;
+	}
+	_img()->id = id;
 }

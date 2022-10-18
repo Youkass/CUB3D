@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre             #+#    #+#          #
-#    Updated: 2022/10/17 17:30:18 by yobougre         ###   ########.fr        #
+#    Updated: 2022/10/18 18:24:31 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,24 +38,30 @@ SRCS		=	srcs/main.c\
 				srcs/menu/mouse_hook.c\
 				srcs/menu/dragbar.c\
 				srcs/parsing/parsing.c\
-				srcs/network/network_utils.c\
-				srcs/network/client.c
+				srcs/network_client/network_utils.c\
+				srcs/network_client/client.c
 
 SERVER_SRCS		= srcs/network/server.c\
-				  srcs/network/network_utils.c
+				  srcs/network_client/network_utils.c\
+				  srcs/network/server_thread.c
 
 
 NAME		= cub3D
+SERVER		= server
 minilibx	= mlx/libmlx.a
 OBJS_DIR	= objs/
 OBJS_DIR_B	= objs_b/
+OBJS_DIR_SERVER	= objs_server/
 OBJS		= $(SRCS:.c=.o)
 OBJS_B		= $(SRCS_B:.c=.o)
+OBJS_SERVER		= $(SERVER_SRCS:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
+OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra
 MLB_FLAGS	= -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
+
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)
@@ -65,9 +71,15 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/utils
 	@mkdir -p $(OBJS_DIR)srcs/drawing
 	@mkdir -p $(OBJS_DIR)srcs/menu
-	@mkdir -p $(OBJS_DIR)srcs/network
+	@mkdir -p $(OBJS_DIR)srcs/network_client
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
+
+$(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
+	@mkdir -p $(OBJS_DIR_SERVER)
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
+	@$(CC) $(CC_FLAGS) -pthread -Lincludes -c $< -o $@
 
 $(NAME): $(OBJECTS_PREFIXED) maker
 	@$(CC) -o $(NAME) $(OBJECTS_PREFIXED) $(CC_FLAGS) $(MLB_FLAGS)
@@ -77,7 +89,10 @@ $(NAME_B): $(OBJECTS_PREFIXED_B) maker
 	@$(CC) -o $(NAME_B) $(OBJECTS_PREFIXED_B) $(CC_FLAGS) $(MLB_FLAGS)
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME_B)$(END)\n"
 
-all: $(NAME)
+$(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
+	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) -pthread -Lincludes
+	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
+all: $(NAME) $(SERVER)
 
 bonus:	$(NAME_B)
 
@@ -87,12 +102,14 @@ maker:
 clean:
 	@rm -rf $(OBJS_DIR)
 	@rm -rf $(OBJS_DIR_B)
+	@rm -rf $(OBJS_DIR_SERVER)
 	@echo "${GRN}[CLEAN]${RST} done"
 
 fclean: clean
 	@make clean -C mlx
 	@rm -f $(NAME)
 	@rm -f $(NAME_B)
+	@rm -f $(SERVER)
 	@echo "${GRN}[FCLEAN]${RST} done"
 
 re: fclean all
