@@ -29,12 +29,19 @@ char	*ft_get_ip_input(void)
 int	ft_init_client(void)
 {
 	int			ret;
+	char		buf[30];
 
 	_img()->socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (_img()->is_host == SERVER)
-		_img()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
+	{
+		buf = strcpy(buf, ft_get_host_ip());
+		_img()->client.sin_addr.s_addr = inet_addr(buf);
+	}
 	else if (_img()->is_host == CLIENT) 
-		_img()->client.sin_addr.s_addr = inet_addr(ft_get_ip_input());
+	{
+		buf = strcpy(buf, ft_get_ip_input());
+		_img()->client.sin_addr.s_addr = inet_addr(buf);
+	}
 	_img()->client.sin_family = AF_INET;
 	_img()->client.sin_port = htons(30000);
 	ret = connect(_img()->socket,
