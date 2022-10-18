@@ -1,6 +1,5 @@
 /* ************************************************************************** */
-/*                                                                            */ /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */ /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */
+/*                                                                            */ /*                                                        :::      ::::::::   */ /*   main.c                                             :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */ /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
 /*   Updated: 2022/10/07 02:03:34 by denissereno      ###   ########.fr       */
 /*                                                                            */
@@ -179,6 +178,7 @@ void	init_key(void)
 int main(int argc, char **argv)
 {
 	int		fd;
+	int		pid;
 
 	fd = open(argv[1], O_RDONLY);
 	_var()->clock = start_clock();
@@ -189,18 +189,51 @@ int main(int argc, char **argv)
 		exit(139);
 	if (argc == 4)
 	{
+		_img()->nb_player = atoi(argv[3]);
 		if (atoi(argv[2]) == 1)
 		{
 			_img()->is_host = SERVER;
-			system(ft_strjoin("./server ", argv[3]));
-			ft_init_client();
+			pid = fork();
+			if (pid == 0)
+			{
+				system(ft_strjoin("./server ", argv[3]));
+				exit(1);
+			}
+			else
+			{
+				ft_init_client();
+				ft_print_tab(_img()->map);
+				ft_init_mlx();
+				ft_init_img();
+				_ray();
+				ft_init_player_pos();
+				ft_init_player2();
+				ft_malloc_map();
+				init_key();
+				gen_menu_images();
+				_var()->mode = MENU;
+				ft_game();
+				mlx_loop(_mlx()->mlx);
+			}
+			printf("je suis ici\n");
 		}
 		else if (atoi(argv[2]) == 2)
 		{
 			_img()->is_host = CLIENT;
 			ft_init_client();
+			ft_print_tab(_img()->map);
+			ft_init_mlx();
+			ft_init_img();
+			_ray();
+			ft_init_player_pos();
+			ft_init_player2();
+			ft_malloc_map();
+			init_key();
+			gen_menu_images();
+			_var()->mode = MENU;
+			ft_game();
+			mlx_loop(_mlx()->mlx);
 		}
-		_img()->nb_player = atoi(argv[3]);
 	}
 	ft_print_tab(_img()->map);
 	ft_init_mlx();

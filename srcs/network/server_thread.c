@@ -6,7 +6,7 @@
 /*   By: yuro4ka <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/18 18:27:39 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:09:01 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ int	ft_connect_clients(t_server_data *data)
 				&(data->clients[i])))
 			return (EXIT_FAILURE); //TODO
 	}
+	i = 0;
+	while (i < data->nb_players)
+		pthread_join((data->clients[i++].thread_id), NULL);
 	return (EXIT_SUCCESS);
 }
 
@@ -112,7 +115,7 @@ void	*client_routine(void *client_t)
 	client = (t_client_thread *)client_t;
 	while (1)
 	{
-		if (ft_recv_first_data(client))
+		if (ft_recv_first_data(client) == EXIT_FAILURE)
 			break ;
 		ft_send_all_data(client);
 	}

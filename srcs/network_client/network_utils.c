@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 18:03:07 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/18 19:19:28 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_get_host_ip(void)
 	if (read(fd, buf, BUFFER_SIZE) < 0)
 		exit(127); //TODO
 	unlink(TMP_FILE);
-	printf("partager cette ip avec vos amis : %s\n", buf);
+	printf("partager cette ip avec vos amis 42 : %s\n", buf);
 	return (buf);
 }
 /*
