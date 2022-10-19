@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 14:38:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 17:31:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	ft_init_server(t_server_data *data)
 int main(int ac, char **av)
 {
 	t_server_data	data;
-
+	
+	_server()->clock = start_clock();
 	(void)ac;
 	data.nb_players = atoi(av[1]);
 	if (ft_init_server(&data) == EXIT_FAILURE)
