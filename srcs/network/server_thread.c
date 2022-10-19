@@ -6,11 +6,20 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/19 18:20:52 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:30:50 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+static void	ft_exit(int signal)
+{
+	(void)signal;
+	pthread_mutex_unlock(&_server()->mutex);
+	printf("server fermé\n");
+	free(_server());
+	exit(1);
+}
 
 int	ft_init_client_thread(t_server_data *data)
 {
@@ -57,8 +66,9 @@ int	ft_recv_first_data(t_client_thread *client)
 {
 	if (!client->is_recv)
 	{
-		recv(client->socket, &(client->player_data), 
-			sizeof(client->player_data), 0);
+		if (recv(client->socket, &(client->player_data), 
+			sizeof(client->player_data), 0) < 0)
+			ft_exit(1);
 		client->is_recv = 1;
 		pthread_mutex_lock(client->mutex);
 		_server()->player_data[client->id] = client->player_data;
@@ -174,7 +184,8 @@ void	ft_send_all_data(t_client_thread *client)
 		{
 			pthread_mutex_lock(client->mutex);
 			data = _server()->player_data[i];
-			send(client->socket, &data, sizeof(data), 0);
+			if (send(client->socket, &data, sizeof(data), 0) < 0)
+				ft_exit(1);
 			pthread_mutex_unlock(client->mutex);
 		}
 		++i;
@@ -187,11 +198,12 @@ void	*client_routine(void *client_t)
 	t_client_thread	*client;
 
 	client = (t_client_thread *)client_t;
-	send(client->socket, &(client->id), sizeof(client->id), 0);
+	if (send(client->socket, &(client->id), sizeof(client->id), 0) < 0)
+		ft_exit(1);
 	while (1)
 	{
 		if (ft_recv_first_data(client) == EXIT_FAILURE)
-			break ;
+			ft_exit(1);
 		ft_send_all_data(client);
 	}
 	return (NULL);
