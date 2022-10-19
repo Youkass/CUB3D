@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/19 14:21:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 14:25:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	*client_routine(void *client_t)
 	t_client_thread	*client;
 
 	client = (t_client_thread *)client_t;
-	printf("HEY %D\n", client->id);
+	printf("HEY %d\n", client->id);
 	send(client->socket, &(client->id), sizeof(client->id), 0);
 	while (1)
 	{

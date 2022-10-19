@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 18:01:05 by yobougre         ###   ########.fr       */
+/*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
+/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@
 # include "includes.h"
 
 /* -------------------------------------------------------------------------- */
-/*                 FILE = ./srcs/raycasting/player_casting.c                  */
+/*                   FILE = srcs/raycasting/spritecasting.c                   */
 /* -------------------------------------------------------------------------- */
-void	player_casting(void);
+void	sprite_casting(void);
 
 /* -------------------------------------------------------------------------- */
-/*                   FILE = ./srcs/raycasting/raycasting.c                    */
+/*                     FILE = srcs/raycasting/check_box.c                     */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/raycasting/raycasting.c                     */
 /* -------------------------------------------------------------------------- */
 void	init_ray(t_raycasting *r);
 void	init_dda(t_raycasting *r);
@@ -33,37 +37,98 @@ void	*ray_draw(void *t);
 void	draw_rays(void);
 
 /* -------------------------------------------------------------------------- */
-/*                    FILE = ./srcs/raycasting/check_box.c                    */
-/* -------------------------------------------------------------------------- */
-
-/* -------------------------------------------------------------------------- */
-/*                FILE = ./srcs/raycasting/raycasting_utils.c                 */
+/*                 FILE = srcs/raycasting/raycasting_utils.c                  */
 /* -------------------------------------------------------------------------- */
 int intersects(t_circle circle, t_rect rect);
 void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b);
 void	ft_put_pixel_color(t_data *a, char color[4], int x, int y);
 
 /* -------------------------------------------------------------------------- */
-/*                  FILE = ./srcs/raycasting/spritecasting.c                  */
+/*                  FILE = srcs/raycasting/player_casting.c                   */
 /* -------------------------------------------------------------------------- */
-void	sprite_casting(void);
+void	player_casting(void);
 
 /* -------------------------------------------------------------------------- */
-/*                         FILE = ./srcs/utils/math.c                         */
+/*                       FILE = srcs/drawing/draw_map.c                       */
+/* -------------------------------------------------------------------------- */
+void	ft_find_wall_scale(void);
+void	ft_give_id(void);
+t_obj	*ft_copy_map_line(char *line, int index);
+int	ft_malloc_map(void);
+void	ft_draw_wall(t_obj wall, t_vector2D pos);
+void	ft_draw_floor(t_obj wall);
+void DrawCircle(int xp, int yp, float radius, int color);
+void	ft_draw_map(void);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/drawing/draw_player.c                      */
+/* -------------------------------------------------------------------------- */
+void plot_line (t_vector2D a, t_vector2D b, int color);
+t_vector2D	ft_first_vector(void);
+t_vector2D	ft_scnd_vector(void);
+int	ft_return_xp(void);
+int	ft_return_yp(void);
+float	ft_return_radius(void);
+int	ft_return_xp_2(void);
+int	ft_return_yp_2(void);
+float	ft_return_radius_2(void);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/network/server_thread.c                     */
+/* -------------------------------------------------------------------------- */
+int	ft_init_client_thread(t_server_data *data);
+int	ft_connect_clients(t_server_data *data);
+int	ft_recv_first_data(t_client_thread *client);
+int	ft_is_get(t_client_thread *client);
+void	ft_send_all_data(t_client_thread *client);
+void	*client_routine(void *client_t);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/network/server.c                        */
+/* -------------------------------------------------------------------------- */
+t_server_data	*_server(void);
+int	ft_init_server(t_server_data *data);
+int main(int ac, char **av);
+
+/* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/utils/math.c                          */
 /* -------------------------------------------------------------------------- */
 float	mag(t_vector2F v);
 t_vector2F	norm(t_vector2F v);
 float	max_f(float a, float b);
 float	min_f(float a, float b);
+float	min(int a, int b);
+int	normalise_between(t_vector2D r, t_vector2D t, int nb);
+int mod(int a, int b);
+float	rad_to_deg(float rad);
 
 /* -------------------------------------------------------------------------- */
-/*                     FILE = ./srcs/utils/singleton_2.c                      */
+/*                         FILE = srcs/utils/clock.c                          */
+/* -------------------------------------------------------------------------- */
+struct timeval	start_clock();
+unsigned long	get_clock(struct timeval start);
+void	walk_clock(void);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/utils/collisions.c                       */
+/* -------------------------------------------------------------------------- */
+void	*detect_neighbors(void);
+int	is_neighbor(t_vector2D pos);
+t_vector2F	init_potential_dist(int up);
+t_nb	*_nb(void);
+void	*compute_nb(int i);
+int	check_neighbor(int up);
+int	circle_circle_col(t_obj *pl);
+int	circle_collide(void);
+
+/* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/utils/singleton_2.c                       */
 /* -------------------------------------------------------------------------- */
 t_obj	*_player2();
 t_spritecasting	*_pc();
 
 /* -------------------------------------------------------------------------- */
-/*                      FILE = ./srcs/utils/singleton.c                       */
+/*                       FILE = srcs/utils/singleton.c                        */
 /* -------------------------------------------------------------------------- */
 t_data	*_img(void);
 t_mlx	*_mlx(void);
@@ -72,13 +137,7 @@ t_raycasting	**_ray(void);
 t_var	*_var(void);
 
 /* -------------------------------------------------------------------------- */
-/*                        FILE = ./srcs/utils/clock.c                         */
-/* -------------------------------------------------------------------------- */
-struct timeval	start_clock();
-unsigned long	get_clock(struct timeval start);
-
-/* -------------------------------------------------------------------------- */
-/*                      FILE = ./srcs/utils/key_hooks.c                       */
+/*                       FILE = srcs/utils/key_hooks.c                        */
 /* -------------------------------------------------------------------------- */
 void	key_hook(void);
 int	ft_game_hook(int keycode);
@@ -93,24 +152,30 @@ int	ft_left(void);
 int	ft_escape(void);
 
 /* -------------------------------------------------------------------------- */
-/*                  FILE = ./srcs/utils/malloc_hooks_enum.c                   */
+/*                   FILE = srcs/utils/malloc_hooks_enum.c                    */
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
-/*                      FILE = ./srcs/utils/collisions.c                      */
+/*                    FILE = srcs/network_client/client.c                     */
 /* -------------------------------------------------------------------------- */
-void	*detect_neighbors(void);
-int	is_neighbor(t_vector2D pos);
-t_vector2F	init_potential_dist(int up);
-t_nb	*_nb(void);
-void	*compute_nb(int i);
-int	check_neighbor(int up);
+char	*ft_get_ip_input(void);
+int	ft_init_client(void);
+void	ft_pong_client();
 
 /* -------------------------------------------------------------------------- */
-/*                            FILE = ./srcs/main.c                            */
+/*                 FILE = srcs/network_client/network_utils.c                 */
+/* -------------------------------------------------------------------------- */
+int	end_of_line(char *s);
+char	*ft_get_host_ip(void);
+int	ft_network_type(char *argv);
+t_obj	ft_get_data(t_obj *player);
+
+/* -------------------------------------------------------------------------- */
+/*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
 void	get_key(int keycode);
 int	ft_release(int keycode);
+void	generate_dsprite(void);
 void	ft_init_player_pos(void);
 void	ft_init_player2(void);
 void	ft_print_tab(char **s);
@@ -123,37 +188,15 @@ void	init_key(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
-/*                   FILE = ./srcs/network_client/client.c                    */
+/*                        FILE = srcs/menu/generate.c                         */
 /* -------------------------------------------------------------------------- */
-char	*ft_get_ip_input(void);
-int	ft_init_client(void);
-void	ft_pong_client();
+t_data	generate_image(char *path);
+t_vector2D	*_butp(void);
+void	generate_button_state(void);
+void    gen_menu_images(void);
 
 /* -------------------------------------------------------------------------- */
-/*                FILE = ./srcs/network_client/network_utils.c                */
-/* -------------------------------------------------------------------------- */
-char	*ft_get_host_ip(void);
-int	end_of_line(char *s);
-//int	t_network_type(char *argv);
-t_obj	ft_get_data(t_obj *player);
-
-/* -------------------------------------------------------------------------- */
-/*                        FILE = ./srcs/menu/dragbar.c                        */
-/* -------------------------------------------------------------------------- */
-void	s_bar_drag(void);
-void	m_bar_drag(void);
-void	drag_bar(void);
-
-/* -------------------------------------------------------------------------- */
-/*                        FILE = ./srcs/menu/render.c                         */
-/* -------------------------------------------------------------------------- */
-void	draw_bg(void);
-int	perc(int a, int b);
-void	menu_start(void);
-void	menu_option(void);
-
-/* -------------------------------------------------------------------------- */
-/*                         FILE = ./srcs/menu/loop.c                          */
+/*                          FILE = srcs/menu/loop.c                           */
 /* -------------------------------------------------------------------------- */
 void	check_button_state(void);
 void	check_action_state_bar(int i);
@@ -164,22 +207,22 @@ int	menu_loop(void);
 int	menu_hook(int keycode);
 
 /* -------------------------------------------------------------------------- */
-/*                       FILE = ./srcs/menu/generate.c                        */
+/*                         FILE = srcs/menu/render.c                          */
 /* -------------------------------------------------------------------------- */
-t_data	generate_image(char *path);
-t_vector2D	*_butp(void);
-void	generate_button_state(void);
-void    gen_menu_images(void);
+void	draw_bg(void);
+int	perc(int a, int b);
+void	menu_start(void);
+void	menu_option(void);
 
 /* -------------------------------------------------------------------------- */
-/*                      FILE = ./srcs/menu/mouse_hook.c                       */
+/*                       FILE = srcs/menu/mouse_hook.c                        */
 /* -------------------------------------------------------------------------- */
 void	check_button_state_mouse(int kc);
 void	check_button_state_mouse_options(int kc);
 int	menu_mouse_hook(int keycode);
 
 /* -------------------------------------------------------------------------- */
-/*                         FILE = ./srcs/menu/utils.c                         */
+/*                          FILE = srcs/menu/utils.c                          */
 /* -------------------------------------------------------------------------- */
 void	restart_button(void);
 int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
@@ -191,35 +234,14 @@ void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
 void	draw_bar_fill(void);
 
 /* -------------------------------------------------------------------------- */
-/*                   FILE = ./srcs/network/server_thread.c                    */
+/*                         FILE = srcs/menu/dragbar.c                         */
 /* -------------------------------------------------------------------------- */
-int	ft_init_client_thread(t_server_data *data);
-int	ft_connect_clients(t_server_data *data);
-int	ft_recv_first_data(t_client_thread *client);
-int	ft_is_get(t_client_thread *client);
-void	ft_send_all_data(t_client_thread *client);
-void	*client_routine(void *client_t);
+void	s_bar_drag(void);
+void	m_bar_drag(void);
+void	drag_bar(void);
 
 /* -------------------------------------------------------------------------- */
-/*                       FILE = ./srcs/network/server.c                       */
-/* -------------------------------------------------------------------------- */
-t_server_data	*_server(void);
-int	ft_init_server(t_server_data *data);
-
-/* -------------------------------------------------------------------------- */
-/*                    FILE = ./srcs/mlx_utils/mlx_utils.c                     */
-/* -------------------------------------------------------------------------- */
-void	ft_init_mlx();
-void	ft_init_img();
-void	ft_pixel_put(float x, float y, int color);
-void	ft_reload_frame();
-void	ft_fps(void);
-void	*ft_draw_void(void *r);
-void	draw_void_thread();
-int	ft_loop();
-
-/* -------------------------------------------------------------------------- */
-/*                      FILE = ./srcs/parsing/parsing.c                       */
+/*                       FILE = srcs/parsing/parsing.c                        */
 /* -------------------------------------------------------------------------- */
 size_t	ft_strlen(const char *s);
 void	*free_tab(char **tab, int k);
@@ -233,31 +255,19 @@ int check_map(char **map);
 int	get_longest_line(char **map);
 char	*copy_line_and_add(char *str, int size);
 char	**resize_map(char **map);
+int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
-/*                      FILE = ./srcs/drawing/draw_map.c                      */
+/*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
 /* -------------------------------------------------------------------------- */
-void	ft_find_wall_scale(void);
-void	ft_give_id(void);
-t_obj	*ft_copy_map_line(char *line, int index);
-int	ft_malloc_map(void);
-void	ft_draw_wall(t_obj wall, t_vector2D pos);
-void	ft_draw_floor(t_obj wall);
-void DrawCircle(int xp, int yp, float radius, int color);
-void	ft_draw_map(void);
-
-/* -------------------------------------------------------------------------- */
-/*                    FILE = ./srcs/drawing/draw_player.c                     */
-/* -------------------------------------------------------------------------- */
-void plot_line (t_vector2D a, t_vector2D b, int color);
-t_vector2D	ft_first_vector(void);
-t_vector2D	ft_scnd_vector(void);
-int	ft_return_xp(void);
-int	ft_return_yp(void);
-float	ft_return_radius(void);
-int	ft_return_xp_2(void);
-int	ft_return_yp_2(void);
-float	ft_return_radius_2(void);
+void	ft_init_mlx();
+void	ft_init_img();
+void	ft_pixel_put(float x, float y, int color);
+void	ft_reload_frame();
+void	ft_fps(void);
+void	*ft_draw_void(void *r);
+void	draw_void_thread();
+int	ft_loop();
 
 
 #endif

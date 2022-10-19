@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 14:13:51 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 15:53:50 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,85 @@ static void	draw(t_obj *player)
 {
 	int	stripe;
 	int	y;
+	int	tex_dir;
+	int	tex_mode;
+	int	walk_tex;
 
+	tex_mode = 0;
+	tex_dir  = mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 16}, player->angle) +
+	normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 16}, rad_to_deg(atan2(_player()->y - player->y, _player()->x - player->x))), 16);
+	if (player->is_walking == 1)
+	{
+		tex_mode = 1;
+		walk_tex =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, player->angle) +
+		normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(_player()->y - player->y, _player()->x - player->x))), 8);
+	}
 	compute_draw();
 	stripe = _pc()->draw_start.x;
 	while (stripe < _pc()->draw_end.x)
 	{
-		_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * player->sprite.width / _pc()->size.x) / 256;
+		if (!tex_mode)
+			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * player->dsprite[tex_dir].width / _pc()->size.x) / 256;
+		else
+			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * ((player->walk_sprite[walk_tex].width / 16)) / _pc()->size.x) / 256;
 		if(_pc()->trans.y > 0 && stripe > 0 && stripe < WIN_W && _pc()->trans.y < _var()->zbuffer[stripe])
 		{
 			y = _pc()->draw_start.y;
 			while (y < _pc()->draw_end.y)
 			{
 				_pc()->d = (y - _pc()->move_screen) * 256 - WIN_H * 128 + _pc()->size.y * 128;
-				_pc()->tex.y = ((_pc()->d * player->sprite.height) /_pc()->size.y) / 256;
-				ft_put_pixel(_img(), &_player()->sprite, (t_vector2D){stripe, y}, _pc()->tex);
+				if (!tex_mode)
+				{
+					_pc()->tex.y = ((_pc()->d * _player()->dsprite[tex_dir].height) /_pc()->size.y) / 256;
+					ft_put_pixel(_img(), &_player()->dsprite[tex_dir], (t_vector2D){stripe, y}, _pc()->tex);
+				}
+				else
+				{
+					_pc()->tex.y = ((_pc()->d * _player()->walk_sprite[0].height) /_pc()->size.y) / 256;
+					ft_put_pixel(_img(), &_player()->walk_sprite[walk_tex], (t_vector2D){stripe, y}, (t_vector2D){_pc()->tex.x + 43 * _var()->walk_n, _pc()->tex.y});
+				}
 				y++;
 			}
 		}
 		stripe++;
 	}
+}
 
+int	compute_distance(t_vector2F a, t_vector2F b)
+{
+	return ((int)(fabsf(b.x - a.x) + fabsf(b.y - a.y)));
+}
+
+void	sort_by_distance(void)
+{
+	int		i;
+	int		j;
+	t_obj	tmp;
+
+	i = 0;
+	j = 0;
+	while (i < _img()->nb_player)
+	{
+		_var()->sort_player[i] = _var()->o_player[i];
+		i++;
+	}
+	i = 0;
+	while (i < _img()->nb_player)
+	{
+		j = i + 1;
+		while (j < _img()->nb_player)
+		{
+			if (compute_distance((t_vector2F){_player()->x, _player()->y}, (t_vector2F){_var()->sort_player[j].x, _var()->sort_player[j].y}) >
+			compute_distance((t_vector2F){_player()->x, _player()->y}, (t_vector2F){_var()->sort_player[i].x, _var()->sort_player[i].y}))
+			{
+				tmp = _var()->sort_player[i];
+				_var()->sort_player[i] = _var()->sort_player[j];
+				_var()->sort_player[j] = tmp;
+			}		
+			j++;
+		}
+		i++;
+	}
 }
 
 void	player_casting(void)
@@ -75,13 +134,14 @@ void	player_casting(void)
 	int	i;
 
 	i = 0;
+	sort_by_distance();
 	while (i < _img()->nb_player)
 	{
-		if (i != _player()->id)
+		if (_var()->sort_player[i].id != _player()->id)
 		{
-			printf("%d, %f, %f\n", i, _var()->o_player[i].x, _var()->o_player[i].y);
-			init_cast(&(_var()->o_player[i]));
-			draw(&(_var()->o_player[i]));
+			printf("%d, %f, %f, %d\n", _var()->sort_player[i].id, _var()->sort_player[i].x, _var()->sort_player[i].y, _player()->id);
+			init_cast(&(_var()->sort_player[i]));
+			draw(&(_var()->sort_player[i]));
 		}
 		++i;
 	}
