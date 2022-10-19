@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/07 01:43:01 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 15:12:35 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	ft_forward(void)
 	{
 		_player()->y += (_player()->dy * _player()->move_speed);
 		_player()->x += (_player()->dx * _player()->move_speed);
-		printf("UP : %d, %d\n", (int)_player()->x, (int)_player()->y);
+		_player()->is_walking = 1;
 	}
 	return (0);
 }
@@ -125,6 +125,7 @@ int	ft_back(void)
 	{
 		_player()->y -= (_player()->dy * _player()->move_speed);
 		_player()->x -= (_player()->dx * _player()->move_speed);
+		_player()->is_walking = 1;
 	}
 	return (0);
 }

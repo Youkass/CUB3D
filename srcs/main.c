@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 14:13:39 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 15:00:47 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,15 @@ int	ft_release(int keycode)
 	if (keycode == A)
 		_var()->key.a = 0;
 	if (keycode == W)
+	{
 		_var()->key.w = 0;
+		_player()->is_walking = 0;
+	}
 	if (keycode == S)
+	{
 		_var()->key.s = 0;
+		_player()->is_walking = 0;
+	}
 	if (keycode == D)
 		_var()->key.d = 0;
 	if (keycode == ESC)
@@ -62,6 +68,38 @@ int	ft_release(int keycode)
 	return (0);
 }
 
+void	generate_dsprite(void)
+{
+	_player()->dsprite[0] = generate_image("./img/soldier/front.xpm"); // front
+	_player()->dsprite[1] = generate_image("./img/soldier/front_east_1.xpm"); // front east
+	_player()->dsprite[2] = generate_image("./img/soldier/front_east_2.xpm"); // front east
+	_player()->dsprite[3] = generate_image("./img/soldier/front_east_3.xpm"); // front east
+	_player()->dsprite[4] = generate_image("./img/soldier/east.xpm"); // east
+	_player()->dsprite[5] = generate_image("./img/soldier/back_east_1.xpm"); // back east
+	_player()->dsprite[6] = generate_image("./img/soldier/back_east_2.xpm"); // back east
+	_player()->dsprite[7] = generate_image("./img/soldier/back_east_3.xpm"); // back east
+	_player()->dsprite[8] = generate_image("./img/soldier/back.xpm"); // back
+	_player()->dsprite[9] = generate_image("./img/soldier/back_west_3.xpm"); // back west
+	_player()->dsprite[10] = generate_image("./img/soldier/back_west_2.xpm"); // back west
+	_player()->dsprite[11] = generate_image("./img/soldier/back_west_1.xpm"); // back west
+	_player()->dsprite[12] = generate_image("./img/soldier/west.xpm"); // west
+	_player()->dsprite[13] = generate_image("./img/soldier/front_west_3.xpm"); // front west
+	_player()->dsprite[14] = generate_image("./img/soldier/front_west_2.xpm"); // front west
+	_player()->dsprite[15] = generate_image("./img/soldier/front_west_1.xpm"); // front westwest
+
+	_player()->walk_sprite[0] = generate_image("./img/soldier/walk/front.xpm");
+	_player()->walk_sprite[1] = generate_image("./img/soldier/walk/southeast.xpm");
+	_player()->walk_sprite[2] = generate_image("./img/soldier/walk/east.xpm");
+	_player()->walk_sprite[3] = generate_image("./img/soldier/walk/northeast.xpm");
+	_player()->walk_sprite[4] = generate_image("./img/soldier/walk/back.xpm");
+	_player()->walk_sprite[5] = generate_image("./img/soldier/walk/northwest.xpm");
+	_player()->walk_sprite[6] = generate_image("./img/soldier/walk/west.xpm");
+	_player()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
+
+	_player()->death_sprite = generate_image("./img/soldier/death.xpm");
+}
+
+
 void	ft_init_player_pos(void)
 {
 	double	dist;
@@ -77,9 +115,11 @@ void	ft_init_player_pos(void)
 	_player()->hb.hit.radius = 0.5;
 	_player()->hb.n = 0;
 	_player()->pitch = 0;
+	generate_dsprite();
 	_player()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
-	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;	
+	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
+	_player()->is_walking = 0;	
 }
 
 void	ft_init_player2(void)
@@ -93,6 +133,7 @@ void	ft_init_player2(void)
 		_var()->o_player[i].x = 7;
 		_var()->o_player[i].y = 8;
 		_var()->o_player[i].z = 20;
+		_var()->o_player[i].is_walking = 0;
 		_var()->o_player[i].dx = -1;
 		_var()->o_player[i].dy = 0;
 		_var()->o_player[i].plane = (t_vector2F){0, -0.66};
@@ -188,6 +229,7 @@ int main(int argc, char **argv)
 
 	fd = open(argv[1], O_RDONLY);
 	_var()->clock = start_clock();
+	_var()->walk_start = get_clock(_var()->clock);
 	if (fd < 0)
 		exit(139);
 	_img()->map = resize_map(ft_split(read_file(fd), '\n'));

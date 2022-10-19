@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/18 18:18:19 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 15:14:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,23 +96,32 @@ typedef struct s_data
 
 typedef struct	s_obj
 {
-	int				id;
-	float			x;
-	float			y;
-	float			z;
-	char			c;
-	float			dx;
-	float			dy;
-	float			da;
-	float			old_dx;
-	float			old_dy;
-	float			angle;
-	double			move_speed;
-	double			rot_speed;
-	t_vector2F		plane;
-	t_vector2F		old_plane;
-	t_hitbox		hb;
-	t_data			sprite;
+	int			id;
+	float		x;
+	float		y;
+	float		z;
+	char		c;
+	float		dx;
+	float		dy;
+	float		da;
+	float		old_dx;
+	float		old_dy;
+	float		angle;
+	double		move_speed;
+	double		rot_speed;
+	int			is_walking;
+	int			is_dead;
+	unsigned long	start_dead;
+	int			death_n;
+	int			death_start;
+	t_vector2F	dif;
+	t_vector2F	plane;
+	t_vector2F	old_plane;
+	t_hitbox	hb;
+	t_data		sprite;
+	t_data		dsprite[16];
+	t_data		walk_sprite[8];
+	t_data		death_sprite;
 	int				pitch;
 }	t_obj;
 
@@ -248,8 +257,13 @@ typedef struct s_var
 	pthread_t		th[TH_RAY];
 	pthread_t		th_void[10];
 	t_obj			**coord_map;
-	t_obj			o_player[MAX_PLAYER];
+	t_obj			player2;
 	int				zbuffer[WIN_W];
+	unsigned long	walk_start;
+	int				walk_n;
+	t_data			rifle;
+	t_obj			o_player[MAX_PLAYER];
+	t_obj			sort_player[MAX_PLAYER];
 }	t_var;
 
 typedef struct s_player
