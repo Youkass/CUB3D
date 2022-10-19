@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 15:53:50 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 16:48:56 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,10 @@ void	sort_by_distance(void)
 	j = 0;
 	while (i < _img()->nb_player)
 	{
-		_var()->sort_player[i] = _var()->o_player[i];
+		//if (_var()->sort_player[i].id != _player()->id)
+			_var()->sort_player[i] = _var()->o_player[i];
+		//else
+			//_var()->sort_player[i] = *_player();
 		i++;
 	}
 	i = 0;
@@ -139,7 +142,8 @@ void	player_casting(void)
 	{
 		if (_var()->sort_player[i].id != _player()->id)
 		{
-			printf("%d, %f, %f, %d\n", _var()->sort_player[i].id, _var()->sort_player[i].x, _var()->sort_player[i].y, _player()->id);
+			if (_var()->sort_player[i].id == 0)
+				printf("%d, %f, %f, %d\n", _var()->sort_player[i].id, _var()->sort_player[i].x, _var()->sort_player[i].y, _player()->id);
 			init_cast(&(_var()->sort_player[i]));
 			draw(&(_var()->sort_player[i]));
 		}
