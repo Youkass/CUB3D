@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/10/19 17:32:05 by denissereno      ###   ########.fr        #
+#    Updated: 2022/10/19 18:11:00 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ $(NAME_B): $(OBJECTS_PREFIXED_B) maker
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME_B)$(END)\n"
 
 $(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
-	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) -pthread -Lincludes
+	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) -pthread -Lincludes -lm
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
 all: $(NAME) $(SERVER)
 
