@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/10/19 14:08:01 by denissereno      ###   ########.fr        #
+#    Updated: 2022/10/19 17:32:05 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ RST			= \033[0m
 END			= \e[0m
 
 SRCS		=	srcs/main.c\
+				srcs/shoot.c\
 				srcs/raycasting/raycasting_utils.c\
 				srcs/raycasting/raycasting.c\
 				srcs/raycasting/spritecasting.c\
@@ -43,7 +44,9 @@ SRCS		=	srcs/main.c\
 
 SERVER_SRCS		= srcs/network/server.c\
 				  srcs/network_client/network_utils.c\
-				  srcs/network/server_thread.c
+				  srcs/network/server_thread.c\
+					srcs/utils/clock.c\
+					srcs/utils/math.c
 
 
 NAME		= cub3D
@@ -78,6 +81,7 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 

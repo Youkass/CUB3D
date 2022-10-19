@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 15:00:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 17:55:00 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void	draw_void_thread()
 
 int	ft_loop()
 {
+	//printf("[%f, %f]\n", _player()->x, _player()->y);
 	draw_void_thread();
 	//ft_put_image_to_image(*_img(), _player()->sprite, (t_vector2D){500, 400});
 	draw_rays();

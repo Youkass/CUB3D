@@ -3,6 +3,7 @@
 		"cub.h": "c",
 		"complex": "c",
 		"struct.h": "c",
-		"includes.h": "c"
+		"includes.h": "c",
+		"__locale": "c"
 	}
 }

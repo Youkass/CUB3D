@@ -46,6 +46,8 @@ void	ft_put_pixel_color(t_data *a, char color[4], int x, int y);
 /* -------------------------------------------------------------------------- */
 /*                  FILE = srcs/raycasting/player_casting.c                   */
 /* -------------------------------------------------------------------------- */
+int	compute_distance(t_vector2F a, t_vector2F b);
+void	sort_by_distance(void);
 void	player_casting(void);
 
 /* -------------------------------------------------------------------------- */
@@ -80,6 +82,9 @@ int	ft_init_client_thread(t_server_data *data);
 int	ft_connect_clients(t_server_data *data);
 int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
+int	is_shoot_touch(t_vector2F a, t_vector2F b, t_vector2F c, float r);
+void	shoot(t_client_thread *client);
+void	routine_before_send(t_client_thread *client);
 void	ft_send_all_data(t_client_thread *client);
 void	*client_routine(void *client_t);
 
@@ -107,7 +112,6 @@ float	rad_to_deg(float rad);
 /* -------------------------------------------------------------------------- */
 struct timeval	start_clock();
 unsigned long	get_clock(struct timeval start);
-void	walk_clock(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/collisions.c                       */
@@ -133,6 +137,7 @@ t_spritecasting	*_pc();
 t_data	*_img(void);
 t_mlx	*_mlx(void);
 t_obj	*_player(void);
+t_obj	**__player(void);
 t_raycasting	**_ray(void);
 t_var	*_var(void);
 
@@ -177,6 +182,8 @@ void	get_key(int keycode);
 int	ft_release(int keycode);
 void	generate_dsprite(void);
 void	ft_init_player_pos(void);
+void	walk_clock(void);
+void	death_clock(t_obj *pl);
 void	ft_init_player2(void);
 void	ft_print_tab(char **s);
 int	ft_hook(int keycode);
@@ -186,6 +193,10 @@ int	ft_mouse_release(int keycode);
 int	ft_game(void);
 void	init_key(void);
 int main(int argc, char **argv);
+
+/* -------------------------------------------------------------------------- */
+/*                            FILE = srcs/shoot.c                             */
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/menu/generate.c                         */

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 16:48:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 17:45:08 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,22 @@ static void	draw(t_obj *player)
 		walk_tex =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, player->angle) +
 		normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(_player()->y - player->y, _player()->x - player->x))), 8);
 	}
+	if (_player2()->is_dead == 1)
+	{
+		tex_mode = 2;
+		//tex_sp =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, _player2()->angle) +
+		//normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(_player()->y - _player2()->y, _player()->x - _player2()->x))), 8);
+	}
 	compute_draw();
 	stripe = _pc()->draw_start.x;
 	while (stripe < _pc()->draw_end.x)
 	{
 		if (!tex_mode)
-			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * player->dsprite[tex_dir].width / _pc()->size.x) / 256;
+			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * _player()->dsprite[tex_dir].width / _pc()->size.x) / 256;
+		else if (tex_mode == 1)
+			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * ((_player()->walk_sprite[walk_tex].width / 16)) / _pc()->size.x) / 256;
 		else
-			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * ((player->walk_sprite[walk_tex].width / 16)) / _pc()->size.x) / 256;
+			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * ((_player()->death_sprite.width / 16)) / _pc()->size.x) / 256;
 		if(_pc()->trans.y > 0 && stripe > 0 && stripe < WIN_W && _pc()->trans.y < _var()->zbuffer[stripe])
 		{
 			y = _pc()->draw_start.y;
@@ -80,10 +88,15 @@ static void	draw(t_obj *player)
 					_pc()->tex.y = ((_pc()->d * _player()->dsprite[tex_dir].height) /_pc()->size.y) / 256;
 					ft_put_pixel(_img(), &_player()->dsprite[tex_dir], (t_vector2D){stripe, y}, _pc()->tex);
 				}
-				else
+				else if (tex_mode == 1)
 				{
 					_pc()->tex.y = ((_pc()->d * _player()->walk_sprite[0].height) /_pc()->size.y) / 256;
 					ft_put_pixel(_img(), &_player()->walk_sprite[walk_tex], (t_vector2D){stripe, y}, (t_vector2D){_pc()->tex.x + 43 * _var()->walk_n, _pc()->tex.y});
+				}
+				else
+				{
+					_pc()->tex.y = ((_pc()->d * player->death_sprite.height) /_pc()->size.y) / 256;
+					ft_put_pixel(_img(), &_player()->death_sprite, (t_vector2D){stripe, y + 5}, (t_vector2D){_pc()->tex.x + 39 * player->death_n, _pc()->tex.y});
 				}
 				y++;
 			}
@@ -107,10 +120,7 @@ void	sort_by_distance(void)
 	j = 0;
 	while (i < _img()->nb_player)
 	{
-		//if (_var()->sort_player[i].id != _player()->id)
-			_var()->sort_player[i] = _var()->o_player[i];
-		//else
-			//_var()->sort_player[i] = *_player();
+		_var()->sort_player[i] = _var()->o_player[i];
 		i++;
 	}
 	i = 0;
@@ -140,6 +150,7 @@ void	player_casting(void)
 	sort_by_distance();
 	while (i < _img()->nb_player)
 	{
+		death_clock(&_var()->o_player[i]);
 		if (_var()->sort_player[i].id != _player()->id)
 		{
 			if (_var()->sort_player[i].id == 0)
