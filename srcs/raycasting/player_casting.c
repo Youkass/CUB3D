@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 17:45:08 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 18:14:50 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,6 @@ void	player_casting(void)
 		death_clock(&_var()->o_player[i]);
 		if (_var()->sort_player[i].id != _player()->id)
 		{
-			if (_var()->sort_player[i].id == 0)
-				printf("%d, %f, %f, %d\n", _var()->sort_player[i].id, _var()->sort_player[i].x, _var()->sort_player[i].y, _player()->id);
 			init_cast(&(_var()->sort_player[i]));
 			draw(&(_var()->sort_player[i]));
 		}
