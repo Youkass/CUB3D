@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/18 20:24:41 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 14:13:51 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	draw(t_obj *player)
 			{
 				_pc()->d = (y - _pc()->move_screen) * 256 - WIN_H * 128 + _pc()->size.y * 128;
 				_pc()->tex.y = ((_pc()->d * player->sprite.height) /_pc()->size.y) / 256;
-				ft_put_pixel(_img(), &player->sprite, (t_vector2D){stripe, y}, _pc()->tex);
+				ft_put_pixel(_img(), &_player()->sprite, (t_vector2D){stripe, y}, _pc()->tex);
 				y++;
 			}
 		}
@@ -79,6 +79,7 @@ void	player_casting(void)
 	{
 		if (i != _player()->id)
 		{
+			printf("%d, %f, %f\n", i, _var()->o_player[i].x, _var()->o_player[i].y);
 			init_cast(&(_var()->o_player[i]));
 			draw(&(_var()->o_player[i]));
 		}

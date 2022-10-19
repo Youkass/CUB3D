@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 19:24:44 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:43:42 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_server_data	*_server(void)
 int	ft_init_server(t_server_data *data)
 {
 	data->socket = socket(AF_INET, SOCK_STREAM, 0);
-	data->server.sin_addr.s_addr = inet_addr(ft_get_host_ip());
+	data->server.sin_addr.s_addr = inet_addr("127.0.0.1");
 	data->server.sin_family = AF_INET;
 	data->server.sin_port = htons(30000);
 	if (bind(data->socket,
