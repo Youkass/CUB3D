@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 20:24:42 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 14:13:39 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	ft_init_player_pos(void)
 	_player()->hb.hit.radius = 0.5;
 	_player()->hb.n = 0;
 	_player()->pitch = 0;
+	_player()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;	
 }
@@ -94,7 +95,6 @@ void	ft_init_player2(void)
 		_var()->o_player[i].z = 20;
 		_var()->o_player[i].dx = -1;
 		_var()->o_player[i].dy = 0;
-		_var()->o_player[i].sprite = generate_image("./img/front.xpm");
 		_var()->o_player[i].plane = (t_vector2F){0, -0.66};
 		_var()->o_player[i].hb.hit.radius = 0.5;
 		_var()->o_player[i].hb.n = 0;
@@ -205,43 +205,12 @@ int main(int argc, char **argv)
 				system(ft_strjoin("./server ", argv[3]));
 				exit(1);
 			}
-			else
-			{
-				sleep(2);
-				ft_init_client();
-				ft_print_tab(_img()->map);
-				ft_init_mlx();
-				ft_init_img();
-				_ray();
-				ft_init_player_pos();
-				ft_init_player2();
-				ft_malloc_map();
-				init_key();
-				gen_menu_images();
-				_var()->mode = GAME;
-				ft_game();
-				mlx_loop(_mlx()->mlx);
-			}
-			printf("je suis ici\n");
 		}
 		else if (atoi(argv[2]) == 2)
-		{
 			_img()->is_host = CLIENT;
-			ft_init_client();
-			ft_print_tab(_img()->map);
-			ft_init_mlx();
-			ft_init_img();
-			_ray();
-			ft_init_player_pos();
-			ft_init_player2();
-			ft_malloc_map();
-			init_key();
-			gen_menu_images();
-			_var()->mode = GAME;
-			ft_game();
-			mlx_loop(_mlx()->mlx);
-		}
 	}
+	sleep(1);
+	ft_init_client();
 	ft_print_tab(_img()->map);
 	ft_init_mlx();
 	ft_init_img();

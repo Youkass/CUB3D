@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/18 17:52:18 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 13:51:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ esc : 65307
 # define P2 (PI/2)
 # define P3 (3*PI/2)
 # define DR 0.0174533
-# define WIN_H 900
-# define WIN_W 1440
+# define WIN_H 500
+# define WIN_W 500
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119
@@ -120,7 +120,8 @@ esc : 65307
 # define SUCCESS 0
 
 # define TMP_FILE ".tmp"
-# define CMD_PRINT_IP "hostname -i > .tmp"
+//# define CMD_PRINT_IP "hostname -i > .tmp"
+# define CMD_PRINT_IP "ipconfig getifaddr en0"
 # define MAX_PLAYER 6
 # define HOST 1
 # define BUFFER_SIZE 30

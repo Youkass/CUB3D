@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_thread.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuro4ka <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/18 20:24:41 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 14:21:46 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_init_client_thread(t_server_data *data)
 		data->clients[i].nb_players = data->nb_players;
 		data->clients[i].id = i;
 		data->clients[i].is_recv = 0;
+		printf("%d, %d\n", i, data->clients[i].id);
 		if (pthread_mutex_init(&data->clients[i].mutex, NULL))
 			return (EXIT_FAILURE);
 		++i;
@@ -41,10 +42,11 @@ int	ft_connect_clients(t_server_data *data)
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
 		if (data->clients[i].socket < 0)
 			return (EXIT_FAILURE); //TODO
-		printf("Client socket : %d accepted\n", data->clients[i].socket);
+		printf("Client socket : %d accepted, %d\n", data->clients[i].socket, data->clients[i].id);
 		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine, 
 				&(data->clients[i])))
 			return (EXIT_FAILURE); //TODO
+		i++;
 	}
 	i = 0;
 	while (i < data->nb_players)
@@ -58,7 +60,8 @@ int	ft_recv_first_data(t_client_thread *client)
 	{
 		recv(client->socket, &(client->player_data), 
 			sizeof(client->player_data), 0);
-		send(client->socket, &(client->id), sizeof(client->id), 0);
+		//printf("%f, %f\n", client->player_data.x, client->player_data.y);
+		//send(client->socket, &(client->id), sizeof(client->id), 0);
 		client->is_recv = 1;
 		pthread_mutex_lock(&(client->mutex));
 		_server()->player_data[client->id] = client->player_data;
@@ -113,6 +116,7 @@ void	*client_routine(void *client_t)
 	t_client_thread	*client;
 
 	client = (t_client_thread *)client_t;
+	printf("HEY %D\n", client->id);
 	send(client->socket, &(client->id), sizeof(client->id), 0);
 	while (1)
 	{
