@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 19:31:26 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:16:50 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,6 @@ char	*ft_get_host_ip(void)
 	printf("partager cette ip avec vos amis 42 : %s\n", buf);
 	return (buf);
 }
-/*
-int	ft_network_type(char *argv)
-{
-	if (*argv == '1')
-		_img()->network = CLIENT;
-	else if (*argv == '2')
-		_img()->network = SERVER;
-	else
-		return (FAILURE);*/
-	/*=================================================*/
-	/*THE NEXT PART NEED TO BE PUT IN THE UI LATER TODO*/
-	/*=================================================*/
-/*	if (_img()->network == CLIENT)
-	{
-		if (ft_init_client(&(_img()->client)))
-			return (FAILURE);
-	}
-	else if (_img()->network == SERVER)
-	{
-		if (ft_init_server())
-			return (FAILURE);
-	}
-	return (SUCCESS);
-}*/
 
 t_obj	ft_get_data(t_obj *player)
 {

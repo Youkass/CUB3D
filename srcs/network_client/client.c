@@ -56,7 +56,6 @@ void	ft_pong_client()
 	int		i;
 	
 	player = *_player();
-	//printf("%f, %f\n", player.x, player.y);
 	i = 0;
 	send(_img()->socket, &player, sizeof(player), 0);
 	while (i < _img()->nb_player)
