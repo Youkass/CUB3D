@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/19 17:51:49 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:20:52 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	ft_connect_clients(t_server_data *data)
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
 		if (data->clients[i].socket < 0)
 			return (EXIT_FAILURE); //TODO
-		printf("apres connexion\n");
 		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine, 
 				&(data->clients[i])))
 			return (EXIT_FAILURE); //TODO
@@ -168,7 +167,7 @@ void	ft_send_all_data(t_client_thread *client)
 	i = 0;
 	if (!ft_is_get(client))
 		return ;
-	routine_before_send(client);
+	//routine_before_send(client);
 	while (i < client->nb_players)
 	{
 		if (i != client->id)
