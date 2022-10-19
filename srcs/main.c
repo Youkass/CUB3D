@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 17:54:14 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:32:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ void	ft_init_player_pos(void)
 	_player()->y = 3;
 	_player()->z = 0;
 	_player()->dx = -1;
+	_player()->shooted = 0;
 	_player()->dy = 0;
+	_player()->is_dead = 0;
+	_player()->death_n = 0;
 	_player()->plane = (t_vector2F){0, -0.66};
 	_var()->time = 0;
 	_var()->old_time = 0;
@@ -120,6 +123,30 @@ void	ft_init_player_pos(void)
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
 	_player()->is_walking = 0;	
+}
+
+void	walk_clock(void)
+{
+	if (get_clock(_var()->clock) - _var()->walk_start > 50000 )
+	{
+		_var()->walk_n++;
+		if (_var()->walk_n >= 16)
+			_var()->walk_n = 0;
+		_var()->walk_start = get_clock(_var()->clock);
+	}
+}
+
+void	death_clock(t_obj *pl)
+{
+	if (pl->death_n == 15)
+		return ;
+	if (get_clock(_var()->clock) - pl->death_start > 50000 )
+	{
+		pl->death_n++;
+		if (pl->death_n >= 16)
+			pl->death_n = 15;
+		pl->death_start = get_clock(_var()->clock);
+	}
 }
 
 void	ft_init_player2(void)

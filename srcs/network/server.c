@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 17:55:56 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:31:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	ft_exit(int signal)
 int main(int ac, char **av)
 {
 	t_server_data	data;
-
+	
+	_server()->clock = start_clock();
 	(void)ac;
 	signal(SIGPIPE, &ft_exit);
 	data.nb_players = atoi(av[1]);

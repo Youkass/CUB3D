@@ -114,6 +114,7 @@ typedef struct	s_obj
 	unsigned long	start_dead;
 	int			death_n;
 	int			death_start;
+	int			shooted;
 	t_vector2F	dif;
 	t_vector2F	plane;
 	t_vector2F	old_plane;
@@ -122,7 +123,8 @@ typedef struct	s_obj
 	t_data		dsprite[16];
 	t_data		walk_sprite[8];
 	t_data		death_sprite;
-	int				pitch;
+	int			pitch;
+	void		*self;
 }	t_obj;
 
 typedef struct	s_network_data
@@ -302,6 +304,7 @@ typedef struct	s_server_data
 	socklen_t				csize;
 	int						socket;
 	int						nb_players;
+	struct timeval			clock;
 }	t_server_data;
 
 #endif
