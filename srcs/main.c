@@ -6,10 +6,9 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 17:32:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 18:14:51 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../includes/cub.h"
 #include <unistd.h> 
 
@@ -278,7 +277,7 @@ int main(int argc, char **argv)
 		else if (atoi(argv[2]) == 2)
 			_img()->is_host = CLIENT;
 	}
-	sleep(1);
+	sleep(2);
 	ft_init_client();
 	ft_print_tab(_img()->map);
 	ft_init_mlx();
