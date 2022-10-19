@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 15:12:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 17:27:27 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	key_hook(void)
 		ft_up_head();
 	if (_var()->key.down)
 		ft_down_head();
+	if (_var()->key.space)
+		_player()->shooted = 1;
 }
 
 int	ft_game_hook(int keycode)
