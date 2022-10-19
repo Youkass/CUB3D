@@ -58,9 +58,10 @@ void	ft_pong_client()
 	player = *_player();
 	i = 0;
 	send(_img()->socket, &player, sizeof(player), 0);
-	while (i < _img()->nb_player - 1)
+	while (i < _img()->nb_player)
 	{
 		recv(_img()->socket, &player, sizeof(player), 0);
+		//printf("=> %d, %f, %f\n", player.id, player.x, player.y);
 		_var()->o_player[player.id] = player;
 		++i;
 	}
