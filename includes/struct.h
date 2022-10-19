@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 15:14:41 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 17:47:38 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,7 @@ typedef struct	s_nb
 
 typedef struct	s_client_thread
 {
-	pthread_mutex_t			mutex;
+	pthread_mutex_t			*mutex;
 	struct sockaddr_in		sockclient;
 	pthread_t				thread_id;
 	t_obj					player_data;
@@ -297,6 +297,7 @@ typedef struct	s_server_data
 {
 	struct sockaddr_in		server;
 	t_client_thread			clients[MAX_PLAYER];
+	pthread_mutex_t			mutex;
 	t_obj					player_data[MAX_PLAYER];
 	socklen_t				csize;
 	int						socket;
