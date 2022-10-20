@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 17:45:08 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 20:53:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	draw(t_obj *player)
 		walk_tex =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, player->angle) +
 		normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(_player()->y - player->y, _player()->x - player->x))), 8);
 	}
-	if (_player2()->is_dead == 1)
+	if (player->is_dead == 1)
 	{
 		tex_mode = 2;
 		//tex_sp =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, _player2()->angle) +
@@ -150,7 +150,6 @@ void	player_casting(void)
 	sort_by_distance();
 	while (i < _img()->nb_player)
 	{
-		death_clock(&_var()->o_player[i]);
 		if (_var()->sort_player[i].id != _player()->id)
 		{
 			if (_var()->sort_player[i].id == 0)

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 17:30:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 20:52:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <pthread.h>
 # include "includes.h"
 
+struct s_obj;
+typedef struct s_obj t_obj;
 
 typedef struct s_vector2F {
 	float	x;
@@ -94,7 +96,23 @@ typedef struct s_data
 	struct sockaddr_in	client;
 }	t_data;
 
-typedef struct	s_obj
+
+typedef struct	s_hit
+{
+	int		shoot;
+	int		id;
+}	t_hit;
+
+typedef struct	s_weapon
+{
+	int		id;
+	char	*name;
+	int		power;
+	unsigned long		reload_ms;
+	int		ammo;
+}	t_weapon;
+
+struct	s_obj
 {
 	int			id;
 	float		x;
@@ -112,9 +130,13 @@ typedef struct	s_obj
 	int			is_walking;
 	int			is_dead;
 	unsigned long	start_dead;
+	unsigned long	start_reload;
+	int			can_shoot;
 	int			death_n;
 	int			death_start;
-	int			shooted;
+	int			weapon_id;
+	int			health;
+	int			ammo;
 	t_vector2F	dif;
 	t_vector2F	plane;
 	t_vector2F	old_plane;
@@ -123,9 +145,10 @@ typedef struct	s_obj
 	t_data		dsprite[16];
 	t_data		walk_sprite[8];
 	t_data		death_sprite;
+	t_data		rifle;
 	int			pitch;
-	void		*self;
-}	t_obj;
+	t_hit		shooted;
+};
 
 typedef struct	s_network_data
 {
@@ -266,6 +289,7 @@ typedef struct s_var
 	t_data			rifle;
 	t_obj			o_player[MAX_PLAYER];
 	t_obj			sort_player[MAX_PLAYER];
+	t_weapon		weapon[NB_WEAPONS];
 }	t_var;
 
 typedef struct s_player
