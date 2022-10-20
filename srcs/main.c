@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/20 12:29:22 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:02:41 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub.h"
@@ -284,7 +284,10 @@ int main(int argc, char **argv)
 		}
 	}
 	else
+	{
 		_img()->is_host = NONE;
+		_img()->nb_player = 0;
+	}
 	ft_print_tab(_img()->map);
 	ft_init_mlx();
 	ft_init_img();

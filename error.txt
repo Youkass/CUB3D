@@ -1,146 +1,64 @@
-==723797== Memcheck, a memory error detector
-==723797== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==723797== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==723797== Command: ./cub3D map.cub
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x111801: ft_init_player2 (main.c:157)
-==723797==    by 0x111CAF: main (main.c:293)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x11441A: ft_pixel_put (mlx_utils.c:62)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x117491: ft_draw_map (draw_map.c:215)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x114428: ft_pixel_put (mlx_utils.c:62)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x117491: ft_draw_map (draw_map.c:215)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x114436: ft_pixel_put (mlx_utils.c:62)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x117491: ft_draw_map (draw_map.c:215)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x114444: ft_pixel_put (mlx_utils.c:62)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x117491: ft_draw_map (draw_map.c:215)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Use of uninitialised value of size 8
-==723797==    at 0x11449C: ft_pixel_put (mlx_utils.c:66)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x117491: ft_draw_map (draw_map.c:215)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x11441A: ft_pixel_put (mlx_utils.c:62)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x1174D7: ft_draw_map (draw_map.c:217)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x114428: ft_pixel_put (mlx_utils.c:62)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x1174D7: ft_draw_map (draw_map.c:217)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x114436: ft_pixel_put (mlx_utils.c:62)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x1174D7: ft_draw_map (draw_map.c:217)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x114444: ft_pixel_put (mlx_utils.c:62)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x1174D7: ft_draw_map (draw_map.c:217)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Use of uninitialised value of size 8
-==723797==    at 0x11449C: ft_pixel_put (mlx_utils.c:66)
-==723797==    by 0x11720A: DrawCircle (draw_map.c:185)
-==723797==    by 0x1174D7: ft_draw_map (draw_map.c:217)
-==723797==    by 0x114882: ft_loop (mlx_utils.c:161)
-==723797==    by 0x111929: ft_loop_hook (main.c:213)
-==723797==    by 0x11D07C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== Syscall param writev(vector[...]) points to uninitialised byte(s)
-==723797==    at 0x4BCAC3D: __writev (writev.c:26)
-==723797==    by 0x4BCAC3D: writev (writev.c:24)
-==723797==    by 0x4CE6A52: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==723797==    by 0x4CE6B1F: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==723797==    by 0x4CE7D67: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==723797==    by 0x48CA5BD: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==723797==    by 0x48CDBA8: _XEventsQueued (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==723797==    by 0x48BA1A0: XPending (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==723797==    by 0x11D00E: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797==  Address 0x4d60c0f is 31 bytes inside a block of size 16,384 alloc'd
-==723797==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==723797==    by 0x48B8DCE: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==723797==    by 0x11CCD7: mlx_init (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x1142FB: ft_init_mlx (mlx_utils.c:22)
-==723797==    by 0x111C96: main (main.c:289)
-==723797== 
-==723797== Conditional jump or move depends on uninitialised value(s)
-==723797==    at 0x11A8C9: ft_hitbox (utils.c:36)
-==723797==    by 0x11B260: check_button_state_mouse (mouse_hook.c:23)
-==723797==    by 0x11B425: menu_mouse_hook (mouse_hook.c:71)
-==723797==    by 0x11D0D5: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==723797==    by 0x111CDF: main (main.c:299)
-==723797== 
-==723797== 
-==723797== Process terminating with default action of signal 2 (SIGINT)
-==723797==    at 0x112602: dda (raycasting.c:127)
-==723797==    by 0x112E0F: ray_draw (raycasting.c:198)
-==723797==    by 0x4B44B42: start_thread (pthread_create.c:442)
-==723797==    by 0x4BD5BB3: clone (clone.S:100)
-==723797== 
-==723797== HEAP SUMMARY:
-==723797==     in use at exit: 2,056,003 bytes in 326 blocks
-==723797==   total heap usage: 2,191 allocs, 1,865 frees, 2,203,842 bytes allocated
-==723797== 
-==723797== LEAK SUMMARY:
-==723797==    definitely lost: 1,072 bytes in 2 blocks
-==723797==    indirectly lost: 0 bytes in 0 blocks
-==723797==      possibly lost: 1,088 bytes in 4 blocks
-==723797==    still reachable: 2,053,843 bytes in 320 blocks
-==723797==         suppressed: 0 bytes in 0 blocks
-==723797== Rerun with --leak-check=full to see details of leaked memory
-==723797== 
-==723797== Use --track-origins=yes to see where uninitialised values come from
-==723797== For lists of detected and suppressed errors, rerun with: -s
-==723797== ERROR SUMMARY: 144007 errors from 13 contexts (suppressed: 1 from 1)
+==745658== Memcheck, a memory error detector
+==745658== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==745658== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==745658== Command: ./cub3D map.cub
+==745658== 
+==745658== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==745658==    at 0x4BCAC3D: __writev (writev.c:26)
+==745658==    by 0x4BCAC3D: writev (writev.c:24)
+==745658==    by 0x4CE6A52: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==745658==    by 0x4CE6B1F: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==745658==    by 0x4CE7D67: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==745658==    by 0x48CA5BD: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==745658==    by 0x48CDBA8: _XEventsQueued (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==745658==    by 0x48BA1A0: XPending (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==745658==    by 0x11D02E: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==745658==    by 0x111CEB: main (main.c:302)
+==745658==  Address 0x4d60c0f is 31 bytes inside a block of size 16,384 alloc'd
+==745658==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==745658==    by 0x48B8DCE: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==745658==    by 0x11CCF7: mlx_init (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==745658==    by 0x114307: ft_init_mlx (mlx_utils.c:22)
+==745658==    by 0x111CA2: main (main.c:292)
+==745658==  Uninitialised value was created by a stack allocation
+==745658==    at 0x11D170: mlx_int_anti_resize_win (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==745658== 
+==745658== Conditional jump or move depends on uninitialised value(s)
+==745658==    at 0x11A8E8: ft_hitbox (utils.c:36)
+==745658==    by 0x11B27F: check_button_state_mouse (mouse_hook.c:23)
+==745658==    by 0x11B444: menu_mouse_hook (mouse_hook.c:71)
+==745658==    by 0x11D0F5: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==745658==    by 0x111CEB: main (main.c:302)
+==745658==  Uninitialised value was created by a heap allocation
+==745658==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==745658==    by 0x114A48: _var (singleton.c:86)
+==745658==    by 0x111B05: main (main.c:257)
+==745658== 
+1111111111111111111111111ZZZZZ1111111111111111
+1000000000000000000000001ZZZZZ1000000000000001
+1000000000000000000000001ZZZZZ1111111111111101
+1000000000000000000000001111111000000000000001
+1000000000000000000000000000001000000000000111
+10000000000000000000000000000010000000000001ZZ
+100000000000000P0000000011111110011111111111ZZ
+1000000000000000000111111ZZZZZ1001ZZZZZZZZZZZZ
+10000000000000000001ZZZZZZZZZZ1001ZZZZZZZZZZZZ
+1111100000000000000111111111111001ZZZZZZZZZZZZ
+1111100000000000000000000000000001ZZZZZZZZZZZZ
+1111100000000000000000000000000001ZZZZZZZZZZZZ
+1111111111111111111111111111111111ZZZZZZZZZZZZ
+==745658== 
+==745658== HEAP SUMMARY:
+==745658==     in use at exit: 2,045,851 bytes in 330 blocks
+==745658==   total heap usage: 2,408 allocs, 2,078 frees, 2,213,766 bytes allocated
+==745658== 
+==745658== LEAK SUMMARY:
+==745658==    definitely lost: 1,072 bytes in 2 blocks
+==745658==    indirectly lost: 0 bytes in 0 blocks
+==745658==      possibly lost: 0 bytes in 0 blocks
+==745658==    still reachable: 2,044,779 bytes in 328 blocks
+==745658==         suppressed: 0 bytes in 0 blocks
+==745658== Rerun with --leak-check=full to see details of leaked memory
+==745658== 
+==745658== For lists of detected and suppressed errors, rerun with: -s
+==745658== ERROR SUMMARY: 45 errors from 2 contexts (suppressed: 1 from 1)
