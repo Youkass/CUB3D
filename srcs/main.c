@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/20 10:36:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:29:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub.h"
@@ -254,6 +254,7 @@ int main(int argc, char **argv)
 	int		pid;
 
 	fd = open(argv[1], O_RDONLY);
+	_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
 	if (fd < 0)
@@ -273,12 +274,17 @@ int main(int argc, char **argv)
 				system(ft_strjoin("./server ", argv[3]));
 				exit(1);
 			}
+			sleep(1);
+			ft_init_client();
 		}
 		else if (atoi(argv[2]) == 2)
+		{
 			_img()->is_host = CLIENT;
+			ft_init_client();
+		}
 	}
-	sleep(2);
-	ft_init_client();
+	else
+		_img()->is_host = NONE;
 	ft_print_tab(_img()->map);
 	ft_init_mlx();
 	ft_init_img();
