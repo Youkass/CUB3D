@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 18:14:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/20 10:36:16 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub.h"
