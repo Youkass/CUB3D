@@ -62,8 +62,6 @@ void	ft_pong_client()
 	{
 		recv(_img()->socket, &player, sizeof(player), 0);
 		_var()->o_player[player.id] = player;
-		printf("player id : %d recv data of player id : %d\n", _player()->id,
-				player.id);
 		++i;
 	}
 
