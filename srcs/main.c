@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 17:32:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 20:57:08 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	generate_dsprite(void)
 	_player()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
 
 	_player()->death_sprite = generate_image("./img/soldier/death.xpm");
+
+	_player()->rifle = generate_image("./img/soldier/rifle.xpm");
 }
 
 
@@ -104,11 +106,17 @@ void	ft_init_player_pos(void)
 {
 	double	dist;
 
+	_player()->weapon_id = 0;
+	_player()->can_shoot = 1;
+	_player()->start_reload = get_clock(_var()->clock);
+	_player()->health = 100;
+	_player()->ammo = 0;
 	_player()->x = 5;
 	_player()->y = 3;
 	_player()->z = 0;
 	_player()->dx = -1;
-	_player()->shooted = 0;
+	_player()->shooted.id = -1;
+	_player()->shooted.shoot = 0;
 	_player()->dy = 0;
 	_player()->is_dead = 0;
 	_player()->death_n = 0;
@@ -136,17 +144,23 @@ void	walk_clock(void)
 	}
 }
 
-void	death_clock(t_obj *pl)
+void	death_clock(void)
 {
-	if (pl->death_n == 15)
+	if (_player()->death_n == 15 || _player()->is_dead != 1)
 		return ;
-	if (get_clock(_var()->clock) - pl->death_start > 50000 )
+	if (get_clock(_var()->clock) - _player()->death_start > 50000 )
 	{
-		pl->death_n++;
-		if (pl->death_n >= 16)
-			pl->death_n = 15;
-		pl->death_start = get_clock(_var()->clock);
+		_player()->death_n++;
+		if (_player()->death_n >= 16)
+			_player()->death_n = 15;
+		_player()->death_start = get_clock(_var()->clock);
 	}
+}
+
+void	reload_clock(void)
+{
+	if (get_clock(_var()->clock) - _player()->start_reload > _var()->weapon[_player()->weapon_id].reload_ms)
+		_player()->can_shoot = 1;
 }
 
 void	ft_init_player2(void)
@@ -157,6 +171,8 @@ void	ft_init_player2(void)
 	i = 0;
 	while (i < _img()->nb_player)
 	{
+		_var()->o_player[i].weapon_id = 0;
+		_var()->o_player[i].health = 100;
 		_var()->o_player[i].x = 7;
 		_var()->o_player[i].y = 8;
 		_var()->o_player[i].z = 20;
@@ -249,6 +265,16 @@ void	init_key(void)
 	_var()->key.space = 0;
 }
 
+void	init_weapons(void)
+{
+	_var()->weapon[0].name = malloc(sizeof(char) * 6);
+	_var()->weapon[0].name = "Rifle\0";
+	_var()->weapon[0].id = 0;
+	_var()->weapon[0].power = 10;
+	_var()->weapon[0].reload_ms = 5000;
+	_var()->weapon[0].ammo = 15;
+}
+
 int main(int argc, char **argv)
 {
 	int		fd;
@@ -279,6 +305,7 @@ int main(int argc, char **argv)
 			_img()->is_host = CLIENT;
 	}
 	sleep(1);
+	init_weapons();
 	ft_init_client();
 	ft_print_tab(_img()->map);
 	ft_init_mlx();

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 17:27:27 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 20:48:08 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ typedef struct s_enum_key
 
 void	key_hook(void)
 {
-	//detect_neighbors();
+	if (_var()->key.esc)
+		ft_escape();
+	if (_player()->is_dead)
+		return ;
 	if (_var()->key.a)
 		ft_left();
 	if (_var()->key.w)
 		ft_forward();
 	if (_var()->key.s)
 		ft_back();
-	if (_var()->key.esc)
-		ft_escape();
 	if (_var()->key.d)
 		ft_right();
 	if (_var()->key.up)
@@ -47,7 +48,11 @@ void	key_hook(void)
 	if (_var()->key.down)
 		ft_down_head();
 	if (_var()->key.space)
-		_player()->shooted = 1;
+	{
+		_player()->can_shoot = 0;
+		_player()->start_reload = get_clock(_var()->clock);
+		shoot();
+	}
 }
 
 int	ft_game_hook(int keycode)

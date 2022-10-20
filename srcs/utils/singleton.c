@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 17:44:17 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 20:15:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ t_obj	*_player(void)
 	static t_obj	*player = NULL;
 
 	if (!player)
-	{
 		player = malloc(sizeof(t_obj));
-		player->self = (void *)player;
-	}
 	if (!player)
 		return (NULL);
 	return (player);

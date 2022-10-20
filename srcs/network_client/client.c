@@ -56,16 +56,20 @@ void	ft_pong_client()
 	int		i;
 	
 	player = *_player();
-	//printf("%f, %f\n", player.x, player.y);
+	printf("%d\n", _player()->health);
 	i = 0;
 	send(_img()->socket, &player, sizeof(player), 0);
 	while (i < _img()->nb_player)
 	{
 		recv(_img()->socket, &player, sizeof(player), 0);
+		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
+			_player()->health -= _var()->weapon[player.weapon_id].power;
+		if (player.shooted.shoot == 1 && player.id == _player()->id)
+		{
+			_player()->shooted.shoot = 0;
+			_player()->shooted.id = -1;
+		}
 		_var()->o_player[player.id] = player;
-		if (player.id == _player()->id)
-			*_player() = player;
 		++i;
 	}
-
 }

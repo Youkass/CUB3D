@@ -82,9 +82,6 @@ int	ft_init_client_thread(t_server_data *data);
 int	ft_connect_clients(t_server_data *data);
 int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
-int	is_shoot_touch(t_vector2F a, t_vector2F b, t_vector2F c, float r);
-void	shoot(t_client_thread *client);
-void	routine_before_send(t_client_thread *client);
 void	ft_send_all_data(t_client_thread *client);
 void	*client_routine(void *client_t);
 
@@ -137,7 +134,6 @@ t_spritecasting	*_pc();
 t_data	*_img(void);
 t_mlx	*_mlx(void);
 t_obj	*_player(void);
-t_obj	**__player(void);
 t_raycasting	**_ray(void);
 t_var	*_var(void);
 
@@ -183,7 +179,8 @@ int	ft_release(int keycode);
 void	generate_dsprite(void);
 void	ft_init_player_pos(void);
 void	walk_clock(void);
-void	death_clock(t_obj *pl);
+void	death_clock(void);
+void	reload_clock(void);
 void	ft_init_player2(void);
 void	ft_print_tab(char **s);
 int	ft_hook(int keycode);
@@ -192,11 +189,14 @@ int	ft_loop_hook(void);
 int	ft_mouse_release(int keycode);
 int	ft_game(void);
 void	init_key(void);
+void	init_weapons(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
 /*                            FILE = srcs/shoot.c                             */
 /* -------------------------------------------------------------------------- */
+int	is_shoot_touch(t_vector2F a, t_vector2F b, t_vector2F c, float r);
+void	shoot(void);
 
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/menu/generate.c                         */
@@ -278,6 +278,7 @@ void	ft_reload_frame();
 void	ft_fps(void);
 void	*ft_draw_void(void *r);
 void	draw_void_thread();
+void	check_death(void);
 int	ft_loop();
 
 

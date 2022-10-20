@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 14:36:09 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 20:44:48 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,16 @@ esc : 65307
 # define GAME 0
 # define MENU 1
 
+# define NB_WEAPONS 1
+
 # define TH_RAY 5
 
 # define PI 3.14159 
 # define P2 (PI/2)
 # define P3 (3*PI/2)
 # define DR 0.0174533
-# define WIN_H 500
-# define WIN_W 500
+# define WIN_H 900
+# define WIN_W 1440
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119
