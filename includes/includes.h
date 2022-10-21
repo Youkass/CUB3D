@@ -41,6 +41,7 @@ esc : 65307
 # include <unistd.h>
 # include "../mlx/mlx.h"
 # include <sys/time.h>
+# include <signal.h>
 
 # define GAME 0
 # define MENU 1
@@ -122,8 +123,8 @@ esc : 65307
 # define SUCCESS 0
 
 # define TMP_FILE ".tmp"
-//# define CMD_PRINT_IP "hostname -i > .tmp"
-# define CMD_PRINT_IP "ipconfig getifaddr en0"
+# define CMD_PRINT_IP "hostname -i > .tmp"
+//# define CMD_PRINT_IP "ipconfig getifaddr en0"
 # define MAX_PLAYER 6
 # define HOST 1
 # define BUFFER_SIZE 30

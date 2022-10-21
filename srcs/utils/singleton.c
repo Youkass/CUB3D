@@ -45,13 +45,14 @@ t_mlx	*_mlx(void)
 */
 t_obj	*_player(void)
 {
-	static t_obj	*player = NULL;
+	static t_obj	player;
 
-	if (!player)
-		player = malloc(sizeof(t_obj));
-	if (!player)
-		return (NULL);
-	return (player);
+	return (&player);
+	//if (!player)
+	//	player = malloc(sizeof(t_obj));
+	//if (!player)
+	//	return (NULL);
+	//return (player);
 }
 
 /*
@@ -77,11 +78,7 @@ t_raycasting	**_ray(void)
 */
 t_var	*_var(void)
 {
-	static t_var	*var = NULL;
+	static t_var	var;
 	
-	if (!var)
-		var = malloc(sizeof(t_var));
-	if (!var)
-		return (NULL);
-	return (var);
+	return (&var);
 }

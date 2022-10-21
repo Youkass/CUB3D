@@ -152,8 +152,6 @@ void	player_casting(void)
 	{
 		if (_var()->sort_player[i].id != _player()->id)
 		{
-			if (_var()->sort_player[i].id == 0)
-				printf("%d, %f, %f, %d\n", _var()->sort_player[i].id, _var()->sort_player[i].x, _var()->sort_player[i].y, _player()->id);
 			init_cast(&(_var()->sort_player[i]));
 			draw(&(_var()->sort_player[i]));
 		}

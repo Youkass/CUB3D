@@ -6,11 +6,12 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:43:05 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 14:45:50 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 18:08:18 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+#include <math.h>
 
 /*
 -Function to compute magnitude of a vector.
