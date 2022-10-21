@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/21 10:25:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/21 12:46:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,6 @@ static void	draw(t_obj *player)
 		tex_mode = 1;
 		walk_tex =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, player->angle) +
 		normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(_player()->y - player->y, _player()->x - player->x))), 8);
-	}
-	if (_player2()->is_dead == 1)
-	{
-		tex_mode = 2;
-		//tex_sp =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, _player2()->angle) +
-		//normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(_player()->y - _player2()->y, _player()->x - _player2()->x))), 8);
 	}
 	compute_draw();
 	stripe = _pc()->draw_start.x;
