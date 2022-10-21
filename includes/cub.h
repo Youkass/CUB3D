@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prototypes.h                                       :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:38:36 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_is_get(t_client_thread *client);
 int	is_shoot_touch(t_vector2F a, t_vector2F b, t_vector2F c, float r);
 void	shoot(t_client_thread *client);
 void	routine_before_send(t_client_thread *client);
-void	ft_send_all_data(t_client_thread *client);
+int	ft_send_all_data(t_client_thread *client);
 void	*client_routine(void *client_t);
 
 /* -------------------------------------------------------------------------- */

@@ -6,20 +6,18 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/20 11:10:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:38:35 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
-
-static void	ft_exit(int signal)
+/*
+void	ft_exit(int signal)
 {
 	(void)signal;
 	pthread_mutex_unlock(&_server()->mutex);
-	printf("server fermé\n");
-	free(_server());
-	exit(1);
-}
+	printf("client fermé\n");
+}*/
 
 int	ft_init_client_thread(t_server_data *data)
 {
@@ -69,7 +67,7 @@ int	ft_recv_first_data(t_client_thread *client)
 	{
 		if (recv(client->socket, &(client->player_data), 
 			sizeof(client->player_data), 0) < 0)
-			ft_exit(1);
+			return (1);
 		client->is_recv = 1;
 		pthread_mutex_lock(client->mutex);
 		_server()->player_data[client->id] = client->player_data;
@@ -97,25 +95,25 @@ int	ft_is_get(t_client_thread *client)
 	return (0);
 }
 
-void	ft_send_all_data(t_client_thread *client)
+int	ft_send_all_data(t_client_thread *client)
 {
 	int		i;
 	t_obj	data;
 
 	i = 0;
 	if (!ft_is_get(client))
-		return ;
-	//routine_before_send(client);
+		return (1);
 	while (i < client->nb_players)
 	{
 		pthread_mutex_lock(client->mutex);
 		data = _server()->player_data[i];
 		if (send(client->socket, &data, sizeof(data), 0) < 0)
-			ft_exit(1);
+			return (1);
 		pthread_mutex_unlock(client->mutex);
 		++i;
 	}
 	client->is_recv = 0;
+	return (0);
 }
 
 void	*client_routine(void *client_t)
@@ -123,13 +121,15 @@ void	*client_routine(void *client_t)
 	t_client_thread	*client;
 
 	client = (t_client_thread *)client_t;
+	signal(SIGPIPE, SIG_IGN);
 	if (send(client->socket, &(client->id), sizeof(client->id), 0) < 0)
-		ft_exit(1);
+		return (NULL);
 	while (1)
 	{
 		if (ft_recv_first_data(client) == EXIT_FAILURE)
-			ft_exit(1);
-		ft_send_all_data(client);
+			return (NULL);
+		if (ft_send_all_data(client))
+			return (NULL);
 	}
 	return (NULL);
 }
