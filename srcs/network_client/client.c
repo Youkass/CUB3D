@@ -50,13 +50,41 @@ int	ft_init_client(void)
 	return (EXIT_SUCCESS);
 }
 
-void	ft_pong_client()
+void	ft_copy_data_before_pong(t_obj *player)
+{
+	player->id = _player()->id;
+	player->x = _player()->x;
+	player->y = _player()->y;
+	player->z = _player()->z;
+	player->c = _player()->c;
+	player->dx = _player()->dx;
+	player->dy = _player()->dy;
+	player->da = _player()->da;
+	player->old_dx = _player()->old_dx;
+	player->old_dy = _player()->old_dy;
+	player->angle = _player()->angle;
+	player->move_speed = _player()->move_speed;
+	player->rot_speed = _player()->rot_speed;
+	player->is_walking = _player()->is_walking;
+	player->is_dead = _player()->is_dead;
+	player->start_dead = _player()->start_dead;
+	player->death_n = _player()->death_n;
+	player->death_start = _player()->death_start;
+	player->shooted = _player()->shooted;
+	player->dif = _player()->dif;
+	player->old_plane = _player()->old_plane;
+	player->hb = _player()->hb;
+	player->pitch = _player()->pitch;
+}
+
+void	ft_pong_client(void)
 {
 	t_obj	player;
 	int		i;
 	
-	player = (t_obj)*_player();
 	i = 0;
+	memset(&player, 0, sizeof(player));
+	ft_copy_data_before_pong(&player);
 	send(_img()->socket, &player, sizeof(player), 0);
 	while (i < _img()->nb_player)
 	{

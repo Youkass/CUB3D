@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 17:47:38 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/21 10:57:58 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef struct	s_obj
 	t_data		walk_sprite[8];
 	t_data		death_sprite;
 	int			pitch;
-	void		*self;
+//	void		*self;
 }	t_obj;
 
 typedef struct	s_network_data

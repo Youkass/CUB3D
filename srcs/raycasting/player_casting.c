@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 18:14:50 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/21 10:25:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	player_casting(void)
 	sort_by_distance();
 	while (i < _img()->nb_player)
 	{
-		death_clock(&_var()->o_player[i]);
+//		death_clock(&_var()->o_player[i]);
 		if (_var()->sort_player[i].id != _player()->id)
 		{
 			init_cast(&(_var()->sort_player[i]));
