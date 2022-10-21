@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 17:44:17 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/21 10:32:33 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,9 @@ t_mlx	*_mlx(void)
 */
 t_obj	*_player(void)
 {
-	static t_obj	*player = NULL;
+	static t_obj	player;
 
-	if (!player)
-	{
-		player = malloc(sizeof(t_obj));
-		player->self = (void *)player;
-	}
-	if (!player)
-		return (NULL);
-	return (player);
+	return (&player);
 }
 
 /*
@@ -80,11 +73,7 @@ t_raycasting	**_ray(void)
 */
 t_var	*_var(void)
 {
-	static t_var	*var = NULL;
+	static t_var	var;
 	
-	if (!var)
-		var = malloc(sizeof(t_var));
-	if (!var)
-		return (NULL);
-	return (var);
+	return (&var);
 }

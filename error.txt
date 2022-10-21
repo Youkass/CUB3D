@@ -1,120 +1,46 @@
-==1029478== Memcheck, a memory error detector
-==1029478== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==1029478== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==1029478== Command: ./cub3D map.cub 1 2
-==1029478== 
-==1029478== Syscall param socketcall.sendto(msg) points to uninitialised byte(s)
-==1029478==    at 0x4BD7AAE: __libc_send (send.c:28)
-==1029478==    by 0x4BD7AAE: send (send.c:23)
-==1029478==    by 0x11CA61: ft_pong_client (client.c:60)
-==1029478==    by 0x114884: ft_loop (mlx_utils.c:158)
-==1029478==    by 0x111929: ft_loop_hook (main.c:213)
-==1029478==    by 0x11D09C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478==  Address 0x1ffeffeda0 is on thread 1's stack
-==1029478==  in frame #1, created by ft_pong_client (client.c:54)
-==1029478==  Uninitialised value was created by a heap allocation
-==1029478==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1029478==    by 0x114974: _player (singleton.c:52)
-==1029478==    by 0x11C9D2: ft_init_client (client.c:49)
-==1029478==    by 0x111C42: main (main.c:278)
-==1029478== 
-==1029478== Conditional jump or move depends on uninitialised value(s)
-==1029478==    at 0x1114DB: death_clock (main.c:140)
-==1029478==    by 0x114259: player_casting (player_casting.c:153)
-==1029478==    by 0x114889: ft_loop (mlx_utils.c:159)
-==1029478==    by 0x111929: ft_loop_hook (main.c:213)
-==1029478==    by 0x11D09C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478==  Uninitialised value was created by a heap allocation
-==1029478==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1029478==    by 0x114A48: _var (singleton.c:86)
-==1029478==    by 0x111B05: main (main.c:257)
-==1029478== 
-==1029478== Conditional jump or move depends on uninitialised value(s)
-==1029478==    at 0x111508: death_clock (main.c:142)
-==1029478==    by 0x114259: player_casting (player_casting.c:153)
-==1029478==    by 0x114889: ft_loop (mlx_utils.c:159)
-==1029478==    by 0x111929: ft_loop_hook (main.c:213)
-==1029478==    by 0x11D09C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478==  Uninitialised value was created by a heap allocation
-==1029478==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1029478==    by 0x114A48: _var (singleton.c:86)
-==1029478==    by 0x111B05: main (main.c:257)
-==1029478== 
-==1029478== Conditional jump or move depends on uninitialised value(s)
-==1029478==    at 0x111525: death_clock (main.c:145)
-==1029478==    by 0x114259: player_casting (player_casting.c:153)
-==1029478==    by 0x114889: ft_loop (mlx_utils.c:159)
-==1029478==    by 0x111929: ft_loop_hook (main.c:213)
-==1029478==    by 0x11D09C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478==  Uninitialised value was created by a heap allocation
-==1029478==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1029478==    by 0x114A48: _var (singleton.c:86)
-==1029478==    by 0x111B05: main (main.c:257)
-==1029478== 
-==1029478== Conditional jump or move depends on uninitialised value(s)
-==1029478==    at 0x114282: player_casting (player_casting.c:154)
-==1029478==    by 0x114889: ft_loop (mlx_utils.c:159)
-==1029478==    by 0x111929: ft_loop_hook (main.c:213)
-==1029478==    by 0x11D09C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478==  Uninitialised value was created by a heap allocation
-==1029478==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1029478==    by 0x114A48: _var (singleton.c:86)
-==1029478==    by 0x111B05: main (main.c:257)
-==1029478== 
-==1029478== Syscall param writev(vector[...]) points to uninitialised byte(s)
-==1029478==    at 0x4BCAC3D: __writev (writev.c:26)
-==1029478==    by 0x4BCAC3D: writev (writev.c:24)
-==1029478==    by 0x4CE6A52: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==1029478==    by 0x4CE6B1F: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==1029478==    by 0x4CE7D67: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
-==1029478==    by 0x48CA5BD: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==1029478==    by 0x48CDBA8: _XEventsQueued (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==1029478==    by 0x48BA1A0: XPending (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==1029478==    by 0x11D02E: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478==  Address 0x4d618ef is 31 bytes inside a block of size 16,384 alloc'd
-==1029478==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1029478==    by 0x48B8DCE: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
-==1029478==    by 0x11CCF7: mlx_init (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x114307: ft_init_mlx (mlx_utils.c:22)
-==1029478==    by 0x111CA2: main (main.c:292)
-==1029478==  Uninitialised value was created by a stack allocation
-==1029478==    at 0x11D170: mlx_int_anti_resize_win (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478== 
-==1029478== Conditional jump or move depends on uninitialised value(s)
-==1029478==    at 0x113862: draw (player_casting.c:64)
-==1029478==    by 0x1142CD: player_casting (player_casting.c:157)
-==1029478==    by 0x114889: ft_loop (mlx_utils.c:159)
-==1029478==    by 0x111929: ft_loop_hook (main.c:213)
-==1029478==    by 0x11D09C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478==  Uninitialised value was created by a heap allocation
-==1029478==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1029478==    by 0x114A89: _player2 (singleton_2.c:20)
-==1029478==    by 0x11385B: draw (player_casting.c:64)
-==1029478==    by 0x1142CD: player_casting (player_casting.c:157)
-==1029478==    by 0x114889: ft_loop (mlx_utils.c:159)
-==1029478==    by 0x111929: ft_loop_hook (main.c:213)
-==1029478==    by 0x11D09C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478== 
-==1029478== Conditional jump or move depends on uninitialised value(s)
-==1029478==    at 0x11A8E8: ft_hitbox (utils.c:36)
-==1029478==    by 0x11B27F: check_button_state_mouse (mouse_hook.c:23)
-==1029478==    by 0x11B444: menu_mouse_hook (mouse_hook.c:71)
-==1029478==    by 0x11D0F5: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==1029478==    by 0x111CEB: main (main.c:302)
-==1029478==  Uninitialised value was created by a heap allocation
-==1029478==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==1029478==    by 0x114A48: _var (singleton.c:86)
-==1029478==    by 0x111B05: main (main.c:257)
-==1029478== 
-partager cette ip avec vos amis 42 : 10.12.11.12
+==324063== Memcheck, a memory error detector
+==324063== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==324063== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==324063== Command: ./cub3D map.cub 1 2
+==324063== 
+==324063== Syscall param writev(vector[...]) points to uninitialised byte(s)
+==324063==    at 0x4BCAC3D: __writev (writev.c:26)
+==324063==    by 0x4BCAC3D: writev (writev.c:24)
+==324063==    by 0x4CE6A52: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==324063==    by 0x4CE6B1F: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==324063==    by 0x4CE7D67: xcb_writev (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)
+==324063==    by 0x48CA5BD: _XSend (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==324063==    by 0x48CDBA8: _XEventsQueued (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==324063==    by 0x48BA1A0: XPending (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==324063==    by 0x11D1CE: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==324063==    by 0x111CEB: main (main.c:302)
+==324063==  Address 0x4d559cf is 31 bytes inside a block of size 16,384 alloc'd
+==324063==    at 0x484DA83: calloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==324063==    by 0x48B8DCE: XOpenDisplay (in /usr/lib/x86_64-linux-gnu/libX11.so.6.4.0)
+==324063==    by 0x11CE97: mlx_init (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==324063==    by 0x1142FA: ft_init_mlx (mlx_utils.c:22)
+==324063==    by 0x111CA2: main (main.c:292)
+==324063==  Uninitialised value was created by a stack allocation
+==324063==    at 0x11D310: mlx_int_anti_resize_win (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==324063== 
+==324063== Conditional jump or move depends on uninitialised value(s)
+==324063==    at 0x113863: draw (player_casting.c:64)
+==324063==    by 0x1142C0: player_casting (player_casting.c:157)
+==324063==    by 0x11487C: ft_loop (mlx_utils.c:159)
+==324063==    by 0x111929: ft_loop_hook (main.c:213)
+==324063==    by 0x11D23C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==324063==    by 0x111CEB: main (main.c:302)
+==324063==  Uninitialised value was created by a heap allocation
+==324063==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==324063==    by 0x114A07: _player2 (singleton_2.c:20)
+==324063==    by 0x11385C: draw (player_casting.c:64)
+==324063==    by 0x1142C0: player_casting (player_casting.c:157)
+==324063==    by 0x11487C: ft_loop (mlx_utils.c:159)
+==324063==    by 0x111929: ft_loop_hook (main.c:213)
+==324063==    by 0x11D23C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==324063==    by 0x111CEB: main (main.c:302)
+==324063== 
+partager cette ip avec vos amis 42 : 10.12.9.8
 
 MAIS NIQUE TA MERE
 connecté
@@ -131,40 +57,40 @@ connecté
 1111100000000000000000000000000001ZZZZZZZZZZZZ
 1111100000000000000000000000000001ZZZZZZZZZZZZ
 1111111111111111111111111111111111ZZZZZZZZZZZZ
-==1029478== 
-==1029478== HEAP SUMMARY:
-==1029478==     in use at exit: 2,047,050 bytes in 323 blocks
-==1029478==   total heap usage: 2,313 allocs, 1,990 frees, 2,214,393 bytes allocated
-==1029478== 
-==1029478== LEAK SUMMARY:
-==1029478==    definitely lost: 1,215 bytes in 4 blocks
-==1029478==    indirectly lost: 535 bytes in 13 blocks
-==1029478==      possibly lost: 0 bytes in 0 blocks
-==1029478==    still reachable: 2,045,300 bytes in 306 blocks
-==1029478==         suppressed: 0 bytes in 0 blocks
-==1029478== Rerun with --leak-check=full to see details of leaked memory
-==1029478== 
-==1029478== For lists of detected and suppressed errors, rerun with: -s
-==1029478== ERROR SUMMARY: 39 errors from 8 contexts (suppressed: 1 from 1)
-partager cette ip avec vos amis 42 : 10.12.11.12
+==324063== 
+==324063== HEAP SUMMARY:
+==324063==     in use at exit: 1,993,362 bytes in 323 blocks
+==324063==   total heap usage: 2,260 allocs, 1,937 frees, 2,152,458 bytes allocated
+==324063== 
+==324063== LEAK SUMMARY:
+==324063==    definitely lost: 1,215 bytes in 4 blocks
+==324063==    indirectly lost: 535 bytes in 13 blocks
+==324063==      possibly lost: 0 bytes in 0 blocks
+==324063==    still reachable: 1,991,612 bytes in 306 blocks
+==324063==         suppressed: 0 bytes in 0 blocks
+==324063== Rerun with --leak-check=full to see details of leaked memory
+==324063== 
+==324063== For lists of detected and suppressed errors, rerun with: -s
+==324063== ERROR SUMMARY: 8 errors from 2 contexts (suppressed: 1 from 1)
+partager cette ip avec vos amis 42 : 10.12.9.8
 
 je passe ici
 listen
 client socket accepted : 6
 client socket accepted : 7
 server fermé
-==1029481== 
-==1029481== HEAP SUMMARY:
-==1029481==     in use at exit: 49,397 bytes in 33 blocks
-==1029481==   total heap usage: 33 allocs, 0 frees, 49,397 bytes allocated
-==1029481== 
-==1029481== LEAK SUMMARY:
-==1029481==    definitely lost: 1,195 bytes in 4 blocks
-==1029481==    indirectly lost: 535 bytes in 13 blocks
-==1029481==      possibly lost: 0 bytes in 0 blocks
-==1029481==    still reachable: 47,667 bytes in 16 blocks
-==1029481==         suppressed: 0 bytes in 0 blocks
-==1029481== Rerun with --leak-check=full to see details of leaked memory
-==1029481== 
-==1029481== For lists of detected and suppressed errors, rerun with: -s
-==1029481== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==324067== 
+==324067== HEAP SUMMARY:
+==324067==     in use at exit: 3,253 bytes in 32 blocks
+==324067==   total heap usage: 32 allocs, 0 frees, 3,253 bytes allocated
+==324067== 
+==324067== LEAK SUMMARY:
+==324067==    definitely lost: 1,195 bytes in 4 blocks
+==324067==    indirectly lost: 535 bytes in 13 blocks
+==324067==      possibly lost: 0 bytes in 0 blocks
+==324067==    still reachable: 1,523 bytes in 15 blocks
+==324067==         suppressed: 0 bytes in 0 blocks
+==324067== Rerun with --leak-check=full to see details of leaked memory
+==324067== 
+==324067== For lists of detected and suppressed errors, rerun with: -s
+==324067== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
