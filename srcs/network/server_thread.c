@@ -11,6 +11,13 @@
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+/*
+void	ft_exit(int signal)
+{
+	(void)signal;
+	pthread_mutex_unlock(&_server()->mutex);
+	printf("client fermé\n");
+}*/
 
 int	ft_init_client_thread(t_server_data *data)
 {
@@ -21,9 +28,9 @@ int	ft_init_client_thread(t_server_data *data)
 	{
 		data->clients[i].nb_players = data->nb_players;
 		data->clients[i].id = i;
+		data->clients[i].mutex = &_server()->mutex;
 		data->clients[i].is_recv = 0;
-		printf("%d, %d\n", i, data->clients[i].id);
-		if (pthread_mutex_init(&data->clients[i].mutex, NULL))
+		if (pthread_mutex_init(data->clients[i].mutex, NULL))
 			return (EXIT_FAILURE);
 		++i;
 	}
@@ -40,17 +47,9 @@ int	ft_connect_clients(t_server_data *data)
 		data->clients[i].csize = sizeof(data->clients[i].sockclient);
 		data->clients[i].socket = accept(data->socket,
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
+		printf("client socket accepted : %d\n", data->clients[i].socket);
 		if (data->clients[i].socket < 0)
 			return (EXIT_FAILURE); //TODO
-		printf("Client socket : %d accepted, %d\n", data->clients[i].socket, data->clients[i].id);
-		//if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine, 
-		//		&(data->clients[i])))
-		//	return (EXIT_FAILURE); //TODO
-		i++;
-	}
-	i = 0;
-	while (i < data->nb_players)
-	{
 		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine, 
 				&(data->clients[i])))
 			return (EXIT_FAILURE); //TODO
@@ -66,12 +65,13 @@ int	ft_recv_first_data(t_client_thread *client)
 {
 	if (!client->is_recv)
 	{
-		recv(client->socket, &(client->player_data), 
-			sizeof(client->player_data), 0);
+		if (recv(client->socket, &(client->player_data), 
+			sizeof(client->player_data), 0) < 0)
+			return (1);
 		client->is_recv = 1;
-		pthread_mutex_lock(&(client->mutex));
+		pthread_mutex_lock(client->mutex);
 		_server()->player_data[client->id] = client->player_data;
-		pthread_mutex_unlock(&(client->mutex));
+		pthread_mutex_unlock(client->mutex);
 	}
 	return (0);
 }
@@ -81,37 +81,39 @@ int	ft_is_get(t_client_thread *client)
 	int	i;
 
 	i = 0;
-	pthread_mutex_lock(&(client->mutex));
+	pthread_mutex_lock(client->mutex);
 	while (i < client->nb_players)
 	{
 		if (!_server()->clients[i].is_recv)
 		{
-			pthread_mutex_unlock(&(client->mutex));
+			pthread_mutex_unlock(client->mutex);
 			return (1);
 		}
 		++i;
 	}
-	pthread_mutex_unlock(&(client->mutex));
+	pthread_mutex_unlock(client->mutex);
 	return (0);
 }
 
-void	ft_send_all_data(t_client_thread *client)
+int	ft_send_all_data(t_client_thread *client)
 {
 	int		i;
 	t_obj	data;
 
 	i = 0;
 	if (!ft_is_get(client))
-		return ;
+		return (1);
 	while (i < client->nb_players)
 	{
-		pthread_mutex_lock(&(client->mutex));
+		pthread_mutex_lock(client->mutex);
 		data = _server()->player_data[i];
-		send(client->socket, &data, sizeof(data), 0);
-		pthread_mutex_unlock(&(client->mutex));
+		if (send(client->socket, &data, sizeof(data), 0) < 0)
+			return (1);
+		pthread_mutex_unlock(client->mutex);
 		++i;
 	}
 	client->is_recv = 0;
+	return (0);
 }
 
 void	*client_routine(void *client_t)
@@ -119,13 +121,15 @@ void	*client_routine(void *client_t)
 	t_client_thread	*client;
 
 	client = (t_client_thread *)client_t;
-	printf("HEY %d\n", client->id);
-	send(client->socket, &(client->id), sizeof(client->id), 0);
+	signal(SIGPIPE, SIG_IGN);
+	if (send(client->socket, &(client->id), sizeof(client->id), 0) < 0)
+		return (NULL);
 	while (1)
 	{
 		if (ft_recv_first_data(client) == EXIT_FAILURE)
-			break ;
-		ft_send_all_data(client);
+			return (NULL);
+		if (ft_send_all_data(client))
+			return (NULL);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/06 15:23:02 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/20 12:50:45 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ fonction a ajouter dans un fichier utils_draw_circle.c //TODO
 
 int	ft_return_xp(void)
 {
+	_player()->hb.hit.x = _player()->x;
 	return ((int)(_player()->hb.hit.x
 		* _img()->scale) + _img()->half_scale_offset);
 }
 
 int	ft_return_yp(void)
 {
+	_player()->hb.hit.y = _player()->y;
 	return ((int)(_player()->hb.hit.y * _img()->scale) + _img()->half_scale);
 }
 
