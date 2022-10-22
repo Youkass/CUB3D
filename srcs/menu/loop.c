@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 17:50:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 19:13:35 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,11 +252,13 @@ int	menu_hook_pseudo(int keycode)
 	}
 	if (keycode == ENTER && n > 3 && _img()->is_host == SERVER)
 	{
+		//_player()->pseudo_img = create_text_img(_player()->pseudo);
 		_var()->menu->mode = MENU_LOBBY;
 		_var()->mode = ONLINE_START;
 	}
 	if (keycode == ENTER && n > 3 && _img()->is_host == CLIENT)
 	{
+		//_player()->pseudo_img = create_text_img(_player()->pseudo);
 		ft_init_client();
 		_var()->menu->mode = MENU_LOBBY;
 		_var()->mode = MENU;

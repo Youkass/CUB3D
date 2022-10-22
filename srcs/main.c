@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/22 17:31:17 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 19:21:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,42 +333,32 @@ void	init_weapons(void)
 	_var()->weapon[0].ammo = 15;
 }
 
-int main(int argc, char **argv)
+void	init_var(void)
 {
-	int		fd;
-	//int		pid;
+	int	i;
 
 	_var()->menu = malloc(sizeof(t_menu));
 	_var()->mode = MENU;
-	_var()->menu->mode = MENU_START;
-	fd = open(argv[1], O_RDONLY);
-	_var()->walk_n = 0;
+	_var()->menu->mode = MENU_START;_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
+	i = 0;
+	while (i < MAX_PLAYER)
+		_var()->pseudo_img[i++].img = NULL;
+}
+
+int main(int argc, char **argv)
+{
+	int		fd;
+
+	(void)argc;
+	init_var();
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit(139);
 	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
 	if (!_img()->map)
 		exit(139);
-	//if (argc == 4)
-	//{
-	//	if (atoi(argv[2]) == 1)
-	//		_img()->is_host = SERVER;
-	//	else if (atoi(argv[2]) == 2)
-	//	{
-	//		_img()->is_host = CLIENT;
-	//		_var()->menu->mode = MENU_IP;
-	//		_var()->mode = MENU;
-	//	}
-	//}
-	//else
-	//{
-	//	_img()->is_host = NONE;
-	//	_img()->nb_player = 0;
-	//}
-	(void)argc;
-	//if (_img()->is_host == NONE)
-	//	ft_init_client();
 	init_weapons();
 	ft_print_tab(_img()->map);
 	ft_init_mlx();

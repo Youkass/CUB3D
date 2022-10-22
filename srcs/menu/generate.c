@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 17:53:06 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 19:22:30 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,8 @@ void	generate_button_state(void)
 	height =  64;
 	while (i < 4)
 	{
+		if (i == 3)
+			width = 128;
 		_var()->menu->p_state[i].state = 0;
 		_var()->menu->p_state[i].hitbox[0] =  _butpl()[i];
 		_var()->menu->p_state[i].hitbox[1] = (t_vector2D){ _butpl()[i].x + width, _butpl()[i].y};
