@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/10/21 14:38:36 by yobougre         ###   ########.fr       */
+/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,23 @@ int	ft_return_yp_2(void);
 float	ft_return_radius_2(void);
 
 /* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/drawing/draw_text.c                       */
+/* -------------------------------------------------------------------------- */
+int	is_allow_alpha(char c);
+char	char_up(char c);
+void	draw_text(char *text, t_vector2D pos, t_data *img);
+
+/* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network/server_thread.c                     */
 /* -------------------------------------------------------------------------- */
+void	ft_exit(int signal);
 int	ft_init_client_thread(t_server_data *data);
 int	ft_connect_clients(t_server_data *data);
 int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
-void	ft_send_all_data(t_client_thread *client);
+int	ft_send_all_data(t_client_thread *client);
+int	send_nb_players(t_client_thread *client);
+int	wait_lobby(t_client_thread *client);
 void	*client_routine(void *client_t);
 
 /* -------------------------------------------------------------------------- */
@@ -90,6 +100,7 @@ void	*client_routine(void *client_t);
 /* -------------------------------------------------------------------------- */
 t_server_data	*_server(void);
 int	ft_init_server(t_server_data *data);
+void	ft_exit(int signal);
 int main(int ac, char **av);
 
 /* -------------------------------------------------------------------------- */
@@ -161,14 +172,14 @@ int	ft_escape(void);
 /* -------------------------------------------------------------------------- */
 char	*ft_get_ip_input(void);
 int	ft_init_client(void);
-void	ft_pong_client();
+void	ft_copy_data_before_pong(t_obj *player);
+void	ft_pong_client(void);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/network_client/network_utils.c                 */
 /* -------------------------------------------------------------------------- */
 int	end_of_line(char *s);
 char	*ft_get_host_ip(void);
-int	ft_network_type(char *argv);
 t_obj	ft_get_data(t_obj *player);
 
 /* -------------------------------------------------------------------------- */
@@ -203,32 +214,42 @@ void	shoot(void);
 /* -------------------------------------------------------------------------- */
 t_data	generate_image(char *path);
 t_vector2D	*_butp(void);
+t_vector2D	*_butpl(void);
+void	gen_serv_but(void);
 void	generate_button_state(void);
+void	gen_alpha(void);
 void    gen_menu_images(void);
 
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/loop.c                           */
 /* -------------------------------------------------------------------------- */
 void	check_button_state(void);
+void	check_button_state_pl(void);
 void	check_action_state_bar(int i);
 void	check_action_state_options(int i);
 void	check_button_state_options(void);
 void	planet_clock(void);
+void	menu_pong(void);
 int	menu_loop(void);
 int	menu_hook(int keycode);
+int	menu_hook_pseudo(int keycode);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/menu/render.c                          */
 /* -------------------------------------------------------------------------- */
-void	draw_bg(void);
+void	draw_bg(char color[4]);
 int	perc(int a, int b);
 void	menu_start(void);
+void	menu_player(void);
+void	menu_lobby(void);
+void	menu_pseudo(void);
 void	menu_option(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/mouse_hook.c                        */
 /* -------------------------------------------------------------------------- */
 void	check_button_state_mouse(int kc);
+void	check_button_state_mouse_pl(int kc);
 void	check_button_state_mouse_options(int kc);
 int	menu_mouse_hook(int keycode);
 
@@ -267,6 +288,12 @@ int	get_longest_line(char **map);
 char	*copy_line_and_add(char *str, int size);
 char	**resize_map(char **map);
 int main(int argc, char **argv);
+
+/* -------------------------------------------------------------------------- */
+/*                           FILE = srcs/ft_itoa.c                            */
+/* -------------------------------------------------------------------------- */
+int	size_nb(int nb);
+char	*ft_itoa(int n);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/mlx_utils/mlx_utils.c                      */

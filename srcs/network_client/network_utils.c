@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   network_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 18:16:50 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/21 14:54:19 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*ft_get_host_ip(void)
 	char	*buf;
 	int		r;
 
+	return ("127.0.0.1");
 	if (system(CMD_PRINT_IP) < 0)
 		exit(127); //TODO
 	buf = NULL;

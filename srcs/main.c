@@ -6,9 +6,10 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/20 15:14:26 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/22 14:05:19 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/cub.h"
 #include <unistd.h> 
 
@@ -105,6 +106,7 @@ void	ft_init_player_pos(void)
 {
 	double	dist;
 
+	_player()->pseudo[0] = 0;
 	_player()->weapon_id = 0;
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
@@ -206,11 +208,14 @@ void	ft_print_tab(char **s)
 
 int	ft_hook(int keycode)
 {
+	printf("%d\n", keycode);
 	get_key(keycode);
 	//if (_var()->mode == GAME)
 	//	ft_game_hook(keycode);
 	if (_var()->mode == MENU)
 		menu_hook(keycode);
+	if (_var()->mode == MENU && _var()->menu->mode == MENU_PSEUDO)
+		menu_hook_pseudo(keycode);
 	return (0);
 }
 
@@ -223,11 +228,30 @@ int	ft_mouse_hook(int keycode)
 
 int	ft_loop_hook(void)
 {
+	int	pid;
+
+	if (_var()->mode == ONLINE_START)
+	{
+			_img()->is_host = SERVER;
+			pid = fork();
+			if (pid == 0)
+			{
+				sleep(1);
+				ft_init_client();
+				//_var()->mode = GAME;
+			}
+			else
+			{
+				system(ft_strjoin("./server ", ft_itoa(_img()->nb_player)));
+				exit(1);
+			}
+		_var()->mode = LOBBY_WAIT;
+	}
 	ft_fps();
 	key_hook();
 	if (_var()->mode == GAME)
 		ft_loop();
-	else if (_var()->mode == MENU)
+	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
 	return (0);
 }
@@ -252,11 +276,44 @@ int	ft_game(void)
 void	init_key(void)
 {
 	_var()->key.a = 0;
+	_var()->key.b = 0;
+	_var()->key.c = 0;
 	_var()->key.d = 0;
+	_var()->key.e = 0;
+	_var()->key.f = 0;
+	_var()->key.g = 0;
+	_var()->key.h = 0;
+	_var()->key.i = 0;
+	_var()->key.j = 0;
+	_var()->key.k = 0;
+	_var()->key.l = 0;
+	_var()->key.m = 0;
+	_var()->key.n = 0;
+	_var()->key.o = 0;
+	_var()->key.p = 0;
+	_var()->key.q = 0;
+	_var()->key.r = 0;
+	_var()->key.s = 0;
+	_var()->key.t = 0;
+	_var()->key.u = 0;
+	_var()->key.v = 0;
+	_var()->key.w = 0;
+	_var()->key.x = 0;
+	_var()->key.y = 0;
+	_var()->key.z = 0;
+	_var()->key.one = 0;
+	_var()->key.two = 0;
+	_var()->key.three = 0;
+	_var()->key.four = 0;
+	_var()->key.five = 0;
+	_var()->key.six = 0;
+	_var()->key.seven = 0;
+	_var()->key.eight = 0;
+	_var()->key.nine = 0;
+	_var()->key.zero = 0;
+	_var()->key.underscore = 0;
 	_var()->key.esc = 0;
 	_var()->key.mouse = 0;
-	_var()->key.s = 0;
-	_var()->key.w = 0;
 	_var()->key.up = 0;
 	_var()->key.down = 0;
 	_var()->key.left = 0;
@@ -277,8 +334,11 @@ void	init_weapons(void)
 int main(int argc, char **argv)
 {
 	int		fd;
-	int		pid;
+	//int		pid;
 
+	_var()->menu = malloc(sizeof(t_menu));
+	_var()->mode = MENU;
+	_var()->menu->mode = MENU_START;
 	fd = open(argv[1], O_RDONLY);
 	_var()->walk_n = 0;
 	_var()->clock = start_clock();
@@ -290,23 +350,13 @@ int main(int argc, char **argv)
 		exit(139);
 	if (argc == 4)
 	{
-		_img()->nb_player = atoi(argv[3]);
 		if (atoi(argv[2]) == 1)
-		{
 			_img()->is_host = SERVER;
-			pid = fork();
-			if (pid == 0)
-			{
-				system(ft_strjoin("./server ", argv[3]));
-				exit(1);
-			}
-			sleep(1);
-			ft_init_client();
-		}
 		else if (atoi(argv[2]) == 2)
 		{
 			_img()->is_host = CLIENT;
-			ft_init_client();
+			_var()->menu->mode = MENU_PSEUDO;
+			_var()->mode = MENU;
 		}
 	}
 	else
@@ -314,9 +364,9 @@ int main(int argc, char **argv)
 		_img()->is_host = NONE;
 		_img()->nb_player = 0;
 	}
-	sleep(1);
+	if (_img()->is_host == NONE)
+		ft_init_client();
 	init_weapons();
-	ft_init_client();
 	ft_print_tab(_img()->map);
 	ft_init_mlx();
 	ft_init_img();
@@ -326,7 +376,6 @@ int main(int argc, char **argv)
 	ft_malloc_map();
 	init_key();
 	gen_menu_images();
-	_var()->mode = GAME;
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);

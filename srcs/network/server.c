@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/21 14:44:17 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/21 20:44:19 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ int	ft_init_server(t_server_data *data)
 {
 	int option;
 
+	printf("salut\n");
 	option = 1;
 	data->socket = socket(AF_INET, SOCK_STREAM, 0);
-	setsockopt(data->socket, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
 	data->server.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	data->server.sin_family = AF_INET;
 	data->server.sin_port = htons(30000);
+	setsockopt(data->socket, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
 	if (bind(data->socket,
 		(const struct sockaddr *)&(data->server), 
 			sizeof(data->server)) < 0)
@@ -57,9 +58,9 @@ int main(int ac, char **av)
 	int				i;
 	
 	i = 0;
-	_server()->clock = start_clock();
 	(void)ac;
 	data.nb_players = atoi(av[1]);
+	data.started = 0;
 	if (ft_init_server(&data) == EXIT_FAILURE)
 		exit(EXIT_FAILURE);
 	if (ft_init_client_thread(&data))

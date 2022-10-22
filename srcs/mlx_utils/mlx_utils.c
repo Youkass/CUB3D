@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 21:02:08 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/21 20:13:38 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@ int	ft_loop()
 		player_casting();
 	}
 	ft_draw_map();
-	ft_put_sprite_to_image(*_img(), _player()->rifle, (t_vector2D){500 , 500}, (t_vector2D){0 , 0}, (t_vector2D){520 , 528});
+	ft_put_image_to_image(*_img(), _var()->alpha['A'], (t_vector2D){100, 100});
+	//ft_put_sprite_to_image(*_img(), _player()->rifle, (t_vector2D){500 , 500}, (t_vector2D){0 , 0}, (t_vector2D){520 , 528});
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);
