@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/22 14:05:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 17:31:17 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,8 @@ int	ft_hook(int keycode)
 		menu_hook(keycode);
 	if (_var()->mode == MENU && _var()->menu->mode == MENU_PSEUDO)
 		menu_hook_pseudo(keycode);
+	if (_var()->mode == MENU && _var()->menu->mode == MENU_IP)
+		menu_hook_ip(keycode);
 	return (0);
 }
 
@@ -348,24 +350,25 @@ int main(int argc, char **argv)
 	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
 	if (!_img()->map)
 		exit(139);
-	if (argc == 4)
-	{
-		if (atoi(argv[2]) == 1)
-			_img()->is_host = SERVER;
-		else if (atoi(argv[2]) == 2)
-		{
-			_img()->is_host = CLIENT;
-			_var()->menu->mode = MENU_PSEUDO;
-			_var()->mode = MENU;
-		}
-	}
-	else
-	{
-		_img()->is_host = NONE;
-		_img()->nb_player = 0;
-	}
-	if (_img()->is_host == NONE)
-		ft_init_client();
+	//if (argc == 4)
+	//{
+	//	if (atoi(argv[2]) == 1)
+	//		_img()->is_host = SERVER;
+	//	else if (atoi(argv[2]) == 2)
+	//	{
+	//		_img()->is_host = CLIENT;
+	//		_var()->menu->mode = MENU_IP;
+	//		_var()->mode = MENU;
+	//	}
+	//}
+	//else
+	//{
+	//	_img()->is_host = NONE;
+	//	_img()->nb_player = 0;
+	//}
+	(void)argc;
+	//if (_img()->is_host == NONE)
+	//	ft_init_client();
 	init_weapons();
 	ft_print_tab(_img()->map);
 	ft_init_mlx();

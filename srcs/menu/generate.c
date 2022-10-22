@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/21 21:32:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 17:53:06 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,13 +221,18 @@ void	gen_alpha(void)
 		printf("%s\n", ft_strjoin(ft_strjoin("./img/menu/alpha/", (char [2]){i, 0}), ".xpm"));
 		i++;
 	}
-	i = 49;
+	i = 48;
 	while (i <= 57)
 	{
 		_var()->alpha[i] = generate_image(ft_strjoin(ft_strjoin("./img/menu/alpha/", (char [2]){i, 0}), ".xpm"));
 		i++;
 	}
-	_var()->alpha['_'] = generate_image(ft_strjoin("./img/menu/alpha/_", ".xpm"));
+	_var()->alpha['_'] = generate_image("./img/menu/alpha/_.xpm");
+	_var()->alpha['.'] = generate_image("./img/menu/alpha/dot.xpm");
+	_var()->alpha['('] = generate_image("./img/menu/alpha/(.xpm");
+	_var()->alpha[')'] = generate_image("./img/menu/alpha/).xpm");
+	_var()->alpha[':'] = generate_image("./img/menu/alpha/:.xpm");
+	_var()->alpha['\''] = generate_image("./img/menu/alpha/'.xpm");
 }
 
 /*
@@ -240,12 +245,11 @@ void    gen_menu_images(void)
 	542 - OFFSET_Y + 36};
 	_var()->menu->pos_s_bar = (t_vector2D){819 - OFFSET_X + 42,
 	443 - OFFSET_Y + 36};
-	_var()->menu->img.img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
-	_var()->menu->img.addr = mlx_get_data_addr(_var()->menu->img.img,
-	&_var()->menu->img.bits_per_pixel, &_var()->menu->img.line_length,
-	&_var()->menu->img.endian);
-	_var()->menu->img.height = WIN_H;
-	_var()->menu->img.width = WIN_W;
+	_img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
+	_img()->addr = mlx_get_data_addr(_img()->img,
+	&_img()->bits_per_pixel, &_img()->line_length,& _img()->endian);
+	_img()->height = WIN_H;
+	_img()->width = WIN_W;
 	_var()->menu->mute_m_state = MUTE_M;
 	_var()->menu->mute_s_state = MUTE_S;
 	_var()->menu->s_bar = 0;

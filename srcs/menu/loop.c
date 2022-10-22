@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 15:02:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 17:50:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,24 @@ void	check_button_state_pl(void)
 			{
 				_img()->nb_player = 2;
 				_var()->menu->mode = MENU_PSEUDO;
-				//_var()->mode = ONLINE_START;
+				_img()->is_host = SERVER;
 			}
 			if (i == 1 && _var()->menu->p_state[1].state == 2)
 			{
 				_img()->nb_player = 4;
 				_var()->menu->mode = MENU_PSEUDO;
-				//_var()->mode = ONLINE_START;
+				_img()->is_host = SERVER;
 			}
 			if (i == 2 && _var()->menu->p_state[2].state == 2)
 			{
 				_img()->nb_player = 6;
 				_var()->menu->mode = MENU_PSEUDO;
-				//_var()->mode = ONLINE_START;
+				_img()->is_host = SERVER;
+			}
+			if (i == 3 && _var()->menu->p_state[3].state == 2)
+			{
+				_var()->menu->mode = MENU_IP;
+				_img()->is_host = CLIENT;
 			}
 			_var()->menu->p_state[i].state = 
 			ft_hitbox(_var()->menu->p_state[i].hitbox, _var()->m_pos);
@@ -201,12 +206,14 @@ int	menu_loop(void)
 		menu_player();
 	else if (_var()->menu->mode == MENU_PSEUDO)
 		menu_pseudo();
+	else if (_var()->menu->mode == MENU_IP)
+		menu_ip();
 	else if (_var()->menu->mode == MENU_LOBBY)
 		menu_lobby();
 	else if (_var()->menu->mode == MENU_OPTION)
 		menu_option();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win,
-		_var()->menu->img.img, 0, 0);
+		_img()->img, 0, 0);
 	return (0);
 }
 /*
@@ -252,6 +259,79 @@ int	menu_hook_pseudo(int keycode)
 	{
 		ft_init_client();
 		_var()->menu->mode = MENU_LOBBY;
+		_var()->mode = MENU;
+	}
+	return (0);
+}
+
+int	menu_hook_ip(int keycode)
+{
+	static int	n = 0;
+
+	if (keycode == ZERO && n + 1 < 16)
+	{
+		_var()->ip[n++] = '0';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == ONE && n + 1 < 16)
+	{
+		_var()->ip[n++] = '1';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == TWO && n + 1 < 16)
+	{
+		_var()->ip[n++] = '2';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == THREE && n + 1 < 16)
+	{
+		_var()->ip[n++] = '3';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == FOUR && n + 1 < 16)
+	{
+		_var()->ip[n++] = '4';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == FIVE && n + 1 < 16)
+	{
+		_var()->ip[n++] = '5';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == SIX && n + 1 < 16)
+	{
+		_var()->ip[n++] = '6';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == SEVEN && n + 1 < 16)
+	{
+		_var()->ip[n++] = '7';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == EIGHT && n + 1 < 16)
+	{
+		_var()->ip[n++] = '8';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == NINE && n + 1 < 16)
+	{
+		_var()->ip[n++] = '9';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == SPACE && n + 1 < 16)
+	{
+		printf("lol\n");
+		_var()->ip[n++] = '.';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == ERASE && n > 0)
+	{
+		n--;
+		_var()->ip[n] = 0;
+	}
+	if (keycode == ENTER && n > 3 && _img()->is_host == CLIENT)
+	{
+		_var()->menu->mode = MENU_PSEUDO;
 		_var()->mode = MENU;
 	}
 	return (0);
