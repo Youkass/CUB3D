@@ -6,13 +6,13 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/07 13:14:20 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 15:46:17 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-void	draw_bg(void)
+void	draw_bg(char color[4])
 {
 
 	t_int		var;
@@ -23,7 +23,7 @@ void	draw_bg(void)
 		var.j = 0;
 		while (var.j < WIN_H)
 		{
-			ft_put_pixel_color(&_var()->menu->img, (char [4]){177, 177, 177, 0}, (int)var.i, (int)var.j);
+			ft_put_pixel_color(&_var()->menu->img, color, (int)var.i, (int)var.j);
 			var.j++;
 		}
 		var.i++;
@@ -43,7 +43,7 @@ int	perc(int a, int b)
 */
 void	menu_start(void)
 {
-	draw_bg();
+	draw_bg((char [4]){0, 0, 0, 0});
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->bg,
 		(t_vector2D){0, 0});
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->logo,
@@ -59,6 +59,46 @@ void	menu_start(void)
 	ft_put_image_to_image(_var()->menu->img, _var()->menu->buttons
 	[_var()->menu->s_state[3].state][EXIT], _butp()[3]);
 }
+
+void	menu_player(void)
+{
+	draw_bg((char [4]){0, 0, 0, 0});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->bg,
+		(t_vector2D){0, 0});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->logo,
+		(t_vector2D){WIN_W / 2 - (_var()->menu->logo.width / 2), perc(WIN_H, 20) - (_var()->menu->logo.height / 2)});
+
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->nb_p[0][_var()->menu->p_state[0].state], _butpl()[0]);
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->nb_p[1][_var()->menu->p_state[1].state],  _butpl()[1]);
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->nb_p[2][_var()->menu->p_state[2].state],  _butpl()[2]);
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->nb_p[3][_var()->menu->p_state[3].state],  _butpl()[3]);
+}
+
+void	menu_lobby(void)
+{
+	int	i;
+
+	draw_bg((char [4]){250, 200, 0, 0});
+	ft_put_image_to_image(_var()->menu->img, _var()->menu->wait,
+		(t_vector2D){WIN_W / 2 - (_var()->menu->wait.width / 2), perc(WIN_H, 20) - (_var()->menu->wait.height / 2)});
+	i = 0;
+	while (i < _var()->linked_players)
+	{
+		draw_text(_var()->o_player[i].pseudo, (t_vector2D){200, 300 + i * 60}, &_var()->menu->img);
+		i++;
+	}
+	if (_img()->is_host == SERVER && _var()->linked_players >= _img()->nb_player)
+		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, &_var()->menu->img);
+}
+
+void	menu_pseudo(void)
+{
+
+	draw_bg((char [4]){250, 200, 0, 0});
+	draw_text("Enter your pseudo (max 16): ", (t_vector2D){100, 100}, &_var()->menu->img);
+	draw_text(_player()->pseudo, (t_vector2D){200, 500}, &_var()->menu->img);
+}
+
 
 /*
 -Display bottoms button of menu_options.

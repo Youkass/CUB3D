@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 21:02:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/21 21:35:55 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos)
 {
 	if (pos.x >= hitbox[0].x && pos.x <= hitbox[1].x &&
 		pos.y >= hitbox[0].y && pos.y <= hitbox[2].y)
+	{
 		return (1);
+	}
 	return (0);
 }
 

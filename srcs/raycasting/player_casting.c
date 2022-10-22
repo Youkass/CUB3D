@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 20:53:01 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/21 15:33:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	draw(t_obj *player)
 				}
 				else
 				{
-					_pc()->tex.y = ((_pc()->d * player->death_sprite.height) /_pc()->size.y) / 256;
+					_pc()->tex.y = ((_pc()->d * _player()->death_sprite.height) /_pc()->size.y) / 256;
 					ft_put_pixel(_img(), &_player()->death_sprite, (t_vector2D){stripe, y + 5}, (t_vector2D){_pc()->tex.x + 39 * player->death_n, _pc()->tex.y});
 				}
 				y++;

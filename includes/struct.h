@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 20:52:44 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/21 22:01:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 
 struct s_obj;
 typedef struct s_obj t_obj;
+
+struct	s_server_data;
+typedef struct	s_server_data t_server_data;
 
 typedef struct s_vector2F {
 	float	x;
@@ -137,6 +140,7 @@ struct	s_obj
 	int			weapon_id;
 	int			health;
 	int			ammo;
+	char		pseudo[16];
 	t_vector2F	dif;
 	t_vector2F	plane;
 	t_vector2F	old_plane;
@@ -226,12 +230,14 @@ typedef struct s_menu
 	t_data		**buttons;
 	t_button	*s_state;
 	t_button	*o_state;
+	t_button	*p_state;
 	int			mute_s_state;
 	int			mute_m_state;
 	t_data		**bar;
 	t_data		logo;
 	t_data		bg;
 	t_data		img;
+	t_data		nb_p[4][2];
 	int			s_bar;
 	int			m_bar;
 	t_vector2D	pos_s_bar;
@@ -244,6 +250,7 @@ typedef struct s_menu
 	int			n;
 	int			ny;
 	unsigned long	start;
+	t_data		wait;
 }	t_menu;
 
 typedef struct	s_rect
@@ -257,10 +264,43 @@ typedef struct	s_rect
 typedef struct s_key
 {
 	int	mouse;
-	int	w;
 	int	a;
-	int	s;
+	int	b;
+	int	c;
 	int	d;
+	int e;
+	int f;
+	int g;
+	int h;
+	int i;
+	int j;
+	int k;
+	int l;
+	int m;
+	int n;
+	int o;
+	int p;
+	int q;
+	int r;
+	int s;
+	int t;
+	int u;
+	int v;
+	int w;
+	int x;
+	int	y;
+	int	z;
+	int zero;
+	int one;
+	int two;
+	int three;
+	int four;
+	int five;
+	int six;
+	int seven;
+	int eight;
+	int nine;
+	int underscore;
 	int	esc;
 	int	up;
 	int	down;
@@ -290,6 +330,8 @@ typedef struct s_var
 	t_obj			o_player[MAX_PLAYER];
 	t_obj			sort_player[MAX_PLAYER];
 	t_weapon		weapon[NB_WEAPONS];
+	t_data			alpha[255];
+	int						linked_players;
 }	t_var;
 
 typedef struct s_player
@@ -317,9 +359,10 @@ typedef struct	s_client_thread
 	int						nb_players;
 	int						socket;
 	int						is_recv;
+	struct s_server_data	*serv;
 }	t_client_thread;
 
-typedef struct	s_server_data
+struct	s_server_data
 {
 	struct sockaddr_in		server;
 	t_client_thread			clients[MAX_PLAYER];
@@ -328,7 +371,8 @@ typedef struct	s_server_data
 	socklen_t				csize;
 	int						socket;
 	int						nb_players;
-	struct timeval			clock;
-}	t_server_data;
+	int						linked_players;
+	int						started;
+};
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 20:48:08 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/21 21:32:51 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,24 @@ void	key_hook(void)
 		ft_down_head();
 	if (_var()->key.space)
 	{
-		_player()->can_shoot = 0;
-		_player()->start_reload = get_clock(_var()->clock);
-		shoot();
+		if (_var()->mode == GAME)
+		{
+			_player()->can_shoot = 0;
+			_player()->start_reload = get_clock(_var()->clock);
+			shoot();
+		}
+		else if (_img()->is_host == SERVER) // menu lobby
+		{
+			int	neg;
+
+			neg = -1;
+			send(_img()->socket, &neg, sizeof(int), 0);
+			send(_img()->socket, &_player()->id, sizeof(int), 0);
+			recv(_img()->socket, &neg, sizeof(int), 0);
+			send(_img()->socket, &_player()->id, sizeof(int), 0);
+			_var()->mode = GAME;
+			//_var()->mode = GAME;
+		}
 	}
 }
 
