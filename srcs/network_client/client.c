@@ -36,7 +36,7 @@ int	ft_init_client(void)
 	if (_img()->is_host == SERVER)
 		_img()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	else if (_img()->is_host == CLIENT) 
-		_img()->client.sin_addr.s_addr = inet_addr(ft_get_ip_input());
+		_img()->client.sin_addr.s_addr = inet_addr(_var()->ip);
 	_img()->client.sin_family = AF_INET;
 	_img()->client.sin_port = htons(30000);
 	printf("MAIS NIQUE TA MERE\n");

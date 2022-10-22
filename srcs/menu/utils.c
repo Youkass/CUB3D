@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/21 21:35:55 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 18:02:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos)
 	t_vector2D	rel_pos[2];
 	t_vector2D	it;
 
-	if (pos.x >= big.width || pos.y >= big.height || lil.height + pos.x
-		> big.height || lil.width + pos.y > big.width)
-		return (big);
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
 	it = (t_vector2D){0, 0};
+	if (pos.x + lil.width > big.width
+	|| (pos.y) + lil.height > big.height)
+		return (big);
 	while (it.y < lil.height)
 	{
 		it.x = 0;
@@ -169,14 +169,14 @@ void	draw_bar_fill(void)
 	i = 0;
 	while (i < (int)(_var()->menu->s_bar * BAR_INC))
 	{
-		draw_vertical_line(&_var()->menu->img, (t_vector2D){819 - OFFSET_X + 42
+		draw_vertical_line(_img(), (t_vector2D){819 - OFFSET_X + 42
 			+ i, 443 - OFFSET_Y + 36}, 27);
 		i++;
 	}
 	i = 0;
 	while (i < (int)(_var()->menu->m_bar * BAR_INC))
 	{
-		draw_vertical_line(&_var()->menu->img, (t_vector2D){819 - OFFSET_X + 42
+		draw_vertical_line(_img(), (t_vector2D){819 - OFFSET_X + 42
 			+ i, 542 - OFFSET_Y + 36}, 27);
 		i++;
 	}

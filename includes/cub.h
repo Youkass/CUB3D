@@ -81,6 +81,7 @@ float	ft_return_radius_2(void);
 int	is_allow_alpha(char c);
 char	char_up(char c);
 void	draw_text(char *text, t_vector2D pos, t_data *img);
+void	draw_rectange(t_vector2D a, t_vector2D size, t_data *img, char color[4]);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network/server_thread.c                     */
@@ -92,7 +93,6 @@ int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
 int	ft_send_all_data(t_client_thread *client);
 int	send_nb_players(t_client_thread *client);
-int	wait_lobby(t_client_thread *client);
 void	*client_routine(void *client_t);
 
 /* -------------------------------------------------------------------------- */
@@ -102,6 +102,14 @@ t_server_data	*_server(void);
 int	ft_init_server(t_server_data *data);
 void	ft_exit(int signal);
 int main(int ac, char **av);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/network/lobby.c                         */
+/* -------------------------------------------------------------------------- */
+int	ft_recv_first_data_lobby(t_client_thread *client);
+int	ft_is_get_lobby(t_client_thread *client);
+int	ft_send_all_data_lobby(t_client_thread *client);
+int	wait_lobby(t_client_thread *client);
 
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/utils/math.c                          */
@@ -221,6 +229,12 @@ void	gen_alpha(void);
 void    gen_menu_images(void);
 
 /* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/menu/menu_lobby.c                        */
+/* -------------------------------------------------------------------------- */
+void	get_pseudos(void);
+void	menu_pong(void);
+
+/* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/loop.c                           */
 /* -------------------------------------------------------------------------- */
 void	check_button_state(void);
@@ -229,10 +243,10 @@ void	check_action_state_bar(int i);
 void	check_action_state_options(int i);
 void	check_button_state_options(void);
 void	planet_clock(void);
-void	menu_pong(void);
 int	menu_loop(void);
 int	menu_hook(int keycode);
 int	menu_hook_pseudo(int keycode);
+int	menu_hook_ip(int keycode);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/menu/render.c                          */
@@ -243,6 +257,7 @@ void	menu_start(void);
 void	menu_player(void);
 void	menu_lobby(void);
 void	menu_pseudo(void);
+void	menu_ip(void);
 void	menu_option(void);
 
 /* -------------------------------------------------------------------------- */

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/21 22:01:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 17:15:04 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,6 +332,7 @@ typedef struct s_var
 	t_weapon		weapon[NB_WEAPONS];
 	t_data			alpha[255];
 	int						linked_players;
+	char			ip[16];
 }	t_var;
 
 typedef struct s_player

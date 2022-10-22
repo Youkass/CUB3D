@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/21 21:48:27 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 17:15:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ esc : 65307
 # define MENU 1
 # define ONLINE_START 2
 # define LOBBY_WAIT 3
+
+# define MENU_START 0
+# define MENU_OPTION 1
+# define MENU_GAME 2
+# define MENU_PLAYER 3
+# define MENU_PSEUDO 4
+# define MENU_LOBBY 5
+# define MENU_IP 6
 
 # define NB_WEAPONS 1
 
@@ -147,13 +155,6 @@ esc : 65307
 
 # define EMPTY 0
 # define FILL 1 
-
-# define MENU_START 0
-# define MENU_OPTION 1
-# define MENU_GAME 2
-# define MENU_PLAYER 3
-# define MENU_PSEUDO 4
-# define MENU_LOBBY 5
 
 # define OFFSET_Y 0
 # define OFFSET_X 0
