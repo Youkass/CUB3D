@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/21 15:33:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 19:03:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ static void	init_cast(t_obj *player)
 			_pc()->pos.x + _player()->plane.x * _pc()->pos.y);
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
-	_pc()->move_screen = (int)(vMove / _pc()->trans.y) + _player()->pitch + player->z / _pc()->trans.y;
+	_pc()->move_screen = (int)(100 / _pc()->trans.y) + _player()->pitch + player->z / _pc()->trans.y;
 }
 static void	compute_draw(void)
 {
-	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / vDiv;
+	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 1.5;
 	_pc()->draw_start.y = -_pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_start.y < 0)
 		_pc()->draw_start.y = 0;
 	_pc()->draw_end.y = _pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_end.y >= WIN_H)
 		_pc()->draw_end.y = WIN_H;
-	_pc()->size.x = abs((int)(WIN_H / (_pc()->trans.y))) / uDiv;
+	_pc()->size.x = abs((int)(WIN_H / (_pc()->trans.y))) / 1.5;
 	_pc()->draw_start.x = -_pc()->size.x / 2 + _pc()->sprite_screen_x;
 	if (_pc()->draw_start.x < 0)
 		_pc()->draw_start.x = 0;

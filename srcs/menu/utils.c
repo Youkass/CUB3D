@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 18:02:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 18:42:37 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ void	draw_pixel(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos)
 	}
 }
 
+void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos)
+{
+	big->addr[rel_pos.x + rel_pos.y] = lil.addr[it.x * 4
+		+ it.y * lil.line_length];
+	big->addr[rel_pos.x + rel_pos.y + 1] = lil.addr[it.x * 4
+		+ it.y * lil.line_length + 1];
+	big->addr[rel_pos.x + rel_pos.y + 2] = lil.addr[it.x * 4
+		+ it.y * lil.line_length + 2];
+	big->addr[rel_pos.x + rel_pos.y + 3] = lil.addr[it.x * 4
+		+ it.y * lil.line_length + 3];
+}
+
 /*
 -Fonction pour ecrire une image dans une plus grande image aux coordonnées
 précisé en paramètre.
@@ -102,6 +114,36 @@ t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos)
 	}
 	return (big);
 }
+
+t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos)
+{
+	t_vector2D	rel_pos[2];
+	t_vector2D	it;
+
+	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
+	rel_pos[1] = rel_pos[0];
+	it = (t_vector2D){0, 0};
+	if (pos.x + lil.width > big.width
+	|| (pos.y) + lil.height > big.height)
+		return (big);
+	while (it.y < lil.height)
+	{
+		it.x = 0;
+		while (it.x < lil.width)
+		{
+			draw_pixel_create(&big, lil, it, rel_pos[0]);
+			rel_pos[0].x += 4;
+			pos.x++;
+			it.x++;
+		}
+		pos.y++;
+		rel_pos[0].y = pos.y * big.line_length;
+		rel_pos[0].x = rel_pos[1].x;
+		it.y++;
+	}
+	return (big);
+}
+
 
 t_data	ft_put_sprite_to_image(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size)
 {

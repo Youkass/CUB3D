@@ -39,17 +39,14 @@ int	ft_init_client(void)
 		_img()->client.sin_addr.s_addr = inet_addr(_var()->ip);
 	_img()->client.sin_family = AF_INET;
 	_img()->client.sin_port = htons(30000);
-	printf("MAIS NIQUE TA MERE\n");
 	ret = connect(_img()->socket,
 		(const struct sockaddr *)&(_img()->client), sizeof(_img()->client));
 	if (ret < 0)
 		return (EXIT_FAILURE);
-	printf("1\n");
 	recv(_img()->socket, &ret, sizeof(ret), 0);
 	_player()->id = ret;
 	if (_img()->is_host == CLIENT)
 	{
-		printf("2\n");
 		recv(_img()->socket, &ret, sizeof(ret), 0);
 		_img()->nb_player = ret;
 	}
