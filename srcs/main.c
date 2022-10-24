@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/24 13:25:00 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/24 15:28:35 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,7 @@ void	ft_init_player2(void)
 	int		i;
 
 	i = 0;
-	while (i < _img()->nb_player)
+	while (i < MAX_PLAYER)
 	{
 		_var()->o_player[i].weapon_id = 0;
 		_var()->o_player[i].health = 100;
@@ -208,7 +208,6 @@ void	ft_print_tab(char **s)
 
 int	ft_hook(int keycode)
 {
-	printf("%d\n", keycode);
 	get_key(keycode);
 	//if (_var()->mode == GAME)
 	//	ft_game_hook(keycode);

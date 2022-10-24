@@ -53,13 +53,11 @@ int	ft_init_client(void)
 	int	i;
 
 	i = 0;
-	printf("3\n");
 	while (_player()->pseudo[i])
 	{
 		send(_img()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
 		i++;
 	}
-	printf("4\n");
 	send(_img()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
 	return (EXIT_SUCCESS);
 }
@@ -103,7 +101,6 @@ void	ft_pong_client(void)
 	memset(&player, 0, sizeof(player));
 	ft_copy_data_before_pong(&player);
 	send(_img()->socket, &player, sizeof(player), 0);
-	//printf("%d\n", _img()->nb_player);
 	while (i < _img()->nb_player)
 	{
 		recv(_img()->socket, &player, sizeof(player), 0);

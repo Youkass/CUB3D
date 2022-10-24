@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:20:26 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 19:07:52 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/24 14:21:08 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	draw_text(char *text, t_vector2D pos, t_data *img)
 	{
 		if (is_allow_alpha(text[i]))
 		{
-			printf("%d %c\n", i, text[i]);
-			printf("%d\n", tmp.x);
 			ft_put_image_to_image(*img, _var()->alpha[(int)char_up(text[i])], tmp);
 		}
 		tmp.x += 42;
