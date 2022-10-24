@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/21 12:46:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/22 19:03:01 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ static void	init_cast(t_obj *player)
 			_pc()->pos.x + _player()->plane.x * _pc()->pos.y);
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
-	_pc()->move_screen = (int)(vMove / _pc()->trans.y) + _player()->pitch + player->z / _pc()->trans.y;
+	_pc()->move_screen = (int)(100 / _pc()->trans.y) + _player()->pitch + player->z / _pc()->trans.y;
 }
 static void	compute_draw(void)
 {
-	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / vDiv;
+	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 1.5;
 	_pc()->draw_start.y = -_pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_start.y < 0)
 		_pc()->draw_start.y = 0;
 	_pc()->draw_end.y = _pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_end.y >= WIN_H)
 		_pc()->draw_end.y = WIN_H;
-	_pc()->size.x = abs((int)(WIN_H / (_pc()->trans.y))) / uDiv;
+	_pc()->size.x = abs((int)(WIN_H / (_pc()->trans.y))) / 1.5;
 	_pc()->draw_start.x = -_pc()->size.x / 2 + _pc()->sprite_screen_x;
 	if (_pc()->draw_start.x < 0)
 		_pc()->draw_start.x = 0;
@@ -60,6 +60,12 @@ static void	draw(t_obj *player)
 		tex_mode = 1;
 		walk_tex =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, player->angle) +
 		normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(_player()->y - player->y, _player()->x - player->x))), 8);
+	}
+	if (player->is_dead == 1)
+	{
+		tex_mode = 2;
+		//tex_sp =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, _player2()->angle) +
+		//normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(_player()->y - _player2()->y, _player()->x - _player2()->x))), 8);
 	}
 	compute_draw();
 	stripe = _pc()->draw_start.x;
@@ -89,7 +95,7 @@ static void	draw(t_obj *player)
 				}
 				else
 				{
-					_pc()->tex.y = ((_pc()->d * player->death_sprite.height) /_pc()->size.y) / 256;
+					_pc()->tex.y = ((_pc()->d * _player()->death_sprite.height) /_pc()->size.y) / 256;
 					ft_put_pixel(_img(), &_player()->death_sprite, (t_vector2D){stripe, y + 5}, (t_vector2D){_pc()->tex.x + 39 * player->death_n, _pc()->tex.y});
 				}
 				y++;
@@ -144,7 +150,6 @@ void	player_casting(void)
 	sort_by_distance();
 	while (i < _img()->nb_player)
 	{
-//		death_clock(&_var()->o_player[i]);
 		if (_var()->sort_player[i].id != _player()->id)
 		{
 			init_cast(&(_var()->sort_player[i]));

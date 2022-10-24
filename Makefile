@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/10/20 11:22:20 by yobougre         ###   ########.fr        #
+#    Updated: 2022/10/22 18:55:10 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,12 @@ END			= \e[0m
 
 SRCS		=	srcs/main.c\
 				srcs/shoot.c\
+				srcs/ft_itoa.c\
 				srcs/raycasting/raycasting_utils.c\
 				srcs/raycasting/raycasting.c\
 				srcs/raycasting/spritecasting.c\
 				srcs/raycasting/player_casting.c\
+				srcs/raycasting/name_casting.c\
 				srcs/mlx_utils/mlx_utils.c\
 				srcs/utils/singleton.c\
 				srcs/utils/singleton_2.c\
@@ -32,7 +34,9 @@ SRCS		=	srcs/main.c\
 				srcs/utils/collisions.c\
 				srcs/drawing/draw_player.c\
 				srcs/drawing/draw_map.c\
+				srcs/drawing/draw_text.c\
 				srcs/menu/generate.c\
+				srcs/menu/menu_lobby.c\
 				srcs/menu/loop.c\
 				srcs/menu/render.c\
 				srcs/menu/utils.c\
@@ -42,11 +46,13 @@ SRCS		=	srcs/main.c\
 				srcs/network_client/network_utils.c\
 				srcs/network_client/client.c
 
-SERVER_SRCS		= srcs/network/server.c\
-				  srcs/network_client/network_utils.c\
-				  srcs/network/server_thread.c\
+SERVER_SRCS		= 	srcs/network/server.c\
+					srcs/network/lobby.c\
+				  	srcs/network_client/network_utils.c\
+				  	srcs/network/server_thread.c\
 					srcs/utils/clock.c\
-					srcs/utils/math.c
+					srcs/utils/math.c\
+					srcs/parsing/parsing.c
 
 
 NAME		= cub3D
@@ -63,7 +69,7 @@ OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra -g3
-MLB_FLAGS	= -g -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
+MLB_FLAGS	= -g -fsanitize=address -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
 
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
@@ -81,6 +87,7 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
 	@$(CC) $(CC_FLAGS) -c $< -o $@

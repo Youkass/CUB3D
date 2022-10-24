@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/21 10:32:33 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/19 20:15:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ t_obj	*_player(void)
 	static t_obj	player;
 
 	return (&player);
+	//if (!player)
+	//	player = malloc(sizeof(t_obj));
+	//if (!player)
+	//	return (NULL);
+	//return (player);
 }
 
 /*

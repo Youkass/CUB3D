@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/21 14:38:35 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/22 19:09:33 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ int	ft_connect_clients(t_server_data *data)
 	int	i;
 
 	i = 0;
+	data->linked_players = 0;
 	while (i < data->nb_players)
 	{
 		data->clients[i].csize = sizeof(data->clients[i].sockclient);
+		data->clients[i].serv = data;
 		data->clients[i].socket = accept(data->socket,
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
 		printf("client socket accepted : %d\n", data->clients[i].socket);
@@ -116,14 +118,53 @@ int	ft_send_all_data(t_client_thread *client)
 	return (0);
 }
 
+int	send_nb_players(t_client_thread *client)
+{
+	int		i;
+	char	c;
+
+	i = 0;
+	c = 1;
+	if (client->id == 0)
+	{
+		pthread_mutex_lock(client->mutex);
+		client->serv->nb_players = client->nb_players;
+		pthread_mutex_unlock(client->mutex);
+	}
+	if (client->id != 0)
+	{
+		pthread_mutex_lock(client->mutex);
+		client->nb_players = client->serv->nb_players;
+		if (send(client->socket, &(client->serv->nb_players), sizeof(client->id), 0) < 0)
+			return (0);
+		pthread_mutex_unlock(client->mutex);
+	}
+	while (c != 0)
+	{
+		recv(client->socket, &c, sizeof(c), 0);
+		_server()->player_data[client->id].pseudo[i] = c;
+		i++;
+	}
+	return (1);
+}
+
 void	*client_routine(void *client_t)
 {
 	t_client_thread	*client;
 
 	client = (t_client_thread *)client_t;
 	signal(SIGPIPE, SIG_IGN);
+	pthread_mutex_lock(client->mutex);
+	client->serv->linked_players += 1;
+	pthread_mutex_unlock(client->mutex);
 	if (send(client->socket, &(client->id), sizeof(client->id), 0) < 0)
 		return (NULL);
+	if (!send_nb_players(client))
+		return (NULL);
+	printf("can start lobbying\n");
+	if (!wait_lobby(client))
+		return (NULL);
+	printf("on est la\n");
 	while (1)
 	{
 		if (ft_recv_first_data(client) == EXIT_FAILURE)

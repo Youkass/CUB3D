@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/20 13:20:34 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/22 18:06:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,16 @@ typedef struct s_enum_key
 
 void	key_hook(void)
 {
-	//detect_neighbors();
+	if (_var()->key.esc)
+		ft_escape();
+	if (_player()->is_dead)
+		return ;
 	if (_var()->key.a)
 		ft_left();
 	if (_var()->key.w)
 		ft_forward();
 	if (_var()->key.s)
 		ft_back();
-	if (_var()->key.esc)
-		ft_escape();
 	if (_var()->key.d)
 		ft_right();
 	if (_var()->key.up)
@@ -47,7 +48,25 @@ void	key_hook(void)
 	if (_var()->key.down)
 		ft_down_head();
 	if (_var()->key.space)
-		_player()->shooted = 1;
+	{
+		if (_var()->mode == GAME)
+		{
+			_player()->can_shoot = 0;
+			_player()->start_reload = get_clock(_var()->clock);
+			shoot();
+		}
+		else if (_img()->is_host == SERVER && _var()->menu->mode == MENU_LOBBY ) // menu lobby
+		{
+			int	neg;
+
+			neg = -1;
+			send(_img()->socket, &neg, sizeof(int), 0);
+			send(_img()->socket, &_player()->id, sizeof(int), 0);
+			recv(_img()->socket, &neg, sizeof(int), 0);
+			send(_img()->socket, &_player()->id, sizeof(int), 0);
+			_var()->mode = GAME;
+		}
+	}
 }
 
 int	ft_game_hook(int keycode)
