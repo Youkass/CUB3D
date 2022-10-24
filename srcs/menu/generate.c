@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/24 14:22:01 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:38:54 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_vector2D	*_butpl(void)
 	int	i;
 	int	j;
 
-	i = 3;
+	i = 4;
 	j = 0;
 	if (!butp)
 	{
