@@ -90,6 +90,8 @@ void	ft_copy_data_before_pong(t_obj *player)
     player->health = _player()->health;
     player->weapon_id = _player()->weapon_id;
     player->ammo = _player()->ammo;
+	memset(player->pseudo, 0, sizeof(player->pseudo));
+	strcpy(player->pseudo, _player()->pseudo);
 }
 
 void	ft_pong_client(void)

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 15:48:06 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/24 18:00:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_recv_first_data_lobby(t_client_thread *client)
 		pthread_mutex_lock(client->mutex);
 		_server()->player_data[client->id].id = client->player_data.id;
 		pthread_mutex_unlock(client->mutex);
+		printf("%s\n", client->player_data.pseudo);
 	}
 	return (0);
 }
