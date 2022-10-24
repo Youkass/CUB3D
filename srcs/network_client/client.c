@@ -36,17 +36,31 @@ int	ft_init_client(void)
 	if (_img()->is_host == SERVER)
 		_img()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	else if (_img()->is_host == CLIENT) 
-		_img()->client.sin_addr.s_addr = inet_addr(ft_get_ip_input());
+		_img()->client.sin_addr.s_addr = inet_addr(_var()->ip);
 	_img()->client.sin_family = AF_INET;
 	_img()->client.sin_port = htons(30000);
-	printf("MAIS NIQUE TA MERE\n");
 	ret = connect(_img()->socket,
 		(const struct sockaddr *)&(_img()->client), sizeof(_img()->client));
 	if (ret < 0)
 		return (EXIT_FAILURE);
-	printf("connecté\n");
 	recv(_img()->socket, &ret, sizeof(ret), 0);
 	_player()->id = ret;
+	if (_img()->is_host == CLIENT)
+	{
+		recv(_img()->socket, &ret, sizeof(ret), 0);
+		_img()->nb_player = ret;
+	}
+	int	i;
+
+	i = 0;
+	printf("3\n");
+	while (_player()->pseudo[i])
+	{
+		send(_img()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
+		i++;
+	}
+	printf("4\n");
+	send(_img()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
 	return (EXIT_SUCCESS);
 }
 
@@ -75,6 +89,9 @@ void	ft_copy_data_before_pong(t_obj *player)
 	player->old_plane = _player()->old_plane;
 	player->hb = _player()->hb;
 	player->pitch = _player()->pitch;
+    player->health = _player()->health;
+    player->weapon_id = _player()->weapon_id;
+    player->ammo = _player()->ammo;
 }
 
 void	ft_pong_client(void)
@@ -86,11 +103,18 @@ void	ft_pong_client(void)
 	memset(&player, 0, sizeof(player));
 	ft_copy_data_before_pong(&player);
 	send(_img()->socket, &player, sizeof(player), 0);
+	//printf("%d\n", _img()->nb_player);
 	while (i < _img()->nb_player)
 	{
 		recv(_img()->socket, &player, sizeof(player), 0);
+		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
+			_player()->health -= _var()->weapon[player.weapon_id].power;
+		if (player.shooted.shoot == 1 && player.id == _player()->id)
+		{
+			_player()->shooted.shoot = 0;
+			_player()->shooted.id = -1;
+		}
 		_var()->o_player[player.id] = player;
 		++i;
 	}
-
 }

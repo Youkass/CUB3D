@@ -6,9 +6,10 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/20 15:14:26 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/22 19:21:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/cub.h"
 #include <unistd.h> 
 
@@ -96,6 +97,8 @@ void	generate_dsprite(void)
 	_player()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
 
 	_player()->death_sprite = generate_image("./img/soldier/death.xpm");
+
+	_player()->rifle = generate_image("./img/soldier/rifle.xpm");
 }
 
 
@@ -103,11 +106,18 @@ void	ft_init_player_pos(void)
 {
 	double	dist;
 
+	_player()->pseudo[0] = 0;
+	_player()->weapon_id = 0;
+	_player()->can_shoot = 1;
+	_player()->start_reload = get_clock(_var()->clock);
+	_player()->health = 100;
+	_player()->ammo = 0;
 	_player()->x = 5;
 	_player()->y = 3;
 	_player()->z = 0;
 	_player()->dx = -1;
-	_player()->shooted = 0;
+	_player()->shooted.id = -1;
+	_player()->shooted.shoot = 0;
 	_player()->dy = 0;
 	_player()->is_dead = 0;
 	_player()->death_n = 0;
@@ -135,17 +145,23 @@ void	walk_clock(void)
 	}
 }
 
-void	death_clock(t_obj *pl)
+void	death_clock(void)
 {
-	if (pl->death_n == 15)
+	if (_player()->death_n == 15 || _player()->is_dead != 1)
 		return ;
-	if (get_clock(_var()->clock) - pl->death_start > 50000 )
+	if (get_clock(_var()->clock) - _player()->death_start > 50000 )
 	{
-		pl->death_n++;
-		if (pl->death_n >= 16)
-			pl->death_n = 15;
-		pl->death_start = get_clock(_var()->clock);
+		_player()->death_n++;
+		if (_player()->death_n >= 16)
+			_player()->death_n = 15;
+		_player()->death_start = get_clock(_var()->clock);
 	}
+}
+
+void	reload_clock(void)
+{
+	if (get_clock(_var()->clock) - _player()->start_reload > _var()->weapon[_player()->weapon_id].reload_ms)
+		_player()->can_shoot = 1;
 }
 
 void	ft_init_player2(void)
@@ -156,6 +172,8 @@ void	ft_init_player2(void)
 	i = 0;
 	while (i < _img()->nb_player)
 	{
+		_var()->o_player[i].weapon_id = 0;
+		_var()->o_player[i].health = 100;
 		_var()->o_player[i].x = 7;
 		_var()->o_player[i].y = 8;
 		_var()->o_player[i].z = 20;
@@ -190,11 +208,16 @@ void	ft_print_tab(char **s)
 
 int	ft_hook(int keycode)
 {
+	printf("%d\n", keycode);
 	get_key(keycode);
 	//if (_var()->mode == GAME)
 	//	ft_game_hook(keycode);
 	if (_var()->mode == MENU)
 		menu_hook(keycode);
+	if (_var()->mode == MENU && _var()->menu->mode == MENU_PSEUDO)
+		menu_hook_pseudo(keycode);
+	if (_var()->mode == MENU && _var()->menu->mode == MENU_IP)
+		menu_hook_ip(keycode);
 	return (0);
 }
 
@@ -207,11 +230,30 @@ int	ft_mouse_hook(int keycode)
 
 int	ft_loop_hook(void)
 {
+	int	pid;
+
+	if (_var()->mode == ONLINE_START)
+	{
+			_img()->is_host = SERVER;
+			pid = fork();
+			if (pid == 0)
+			{
+				sleep(1);
+				ft_init_client();
+				//_var()->mode = GAME;
+			}
+			else
+			{
+				system(ft_strjoin("./server ", ft_itoa(_img()->nb_player)));
+				exit(1);
+			}
+		_var()->mode = LOBBY_WAIT;
+	}
 	ft_fps();
 	key_hook();
 	if (_var()->mode == GAME)
 		ft_loop();
-	else if (_var()->mode == MENU)
+	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
 	return (0);
 }
@@ -236,11 +278,44 @@ int	ft_game(void)
 void	init_key(void)
 {
 	_var()->key.a = 0;
+	_var()->key.b = 0;
+	_var()->key.c = 0;
 	_var()->key.d = 0;
+	_var()->key.e = 0;
+	_var()->key.f = 0;
+	_var()->key.g = 0;
+	_var()->key.h = 0;
+	_var()->key.i = 0;
+	_var()->key.j = 0;
+	_var()->key.k = 0;
+	_var()->key.l = 0;
+	_var()->key.m = 0;
+	_var()->key.n = 0;
+	_var()->key.o = 0;
+	_var()->key.p = 0;
+	_var()->key.q = 0;
+	_var()->key.r = 0;
+	_var()->key.s = 0;
+	_var()->key.t = 0;
+	_var()->key.u = 0;
+	_var()->key.v = 0;
+	_var()->key.w = 0;
+	_var()->key.x = 0;
+	_var()->key.y = 0;
+	_var()->key.z = 0;
+	_var()->key.one = 0;
+	_var()->key.two = 0;
+	_var()->key.three = 0;
+	_var()->key.four = 0;
+	_var()->key.five = 0;
+	_var()->key.six = 0;
+	_var()->key.seven = 0;
+	_var()->key.eight = 0;
+	_var()->key.nine = 0;
+	_var()->key.zero = 0;
+	_var()->key.underscore = 0;
 	_var()->key.esc = 0;
 	_var()->key.mouse = 0;
-	_var()->key.s = 0;
-	_var()->key.w = 0;
 	_var()->key.up = 0;
 	_var()->key.down = 0;
 	_var()->key.left = 0;
@@ -248,46 +323,43 @@ void	init_key(void)
 	_var()->key.space = 0;
 }
 
+void	init_weapons(void)
+{
+	_var()->weapon[0].name = malloc(sizeof(char) * 6);
+	_var()->weapon[0].name = "Rifle\0";
+	_var()->weapon[0].id = 0;
+	_var()->weapon[0].power = 10;
+	_var()->weapon[0].reload_ms = 5000;
+	_var()->weapon[0].ammo = 15;
+}
+
+void	init_var(void)
+{
+	int	i;
+
+	_var()->menu = malloc(sizeof(t_menu));
+	_var()->mode = MENU;
+	_var()->menu->mode = MENU_START;_var()->walk_n = 0;
+	_var()->clock = start_clock();
+	_var()->walk_start = get_clock(_var()->clock);
+	i = 0;
+	while (i < MAX_PLAYER)
+		_var()->pseudo_img[i++].img = NULL;
+}
+
 int main(int argc, char **argv)
 {
 	int		fd;
-	int		pid;
 
+	(void)argc;
+	init_var();
 	fd = open(argv[1], O_RDONLY);
-	_var()->walk_n = 0;
-	_var()->clock = start_clock();
-	_var()->walk_start = get_clock(_var()->clock);
 	if (fd < 0)
 		exit(139);
 	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
 	if (!_img()->map)
 		exit(139);
-	if (argc == 4)
-	{
-		_img()->nb_player = atoi(argv[3]);
-		if (atoi(argv[2]) == 1)
-		{
-			_img()->is_host = SERVER;
-			pid = fork();
-			if (pid == 0)
-			{
-				system(ft_strjoin("./server ", argv[3]));
-				exit(1);
-			}
-			sleep(1);
-			ft_init_client();
-		}
-		else if (atoi(argv[2]) == 2)
-		{
-			_img()->is_host = CLIENT;
-			ft_init_client();
-		}
-	}
-	else
-	{
-		_img()->is_host = NONE;
-		_img()->nb_player = 0;
-	}
+	init_weapons();
 	ft_print_tab(_img()->map);
 	ft_init_mlx();
 	ft_init_img();
@@ -297,7 +369,6 @@ int main(int argc, char **argv)
 	ft_malloc_map();
 	init_key();
 	gen_menu_images();
-	_var()->mode = GAME;
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);
