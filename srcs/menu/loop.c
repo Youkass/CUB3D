@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 19:13:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/24 15:44:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,18 +221,8 @@ int	menu_loop(void)
 */
 int	menu_hook(int keycode)
 {
-	int			i;
-	t_enum_key	tab[1];
-
-	i = 0;
-	tab[0].id= 65307;
-	tab[0].ft_hook_key = &ft_escape;
-	while (i < MAX_KEYS)
-	{
-		if (tab[i].id == keycode)
-			return (tab[i].ft_hook_key());
-		++i;
-	}
+	if (keycode == ESC)
+		ft_escape();
 	return (0);
 }
 

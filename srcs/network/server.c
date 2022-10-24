@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/22 18:43:07 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/24 14:28:06 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ int	ft_init_server(t_server_data *data)
 		(const struct sockaddr *)&(data->server), 
 			sizeof(data->server)) < 0)
 		return (perror(""), EXIT_FAILURE);
-	printf("je passe ici\n");
 	if (listen(data->socket, 5) < 0)
 		return (EXIT_FAILURE);
-	printf("listen\n");
 	return (EXIT_SUCCESS);
 }
 

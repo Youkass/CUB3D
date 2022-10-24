@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 19:22:30 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/24 14:22:01 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,6 @@ void	gen_alpha(void)
 	while (i <= 90)
 	{
 		_var()->alpha[i] = generate_image(ft_strjoin(ft_strjoin("./img/menu/alpha/", (char [2]){i, 0}), ".xpm"));
-		printf("%s\n", ft_strjoin(ft_strjoin("./img/menu/alpha/", (char [2]){i, 0}), ".xpm"));
 		i++;
 	}
 	i = 48;
