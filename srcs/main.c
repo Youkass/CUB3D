@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/22 19:21:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/24 13:25:00 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,6 @@ int	ft_loop_hook(void)
 			{
 				sleep(1);
 				ft_init_client();
-				//_var()->mode = GAME;
 			}
 			else
 			{
