@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/10/22 18:55:10 by denissereno      ###   ########.fr        #
+#    Updated: 2022/10/24 13:23:43 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,8 +68,8 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
-CC_FLAGS	= -Wall -Werror -Wextra -g3
-MLB_FLAGS	= -g -fsanitize=address -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
+CC_FLAGS	= -Wall -Werror -Wextra
+MLB_FLAGS	= -g -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
 
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
