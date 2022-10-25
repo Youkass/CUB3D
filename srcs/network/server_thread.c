@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_thread.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/24 18:00:26 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/25 20:33:39 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int	ft_init_client_thread(t_server_data *data)
 	int	i;
 
 	i = 0;
+	if (pthread_mutex_init(&_server()->mutex, NULL))
+		return (EXIT_FAILURE);
 	while (i < data->nb_players)
 	{
 		data->clients[i].nb_players = data->nb_players;
 		data->clients[i].id = i;
 		data->clients[i].mutex = &_server()->mutex;
 		data->clients[i].is_recv = 0;
-		if (pthread_mutex_init(data->clients[i].mutex, NULL))
-			return (EXIT_FAILURE);
 		++i;
 	}
 	return (EXIT_SUCCESS);
@@ -105,13 +105,17 @@ int	ft_send_all_data(t_client_thread *client)
 	i = 0;
 	if (!ft_is_get(client))
 		return (1);
+	int	sync = 0;
+
+	if (send(client->socket, &sync, sizeof(sync), 0) < 0)
+		return (1);
 	while (i < client->nb_players)
 	{
 		pthread_mutex_lock(client->mutex);
 		data = _server()->player_data[i];
+		pthread_mutex_unlock(client->mutex);
 		if (send(client->socket, &data, sizeof(data), 0) < 0)
 			return (1);
-		pthread_mutex_unlock(client->mutex);
 		++i;
 	}
 	client->is_recv = 0;

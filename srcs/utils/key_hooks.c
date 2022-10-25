@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/22 18:06:22 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/25 20:21:15 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,7 @@ void	key_hook(void)
 			shoot();
 		}
 		else if (_img()->is_host == SERVER && _var()->menu->mode == MENU_LOBBY ) // menu lobby
-		{
-			int	neg;
-
-			neg = -1;
-			send(_img()->socket, &neg, sizeof(int), 0);
-			send(_img()->socket, &_player()->id, sizeof(int), 0);
-			recv(_img()->socket, &neg, sizeof(int), 0);
-			send(_img()->socket, &_player()->id, sizeof(int), 0);
-			_var()->mode = GAME;
-		}
+			_var()->started = 1;
 	}
 }
 

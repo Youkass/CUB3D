@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/24 13:42:06 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/25 20:19:05 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ esc : 65307
 # define MENU 1
 # define ONLINE_START 2
 # define LOBBY_WAIT 3
+# define GAME_START_ONLINE 4
 
 # define MENU_START 0
 # define MENU_OPTION 1
