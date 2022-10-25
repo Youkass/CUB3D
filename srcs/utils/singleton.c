@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/05 18:36:21 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 20:15:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,18 @@ t_mlx	*_mlx(void)
 }
 
 /*
--Singleton for the enum tab 
+-Singleton player
 */
 t_obj	*_player(void)
 {
-	static t_obj	*player = NULL;
+	static t_obj	player;
 
-	if (!player)
-		player = malloc(sizeof(t_obj));
-	if (!player)
-		return (NULL);
-	return (player);
+	return (&player);
+	//if (!player)
+	//	player = malloc(sizeof(t_obj));
+	//if (!player)
+	//	return (NULL);
+	//return (player);
 }
 
 /*
@@ -77,11 +78,7 @@ t_raycasting	**_ray(void)
 */
 t_var	*_var(void)
 {
-	static t_var	*var = NULL;
+	static t_var	var;
 	
-	if (!var)
-		var = malloc(sizeof(t_var));
-	if (!var)
-		return (NULL);
-	return (var);
+	return (&var);
 }

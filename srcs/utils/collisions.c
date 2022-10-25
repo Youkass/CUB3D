@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/07 00:27:03 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 15:12:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,4 +142,48 @@ int	check_neighbor(int up)
 		i++;
 	}
 	return (_nb()->ret);
+}
+
+int	circle_circle_col(t_obj *pl)
+{
+	t_vector2F	dist;
+	float		check;
+
+	dist.x = fabsf(_player()->x - pl->x);
+	dist.y = fabsf(_player()->y - pl->y);
+	check = sqrt( (dist.x*dist.x) + (dist.y*dist.y) );
+	if (check <= 0.5+0.5)
+		return (1);
+	return (0);
+}
+
+int	circle_collide(void)
+{
+	t_vector2F	dist;
+	t_vector2F	unit;
+	float		rad_sum;
+	float		length;
+	int			i;
+
+	i = 0;
+	length = 0;
+	while (i < _img()->nb_player)
+	{
+		if (circle_circle_col(&_var()->o_player[i]))
+		{
+			dist.x = _player()->x - _player2()->x;
+			dist.y = _player()->y - _player2()->y;
+			rad_sum  = 0.5 + 0.5;
+			length = sqrtf(dist.x * dist.x + dist.y * dist.y) || 1;
+			unit.x = dist.x / length;
+			unit.y = dist.y / length;
+
+			_player()->x = _player2()->x + (rad_sum + 0.01) * unit.x;
+			_player()->y = _player2()->y + (rad_sum + 0.01) * unit.y;
+		}
+		i++;
+	}
+	if (length != 0)
+		return (1);
+	return (0);
 }

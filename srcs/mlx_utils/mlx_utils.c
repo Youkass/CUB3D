@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/07 00:33:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 19:06:10 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,14 +146,31 @@ void	draw_void_thread()
 		pthread_join(_var()->th_void[i], NULL);
 }
 
+void	check_death(void)
+{
+	if (_player()->health <= 0 && _player()->is_dead == 0)
+	{
+		_player()->is_dead = 1;
+		_player()->death_start = get_clock(_var()->clock);
+		_player()->death_n = 0;
+	}
+}
+
 int	ft_loop()
 {
 	draw_void_thread();
-	//ft_put_image_to_image(*_img(), _player()->sprite, (t_vector2D){500, 400});
+	check_death();
+	death_clock();
+	reload_clock();
 	draw_rays();
-	player_casting();
+	walk_clock();
+	if (_img()->is_host == CLIENT || _img()->is_host == SERVER)
+	{
+		ft_pong_client();
+		player_casting();
+		name_casting();
+	}
 	ft_draw_map();
-	//ft_put_image_to_image(*_img(), _player2()->sprite, (t_vector2D){500, 400});
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/07 13:17:15 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/24 15:44:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,54 @@ void	check_button_state(void)
 			if (i == 0 && _var()->menu->s_state[0].state == 2)
 				_var()->mode = GAME;
 			if (i == 1 && _var()->menu->s_state[1].state == 2)
+				_var()->menu->mode = MENU_PLAYER;
+			if (i == 2 && _var()->menu->s_state[2].state == 2)
 				_var()->menu->mode = MENU_OPTION;
 			if (i == 3 && _var()->menu->s_state[3].state == 2)
 				exit(0); // TODO FREE TOUT ICI
 			_var()->menu->s_state[i].state = 
 			ft_hitbox(_var()->menu->s_state[i].hitbox, _var()->m_pos);
+		}
+		i++;
+	}
+}
+
+void	check_button_state_pl(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (_var()->menu->p_state[i].state != 2 || (_var()->menu->p_state[i]
+				.state == 2 && get_clock(_var()->menu->p_state[i].clock)
+				> BUT_CL_TIME))
+		{
+			if (i == 0 && _var()->menu->p_state[0].state == 2)
+			{
+				_img()->nb_player = 2;
+				_var()->menu->mode = MENU_PSEUDO;
+				_img()->is_host = SERVER;
+			}
+			if (i == 1 && _var()->menu->p_state[1].state == 2)
+			{
+				_img()->nb_player = 4;
+				_var()->menu->mode = MENU_PSEUDO;
+				_img()->is_host = SERVER;
+			}
+			if (i == 2 && _var()->menu->p_state[2].state == 2)
+			{
+				_img()->nb_player = 6;
+				_var()->menu->mode = MENU_PSEUDO;
+				_img()->is_host = SERVER;
+			}
+			if (i == 3 && _var()->menu->p_state[3].state == 2)
+			{
+				_var()->menu->mode = MENU_IP;
+				_img()->is_host = CLIENT;
+			}
+			_var()->menu->p_state[i].state = 
+			ft_hitbox(_var()->menu->p_state[i].hitbox, _var()->m_pos);
 		}
 		i++;
 	}
@@ -145,21 +188,32 @@ void	planet_clock(void)
 */
 int	menu_loop(void)
 {
+	if(_var()->menu->mode == MENU_LOBBY)
+		menu_pong();
 	planet_clock();
 	drag_bar();
 	if (_var()->menu->mode == MENU_START)
 		check_button_state();
+	else if (_var()->menu->mode == MENU_PLAYER)
+		check_button_state_pl();
 	else if (_var()->menu->mode == MENU_OPTION)
 		check_button_state_options();
 	mlx_mouse_get_pos(_mlx()->mlx, _mlx()->mlx_win,
 		&_var()->m_pos.x, &_var()->m_pos.y);
 	if (_var()->menu->mode == MENU_START)
 		menu_start();
+	else if (_var()->menu->mode == MENU_PLAYER)
+		menu_player();
+	else if (_var()->menu->mode == MENU_PSEUDO)
+		menu_pseudo();
+	else if (_var()->menu->mode == MENU_IP)
+		menu_ip();
+	else if (_var()->menu->mode == MENU_LOBBY)
+		menu_lobby();
 	else if (_var()->menu->mode == MENU_OPTION)
 		menu_option();
-	
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win,
-		_var()->menu->img.img, 0, 0);
+		_img()->img, 0, 0);
 	return (0);
 }
 /*
@@ -167,17 +221,110 @@ int	menu_loop(void)
 */
 int	menu_hook(int keycode)
 {
-	int			i;
-	t_enum_key	tab[1];
+	if (keycode == ESC)
+		ft_escape();
+	return (0);
+}
 
-	i = 0;
-	tab[0].id= 65307;
-	tab[0].ft_hook_key = &ft_escape;
-	while (i < MAX_KEYS)
+int	menu_hook_pseudo(int keycode)
+{
+	static int	n = 0;
+
+	if (keycode >= A && keycode <= Z && n + 1 < 17)
 	{
-		if (tab[i].id == keycode)
-			return (tab[i].ft_hook_key());
-		++i;
+		_player()->pseudo[n++] = keycode - 32;
+		_player()->pseudo[n] = 0;
+	}
+	if (keycode == ERASE && n > 0)
+	{
+		n--;
+		_player()->pseudo[n] = 0;
+	}
+	if (keycode == ENTER && n > 3 && _img()->is_host == SERVER)
+	{
+		//_player()->pseudo_img = create_text_img(_player()->pseudo);
+		_var()->menu->mode = MENU_LOBBY;
+		_var()->mode = ONLINE_START;
+	}
+	if (keycode == ENTER && n > 3 && _img()->is_host == CLIENT)
+	{
+		//_player()->pseudo_img = create_text_img(_player()->pseudo);
+		ft_init_client();
+		_var()->menu->mode = MENU_LOBBY;
+		_var()->mode = MENU;
+	}
+	return (0);
+}
+
+int	menu_hook_ip(int keycode)
+{
+	static int	n = 0;
+
+	if (keycode == ZERO && n + 1 < 16)
+	{
+		_var()->ip[n++] = '0';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == ONE && n + 1 < 16)
+	{
+		_var()->ip[n++] = '1';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == TWO && n + 1 < 16)
+	{
+		_var()->ip[n++] = '2';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == THREE && n + 1 < 16)
+	{
+		_var()->ip[n++] = '3';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == FOUR && n + 1 < 16)
+	{
+		_var()->ip[n++] = '4';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == FIVE && n + 1 < 16)
+	{
+		_var()->ip[n++] = '5';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == SIX && n + 1 < 16)
+	{
+		_var()->ip[n++] = '6';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == SEVEN && n + 1 < 16)
+	{
+		_var()->ip[n++] = '7';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == EIGHT && n + 1 < 16)
+	{
+		_var()->ip[n++] = '8';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == NINE && n + 1 < 16)
+	{
+		_var()->ip[n++] = '9';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == SPACE && n + 1 < 16)
+	{
+		printf("lol\n");
+		_var()->ip[n++] = '.';
+		_var()->ip[n] = 0;
+	}
+	if (keycode == ERASE && n > 0)
+	{
+		n--;
+		_var()->ip[n] = 0;
+	}
+	if (keycode == ENTER && n > 3 && _img()->is_host == CLIENT)
+	{
+		_var()->menu->mode = MENU_PSEUDO;
+		_var()->mode = MENU;
 	}
 	return (0);
 }
