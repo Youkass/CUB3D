@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/24 15:28:35 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:48:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ void	ft_init_player2(void)
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
+		_var()->pseudo_img[i].img = NULL;
 		_var()->o_player[i].weapon_id = 0;
 		_var()->o_player[i].health = 100;
 		_var()->o_player[i].x = 7;

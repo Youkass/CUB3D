@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/24 18:00:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/25 12:55:49 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	ft_recv_first_data_lobby(t_client_thread *client)
 		pthread_mutex_lock(client->mutex);
 		_server()->player_data[client->id].id = client->player_data.id;
 		pthread_mutex_unlock(client->mutex);
-		printf("%s\n", client->player_data.pseudo);
 	}
 	return (0);
 }
@@ -51,11 +50,8 @@ int	ft_send_all_data_lobby(t_client_thread *client)
 {
 	int		i;
 	int		nb;
-	int		j;
 	t_obj	data;
-	int		len;
 
-	int	useless;
 	pthread_mutex_lock(client->mutex);
 	nb = client->serv->linked_players;
 	pthread_mutex_unlock(client->mutex);
@@ -64,26 +60,13 @@ int	ft_send_all_data_lobby(t_client_thread *client)
 		return (1);
 	if (send(client->socket, &nb, sizeof(nb), 0) < 0)
 		return (1);
-	if (recv(client->socket, &useless, sizeof(useless), 0) < 0)
-				return (1);
 	while (i < nb)
 	{
 		pthread_mutex_lock(client->mutex);
 		data = _server()->player_data[i];
 		pthread_mutex_unlock(client->mutex);
-		if (send(client->socket, &data.id, sizeof(data.id), 0) < 0)
+		if (send(client->socket, &data, sizeof(data), 0) < 0)
 			return (1);
-		if (recv(client->socket, &useless, sizeof(useless), 0) < 0)
-			return (1);
-		len = ft_strlen(data.pseudo);
-		j = 0;
-		while (j < len + 1)
-		{
-			if (send(client->socket, &data.pseudo[j], sizeof(data.pseudo[j]), 0) < 0)
-				return (1);
-			j++;
-		}
-		recv(client->socket, &len, sizeof(int), 0);
 		i++;
 	}
 	client->is_recv = 0;
