@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 15:10:44 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/25 15:45:56 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	wait_lobby(t_client_thread *client)
 		if (send(client->socket, &okay, sizeof(int), 0) < 0)
 			return (0);
 		recv(client->socket, &okay, sizeof(int), 0);
+		printf("je recois okay %d\n", okay);
 		if (okay == -1)
 			break;
 		if (send(client->socket, &okay, sizeof(int), 0) < 0)
