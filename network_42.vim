@@ -3,8 +3,10 @@ if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
 xmap gx <Plug>NetrwBrowseXVis
+smap gx <Plug>NetrwBrowseXVis
 nmap gx <Plug>NetrwBrowseX
 xnoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
+snoremap <silent> <Plug>NetrwBrowseXVis :call netrw#BrowseXVis()
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#BrowseX(netrw#GX(),netrw#CheckIfRemote(netrw#GX()))
 map <F1> :Stdheader
 let &cpo=s:cpo_save
@@ -14,6 +16,7 @@ set background=dark
 set backspace=indent,eol,start
 set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
+set listchars=
 set nomodeline
 set printoptions=paper:a4
 set ruler
@@ -21,7 +24,7 @@ set shiftwidth=4
 set smartindent
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set tabstop=4
-let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
@@ -32,10 +35,8 @@ endif
 set shortmess=aoO
 argglobal
 %argdel
-$argadd .
+$argadd ~/Desktop/FT_42/Cercle_4/CUB3D
 edit ~/Desktop/FT_42
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -52,26 +53,23 @@ wincmd _ | wincmd |
 split
 1wincmd k
 wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
+set nosplitbelow
+set nosplitright
 wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 36 + 37) / 75)
+exe '1resize ' . ((&lines * 35 + 37) / 74)
 exe 'vert 1resize ' . ((&columns * 94 + 141) / 282)
-exe '2resize ' . ((&lines * 36 + 37) / 75)
+exe '2resize ' . ((&lines * 36 + 37) / 74)
 exe 'vert 2resize ' . ((&columns * 94 + 141) / 282)
 exe 'vert 3resize ' . ((&columns * 93 + 141) / 282)
-exe '4resize ' . ((&lines * 36 + 37) / 75)
+exe '4resize ' . ((&lines * 35 + 37) / 74)
 exe 'vert 4resize ' . ((&columns * 93 + 141) / 282)
-exe '5resize ' . ((&lines * 36 + 37) / 75)
+exe '5resize ' . ((&lines * 36 + 37) / 74)
 exe 'vert 5resize ' . ((&columns * 93 + 141) / 282)
 argglobal
-balt srcs/network/server.c
 let s:cpo_save=&cpo
 set cpo&vim
 nmap <buffer>  <Plug>NetrwHideEdit
@@ -79,7 +77,7 @@ nmap <buffer> <nowait> <silent>  <Plug>NetrwRefresh
 nmap <buffer> <nowait> <silent>  <Plug>NetrwLocalBrowseCheck
 nmap <buffer> <nowait> <silent>  <Plug>NetrwServerEdit
 nmap <buffer> <nowait> <silent> % <Plug>NetrwOpenFile
-nmap <buffer> <nowait> <silent> - <Plug>NetrwBrowseUpDir
+nmap <buffer> <nowait> <silent> - <Plug>NetrwBrowseUpDir 
 nmap <buffer> <nowait> <silent> C <Plug>NetrwSetChgwin
 nmap <buffer> <nowait> <silent> a <Plug>NetrwHide_a
 nmap <buffer> <nowait> <silent> cd <Plug>NetrwLcd
@@ -103,7 +101,7 @@ setlocal balloonexpr=
 setlocal nobinary
 setlocal nobreakindent
 setlocal breakindentopt=
-setlocal bufhidden=delete
+setlocal bufhidden=hide
 setlocal nobuflisted
 setlocal buftype=
 setlocal nocindent
@@ -161,7 +159,6 @@ setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
 setlocal nolist
-setlocal listchars=
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
@@ -185,7 +182,6 @@ setlocal noscrollbind
 setlocal scrolloff=-1
 setlocal shiftwidth=4
 setlocal noshortname
-setlocal showbreak=
 setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal smartindent
@@ -194,7 +190,6 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal spelloptions=
 setlocal statusline=
 setlocal suffixesadd=
 setlocal noswapfile
@@ -211,24 +206,21 @@ setlocal termwinscroll=10000
 setlocal termwinsize=
 setlocal textwidth=0
 setlocal thesaurus=
-setlocal thesaurusfunc=
 setlocal noundofile
 setlocal undolevels=-123456
 setlocal varsofttabstop=
 setlocal vartabstop=
-setlocal virtualedit=
 setlocal wincolor=
 setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let &fdl = &fdl
-let s:l = 8 - ((7 * winheight(0) + 18) / 36)
+let s:l = 9 - ((8 * winheight(0) + 17) / 35)
 if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
+exe s:l
 normal! zt
-keepjumps 8
+9
 normal! 0
 lcd ~/Desktop/FT_42/Cercle_4/CUB3D
 wincmd w
@@ -300,7 +292,6 @@ setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
 setlocal nolist
-setlocal listchars=
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
@@ -324,7 +315,6 @@ setlocal noscrollbind
 setlocal scrolloff=-1
 setlocal shiftwidth=4
 setlocal noshortname
-setlocal showbreak=
 setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal smartindent
@@ -333,7 +323,6 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal spelloptions=
 setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
@@ -350,24 +339,21 @@ setlocal termwinscroll=10000
 setlocal termwinsize=
 setlocal textwidth=0
 setlocal thesaurus=
-setlocal thesaurusfunc=
 setlocal noundofile
 setlocal undolevels=-123456
 setlocal varsofttabstop=
 setlocal vartabstop=
-setlocal virtualedit=
 setlocal wincolor=
 setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let &fdl = &fdl
 let s:l = 1 - ((0 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
+exe s:l
 normal! zt
-keepjumps 1
+1
 normal! 0
 lcd ~/Desktop/FT_42/Cercle_4/CUB3D
 wincmd w
@@ -439,7 +425,6 @@ setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
 setlocal nolist
-setlocal listchars=
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
@@ -463,7 +448,6 @@ setlocal noscrollbind
 setlocal scrolloff=-1
 setlocal shiftwidth=4
 setlocal noshortname
-setlocal showbreak=
 setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal smartindent
@@ -472,7 +456,6 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal spelloptions=
 setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
@@ -489,24 +472,21 @@ setlocal termwinscroll=10000
 setlocal termwinsize=
 setlocal textwidth=0
 setlocal thesaurus=
-setlocal thesaurusfunc=
 setlocal noundofile
 setlocal undolevels=-123456
 setlocal varsofttabstop=
 setlocal vartabstop=
-setlocal virtualedit=
 setlocal wincolor=
 setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let &fdl = &fdl
-let s:l = 51 - ((50 * winheight(0) + 36) / 73)
+let s:l = 53 - ((51 * winheight(0) + 36) / 72)
 if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
+exe s:l
 normal! zt
-keepjumps 51
+53
 normal! 0
 lcd ~/Desktop/FT_42/Cercle_4/CUB3D
 wincmd w
@@ -578,7 +558,6 @@ setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
 setlocal nolist
-setlocal listchars=
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
@@ -602,7 +581,6 @@ setlocal noscrollbind
 setlocal scrolloff=-1
 setlocal shiftwidth=4
 setlocal noshortname
-setlocal showbreak=
 setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal smartindent
@@ -611,7 +589,6 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal spelloptions=
 setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
@@ -628,24 +605,21 @@ setlocal termwinscroll=10000
 setlocal termwinsize=
 setlocal textwidth=0
 setlocal thesaurus=
-setlocal thesaurusfunc=
 setlocal noundofile
 setlocal undolevels=-123456
 setlocal varsofttabstop=
 setlocal vartabstop=
-setlocal virtualedit=
 setlocal wincolor=
 setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let &fdl = &fdl
-let s:l = 127 - ((35 * winheight(0) + 18) / 36)
+let s:l = 127 - ((0 * winheight(0) + 17) / 35)
 if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
+exe s:l
 normal! zt
-keepjumps 127
+127
 normal! 0
 lcd ~/Desktop/FT_42/Cercle_4/CUB3D
 wincmd w
@@ -717,7 +691,6 @@ setlocal nolinebreak
 setlocal nolisp
 setlocal lispwords=
 setlocal nolist
-setlocal listchars=
 setlocal makeencoding=
 setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
@@ -741,7 +714,6 @@ setlocal noscrollbind
 setlocal scrolloff=-1
 setlocal shiftwidth=4
 setlocal noshortname
-setlocal showbreak=
 setlocal sidescrolloff=-1
 setlocal signcolumn=auto
 setlocal smartindent
@@ -750,7 +722,6 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal spelloptions=
 setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
@@ -767,53 +738,50 @@ setlocal termwinscroll=10000
 setlocal termwinsize=
 setlocal textwidth=0
 setlocal thesaurus=
-setlocal thesaurusfunc=
 setlocal noundofile
 setlocal undolevels=-123456
 setlocal varsofttabstop=
 setlocal vartabstop=
-setlocal virtualedit=
 setlocal wincolor=
 setlocal nowinfixheight
 setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let &fdl = &fdl
-let s:l = 13 - ((12 * winheight(0) + 18) / 36)
+let s:l = 13 - ((0 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
+exe s:l
 normal! zt
-keepjumps 13
+13
 normal! 0
 lcd ~/Desktop/FT_42/Cercle_4/CUB3D
 wincmd w
-exe '1resize ' . ((&lines * 36 + 37) / 75)
+exe '1resize ' . ((&lines * 35 + 37) / 74)
 exe 'vert 1resize ' . ((&columns * 94 + 141) / 282)
-exe '2resize ' . ((&lines * 36 + 37) / 75)
+exe '2resize ' . ((&lines * 36 + 37) / 74)
 exe 'vert 2resize ' . ((&columns * 94 + 141) / 282)
 exe 'vert 3resize ' . ((&columns * 93 + 141) / 282)
-exe '4resize ' . ((&lines * 36 + 37) / 75)
+exe '4resize ' . ((&lines * 35 + 37) / 74)
 exe 'vert 4resize ' . ((&columns * 93 + 141) / 282)
-exe '5resize ' . ((&lines * 36 + 37) / 75)
+exe '5resize ' . ((&lines * 36 + 37) / 74)
 exe 'vert 5resize ' . ((&columns * 93 + 141) / 282)
 tabnext 1
-badd +0 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/network/server_thread.c
-badd +0 ~/Desktop/FT_42/Cercle_4/CUB3D/includes/includes.h
-badd +0 ~/Desktop/FT_42/Cercle_4/CUB3D/includes/struct.h
-badd +0 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/network/server.c
+badd +0 ~/Desktop/FT_42/Cercle_4/CUB3D
+badd +1 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/network/server.c
+badd +1 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/network/server_thread.c
+badd +1 ~/Desktop/FT_42/Cercle_4/CUB3D/includes/includes.h
+badd +1 ~/Desktop/FT_42/Cercle_4/CUB3D/includes/struct.h
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20 shortmess=filnxtToOS
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
+set winminheight=1 winminwidth=1
 let s:sx = expand("<sfile>:p:r")."x.vim"
-if filereadable(s:sx)
+if file_readable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
-let &g:so = s:so_save | let &g:siso = s:siso_save
+let &so = s:so_save | let &siso = s:siso_save
 nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
