@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:04:44 by denissereno       #+#    #+#             */
-/*   Updated: 2022/09/29 16:51:27 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/21 18:03:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,25 @@ void	check_button_state_mouse(int kc)
 		{
 			_var()->menu->s_state[i].state = 2;
 			_var()->menu->s_state[i].clock = start_clock();
+			break ;
+		}
+		i++;
+	}
+}
+
+void	check_button_state_mouse_pl(int kc)
+{
+	int	i;
+
+	i = 0;
+	(void)kc;
+	while (i < 4)
+	{
+		if (_var()->key.mouse && ft_hitbox(_var()->menu->p_state[i].hitbox,
+				_var()->m_pos))
+		{
+			_var()->menu->p_state[i].state = 2;
+			_var()->menu->p_state[i].clock = start_clock();
 			break ;
 		}
 		i++;
@@ -69,6 +88,8 @@ int	menu_mouse_hook(int keycode)
 		_var()->key.mouse = 1;
 	if (_var()->menu->mode == MENU_START)
 		check_button_state_mouse(keycode);
+	if (_var()->menu->mode == MENU_PLAYER)
+		check_button_state_mouse_pl(keycode);
 	if (_var()->menu->mode == MENU_OPTION)
 		check_button_state_mouse_options(keycode);
 	return (0);
