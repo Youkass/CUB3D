@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/24 16:38:54 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:16:09 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_vector2D	*_butpl(void)
 	int	i;
 	int	j;
 
-	i = 4;
+	i = 3;
 	j = 0;
 	if (!butp)
 	{

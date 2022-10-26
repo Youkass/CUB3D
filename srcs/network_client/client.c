@@ -102,10 +102,12 @@ void	ft_pong_client(void)
 	i = 0;
 	memset(&player, 0, sizeof(player));
 	ft_copy_data_before_pong(&player);
-	send(_img()->socket, &player, sizeof(player), 0);
-	while (i < _img()->nb_player)
+	if (send(_img()->socket, &player, sizeof(player), 0)< 0)
+		return ;
+	while (i < _var()->linked_players)
 	{
-		recv(_img()->socket, &player, sizeof(player), 0);
+		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
+			return ;
 		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
 			_player()->health -= _var()->weapon[player.weapon_id].power;
 		if (player.shooted.shoot == 1 && player.id == _player()->id)
@@ -113,7 +115,7 @@ void	ft_pong_client(void)
 			_player()->shooted.shoot = 0;
 			_player()->shooted.id = -1;
 		}
-		_var()->o_player[player.id] = player;
+		_var()->o_player[i] = player;
 		++i;
 	}
 }
