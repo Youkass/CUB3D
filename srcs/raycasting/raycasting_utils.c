@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 16:43:03 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/26 19:31:55 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:36:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ int intersects(t_circle circle, t_rect rect)
 
 void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b)
 {
+	if ((pos_b.x * 4 + pos_b.y * b->line_length > b->width * 4 + b->height * b->line_length)
+			|| (pos_a.x * 4 + pos_a.y * a->line_length > a->width * 4 + a->height * a->line_length))
+		return ;
 	if (b->addr[((pos_b.y *b->line_length)  + (pos_b.x * 4)) + 3] != -1)
 	{
 		a->addr[pos_a.y * a->line_length + pos_a.x * 4] = b->addr[(pos_b.y *b->line_length)  + (pos_b.x * 4)];

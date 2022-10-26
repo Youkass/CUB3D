@@ -104,9 +104,7 @@ void	ft_pong_client(void)
 	ft_copy_data_before_pong(&player);
 	if (send(_img()->socket, &player, sizeof(player), 0)< 0)
 		return ;
-	if (recv(_img()->socket, &i, sizeof(i), 0) < 0)
-		return ;
-	while (i < _img()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 			return ;

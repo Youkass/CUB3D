@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/25 20:33:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:52:52 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,6 @@ int	ft_send_all_data(t_client_thread *client)
 
 	i = 0;
 	if (!ft_is_get(client))
-		return (1);
-	int	sync = 0;
-
-	if (send(client->socket, &sync, sizeof(sync), 0) < 0)
 		return (1);
 	while (i < client->nb_players)
 	{

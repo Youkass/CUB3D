@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/26 18:35:01 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/26 20:22:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,15 @@ void	get_pseudos(void)
 		_var()->mode = GAME_START_ONLINE;
 		return ;
 	}
-	_var()->linked_players = sync;
-	while (i < _var()->linked_players)
+	else
+		_var()->linked_players = sync;
+	while (i < _var()->linked_players && _var()->started < 1)
 	{
 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 			exit(1); //TODO
-		_var()->o_player[player.id] = player;
-		if (!(_var()->pseudo_img[player.id].img))
-			_var()->pseudo_img[player.id] = create_text_img(player.pseudo);
+		_var()->o_player[i] = player;
+		if (!(_var()->pseudo_img[i].img))
+			_var()->pseudo_img[i] = create_text_img(player.pseudo);
 		i++;
 	}
 }
