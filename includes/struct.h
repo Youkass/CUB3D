@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 19:13:07 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/25 17:21:26 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,6 +334,7 @@ typedef struct s_var
 	int				linked_players;
 	char			ip[16];
 	t_data			pseudo_img[MAX_PLAYER];
+	int				started;
 }	t_var;
 
 typedef struct s_player

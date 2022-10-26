@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/22 19:06:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/25 20:26:02 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int	ft_loop()
 	reload_clock();
 	draw_rays();
 	walk_clock();
-	if (_img()->is_host == CLIENT || _img()->is_host == SERVER)
+	if ((_img()->is_host == CLIENT || _img()->is_host == SERVER)  && _var()->mode == GAME)
 	{
 		ft_pong_client();
 		player_casting();
