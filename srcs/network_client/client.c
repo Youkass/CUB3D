@@ -115,7 +115,7 @@ void	ft_pong_client(void)
 			_player()->shooted.shoot = 0;
 			_player()->shooted.id = -1;
 		}
-		_var()->o_player[player.id] = player;
+		_var()->o_player[i] = player;
 		++i;
 	}
 }
