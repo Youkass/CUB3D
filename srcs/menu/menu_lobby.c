@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 15:41:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:53:11 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	get_pseudos(void)
 {
-	int		i;
-	t_obj	player;
+	static int		i = 0;
+	t_obj			player;
 
-	i = 0;
 	memset(&player, 0, sizeof(player));
 	ft_copy_data_before_pong(&player);
 	send(_img()->socket, &player, sizeof(player), 0);
@@ -26,9 +25,9 @@ void	get_pseudos(void)
 	{
 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 			exit(1); //TODO
-		_var()->o_player[player.id] = player;
-		if (!(_var()->pseudo_img[player.id].img))
-			_var()->pseudo_img[player.id] = create_text_img(player.pseudo);
+		_var()->o_player[i] = player;
+		if (!(_var()->pseudo_img[i].img))
+			_var()->pseudo_img[i] = create_text_img(player.pseudo);
 		i++;
 	}
 }

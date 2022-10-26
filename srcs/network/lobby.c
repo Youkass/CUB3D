@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 15:45:56 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/26 17:52:44 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,13 @@ int	ft_is_get_lobby(t_client_thread *client)
 
 int	ft_send_all_data_lobby(t_client_thread *client)
 {
-	int		i;
-	int		nb;
-	t_obj	data;
+	static __thread int i = 0;
+	int					nb;
+	t_obj				data;
 
 	pthread_mutex_lock(client->mutex);
 	nb = client->serv->linked_players;
 	pthread_mutex_unlock(client->mutex);
-	i = 0;
 	if (!ft_is_get(client))
 		return (1);
 	if (send(client->socket, &nb, sizeof(nb), 0) < 0)
@@ -90,7 +89,6 @@ int	wait_lobby(t_client_thread *client)
 		if (send(client->socket, &okay, sizeof(int), 0) < 0)
 			return (0);
 		recv(client->socket, &okay, sizeof(int), 0);
-		printf("je recois okay %d\n", okay);
 		if (okay == -1)
 			break;
 		if (send(client->socket, &okay, sizeof(int), 0) < 0)
