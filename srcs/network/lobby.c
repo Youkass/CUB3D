@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 20:32:16 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/26 18:40:20 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ int	wait_lobby(t_client_thread *client)
 			break ;
 	}
 	link = 0;
-	if (recv(client->socket, &link, sizeof(link), 0)< 0)
-		return (1);
-	if (send(client->socket, &link, sizeof(link), 0)< 0)
-		return (1);
+//	if (recv(client->socket, &link, sizeof(link), 0)< 0)
+//		return (1);
+//	if (send(client->socket, &link, sizeof(link), 0)< 0)
+//		return (1);
 	return (1);
 }

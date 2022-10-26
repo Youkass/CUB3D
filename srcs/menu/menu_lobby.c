@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 20:24:34 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/26 18:35:01 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	get_pseudos(void)
 	}
 	if (_img()->is_host == SERVER && _var()->started == 1)
 	{
-		printf("ici\n");
 		_var()->mode = GAME_START_ONLINE;
 		sync = -1;
 	}
@@ -37,12 +36,10 @@ void	get_pseudos(void)
 		return ;
 	if (sync == -1)
 		return ;
-	printf("===>la %d, %d\n", sync, _var()->started);
 	if (recv(_img()->socket, &sync, sizeof(sync), 0) < 0)
 		return ;
 	if (sync == -1)
 	{
-		printf("ouila\n");
 		_var()->mode = GAME_START_ONLINE;
 		return ;
 	}
