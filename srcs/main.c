@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/25 20:26:44 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/26 18:42:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,15 +230,15 @@ int	ft_mouse_hook(int keycode)
 
 void	init_sync(void)
 {
-	int	link;
+//	int	link;
 
-	link = 0;
+//	link = 0;
 	if (_var()->mode == GAME_START_ONLINE)
 	{
-		if (send(_img()->socket, &link, sizeof(link), 0) < 0)
-			return ;
-		if (recv(_img()->socket, &link, sizeof(link), 0)< 0)
-			return ;
+//		if (send(_img()->socket, &link, sizeof(link), 0) < 0)
+//			return ;
+//		if (recv(_img()->socket, &link, sizeof(link), 0)< 0)
+//			return ;
 		_var()->mode = GAME;
 	}
 }
