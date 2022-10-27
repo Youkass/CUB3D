@@ -96,26 +96,26 @@ void	ft_copy_data_before_pong(t_obj *player)
 
 void	ft_pong_client(void)
 {
-	t_obj	player;
+	t_obj	player[MAX_PLAYER];
 	int		i;
 	
 	i = 0;
-	memset(&player, 0, sizeof(player));
-	ft_copy_data_before_pong(&player);
-	if (send(_img()->socket, &player, sizeof(player), 0)< 0)
+	memset(&player[0], 0, sizeof(player[0]));
+	ft_copy_data_before_pong(&player[0]);
+	if (send(_img()->socket, &player[0], sizeof(player[0]), 0)< 0)
+		return ;
+	if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 		return ;
 	while (i < _var()->linked_players)
 	{
-		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
-			return ;
-		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
-			_player()->health -= _var()->weapon[player.weapon_id].power;
-		if (player.shooted.shoot == 1 && player.id == _player()->id)
+		_var()->o_player[i] = player[i];
+		if (player[i].shooted.shoot == 1 && player[i].shooted.id == _player()->id)
+			_player()->health -= _var()->weapon[player[i].weapon_id].power;
+		if (player[i].shooted.shoot == 1 && i == _player()->id)
 		{
 			_player()->shooted.shoot = 0;
 			_player()->shooted.id = -1;
 		}
-		_var()->o_player[i] = player;
 		++i;
 	}
 }
