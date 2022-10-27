@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/27 15:26:54 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/27 18:09:24 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_is_get(t_client_thread *client)
 int	ft_send_all_data(t_client_thread *client)
 {
 	int		i;
-	t_obj	data;
+	t_obj	data[MAX_PLAYER];
 
 	i = 0;
 	if (!ft_is_get(client))
@@ -110,12 +110,12 @@ int	ft_send_all_data(t_client_thread *client)
 	while (i < client->nb_players)
 	{
 		pthread_mutex_lock(client->mutex);
-		data = client->serv->player_data[i];
+		data[i] = client->serv->player_data[i];
 		pthread_mutex_unlock(client->mutex);
-		if (send(client->socket, &data, sizeof(data), 0) < 0)
-			return (1);
 		++i;
 	}
+	if (send(client->socket, &data, sizeof(data), 0) < 0)
+		return (1);
 	client->is_recv = 0;
 	return (0);
 }
