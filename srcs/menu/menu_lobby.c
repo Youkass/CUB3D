@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/26 20:34:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:24:38 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ void	get_pseudos(void)
 {
 	static int	i = 0;
 	static int sendo = 0;
-	int 	sync;
 	t_obj	player;
+	int		start;
 
-	sync = 0;
 	if (!sendo)
 	{
 		memset(&player, 0, sizeof(player));
@@ -27,25 +26,20 @@ void	get_pseudos(void)
 		send(_img()->socket, &player, sizeof(player), 0);
 		sendo = 1;
 	}
-	if (_img()->is_host == SERVER && _var()->started == 1)
+	start = 0;
+	if (recv(_img()->socket, &(_var()->linked_players), sizeof(int), 
+			0) < 0)
+		exit(1); //TODO
+	if (send(_img()->socket, &(_var()->started), sizeof(int), 0) < 0)
+		exit(1); //TODO
+	if (recv(_img()->socket, &start, sizeof(int), 0) < 0)
+		exit(1); //TODO
+	if (start)
 	{
-		_var()->mode = GAME_START_ONLINE;
-		sync = -1;
+		_var()->started = start;
+		_var()->mode = GAME;
 	}
-	if (send(_img()->socket, &sync, sizeof(sync), 0) < 0)
-		return ;
-	if (sync == -1)
-		return ;
-	if (recv(_img()->socket, &sync, sizeof(sync), 0) < 0)
-		return ;
-	if (sync == -1)
-	{
-		_var()->mode = GAME_START_ONLINE;
-		return ;
-	}
-	else
-		_var()->linked_players = sync;
-	while (i < _var()->linked_players && _var()->started < 1)
+	while (i < _var()->linked_players && !_var()->started)
 	{
 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 			exit(1); //TODO
