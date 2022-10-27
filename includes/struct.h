@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 17:21:26 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:11:10 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,6 +362,7 @@ typedef struct	s_client_thread
 	int						nb_players;
 	int						socket;
 	int						is_recv;
+	int						start;
 	struct s_server_data	*serv;
 }	t_client_thread;
 

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/25 20:21:15 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/27 12:29:03 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,13 @@ void	key_hook(void)
 			_player()->start_reload = get_clock(_var()->clock);
 			shoot();
 		}
-		else if (_img()->is_host == SERVER && _var()->menu->mode == MENU_LOBBY ) // menu lobby
-			_var()->started = 1;
+		else if (_img()->is_host == SERVER &&
+				_var()->menu->mode == MENU_LOBBY &&
+				_img()->nb_player == _var()->linked_players) // menu lobby
+				{
+					_var()->started = 1;
+					printf("j'ai appuyé sur space\n");
+				}
 	}
 }
 
