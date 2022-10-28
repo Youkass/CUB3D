@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/27 18:09:24 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:35:14 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	ft_recv_first_data(t_client_thread *client)
 		client->is_recv = 1;
 		pthread_mutex_lock(client->mutex);
 		client->serv->player_data[client->id] = client->player_data;
+		printf("id %d ; data recv\n", client->id);
 		pthread_mutex_unlock(client->mutex);
 	}
 	return (0);
@@ -116,7 +117,10 @@ int	ft_send_all_data(t_client_thread *client)
 	}
 	if (send(client->socket, &data, sizeof(data), 0) < 0)
 		return (1);
+	pthread_mutex_lock(client->mutex);
+	printf("id %d ; data sent ; is_recv : %d\n", client->id, client->is_recv);
 	client->is_recv = 0;
+	pthread_mutex_unlock(client->mutex);
 	return (0);
 }
 
