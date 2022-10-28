@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/26 18:42:22 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:04:04 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ int	ft_loop_hook(void)
 	}
 	ft_fps();
 	key_hook();
-	init_sync();
+	//init_sync();
 	if (_var()->mode == GAME)
 		ft_loop();
 	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)

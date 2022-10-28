@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/26 20:34:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/27 18:09:24 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	ft_connect_clients(t_server_data *data)
 		data->clients[i].serv = data;
 		data->clients[i].socket = accept(data->socket,
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
+		data->clients[i].start = 0;
+		data->clients[i].id = i;
 		printf("client socket accepted : %d\n", data->clients[i].socket);
 		if (data->clients[i].socket < 0)
 			return (EXIT_FAILURE); //TODO
@@ -72,7 +74,7 @@ int	ft_recv_first_data(t_client_thread *client)
 			return (1);
 		client->is_recv = 1;
 		pthread_mutex_lock(client->mutex);
-		_server()->player_data[client->id] = client->player_data;
+		client->serv->player_data[client->id] = client->player_data;
 		pthread_mutex_unlock(client->mutex);
 	}
 	return (0);
@@ -86,7 +88,7 @@ int	ft_is_get(t_client_thread *client)
 	pthread_mutex_lock(client->mutex);
 	while (i < client->nb_players)
 	{
-		if (!_server()->clients[i].is_recv)
+		if (!client->serv->clients[i].is_recv)
 		{
 			pthread_mutex_unlock(client->mutex);
 			return (1);
@@ -100,7 +102,7 @@ int	ft_is_get(t_client_thread *client)
 int	ft_send_all_data(t_client_thread *client)
 {
 	int		i;
-	t_obj	data;
+	t_obj	data[MAX_PLAYER];
 
 	i = 0;
 	if (!ft_is_get(client))
@@ -108,12 +110,12 @@ int	ft_send_all_data(t_client_thread *client)
 	while (i < client->nb_players)
 	{
 		pthread_mutex_lock(client->mutex);
-		data = _server()->player_data[i];
+		data[i] = client->serv->player_data[i];
 		pthread_mutex_unlock(client->mutex);
-		if (send(client->socket, &data, sizeof(data), 0) < 0)
-			return (1);
 		++i;
 	}
+	if (send(client->socket, &data, sizeof(data), 0) < 0)
+		return (1);
 	client->is_recv = 0;
 	return (0);
 }
@@ -162,12 +164,13 @@ void	*client_routine(void *client_t)
 	if (!send_nb_players(client))
 		return (NULL);
 	printf("can start lobbying\n");
-	if (!wait_lobby(client))
+	if (wait_lobby(client))
 		return (NULL);
+	client->is_recv = 0;
 	printf("on est la\n");
 	while (1)
 	{
-		if (ft_recv_first_data(client) == EXIT_FAILURE)
+		if (ft_recv_first_data(client))
 			return (NULL);
 		if (ft_send_all_data(client))
 			return (NULL);

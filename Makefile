@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/10/26 19:24:16 by yobougre         ###   ########.fr        #
+#    Updated: 2022/10/28 15:50:43 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra -g3
-MLB_FLAGS	= -g -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
+MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
 
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
@@ -101,7 +101,7 @@ $(NAME_B): $(OBJECTS_PREFIXED_B) maker
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME_B)$(END)\n"
 
 $(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
-	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) -pthread -Lincludes -lm
+	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) -O3 -pthread -Lincludes -lm
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
 all: $(NAME) $(SERVER)
 

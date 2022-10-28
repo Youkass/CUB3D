@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/26 18:40:20 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/27 15:25:38 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,60 @@ int	ft_is_get_lobby(t_client_thread *client)
 	return (0);
 }
 
+static int	ft_has_start(t_client_thread *client)
+{
+	pthread_mutex_lock(client->mutex);
+	if (client->serv->started)
+		return (pthread_mutex_unlock(client->mutex), 1);
+	return (pthread_mutex_unlock(client->mutex), 0);
+}
+
+static void	ft_check_start(t_client_thread *client, int nb)
+{
+	int	i;
+
+	i = 0;
+	while (i < nb)
+	{
+		pthread_mutex_lock(client->mutex);
+		if (client->serv->clients[i].start > 0)
+		{
+			client->serv->started = 1;
+			pthread_mutex_unlock(client->mutex);
+			break ;
+		}
+		pthread_mutex_unlock(client->mutex);
+		++i;
+	}
+}
+
 int	ft_send_all_data_lobby(t_client_thread *client)
 {
 	static __thread int i = 0;
 	int		nb;
 	t_obj	data;
+	
 
-	if (recv(client->socket, &nb, sizeof(nb), 0)< 0)
-		return (1);
 	pthread_mutex_lock(client->mutex);
-	if (nb == -1 && client->id == 0)
-		client->serv->started = 1;
+	if (send(client->socket, &(client->serv->linked_players), sizeof(int),
+			0) < 0)
+		return (pthread_mutex_unlock(client->mutex), 1);
 	nb = client->serv->linked_players;
-	if (client->serv->started == 1)
-		nb = -1;
-	if (nb == -1 && client->id == 0)
-	{
-		pthread_mutex_unlock(client->mutex);
-		return (0);
-	}
 	pthread_mutex_unlock(client->mutex);
-	if (send(client->socket, &nb, sizeof(nb), 0) < 0)
+	if (recv(client->socket, &(client->start), sizeof(int),
+			0) < 0)
 		return (1);
-	if (nb == -1)
+	ft_check_start(client, nb);
+	pthread_mutex_lock(client->mutex);
+	if (send(client->socket, &(client->serv->started), sizeof(int),
+			0) < 0)
+		return (pthread_mutex_unlock(client->mutex), 1);
+	pthread_mutex_unlock(client->mutex);
+	if (ft_has_start(client))
 		return (0);
-	if (!ft_is_get(client))
-		return (1);
 	while (i < nb)
 	{
+		memset(&data, 0, sizeof(data));
 		pthread_mutex_lock(client->mutex);
 		data = _server()->player_data[i];
 		pthread_mutex_unlock(client->mutex);
@@ -86,22 +112,16 @@ int	ft_send_all_data_lobby(t_client_thread *client)
 
 int	wait_lobby(t_client_thread *client)
 {
-	int	link;
-
-	(void)link;
 	while (1)
 	{
-		if (ft_recv_first_data_lobby(client) == EXIT_FAILURE)
-			return (0);
-		if (ft_send_all_data_lobby(client) == EXIT_FAILURE)
-			return (0);
-		if (client->serv->started == 1)
-			break ;
+		if (ft_recv_first_data_lobby(client))
+			return (1);
+		if (ft_send_all_data_lobby(client))
+			return (1);
+		pthread_mutex_lock(client->mutex);
+		if (client->serv->started)
+			return (pthread_mutex_unlock(client->mutex), printf("server has started\n"), 0);
+		pthread_mutex_unlock(client->mutex);
 	}
-	link = 0;
-//	if (recv(client->socket, &link, sizeof(link), 0)< 0)
-//		return (1);
-//	if (send(client->socket, &link, sizeof(link), 0)< 0)
-//		return (1);
-	return (1);
+	return (0);
 }
