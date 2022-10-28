@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/25 20:32:55 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/27 11:49:35 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_init_server(t_server_data *data)
 		(const struct sockaddr *)&(data->server), 
 			sizeof(data->server)) < 0)
 		return (perror(""), EXIT_FAILURE);
-	if (listen(data->socket, 5) < 0)
+	if (listen(data->socket, data->nb_players) < 0)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
