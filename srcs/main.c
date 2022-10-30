@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/28 18:33:28 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/30 15:56:38 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,35 +70,35 @@ int	ft_release(int keycode)
 
 void	generate_dsprite(void)
 {
-	_player()->dsprite[0] = generate_image("./img/soldier/front.xpm"); // front
-	_player()->dsprite[1] = generate_image("./img/soldier/front_east_1.xpm"); // front east
-	_player()->dsprite[2] = generate_image("./img/soldier/front_east_2.xpm"); // front east
-	_player()->dsprite[3] = generate_image("./img/soldier/front_east_3.xpm"); // front east
-	_player()->dsprite[4] = generate_image("./img/soldier/east.xpm"); // east
-	_player()->dsprite[5] = generate_image("./img/soldier/back_east_1.xpm"); // back east
-	_player()->dsprite[6] = generate_image("./img/soldier/back_east_2.xpm"); // back east
-	_player()->dsprite[7] = generate_image("./img/soldier/back_east_3.xpm"); // back east
-	_player()->dsprite[8] = generate_image("./img/soldier/back.xpm"); // back
-	_player()->dsprite[9] = generate_image("./img/soldier/back_west_3.xpm"); // back west
-	_player()->dsprite[10] = generate_image("./img/soldier/back_west_2.xpm"); // back west
-	_player()->dsprite[11] = generate_image("./img/soldier/back_west_1.xpm"); // back west
-	_player()->dsprite[12] = generate_image("./img/soldier/west.xpm"); // west
-	_player()->dsprite[13] = generate_image("./img/soldier/front_west_3.xpm"); // front west
-	_player()->dsprite[14] = generate_image("./img/soldier/front_west_2.xpm"); // front west
-	_player()->dsprite[15] = generate_image("./img/soldier/front_west_1.xpm"); // front westwest
+	_var()->dsprite[0] = generate_image("./img/soldier/front.xpm"); // front
+	_var()->dsprite[1] = generate_image("./img/soldier/front_east_1.xpm"); // front east
+	_var()->dsprite[2] = generate_image("./img/soldier/front_east_2.xpm"); // front east
+	_var()->dsprite[3] = generate_image("./img/soldier/front_east_3.xpm"); // front east
+	_var()->dsprite[4] = generate_image("./img/soldier/east.xpm"); // east
+	_var()->dsprite[5] = generate_image("./img/soldier/back_east_1.xpm"); // back east
+	_var()->dsprite[6] = generate_image("./img/soldier/back_east_2.xpm"); // back east
+	_var()->dsprite[7] = generate_image("./img/soldier/back_east_3.xpm"); // back east
+	_var()->dsprite[8] = generate_image("./img/soldier/back.xpm"); // back
+	_var()->dsprite[9] = generate_image("./img/soldier/back_west_3.xpm"); // back west
+	_var()->dsprite[10] = generate_image("./img/soldier/back_west_2.xpm"); // back west
+	_var()->dsprite[11] = generate_image("./img/soldier/back_west_1.xpm"); // back west
+	_var()->dsprite[12] = generate_image("./img/soldier/west.xpm"); // west
+	_var()->dsprite[13] = generate_image("./img/soldier/front_west_3.xpm"); // front west
+	_var()->dsprite[14] = generate_image("./img/soldier/front_west_2.xpm"); // front west
+	_var()->dsprite[15] = generate_image("./img/soldier/front_west_1.xpm"); // front westwest
 
-	_player()->walk_sprite[0] = generate_image("./img/soldier/walk/front.xpm");
-	_player()->walk_sprite[1] = generate_image("./img/soldier/walk/southeast.xpm");
-	_player()->walk_sprite[2] = generate_image("./img/soldier/walk/east.xpm");
-	_player()->walk_sprite[3] = generate_image("./img/soldier/walk/northeast.xpm");
-	_player()->walk_sprite[4] = generate_image("./img/soldier/walk/back.xpm");
-	_player()->walk_sprite[5] = generate_image("./img/soldier/walk/northwest.xpm");
-	_player()->walk_sprite[6] = generate_image("./img/soldier/walk/west.xpm");
-	_player()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
+	_var()->walk_sprite[0] = generate_image("./img/soldier/walk/front.xpm");
+	_var()->walk_sprite[1] = generate_image("./img/soldier/walk/southeast.xpm");
+	_var()->walk_sprite[2] = generate_image("./img/soldier/walk/east.xpm");
+	_var()->walk_sprite[3] = generate_image("./img/soldier/walk/northeast.xpm");
+	_var()->walk_sprite[4] = generate_image("./img/soldier/walk/back.xpm");
+	_var()->walk_sprite[5] = generate_image("./img/soldier/walk/northwest.xpm");
+	_var()->walk_sprite[6] = generate_image("./img/soldier/walk/west.xpm");
+	_var()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
 
-	_player()->death_sprite = generate_image("./img/soldier/death.xpm");
+	_var()->death_sprite = generate_image("./img/soldier/death.xpm");
 
-	_player()->rifle = generate_image("./img/soldier/rifle.xpm");
+	_var()->rifle = generate_image("./img/soldier/rifle.xpm");
 }
 
 
@@ -124,11 +124,11 @@ void	ft_init_player_pos(void)
 	_player()->plane = (t_vector2F){0, -0.66};
 	_var()->time = 0;
 	_var()->old_time = 0;
-	_player()->hb.hit.radius = 0.5;
+	_player()->hb.hit.r = 0.5;
 	_player()->hb.n = 0;
 	_player()->pitch = 0;
 	generate_dsprite();
-	_player()->sprite = generate_image("./img/front.xpm");
+	_var()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
 	_player()->is_walking = 0;	
@@ -182,7 +182,7 @@ void	ft_init_player2(void)
 		_var()->o_player[i].dx = -1;
 		_var()->o_player[i].dy = 0;
 		_var()->o_player[i].plane = (t_vector2F){0, -0.66};
-		_var()->o_player[i].hb.hit.radius = 0.5;
+		_var()->o_player[i].hb.hit.r = 0.5;
 		_var()->o_player[i].hb.n = 0;
 		dist = hypot(_var()->o_player[i].dx, _var()->o_player[i].dy);
 		_var()->o_player[i].angle = 360 - acos(_var()->o_player[i].dx / dist) * 180 / M_PI;	
