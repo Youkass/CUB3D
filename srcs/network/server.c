@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/27 11:49:35 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/30 02:27:50 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,19 @@ int	ft_init_server(t_server_data *data)
 {
 	int option;
 
-	printf("salut\n");
 	option = 1;
 	data->socket = socket(AF_INET, SOCK_STREAM, 0);
+	if (data->socket < 0)
+	{
+		perror("Socket error\n");
+		exit(1);
+	}
+	memset(&data->server, 0, sizeof(data->server));
 	data->server.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	data->server.sin_family = AF_INET;
 	data->server.sin_port = htons(30000);
-	setsockopt(data->socket, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
+	if (!setsockopt(data->socket, SOL_SOCKET, (SO_REUSEADDR | SO_REUSEPORT), &option, sizeof(option)))
+		exit(1);
 	if (bind(data->socket,
 		(const struct sockaddr *)&(data->server), 
 			sizeof(data->server)) < 0)
