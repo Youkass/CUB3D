@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 18:16:09 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/30 15:52:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

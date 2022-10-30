@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/27 15:11:10 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/30 15:55:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,15 +146,9 @@ struct	s_obj
 	int			health;
 	int			ammo;
 	char		pseudo[16];
-	t_vector2F	dif;
 	t_vector2F	plane;
 	t_vector2F	old_plane;
 	t_hitbox	hb;
-	t_data		sprite;
-	t_data		dsprite[16];
-	t_data		walk_sprite[8];
-	t_data		death_sprite;
-	t_data		rifle;
 	int			pitch;
 	t_hit		shooted;
 };
@@ -372,6 +366,10 @@ typedef struct s_var
 	t_shot			shott; // sera une liste chainé.
 	t_data			bg;
 	int				started;
+	t_data			dsprite[16];
+	t_data			sprite;
+	t_data			death_sprite;
+	t_data			walk_sprite[8];
 }	t_var;
 
 typedef struct s_player
