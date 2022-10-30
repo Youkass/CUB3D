@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 19:20:04 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/27 15:24:38 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,53 +14,43 @@
 
 void	get_pseudos(void)
 {
-	int		i;
-	int		j;
-	char	c;
-	int		id;
+	static int	i = 0;
+	static int sendo = 0;
+	t_obj	player;
+	int		start;
 
-	i = 0;
-	send(_img()->socket, _player(), sizeof(*_player()), 0);
-	recv(_img()->socket, &_var()->linked_players, sizeof(id), 0);
-	send(_img()->socket, &i, sizeof(i), 0);
-	while (i < _var()->linked_players)
+	if (!sendo)
 	{
-		recv(_img()->socket, &id, sizeof(id), 0);
-		send(_img()->socket, &j, sizeof(j), 0);
-		c = 1;
-		j = 0;
-		while (c)
-		{
-			recv(_img()->socket, &c, sizeof(c), 0);
-			if (id < MAX_PLAYER)
-				_var()->o_player[id].pseudo[j++] = c; 
-		}
-		if (_var()->pseudo_img[id].img == NULL)
-			_var()->pseudo_img[id] = create_text_img(_var()->o_player[id].pseudo);
-		send(_img()->socket, &i, sizeof(i), 0);
+		memset(&player, 0, sizeof(player));
+		ft_copy_data_before_pong(&player);
+		send(_img()->socket, &player, sizeof(player), 0);
+		sendo = 1;
+	}
+	start = 0;
+	if (recv(_img()->socket, &(_var()->linked_players), sizeof(int), 
+			0) < 0)
+		exit(1); //TODO
+	if (send(_img()->socket, &(_var()->started), sizeof(int), 0) < 0)
+		exit(1); //TODO
+	if (recv(_img()->socket, &start, sizeof(int), 0) < 0)
+		exit(1); //TODO
+	if (start)
+	{
+		_var()->started = start;
+		_var()->mode = GAME;
+	}
+	while (i < _var()->linked_players && !_var()->started)
+	{
+		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
+			exit(1); //TODO
+		_var()->o_player[i] = player;
+		if (!(_var()->pseudo_img[i].img))
+			_var()->pseudo_img[i] = create_text_img(player.pseudo);
 		i++;
 	}
 }
 
 void	menu_pong(void)
 {
-	int	okay;
-	
-	okay = 0;
-	recv(_img()->socket, &okay, sizeof(int), 0);
-	if (okay == -1)
-	{
-		if (_player()->id == 0)
-			exit(0);
-		send(_img()->socket, &_player()->id, sizeof(int), 0);
-		recv(_img()->socket, &okay, sizeof(int), 0);
-		send(_img()->socket, &_player()->id, sizeof(int), 0);
-		_var()->mode = GAME;
-		return ;
-	}
-	else
-		_var()->linked_players = okay;
-	send(_img()->socket, &_player()->id, sizeof(int), 0);
-	recv(_img()->socket, &okay, sizeof(int), 0);
 	get_pseudos();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/29 18:22:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/27 15:11:10 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,6 +371,7 @@ typedef struct s_var
 	t_list			*shot;
 	t_shot			shott; // sera une liste chainé.
 	t_data			bg;
+	int				started;
 }	t_var;
 
 typedef struct s_player
@@ -398,6 +399,7 @@ typedef struct	s_client_thread
 	int						nb_players;
 	int						socket;
 	int						is_recv;
+	int						start;
 	struct s_server_data	*serv;
 }	t_client_thread;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/30 01:33:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/28 18:33:28 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,9 @@ void	ft_init_player2(void)
 	int		i;
 
 	i = 0;
-	while (i < _img()->nb_player)
+	while (i < MAX_PLAYER)
 	{
+		_var()->pseudo_img[i].img = NULL;
 		_var()->o_player[i].weapon_id = 0;
 		_var()->o_player[i].health = 100;
 		_var()->o_player[i].x = 7;
@@ -208,7 +209,6 @@ void	ft_print_tab(char **s)
 
 int	ft_hook(int keycode)
 {
-	printf("%d\n", keycode);
 	get_key(keycode);
 	//if (_var()->mode == GAME)
 	//	ft_game_hook(keycode);
@@ -228,6 +228,21 @@ int	ft_mouse_hook(int keycode)
 	return (0);
 }
 
+void	init_sync(void)
+{
+//	int	link;
+
+//	link = 0;
+	if (_var()->mode == GAME_START_ONLINE)
+	{
+//		if (send(_img()->socket, &link, sizeof(link), 0) < 0)
+//			return ;
+//		if (recv(_img()->socket, &link, sizeof(link), 0)< 0)
+//			return ;
+		_var()->mode = GAME;
+	}
+}
+
 int	ft_loop_hook(void)
 {
 	int	pid;
@@ -240,7 +255,6 @@ int	ft_loop_hook(void)
 			{
 				sleep(1);
 				ft_init_client();
-				//_var()->mode = GAME;
 			}
 			else
 			{
@@ -251,6 +265,7 @@ int	ft_loop_hook(void)
 	}
 	ft_fps();
 	key_hook();
+	//init_sync();
 	if (_var()->mode == GAME)
 		ft_loop();
 	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
@@ -346,6 +361,7 @@ void	init_var(void)
 	i = 0;
 	while (i < MAX_PLAYER)
 		_var()->pseudo_img[i++].img = NULL;
+	_var()->started = 0;
 }
 
 int main(int argc, char **argv)

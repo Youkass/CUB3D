@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name_casting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 18:46:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/23 17:36:14 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/22 19:15:58 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
