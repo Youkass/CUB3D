@@ -357,6 +357,7 @@ void	init_var(void)
 	_var()->menu->mode = MENU_START;_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
+	//_var()->bullet = generate_image("./img/bullet.xpm");
 	i = 0;
 	while (i < MAX_PLAYER)
 		_var()->pseudo_img[i++].img = NULL;
@@ -385,6 +386,11 @@ int main(int argc, char **argv)
 	ft_malloc_map();
 	init_key();
 	gen_menu_images();
+	_var()->bullet = generate_image("./img/bullet.xpm");
+	if(WIN_W == 1440)
+		_var()->bg = generate_image("./img/spacebg1440.xpm");
+	else
+		_var()->bg = generate_image("./img/spacebg.xpm");
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);

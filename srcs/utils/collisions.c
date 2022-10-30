@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 15:52:04 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/19 15:12:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	*detect_neighbors(void)
 	n = 0;
 	_player()->hb.hit.pos.x = _player()->x;
 	_player()->hb.hit.pos.y = _player()->y;
-	_player2()->hb.hit.pos.x = _player2()->x;
-	_player2()->hb.hit.pos.y = _player2()->y;
 	while (it.x > -2)
 	{
 		it.y = 1;
