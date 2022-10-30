@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/22 19:21:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 01:33:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	ft_init_player_pos(void)
 	_player()->plane = (t_vector2F){0, -0.66};
 	_var()->time = 0;
 	_var()->old_time = 0;
-	_player()->hb.hit.radius = 0.5;
+	_player()->hb.hit.r = 0.25;
 	_player()->hb.n = 0;
 	_player()->pitch = 0;
 	generate_dsprite();
@@ -181,7 +181,7 @@ void	ft_init_player2(void)
 		_var()->o_player[i].dx = -1;
 		_var()->o_player[i].dy = 0;
 		_var()->o_player[i].plane = (t_vector2F){0, -0.66};
-		_var()->o_player[i].hb.hit.radius = 0.5;
+		_var()->o_player[i].hb.hit.r = 0.5;
 		_var()->o_player[i].hb.n = 0;
 		dist = hypot(_var()->o_player[i].dx, _var()->o_player[i].dy);
 		_var()->o_player[i].angle = 360 - acos(_var()->o_player[i].dx / dist) * 180 / M_PI;	
@@ -342,6 +342,7 @@ void	init_var(void)
 	_var()->menu->mode = MENU_START;_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
+	//_var()->bullet = generate_image("./img/bullet.xpm");
 	i = 0;
 	while (i < MAX_PLAYER)
 		_var()->pseudo_img[i++].img = NULL;
@@ -369,6 +370,11 @@ int main(int argc, char **argv)
 	ft_malloc_map();
 	init_key();
 	gen_menu_images();
+	_var()->bullet = generate_image("./img/bullet.xpm");
+	if(WIN_W == 1440)
+		_var()->bg = generate_image("./img/spacebg1440.xpm");
+	else
+		_var()->bg = generate_image("./img/spacebg.xpm");
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);

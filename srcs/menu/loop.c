@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 19:13:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/29 17:46:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,6 @@ int	menu_loop(void)
 {
 	if(_var()->menu->mode == MENU_LOBBY)
 		menu_pong();
-	planet_clock();
 	drag_bar();
 	if (_var()->menu->mode == MENU_START)
 		check_button_state();

@@ -26,6 +26,11 @@ void	sprite_casting(void);
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
+/*                  FILE = srcs/raycasting/bullet_casting.c                   */
+/* -------------------------------------------------------------------------- */
+void	bullet_casting(void);
+
+/* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/raycasting/raycasting.c                     */
 /* -------------------------------------------------------------------------- */
 void	init_ray(t_raycasting *r);
@@ -118,6 +123,15 @@ int	ft_send_all_data_lobby(t_client_thread *client);
 int	wait_lobby(t_client_thread *client);
 
 /* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/utils/list.c                          */
+/* -------------------------------------------------------------------------- */
+t_list	*ft_lstnew(void *content);
+int	ft_lstsize(t_list *lst);
+void	ft_lstadd_front(t_list **alst, t_list *new);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lst_dellast(t_list **lst);
+
+/* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/utils/math.c                          */
 /* -------------------------------------------------------------------------- */
 float	mag(t_vector2F v);
@@ -128,6 +142,13 @@ float	min(int a, int b);
 int	normalise_between(t_vector2D r, t_vector2D t, int nb);
 int mod(int a, int b);
 float	rad_to_deg(float rad);
+t_vector2F div_2F(t_vector2F a, t_vector2F b);
+t_vector2F mult_2F(t_vector2F a, t_vector2F b);
+t_vector2D div_2D(t_vector2D a, t_vector2D b);
+t_vector2D mult_2D(t_vector2D a, t_vector2D b);
+float	fdot(t_vector2F a, t_vector2F b);
+t_vector2F	sub_2f(t_vector2F a, t_vector2F b);
+t_vector2F	add_2f(t_vector2F a, t_vector2F b);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/utils/clock.c                          */
@@ -215,13 +236,17 @@ int	ft_mouse_release(int keycode);
 int	ft_game(void);
 void	init_key(void);
 void	init_weapons(void);
+void	init_var(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
 /*                            FILE = srcs/shoot.c                             */
 /* -------------------------------------------------------------------------- */
-int	is_shoot_touch(t_vector2F a, t_vector2F b, t_vector2F c, float r);
+t_vector2F	closest_point(t_vector2F a, t_vector2F b, t_vector2F c);
+int	is_shoot_touch(t_vector2F a, t_vector2F b, t_circle c, t_vector2F *closest);
 void	shoot(void);
+void	compute_shot(t_vector2F start, t_vector2F end);
+void	init_shot(t_vector2F start, t_vector2F end);
 
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/menu/generate.c                         */
@@ -327,8 +352,10 @@ void	ft_pixel_put(float x, float y, int color);
 void	ft_reload_frame();
 void	ft_fps(void);
 void	*ft_draw_void(void *r);
+void		project_skybox(void);
 void	draw_void_thread();
 void	check_death(void);
+void	update_bullets(void);
 int	ft_loop();
 
 
