@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/22 18:20:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/24 15:58:26 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	*ft_get_host_ip(void)
 	char	*buf;
 	int		r;
 
-	return ("127.0.0.1");
 	if (system(CMD_PRINT_IP) < 0)
 		exit(127); //TODO
 	buf = NULL;
@@ -49,8 +48,8 @@ char	*ft_get_host_ip(void)
 	if (r < 0)
 		exit(127); //TODO
 	buf[r] = 0;
+	close(fd);
 	unlink(TMP_FILE);
-	printf("partager cette ip avec vos amis 42 : %s\n", buf);
 	return (buf);
 }
 

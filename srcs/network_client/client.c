@@ -53,13 +53,11 @@ int	ft_init_client(void)
 	int	i;
 
 	i = 0;
-	printf("3\n");
 	while (_player()->pseudo[i])
 	{
 		send(_img()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
 		i++;
 	}
-	printf("4\n");
 	send(_img()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
 	return (EXIT_SUCCESS);
 }
@@ -92,29 +90,60 @@ void	ft_copy_data_before_pong(t_obj *player)
     player->health = _player()->health;
     player->weapon_id = _player()->weapon_id;
     player->ammo = _player()->ammo;
+	memset(player->pseudo, 0, sizeof(player->pseudo));
+	strcpy(player->pseudo, _player()->pseudo);
 }
+
+// void	ft_pong_client(void)
+// {
+// 	t_obj	player;
+// 	int		i;
+	
+// 	i = 0;
+// 	memset(&player, 0, sizeof(player));
+// 	ft_copy_data_before_pong(&player);
+// 	if (send(_img()->socket, &player, sizeof(player), 0)< 0)
+// 		return ;
+// 	while (i < _var()->linked_players)
+// 	{
+// 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
+// 			return ;
+// 		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
+// 			_player()->health -= _var()->weapon[player.weapon_id].power;
+// 		if (player.shooted.shoot == 1 && i == _player()->id)
+// 		{
+// 			_player()->shooted.shoot = 0;
+// 			_player()->shooted.id = -1;
+// 		}
+// 		_var()->o_player[i] = player;
+// 		_var()->o_player[i].id = i;
+// 		++i;
+// 	}
+// }
 
 void	ft_pong_client(void)
 {
-	t_obj	player;
+	t_obj	player[MAX_PLAYER];
 	int		i;
 	
 	i = 0;
-	memset(&player, 0, sizeof(player));
-	ft_copy_data_before_pong(&player);
-	send(_img()->socket, &player, sizeof(player), 0);
-	//printf("%d\n", _img()->nb_player);
-	while (i < _img()->nb_player)
+	memset(&player[0], 0, sizeof(player[0]));
+	ft_copy_data_before_pong(&player[0]);
+	if (send(_img()->socket, &player[0], sizeof(player[0]), 0)< 0)
+		return ;
+	if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
+		return ;
+	while (i < _var()->linked_players)
 	{
-		recv(_img()->socket, &player, sizeof(player), 0);
-		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
-			_player()->health -= _var()->weapon[player.weapon_id].power;
-		if (player.shooted.shoot == 1 && player.id == _player()->id)
+		if (player[i].shooted.shoot == 1 && player[i].shooted.id == _player()->id)
+			_player()->health -= _var()->weapon[player[i].weapon_id].power;
+		if (player[i].shooted.shoot == 1 && i == _player()->id)
 		{
 			_player()->shooted.shoot = 0;
 			_player()->shooted.id = -1;
 		}
-		_var()->o_player[player.id] = player;
+		_var()->o_player[i] = player[i];
+		_var()->o_player[i].id = i;
 		++i;
 	}
 }

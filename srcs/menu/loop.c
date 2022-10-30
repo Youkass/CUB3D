@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/29 17:46:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/25 20:19:47 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	planet_clock(void)
 */
 int	menu_loop(void)
 {
-	if(_var()->menu->mode == MENU_LOBBY)
+	if(_var()->menu->mode == MENU_LOBBY && (_var()->mode != GAME && _var()->mode != GAME_START_ONLINE))
 		menu_pong();
 	drag_bar();
 	if (_var()->menu->mode == MENU_START)
@@ -220,18 +220,8 @@ int	menu_loop(void)
 */
 int	menu_hook(int keycode)
 {
-	int			i;
-	t_enum_key	tab[1];
-
-	i = 0;
-	tab[0].id= 65307;
-	tab[0].ft_hook_key = &ft_escape;
-	while (i < MAX_KEYS)
-	{
-		if (tab[i].id == keycode)
-			return (tab[i].ft_hook_key());
-		++i;
-	}
+	if (keycode == ESC)
+		ft_escape();
 	return (0);
 }
 
