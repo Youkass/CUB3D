@@ -83,7 +83,6 @@ void	ft_copy_data_before_pong(t_obj *player)
 	player->death_n = _player()->death_n;
 	player->death_start = _player()->death_start;
 	player->shooted = _player()->shooted;
-	player->dif = _player()->dif;
 	player->old_plane = _player()->old_plane;
 	player->hb = _player()->hb;
 	player->pitch = _player()->pitch;
@@ -131,6 +130,7 @@ void	ft_pong_client(void)
 	ft_copy_data_before_pong(&player[0]);
 	if (send(_img()->socket, &player[0], sizeof(player[0]), 0)< 0)
 		return ;
+	printf("%lu\n", sizeof(player));
 	if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 		return ;
 	while (i < _var()->linked_players)
