@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 20:19:05 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/30 02:27:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,6 @@ esc : 65307
 #  define EIGHT 56
 #  define NINE 57
 # endif
-
-# define ZERO 48
-# define ONE 49
-# define TWO 50
-# define THREE 51
-# define FOUR 52
-# define FIVE 53
-# define SIX 54
-# define SEVEN 55
-# define EIGHT 56
-# define NINE 57
 
 # define _ 45
 
