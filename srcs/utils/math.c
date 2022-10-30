@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:43:05 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 18:08:18 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/30 02:10:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,56 @@ float	rad_to_deg(float rad)
 	if (res < 0)
 		res += 360;
 	return (res);
+}
+
+
+/*
+-	Divide two float vector.
+*/
+
+t_vector2F div_2F(t_vector2F a, t_vector2F b)
+{
+	return ((t_vector2F){a.x / b.x, a.y / b.y});
+}
+
+/*
+-	Multiply two float vector.
+*/
+
+t_vector2F mult_2F(t_vector2F a, t_vector2F b)
+{
+	return ((t_vector2F){a.x * b.x, a.y * b.y});
+}
+
+/*
+-	Divide two int vector.
+*/
+
+t_vector2D div_2D(t_vector2D a, t_vector2D b)
+{
+	return ((t_vector2D){a.x / b.x, a.y / b.y});
+}
+
+/*
+-	Multiply two int vector.
+*/
+
+t_vector2D mult_2D(t_vector2D a, t_vector2D b)
+{
+	return ((t_vector2D){a.x * b.x, a.y * b.y});
+}
+
+float	fdot(t_vector2F a, t_vector2F b)
+{
+	return ((a.x * b.x) + (a.y * b.y));
+}
+
+t_vector2F	sub_2f(t_vector2F a, t_vector2F b)
+{
+	return ((t_vector2F){a.x - b.x, a.y - b.y});
+}
+
+t_vector2F	add_2f(t_vector2F a, t_vector2F b)
+{
+	return ((t_vector2F){a.x + b.x, a.y + b.y});
 }

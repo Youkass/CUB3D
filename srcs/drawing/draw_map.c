@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/20 13:00:52 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/29 17:39:40 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void DrawCircle(int xp, int yp, float radius, int color)
 		y = (int)(radius * sin(angle));
 		ft_pixel_put(x + xp, y + yp, color);
 		i += 0.1;
+		//printf("%d, %d\n", x + xp, y + yp);
 	}
 }
 
