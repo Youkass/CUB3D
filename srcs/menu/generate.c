@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 18:16:09 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/30 15:52:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,6 @@ void    gen_menu_images(void)
 	else
 		_var()->menu->bg = generate_image("./img/bg1920.xpm");
 	_butp();
-	_var()->menu->planet = generate_image("./img/spritesheet.xpm");
 	if (!_var()->menu->bg.img || !_var()->menu->logo.img)
 	{
 		printf("image error\n");
