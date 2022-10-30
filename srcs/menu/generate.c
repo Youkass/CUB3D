@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 19:22:30 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/29 18:03:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,8 @@ void    gen_menu_images(void)
 	else
 		_var()->menu->bg = generate_image("./img/bg1920.xpm");
 	_butp();
-	_var()->menu->planet = generate_image("./img/spritesheet.xpm");
+	_var()->menu->planets[0] = generate_image("./img/spritesheet.xpm");
+	_var()->menu->planets[1] = generate_image("./img/ice.xpm");
 	if (!_var()->menu->bg.img || !_var()->menu->logo.img)
 	{
 		printf("image error\n");

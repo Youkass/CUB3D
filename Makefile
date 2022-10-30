@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/10/22 18:55:10 by denissereno      ###   ########.fr        #
+#    Updated: 2022/10/23 19:12:20 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,12 +24,14 @@ SRCS		=	srcs/main.c\
 				srcs/raycasting/spritecasting.c\
 				srcs/raycasting/player_casting.c\
 				srcs/raycasting/name_casting.c\
+				srcs/raycasting/bullet_casting.c\
 				srcs/mlx_utils/mlx_utils.c\
 				srcs/utils/singleton.c\
 				srcs/utils/singleton_2.c\
 				srcs/utils/malloc_hooks_enum.c\
 				srcs/utils/key_hooks.c\
 				srcs/utils/clock.c\
+				srcs/utils/list.c\
 				srcs/utils/math.c\
 				srcs/utils/collisions.c\
 				srcs/drawing/draw_player.c\
