@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 02:16:30 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 16:33:19 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,27 +109,27 @@ void	compute_shot(t_vector2F start, t_vector2F end)
 
 void	init_shot(t_vector2F start, t_vector2F end)
 {
-	//t_vector2F	mid;
-	//t_vector2F	up_quart;
-	//t_vector2F	down_quart;
+	t_vector2F	mid;
+	t_vector2F	up_quart;
+	t_vector2F	down_quart;
 
 	_var()->shott.start_pos = start;
 	_var()->shott.end_pos = end;
 	_var()->shott.n = 0;
 	_var()->shott.weapon_type = _player()->weapon_id;
 	_var()->shott.start_time = get_clock(_var()->clock);
-	compute_shot(start, end);
-	//mid =  (t_vector2F){( start.x + end.x) / 2, ( start.y + end.y) / 2};
-	//up_quart = (t_vector2F){(end.x + mid.x) / 2,(end.y + mid.y) / 2};
-	//down_quart = (t_vector2F){(start.x + mid.x) / 2,(start.y + mid.y) / 2};
-	//_var()->shott.n_pos[0] = (t_vector2F){start.x + _player()->dx, start.y + _player()->dy};
-	////_var()->shott.n_pos[0] = (t_vector2F){(start.x + down_quart.x) / 2,(start.y + down_quart.y) / 2};
-	//_var()->shott.n_pos[1] = (t_vector2F){(mid.x + down_quart.x) / 2,(mid.y + down_quart.y) / 2};
-	////_var()->shott.n_pos[1] = down_quart;
-	//_var()->shott.n_pos[2] = mid;
-	//_var()->shott.n_pos[3] = up_quart;
-	//_var()->shott.n_pos[4] = (t_vector2F){(mid.x + up_quart.x) / 2,(mid.y + up_quart.y) / 2};;
-	////_var()->shott.n_pos[4] = (t_vector2F){(end.x + up_quart.x) / 2,(end.y + up_quart.y) / 2};;
+	//compute_shot(start, end);
+	mid =  (t_vector2F){( start.x + end.x) / 2, ( start.y + end.y) / 2};
+	up_quart = (t_vector2F){(end.x + mid.x) / 2,(end.y + mid.y) / 2};
+	down_quart = (t_vector2F){(start.x + mid.x) / 2,(start.y + mid.y) / 2};
+	_var()->shott.n_pos[0] = (t_vector2F){start.x + _player()->dx, start.y + _player()->dy};
+	//_var()->shott.n_pos[0] = (t_vector2F){(start.x + down_quart.x) / 2,(start.y + down_quart.y) / 2};
+	_var()->shott.n_pos[1] = (t_vector2F){(mid.x + down_quart.x) / 2,(mid.y + down_quart.y) / 2};
+	//_var()->shott.n_pos[1] = down_quart;
+	_var()->shott.n_pos[2] = mid;
+	_var()->shott.n_pos[3] = up_quart;
+	_var()->shott.n_pos[4] = (t_vector2F){(mid.x + up_quart.x) / 2,(mid.y + up_quart.y) / 2};;
+	//_var()->shott.n_pos[4] = (t_vector2F){(end.x + up_quart.x) / 2,(end.y + up_quart.y) / 2};;
 	_var()->shott.pos = _var()->shott.n_pos[0];
 	_var()->shott.shot = 1;
 	//return (shot);
