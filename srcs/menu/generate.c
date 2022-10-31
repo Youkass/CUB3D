@@ -274,7 +274,8 @@ void    gen_menu_images(void)
 	else
 		_var()->menu->bg = generate_image("./img/bg1920.xpm");
 	_butp();
-	_var()->menu->planet = generate_image("./img/spritesheet.xpm");
+	_var()->menu->planets[0] = generate_image("./img/spritesheet.xpm");
+	_var()->menu->planets[1] = generate_image("./img/ice.xpm");
 	if (!_var()->menu->bg.img || !_var()->menu->logo.img)
 	{
 		printf("image error\n");

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/19 15:12:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/23 18:28:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,8 @@ void	*detect_neighbors(void)
 
 	it.x = 1;
 	n = 0;
-	_player()->hb.hit.x = _player()->x;
-	_player()->hb.hit.y = _player()->y;
-	_player2()->hb.hit.x = _player2()->x;
-	_player2()->hb.hit.y = _player2()->y;
+	_player()->hb.hit.pos.x = _player()->x;
+	_player()->hb.hit.pos.y = _player()->y;
 	while (it.x > -2)
 	{
 		it.y = 1;
@@ -114,7 +112,7 @@ void	*compute_nb(int i)
 		_nb()->nearest[0].y = max_f((float)(_player()->hb.nb[i].y- 0.5), min_f(_nb()->potential.y,(float)_player()->hb.nb[i].y + 0.5));
 		_nb()->nearest[1].x = _nb()->nearest[0].x - _nb()->potential.x;
 		_nb()->nearest[1].y = _nb()->nearest[0].y - _nb()->potential.y;
-		overlap = _player()->hb.hit.radius - mag(_nb()->nearest[1]);
+		overlap = _player()->hb.hit.r - mag(_nb()->nearest[1]);
 		if (powf(_nb()->nearest[1].x, 2) + powf(_nb()->nearest[1].y, 2) < 0)
 			overlap = 0;
 		if (overlap > 0)

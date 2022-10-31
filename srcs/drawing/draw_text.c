@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:20:26 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/24 14:21:08 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/30 02:28:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ void	draw_text(char *text, t_vector2D pos, t_data *img)
 	while (i < len)
 	{
 		if (is_allow_alpha(text[i]))
-		{
 			ft_put_image_to_image(*img, _var()->alpha[(int)char_up(text[i])], tmp);
-		}
 		tmp.x += 42;
 		if (tmp.x + 42 >= WIN_W)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 20:19:05 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/30 02:27:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,29 @@ esc : 65307
 # define Y 121
 # define Z 122
 
-
-# define ZERO 48
-# define ONE 49
-# define TWO 50
-# define THREE 51
-# define FOUR 52
-# define FIVE 53
-# define SIX 54
-# define SEVEN 55
-# define EIGHT 56
-# define NINE 57
+# if __APPLE__
+#  define ZERO 224
+#  define ONE 38
+#  define TWO 233
+#  define THREE 34
+#  define FOUR 39
+#  define FIVE 40
+#  define SIX 167
+#  define SEVEN 232
+#  define EIGHT 33
+#  define NINE 231
+# else
+#  define ZERO 48
+#  define ONE 49
+#  define TWO 50
+#  define THREE 51
+#  define FOUR 52
+#  define FIVE 53
+#  define SIX 54
+#  define SEVEN 55
+#  define EIGHT 56
+#  define NINE 57
+# endif
 
 # define _ 45
 
@@ -127,6 +139,8 @@ esc : 65307
 # define PLAYER 2
 # define VOID 3
 # define MAP 4
+
+# define SHOT_FRAME 30
 
 # define MINIMAP_SIZE 512
 # define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)
