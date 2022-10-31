@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/27 11:49:35 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 10:43:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_init_server(t_server_data *data)
 {
 	int option;
 
-	printf("salut\n");
 	option = 1;
 	data->socket = socket(AF_INET, SOCK_STREAM, 0);
 	data->server.sin_addr.s_addr = inet_addr(ft_get_host_ip());

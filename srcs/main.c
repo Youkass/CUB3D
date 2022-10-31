@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/28 18:33:28 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 11:36:21 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ int	ft_loop_hook(void)
 			}
 			else
 			{
-				system(ft_strjoin("./server ", ft_itoa(_img()->nb_player)));
+				system(ft_strjoin("valgrind --tool=helgrind ./server ", ft_itoa(_img()->nb_player)));
 				exit(1);
 			}
 		_var()->mode = LOBBY_WAIT;

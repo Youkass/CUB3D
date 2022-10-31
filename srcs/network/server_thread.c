@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/31 10:25:30 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 11:59:41 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_exit(int signal)
 {
 	(void)signal;
-	pthread_mutex_unlock(&_server()->mutex);
+	pthread_mutex_unlock(data->mutex);
 	printf("client fermé\n");
 }*/
 
@@ -24,13 +24,13 @@ int	ft_init_client_thread(t_server_data *data)
 	int	i;
 
 	i = 0;
-	if (pthread_mutex_init(&_server()->mutex, NULL))
+	if (pthread_mutex_init(&(data->mutex), NULL))
 		return (EXIT_FAILURE);
 	while (i < data->nb_players)
 	{
 		data->clients[i].nb_players = data->nb_players;
 		data->clients[i].id = i;
-		data->clients[i].mutex = &_server()->mutex;
+		data->clients[i].mutex = &data->mutex;
 		data->clients[i].is_recv = 0;
 		++i;
 	}
@@ -72,11 +72,10 @@ int	ft_recv_first_data(t_client_thread *client)
 		if (recv(client->socket, &(client->player_data), 
 			sizeof(client->player_data), 0) < 0)
 			return (1);
+		pthread_mutex_lock(client->mutex);
 		client->is_recv = 1;
 		client->is_send = 0;
-		pthread_mutex_lock(client->mutex);
 		client->serv->player_data[client->id] = client->player_data;
-		printf("id %d ; data recv\n", client->id);
 		pthread_mutex_unlock(client->mutex);
 	}
 	return (0);
@@ -143,11 +142,11 @@ int	ft_send_all_data(t_client_thread *client)
 	}
 	if (send(client->socket, &data, sizeof(data), 0) < 0)
 		return (1);
-	pthread_mutex_lock(client->mutex);
+	/*pthread_mutex_lock(client->mutex);
 	client->is_send = 1;
 	pthread_mutex_unlock(client->mutex);
 	while (ft_is_send(client))
-		usleep(200);
+		usleep(200);*/
 	pthread_mutex_lock(client->mutex);
 	client->is_recv = 0;
 	pthread_mutex_unlock(client->mutex);
@@ -161,27 +160,21 @@ int	send_nb_players(t_client_thread *client)
 
 	i = 0;
 	c = 1;
-	if (client->id == 0)
-	{
-		pthread_mutex_lock(client->mutex);
-		client->serv->nb_players = client->nb_players;
-		pthread_mutex_unlock(client->mutex);
-	}
 	if (client->id != 0)
 	{
-		pthread_mutex_lock(client->mutex);
-		client->nb_players = client->serv->nb_players;
-		if (send(client->socket, &(client->serv->nb_players), sizeof(client->id), 0) < 0)
-			return (0);
-		pthread_mutex_unlock(client->mutex);
+		if (send(client->socket, &(client->nb_players), sizeof(client->id), 0) < 0)
+			return (1);
 	}
 	while (c != 0)
 	{
-		recv(client->socket, &c, sizeof(c), 0);
-		_server()->player_data[client->id].pseudo[i] = c;
+		if (recv(client->socket, &c, sizeof(c), 0) < 0)
+			return (1);
+		pthread_mutex_lock(client->mutex);
+		client->serv->player_data[client->id].pseudo[i] = c;
+		pthread_mutex_unlock(client->mutex);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 void	*client_routine(void *client_t)
@@ -195,14 +188,13 @@ void	*client_routine(void *client_t)
 	pthread_mutex_unlock(client->mutex);
 	if (send(client->socket, &(client->id), sizeof(client->id), 0) < 0)
 		return (NULL);
-	if (!send_nb_players(client))
+	if (send_nb_players(client))
 		return (NULL);
-	printf("can start lobbying\n");
+	client->is_recv = 0;
 	if (wait_lobby(client))
 		return (NULL);
 	client->is_recv = 0;
 	client->is_send = 0;
-	printf("on est la\n");
 	while (1)
 	{
 		if (ft_recv_first_data(client))
