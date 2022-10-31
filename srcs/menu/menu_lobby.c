@@ -6,18 +6,43 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 14:25:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 16:37:02 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+int	ft_send_start(void)
+{
+	if (recv(_img()->socket, &(_var()->linked_players), sizeof(int), 0) < 0)
+	{
+		printf("recv de linked a foiré\n");
+		return (1);
+	}
+	if (_img()->is_host == SERVER)
+	{
+		if (send(_img()->socket, &(_var()->started), sizeof(int), 0) < 0)
+		{
+			printf("send de started failed\n");
+			return (1);
+		}
+	}
+	else if (_img()->is_host == CLIENT)
+	{
+		if (recv(_img()->socket, &(_var()->started), sizeof(int), 0) < 0)
+		{
+			printf("send de started failed\n");
+			return (1);
+		}
+	}
+	return (0);
+}
 
 void	get_pseudos(void)
 {
 	static int	i = 0;
 	static int sendo = 0;
 	t_obj	player;
-	int		start;
 
 	if (!sendo)
 	{
@@ -26,28 +51,16 @@ void	get_pseudos(void)
 		send(_img()->socket, &player, sizeof(player), 0);
 		sendo = 1;
 	}
-	start = 0;
-	if (recv(_img()->socket, &(_var()->linked_players), sizeof(int), 
-			0) < 0)
-		exit(1); //TODO
-	if (send(_img()->socket, &(_var()->started), sizeof(int), 0) < 0)
-		exit(1); //TODO
-	if (recv(_img()->socket, &start, sizeof(int), 0) < 0)
-		exit(1); //TODO
-	if (start)
-	{
-		printf("je passe ici\n");
-		_var()->started = start;
+	if (ft_send_start())
+		exit (1); //TODO
+	if (_var()->started)
 		_var()->mode = GAME;
-	}
 	while (i < _var()->linked_players && !_var()->started)
 	{
 		memset(&player, 0, sizeof(player));
 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 			exit(1); //TODO
 		_var()->o_player[i] = (t_obj)player;
-		printf("player id : %d\n", player.id);
-		printf("pseudo : %s\n", player.pseudo);
 		if (!(_var()->pseudo_img[i].img))
 			_var()->pseudo_img[i] = create_text_img(player.pseudo);
 		i++;
