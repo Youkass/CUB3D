@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/31 11:59:41 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 13:35:35 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	ft_connect_clients(t_server_data *data)
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
 		data->clients[i].start = 0;
 		data->clients[i].id = i;
-		printf("client socket accepted : %d\n", data->clients[i].socket);
 		if (data->clients[i].socket < 0)
 			return (EXIT_FAILURE); //TODO
 		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine, 
@@ -76,8 +75,7 @@ int	ft_recv_first_data(t_client_thread *client)
 		client->is_recv = 1;
 		client->is_send = 0;
 		client->serv->player_data[client->id] = client->player_data;
-		pthread_mutex_unlock(client->mutex);
-	}
+		pthread_mutex_unlock(client->mutex); }
 	return (0);
 }
 
@@ -86,17 +84,17 @@ int	ft_is_get(t_client_thread *client)
 	int	i;
 
 	i = 0;
-	pthread_mutex_lock(client->mutex);
 	while (i < client->nb_players)
 	{
+		pthread_mutex_lock(client->mutex);
 		if (!client->serv->clients[i].is_recv)
 		{
 			pthread_mutex_unlock(client->mutex);
 			return (1);
 		}
+		pthread_mutex_unlock(client->mutex);
 		++i;
 	}
-	pthread_mutex_unlock(client->mutex);
 	return (0);
 }
 
@@ -190,11 +188,15 @@ void	*client_routine(void *client_t)
 		return (NULL);
 	if (send_nb_players(client))
 		return (NULL);
+	pthread_mutex_lock(client->mutex);
 	client->is_recv = 0;
+	pthread_mutex_unlock(client->mutex);
 	if (wait_lobby(client))
 		return (NULL);
+	pthread_mutex_lock(client->mutex);
 	client->is_recv = 0;
 	client->is_send = 0;
+	pthread_mutex_unlock(client->mutex);
 	while (1)
 	{
 		if (ft_recv_first_data(client))

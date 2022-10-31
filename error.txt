@@ -1,86 +1,53 @@
-i==351629== ---Thread-Announcement------------------------------------------
-==351629== 
-==351629== Thread #3 was created
-==351629==    at 0x4AFF122: clone (clone.S:71)
-==351629==    by 0x49C42EB: create_thread (createthread.c:101)
-==351629==    by 0x49C5E0F: pthread_create@@GLIBC_2.2.5 (pthread_create.c:817)
-==351629==    by 0x4842917: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
-==351629==    by 0x10A318: ft_connect_clients (server_thread.c:57)
-==351629==    by 0x1097A5: main (server.c:65)
-==351629== 
-==351629== ---Thread-Announcement------------------------------------------
-==351629== 
-==351629== Thread #2 was created
-==351629==    at 0x4AFF122: clone (clone.S:71)
-==351629==    by 0x49C42EB: create_thread (createthread.c:101)
-==351629==    by 0x49C5E0F: pthread_create@@GLIBC_2.2.5 (pthread_create.c:817)
-==351629==    by 0x4842917: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
-==351629==    by 0x10A318: ft_connect_clients (server_thread.c:57)
-==351629==    by 0x1097A5: main (server.c:65)
-==351629== 
-==351629== ----------------------------------------------------------------
-==351629== 
-==351629==  Lock at 0x1FFEFFAE90 was first observed
-==351629==    at 0x4843D9D: pthread_mutex_init (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
-==351629==    by 0x10A0C4: ft_init_client_thread (server_thread.c:27)
-==351629==    by 0x109788: main (server.c:63)
-==351629==  Address 0x1ffeffae90 is on thread #1's stack
-==351629==  in frame #3, created by main (server.c:53)
-==351629== 
-==351629== Possible data race during read of size 4 at 0x1FFEFF6D30 by thread #3
-==351629== Locks held: 1, at address 0x1FFEFFAE90
-==351629==    at 0x109A10: ft_check_start (lobby.c:65)
-==351629==    by 0x109B63: ft_send_all_data_lobby (lobby.c:92)
-==351629==    by 0x109D21: wait_lobby (lobby.c:119)
-==351629==    by 0x10A919: client_routine (server_thread.c:194)
-==351629==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
-==351629==    by 0x49C5608: start_thread (pthread_create.c:477)
-==351629==    by 0x4AFF132: clone (clone.S:95)
-==351629== 
-==351629== This conflicts with a previous write of size 4 by thread #2
-==351629== Locks held: none
-==351629==    at 0x49D065C: __libc_recv (recv.c:28)
-==351629==    by 0x49D065C: recv (recv.c:23)
-==351629==    by 0x109B3D: ft_send_all_data_lobby (lobby.c:89)
-==351629==    by 0x109D21: wait_lobby (lobby.c:119)
-==351629==    by 0x10A919: client_routine (server_thread.c:194)
-==351629==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
-==351629==    by 0x49C5608: start_thread (pthread_create.c:477)
-==351629==    by 0x4AFF132: clone (clone.S:95)
-==351629==  Address 0x1ffeff6d30 is on thread #1's stack
-==351629==  in frame #3, created by main (server.c:53)
-==351629== 
-pseudo : BIGGIE
-j'ai appuyé sur space
-==351629== ----------------------------------------------------------------
-==351629== 
-==351629==  Lock at 0x1FFEFFAE90 was first observed
-==351629==    at 0x4843D9D: pthread_mutex_init (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
-==351629==    by 0x10A0C4: ft_init_client_thread (server_thread.c:27)
-==351629==    by 0x109788: main (server.c:63)
-==351629==  Address 0x1ffeffae90 is on thread #1's stack
-==351629==  in frame #3, created by main (server.c:53)
-==351629== 
-==351629== Possible data race during read of size 4 at 0x1FFEFF6D28 by thread #3
-==351629== Locks held: 1, at address 0x1FFEFFAE90
-==351629==    at 0x10A4A5: ft_is_get (server_thread.c:92)
-==351629==    by 0x10A5FD: ft_send_all_data (server_thread.c:134)
-==351629==    by 0x10A963: client_routine (server_thread.c:202)
-==351629==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
-==351629==    by 0x49C5608: start_thread (pthread_create.c:477)
-==351629==    by 0x4AFF132: clone (clone.S:95)
-==351629== 
-==351629== This conflicts with a previous write of size 4 by thread #2
-==351629== Locks held: none
-==351629==    at 0x10A929: client_routine (server_thread.c:196)
-==351629==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
-==351629==    by 0x49C5608: start_thread (pthread_create.c:477)
-==351629==    by 0x4AFF132: clone (clone.S:95)
-==351629==  Address 0x1ffeff6d28 is on thread #1's stack
-==351629==  in frame #3, created by main (server.c:53)
-==351629== 
-==351629== 
-==351629== Use --history-level=approx or =none to gain increased speed, at
-==351629== the cost of reduced accuracy of conflicting-access information
-==351629== For lists of detected and suppressed errors, rerun with: -s
-==351629== ERROR SUMMARY: 722 errors from 2 contexts (suppressed: 14459 from 71)
+==372619== ---Thread-Announcement------------------------------------------
+==372619== 
+==372619== Thread #3 was created
+==372619==    at 0x4AFF122: clone (clone.S:71)
+==372619==    by 0x49C42EB: create_thread (createthread.c:101)
+==372619==    by 0x49C5E0F: pthread_create@@GLIBC_2.2.5 (pthread_create.c:817)
+==372619==    by 0x4842917: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==372619==    by 0x10A2D0: ft_connect_clients (server_thread.c:57)
+==372619==    by 0x1097A5: main (server.c:65)
+==372619== 
+==372619== ---Thread-Announcement------------------------------------------
+==372619== 
+==372619== Thread #2 was created
+==372619==    at 0x4AFF122: clone (clone.S:71)
+==372619==    by 0x49C42EB: create_thread (createthread.c:101)
+==372619==    by 0x49C5E0F: pthread_create@@GLIBC_2.2.5 (pthread_create.c:817)
+==372619==    by 0x4842917: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==372619==    by 0x10A2D0: ft_connect_clients (server_thread.c:57)
+==372619==    by 0x1097A5: main (server.c:65)
+==372619== 
+==372619== ----------------------------------------------------------------
+==372619== 
+==372619==  Lock at 0x1FFEFFAE90 was first observed
+==372619==    at 0x4843D9D: pthread_mutex_init (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==372619==    by 0x10A07C: ft_init_client_thread (server_thread.c:27)
+==372619==    by 0x109788: main (server.c:63)
+==372619==  Address 0x1ffeffae90 is on thread #1's stack
+==372619==  in frame #3, created by main (server.c:53)
+==372619== 
+==372619== Possible data race during read of size 4 at 0x1FFEFF6D28 by thread #3
+==372619== Locks held: 1, at address 0x1FFEFFAE90
+==372619==    at 0x10A45D: ft_is_get (server_thread.c:92)
+==372619==    by 0x10A5B5: ft_send_all_data (server_thread.c:134)
+==372619==    by 0x10A91B: client_routine (server_thread.c:202)
+==372619==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==372619==    by 0x49C5608: start_thread (pthread_create.c:477)
+==372619==    by 0x4AFF132: clone (clone.S:95)
+==372619== 
+==372619== This conflicts with a previous write of size 4 by thread #2
+==372619== Locks held: none
+==372619==    at 0x10A8E1: client_routine (server_thread.c:196)
+==372619==    by 0x4842B1A: ??? (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_helgrind-amd64-linux.so)
+==372619==    by 0x49C5608: start_thread (pthread_create.c:477)
+==372619==    by 0x4AFF132: clone (clone.S:95)
+==372619==  Address 0x1ffeff6d28 is on thread #1's stack
+==372619==  in frame #3, created by main (server.c:53)
+==372619== 
+==372619== 
+==372619== Use --history-level=approx or =none to gain increased speed, at
+==372619== the cost of reduced accuracy of conflicting-access information
+==372619== For lists of detected and suppressed errors, rerun with: -s
+==372619== ERROR SUMMARY: 2 errors from 1 contexts (suppressed: 32628 from 76)
+

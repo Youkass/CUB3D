@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 11:33:07 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:25:51 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,17 @@ void	get_pseudos(void)
 		exit(1); //TODO
 	if (start)
 	{
+		printf("je passe ici\n");
 		_var()->started = start;
 		_var()->mode = GAME;
 	}
 	while (i < _var()->linked_players && !_var()->started)
 	{
+		memset(&player, 0, sizeof(player));
 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 			exit(1); //TODO
 		_var()->o_player[i] = (t_obj)player;
+		printf("player id : %d\n", player.id);
 		printf("pseudo : %s\n", player.pseudo);
 		if (!(_var()->pseudo_img[i].img))
 			_var()->pseudo_img[i] = create_text_img(player.pseudo);
