@@ -95,6 +95,12 @@ t_data	create_text_img(char *text);
 void	draw_rectange(t_vector2D a, t_vector2D size, t_data *img, char color[4]);
 
 /* -------------------------------------------------------------------------- */
+/*                            FILE = srcs/tools.c                             */
+/* -------------------------------------------------------------------------- */
+t_vector2D	pos(int x, int y);
+t_vector2F	posf(float x, float y);
+
+/* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network/server_thread.c                     */
 /* -------------------------------------------------------------------------- */
 void	ft_exit(int signal);
@@ -132,29 +138,11 @@ t_list	*ft_lstlast(t_list *lst);
 void	ft_lst_dellast(t_list **lst);
 
 /* -------------------------------------------------------------------------- */
-/*                          FILE = srcs/utils/math.c                          */
-/* -------------------------------------------------------------------------- */
-float	mag(t_vector2F v);
-t_vector2F	norm(t_vector2F v);
-float	max_f(float a, float b);
-float	min_f(float a, float b);
-float	min(int a, int b);
-int	normalise_between(t_vector2D r, t_vector2D t, int nb);
-int mod(int a, int b);
-float	rad_to_deg(float rad);
-t_vector2F div_2F(t_vector2F a, t_vector2F b);
-t_vector2F mult_2F(t_vector2F a, t_vector2F b);
-t_vector2D div_2D(t_vector2D a, t_vector2D b);
-t_vector2D mult_2D(t_vector2D a, t_vector2D b);
-float	fdot(t_vector2F a, t_vector2F b);
-t_vector2F	sub_2f(t_vector2F a, t_vector2F b);
-t_vector2F	add_2f(t_vector2F a, t_vector2F b);
-
-/* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/utils/clock.c                          */
 /* -------------------------------------------------------------------------- */
 struct timeval	start_clock();
 unsigned long	get_clock(struct timeval start);
+unsigned long	get_time(unsigned long start);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/collisions.c                       */
@@ -173,6 +161,7 @@ int	circle_collide(void);
 /* -------------------------------------------------------------------------- */
 t_obj	*_player2();
 t_spritecasting	*_pc();
+t_image	*_image();
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
@@ -203,11 +192,46 @@ int	ft_escape(void);
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/math/math.c                           */
+/* -------------------------------------------------------------------------- */
+float	mag(t_vector2F v);
+t_vector2F	norm(t_vector2F v);
+float	max_f(float a, float b);
+float	min_f(float a, float b);
+float	min(int a, int b);
+int	normalise_between(t_vector2D r, t_vector2D t, int nb);
+int mod(int a, int b);
+float	rad_to_deg(float rad);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/math/vector/operator2F.c                    */
+/* -------------------------------------------------------------------------- */
+t_vector2F div_2F(t_vector2F a, t_vector2F b);
+t_vector2F mult_2F(t_vector2F a, t_vector2F b);
+float	fdot(t_vector2F a, t_vector2F b);
+t_vector2F	sub_2f(t_vector2F a, t_vector2F b);
+t_vector2F	add_2f(t_vector2F a, t_vector2F b);
+
+/* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/math/vector/tools.c                       */
+/* -------------------------------------------------------------------------- */
+t_vector2F	dist_2f(t_vector2F a, t_vector2F b);
+t_vector2F	velocity_ms(t_vector2F dist, float time_ms);
+t_vector2F	velocity_get_point(t_vector2F start, t_vector2F velo, int time_ms);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/math/vector/operator2D.c                    */
+/* -------------------------------------------------------------------------- */
+t_vector2D div_2D(t_vector2D a, t_vector2D b);
+t_vector2D mult_2D(t_vector2D a, t_vector2D b);
+
+/* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network_client/client.c                     */
 /* -------------------------------------------------------------------------- */
 char	*ft_get_ip_input(void);
 int	ft_init_client(void);
 void	ft_copy_data_before_pong(t_obj *player);
+void	print_data_recv(t_obj	*player);
 void	ft_pong_client(void);
 
 /* -------------------------------------------------------------------------- */
@@ -246,8 +270,10 @@ int main(int argc, char **argv);
 /* -------------------------------------------------------------------------- */
 t_vector2F	closest_point(t_vector2F a, t_vector2F b, t_vector2F c);
 int	is_shoot_touch(t_vector2F a, t_vector2F b, t_circle c, t_vector2F *closest);
+void	shoot_alone(void);
 void	shoot(void);
 void	compute_shot(t_vector2F start, t_vector2F end);
+t_vector2F	nearest_wall();
 void	init_shot(t_vector2F start, t_vector2F end);
 
 /* -------------------------------------------------------------------------- */
@@ -259,7 +285,7 @@ t_vector2D	*_butpl(void);
 void	gen_serv_but(void);
 void	generate_button_state(void);
 void	gen_alpha(void);
-void    gen_menu_images(void);
+void    gen_menu_imagess(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/menu_lobby.c                        */
@@ -310,7 +336,7 @@ void	draw_pixel(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
 void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
 t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
 t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos);
-t_data	ft_put_sprite_to_image(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size);
+t_data	ft_put_sprite_to_images(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size);
 void	draw_pixel_color(t_data *big, t_vector2D rel_pos, char pix[4]);
 void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
 void	draw_bar_fill(void);
@@ -358,6 +384,7 @@ void		draw_sky(void);
 void	draw_void_thread();
 void	check_death(void);
 void	update_bullets(void);
+void	hud(void);
 int	ft_loop();
 
 

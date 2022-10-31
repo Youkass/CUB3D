@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 16:59:22 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 21:58:00 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ esc : 65307
 # define MAP 4
 
 # define SHOT_FRAME 10
-# define MAX_SHOT 8
+# define MAX_BULLET 16
 
 # define MINIMAP_SIZE 512
 # define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)

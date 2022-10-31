@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 17:47:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 23:30:02 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ typedef struct s_data
 	int					bits_per_pixel;
 	int					line_length;
 	int					endian;
-	int					height;
-	int					width;
+	int					h;
+	int					w;
 	t_vector2D			pos;
 }	t_data;
 
@@ -99,6 +99,7 @@ typedef struct	s_weapon
 	int		power;
 	unsigned long		reload_ms;
 	int		ammo;
+	int		range;
 }	t_weapon;
 
 typedef struct	s_hitbox
@@ -107,6 +108,14 @@ typedef struct	s_hitbox
 	t_vector2D	nb[8];
 	int			n;
 }	t_hitbox;
+
+typedef struct	s_velo
+{
+	t_vector2F	dist;
+	t_vector2F	velo;
+	int			time_ms;
+}	t_velo;
+
 
 /*
  Le but de cette struct est d'en faire une liste chainée pour pouvoir display
@@ -128,6 +137,7 @@ typedef struct	s_shot
 	t_vector2F		end_pos;
 	t_vector2F		pos;
 	t_vector2F		n_pos[SHOT_FRAME];
+	t_velo			velo;
 	unsigned long	start_time;
 	int				n;
 	int				weapon_type;
@@ -165,10 +175,11 @@ struct	s_obj
 	t_vector2F	old_plane;
 	t_hitbox	hb;
 	int			pitch;
-	t_shot		shott[MAX_SHOT];
+	t_shot		shott[MAX_BULLET];
 	int			shoot_n;
 	t_hit		shooted;
 	int			exchange;
+	int			is_shooting;
 };
 
 typedef struct	s_network_data
@@ -269,12 +280,13 @@ typedef struct s_menu
 	int			ny;
 	unsigned long	start;
 	t_data		wait;
+	t_vector2D	draw_pl[2];
 }	t_menu;
 
 typedef struct	s_rect
 {
-	float	width;
-	float	height;
+	float	w;
+	float	h;
 	float	x;
 	float	y;
 }	t_rect;
@@ -344,21 +356,12 @@ typedef struct s_var
 	int				zbuffer[WIN_W];
 	unsigned long	walk_start;
 	int				walk_n;
-	t_data			rifle;
 	t_obj			o_player[MAX_PLAYER];
 	t_obj			sort_player[MAX_PLAYER];
 	t_weapon		weapon[NB_WEAPONS];
-	t_data			alpha[255];
 	int				linked_players;
 	char			ip[16];
-	t_data			pseudo_img[MAX_PLAYER];
-	t_data			bullet;
-	t_data			bg;
 	int				started;
-	t_data			dsprite[16];
-	t_data			sprite;
-	t_data			death_sprite;
-	t_data			walk_sprite[8];
 	int				is_host;
 	struct sockaddr_in	client;
 	int					nb_player;
@@ -370,6 +373,19 @@ typedef struct s_var
 	int					half_scale;
 	int					half_scale_offset;
 }	t_var;
+typedef struct	s_image
+{
+	t_data			alpha[255];
+	t_data			rifle;
+	t_data			pseudo_img[MAX_PLAYER];
+	t_data			bullet;
+	t_data			bg;
+	t_data			dsprite[16];
+	t_data			sprite;
+	t_data			death_sprite;
+	t_data			walk_sprite[8];
+	t_data			crosshair;
+}	t_image;
 
 typedef struct s_player
 {

@@ -172,7 +172,7 @@ void	ft_pong_client(void)
 		}
 		_var()->o_player[i] = player[i];
 		_var()->o_player[i].id = i;
-		print_data_recv(&_var()->o_player[i]);
+		//print_data_recv(&_var()->o_player[i]);
 		++i;
 	}
 }

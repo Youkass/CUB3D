@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 18:46:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 16:52:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ static void	draw(t_obj *player)
 	stripe = _pc()->draw_start.x;
 	while (stripe < _pc()->draw_end.x)
 	{
-		_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) *  _var()->pseudo_img[player->id].width / _pc()->size.x) / 256;
+		_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) *  _image()->pseudo_img[player->id].w / _pc()->size.x) / 256;
 		if(_pc()->trans.y > 0 && stripe > 0 && stripe < WIN_W && _pc()->trans.y < _var()->zbuffer[stripe])
 		{
 			y = _pc()->draw_start.y;
 			while (y < _pc()->draw_end.y)
 			{
 				_pc()->d = (y - _pc()->move_screen) * 256 - WIN_H * 128 + _pc()->size.y * 128;
-				_pc()->tex.y = ((_pc()->d *  _var()->pseudo_img[player->id].height) /_pc()->size.y) / 256;
-				ft_put_pixel(_img(), &_var()->pseudo_img[player->id], (t_vector2D){stripe, y}, _pc()->tex);
+				_pc()->tex.y = ((_pc()->d *  _image()->pseudo_img[player->id].h) /_pc()->size.y) / 256;
+				ft_put_pixel(_img(), &_image()->pseudo_img[player->id], (t_vector2D){stripe, y}, _pc()->tex);
 				y++;
 			}
 		}

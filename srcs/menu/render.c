@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 16:52:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	menu_start(void)
 	ft_put_image_to_image(*_img(), _var()->menu->bg,
 		(t_vector2D){0, 0});
 	ft_put_image_to_image(*_img(), _var()->menu->logo,
-		(t_vector2D){WIN_W / 2 - (_var()->menu->logo.width / 2), perc(WIN_H, 20) - (_var()->menu->logo.height / 2)});
+		(t_vector2D){WIN_W / 2 - (_var()->menu->logo.w / 2), perc(WIN_H, 20) - (_var()->menu->logo.h / 2)});
 	ft_put_image_to_image(*_img(), _var()->menu->buttons
 	[_var()->menu->s_state[0].state][PLAY], _butp()[0]);
 	ft_put_image_to_image(*_img(), _var()->menu->buttons
@@ -64,7 +64,7 @@ void	menu_player(void)
 	ft_put_image_to_image(*_img(), _var()->menu->bg,
 		(t_vector2D){0, 0});
 	ft_put_image_to_image(*_img(), _var()->menu->logo,
-		(t_vector2D){WIN_W / 2 - (_var()->menu->logo.width / 2), perc(WIN_H, 20) - (_var()->menu->logo.height / 2)});
+		(t_vector2D){WIN_W / 2 - (_var()->menu->logo.w / 2), perc(WIN_H, 20) - (_var()->menu->logo.h / 2)});
 
 	ft_put_image_to_image(*_img(), _var()->menu->nb_p[0][_var()->menu->p_state[0].state], _butpl()[0]);
 	ft_put_image_to_image(*_img(), _var()->menu->nb_p[1][_var()->menu->p_state[1].state],  _butpl()[1]);
@@ -78,7 +78,7 @@ void	menu_lobby(void)
 
 	draw_bg((char [4]){250, 200, 0, 0});
 	ft_put_image_to_image(*_img(), _var()->menu->wait,
-		(t_vector2D){WIN_W / 2 - (_var()->menu->wait.width / 2), perc(WIN_H, 20) - (_var()->menu->wait.height / 2)});
+		(t_vector2D){WIN_W / 2 - (_var()->menu->wait.w / 2), perc(WIN_H, 20) - (_var()->menu->wait.h / 2)});
 	i = 0;
 	while (i < _var()->linked_players)
 	{
@@ -96,7 +96,7 @@ void	menu_lobby(void)
 void	menu_pseudo(void)
 {
 	draw_bg((char [4]){250, 200, 0, 0});
-	ft_put_image_to_image(*_img(), _var()->alpha['D'], (t_vector2D){300, 300});
+	ft_put_image_to_image(*_img(), _image()->alpha['D'], (t_vector2D){300, 300});
 	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, _img());
 	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, _img(), (char [4]){0, 0, 0, 0});
 	draw_text(_player()->pseudo, (t_vector2D){350, 350}, _img());
