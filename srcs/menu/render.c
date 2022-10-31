@@ -48,8 +48,6 @@ void	menu_start(void)
 		(t_vector2D){0, 0});
 	ft_put_image_to_image(*_img(), _var()->menu->logo,
 		(t_vector2D){WIN_W / 2 - (_var()->menu->logo.width / 2), perc(WIN_H, 20) - (_var()->menu->logo.height / 2)});
-	ft_put_sprite_to_image(*_img(), _var()->menu->planet,
-	(t_vector2D){0, 0}, (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48}, (t_vector2D){48, 48});
 	ft_put_image_to_image(*_img(), _var()->menu->buttons
 	[_var()->menu->s_state[0].state][PLAY], _butp()[0]);
 	ft_put_image_to_image(*_img(), _var()->menu->buttons

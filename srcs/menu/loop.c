@@ -190,7 +190,6 @@ int	menu_loop(void)
 {
 	if(_var()->menu->mode == MENU_LOBBY && (_var()->mode != GAME && _var()->mode != GAME_START_ONLINE))
 		menu_pong();
-	planet_clock();
 	drag_bar();
 	if (_var()->menu->mode == MENU_START)
 		check_button_state();
