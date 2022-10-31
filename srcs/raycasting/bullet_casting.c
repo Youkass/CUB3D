@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 18:01:16 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ static void	draw()
 	stripe = _pc()->draw_start.x;
 	while (stripe < _pc()->draw_end.x)
 	{
-		_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * _var()->bullet.width / _pc()->size.x) / 256;
+		_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * _image()->bullet.w / _pc()->size.x) / 256;
 		if(_pc()->trans.y > 0 && stripe > 0 && stripe < WIN_W && _pc()->trans.y < _var()->zbuffer[stripe])
 		{
 			y = _pc()->draw_start.y;
 			while (y < _pc()->draw_end.y)
 			{
 				_pc()->d = (y - _pc()->move_screen) * 256 - WIN_H * 128 + _pc()->size.y * 128;
-				_pc()->tex.y = ((_pc()->d * _var()->bullet.height) /_pc()->size.y) / 256;
-				ft_put_pixel(_img(), &_var()->bullet, (t_vector2D){stripe, y}, _pc()->tex);
+				_pc()->tex.y = ((_pc()->d * _image()->bullet.h) /_pc()->size.y) / 256;
+				ft_put_pixel(_img(), &_image()->bullet, (t_vector2D){stripe, y}, _pc()->tex);
 				y++;
 			}
 		}
@@ -79,10 +79,21 @@ void	bullet_casting(void)
 	while (i < _var()->nb_player)
 	{
 		j = 0;
+		if (i == 0)
+		{
+			while (j < _player()->shoot_n)
+			{
+				init_cast(j, _player());
+				draw();
+				j++;
+			}	
+		}
 		while (j < _var()->o_player[i].shoot_n)
 		{
-			printf("=> %d\n", _var()->o_player[i].shoot_n);
-			init_cast(j, &_var()->o_player[i]);
+			if (i == 0)
+				init_cast(j, _player());
+			else
+				init_cast(j, &_var()->o_player[i]);
 			draw();
 			j++;
 		}

@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/10/30 17:48:37 by denissereno      ###   ########.fr        #
+#    Updated: 2022/10/31 23:37:54 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ RST			= \033[0m
 END			= \e[0m
 
 SRCS		=	srcs/main.c\
+				srcs/tools.c\
 				srcs/shoot.c\
 				srcs/ft_itoa.c\
 				srcs/raycasting/raycasting_utils.c\
@@ -32,7 +33,6 @@ SRCS		=	srcs/main.c\
 				srcs/utils/key_hooks.c\
 				srcs/utils/clock.c\
 				srcs/utils/list.c\
-				srcs/utils/math.c\
 				srcs/utils/collisions.c\
 				srcs/drawing/draw_player.c\
 				srcs/drawing/draw_map.c\
@@ -46,14 +46,21 @@ SRCS		=	srcs/main.c\
 				srcs/menu/dragbar.c\
 				srcs/parsing/parsing.c\
 				srcs/network_client/network_utils.c\
-				srcs/network_client/client.c
+				srcs/network_client/client.c\
+				srcs/math/math.c\
+				srcs/math/vector/operator2D.c\
+				srcs/math/vector/operator2F.c\
+				srcs/math/vector/tools.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/network/lobby.c\
 				  	srcs/network_client/network_utils.c\
 				  	srcs/network/server_thread.c\
 					srcs/utils/clock.c\
-					srcs/utils/math.c\
+					srcs/math/math.c\
+					srcs/math/vector/operator2D.c\
+					srcs/math/vector/operator2F.c\
+					srcs/math/vector/tools.c\
 					srcs/parsing/parsing.c
 
 
@@ -82,12 +89,15 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/utils
 	@mkdir -p $(OBJS_DIR)srcs/drawing
 	@mkdir -p $(OBJS_DIR)srcs/menu
+	@mkdir -p $(OBJS_DIR)srcs/math
+	@mkdir -p $(OBJS_DIR)srcs/math/vector
 	@mkdir -p $(OBJS_DIR)srcs/network_client
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 
 $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
+	@mkdir -p $(OBJS_DIR)srcs/math
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils

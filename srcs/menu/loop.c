@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 16:52:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:11:04 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	check_button_state(void)
 				> BUT_CL_TIME))
 		{
 			if (i == 0 && _var()->menu->s_state[0].state == 2)
+			{
+				_var()->nb_player = 1;
 				_var()->mode = GAME;
+			}
 			if (i == 1 && _var()->menu->s_state[1].state == 2)
 				_var()->menu->mode = MENU_PLAYER;
 			if (i == 2 && _var()->menu->s_state[2].state == 2)

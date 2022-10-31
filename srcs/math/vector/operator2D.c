@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clock.c                                            :+:      :+:    :+:   */
+/*   operator2D.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 23:31:48 by denissereno      ###   ########.fr       */
+/*   Created: 2022/10/31 23:08:15 by denissereno       #+#    #+#             */
+/*   Updated: 2022/10/31 23:11:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub.h"
+#include "../../../includes/cub.h"
 
-struct timeval	start_clock()
+/*
+-	Divide two int vector.
+*/
+t_vector2D div_2D(t_vector2D a, t_vector2D b)
 {
-	struct timeval	start;
-
-	gettimeofday(&start, NULL);
-	return (start);
+	return ((t_vector2D){a.x / b.x, a.y / b.y});
 }
 
-unsigned long	get_clock(struct timeval start)
+/*
+-	Multiply two int vector.
+*/
+t_vector2D mult_2D(t_vector2D a, t_vector2D b)
 {
-	struct timeval	stop;
-
-	gettimeofday(&stop, NULL);
-	return ((stop.tv_sec - start.tv_sec) * 1000000
-		+ stop.tv_usec - start.tv_usec);
+	return ((t_vector2D){a.x * b.x, a.y * b.y});
 }
 
-unsigned long	get_time(unsigned long start)
-{
-	return (get_clock(_var()->clock) - start);
-}

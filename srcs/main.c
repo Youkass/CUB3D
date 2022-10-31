@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/30 17:48:44 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:59:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,35 +70,35 @@ int	ft_release(int keycode)
 
 void	generate_dsprite(void)
 {
-	_var()->dsprite[0] = generate_image("./img/soldier/front.xpm"); // front
-	_var()->dsprite[1] = generate_image("./img/soldier/front_east_1.xpm"); // front east
-	_var()->dsprite[2] = generate_image("./img/soldier/front_east_2.xpm"); // front east
-	_var()->dsprite[3] = generate_image("./img/soldier/front_east_3.xpm"); // front east
-	_var()->dsprite[4] = generate_image("./img/soldier/east.xpm"); // east
-	_var()->dsprite[5] = generate_image("./img/soldier/back_east_1.xpm"); // back east
-	_var()->dsprite[6] = generate_image("./img/soldier/back_east_2.xpm"); // back east
-	_var()->dsprite[7] = generate_image("./img/soldier/back_east_3.xpm"); // back east
-	_var()->dsprite[8] = generate_image("./img/soldier/back.xpm"); // back
-	_var()->dsprite[9] = generate_image("./img/soldier/back_west_3.xpm"); // back west
-	_var()->dsprite[10] = generate_image("./img/soldier/back_west_2.xpm"); // back west
-	_var()->dsprite[11] = generate_image("./img/soldier/back_west_1.xpm"); // back west
-	_var()->dsprite[12] = generate_image("./img/soldier/west.xpm"); // west
-	_var()->dsprite[13] = generate_image("./img/soldier/front_west_3.xpm"); // front west
-	_var()->dsprite[14] = generate_image("./img/soldier/front_west_2.xpm"); // front west
-	_var()->dsprite[15] = generate_image("./img/soldier/front_west_1.xpm"); // front westwest
+	_image()->dsprite[0] = generate_image("./img/soldier/front.xpm"); // front
+	_image()->dsprite[1] = generate_image("./img/soldier/front_east_1.xpm"); // front east
+	_image()->dsprite[2] = generate_image("./img/soldier/front_east_2.xpm"); // front east
+	_image()->dsprite[3] = generate_image("./img/soldier/front_east_3.xpm"); // front east
+	_image()->dsprite[4] = generate_image("./img/soldier/east.xpm"); // east
+	_image()->dsprite[5] = generate_image("./img/soldier/back_east_1.xpm"); // back east
+	_image()->dsprite[6] = generate_image("./img/soldier/back_east_2.xpm"); // back east
+	_image()->dsprite[7] = generate_image("./img/soldier/back_east_3.xpm"); // back east
+	_image()->dsprite[8] = generate_image("./img/soldier/back.xpm"); // back
+	_image()->dsprite[9] = generate_image("./img/soldier/back_west_3.xpm"); // back west
+	_image()->dsprite[10] = generate_image("./img/soldier/back_west_2.xpm"); // back west
+	_image()->dsprite[11] = generate_image("./img/soldier/back_west_1.xpm"); // back west
+	_image()->dsprite[12] = generate_image("./img/soldier/west.xpm"); // west
+	_image()->dsprite[13] = generate_image("./img/soldier/front_west_3.xpm"); // front west
+	_image()->dsprite[14] = generate_image("./img/soldier/front_west_2.xpm"); // front west
+	_image()->dsprite[15] = generate_image("./img/soldier/front_west_1.xpm"); // front westwest
 
-	_var()->walk_sprite[0] = generate_image("./img/soldier/walk/front.xpm");
-	_var()->walk_sprite[1] = generate_image("./img/soldier/walk/southeast.xpm");
-	_var()->walk_sprite[2] = generate_image("./img/soldier/walk/east.xpm");
-	_var()->walk_sprite[3] = generate_image("./img/soldier/walk/northeast.xpm");
-	_var()->walk_sprite[4] = generate_image("./img/soldier/walk/back.xpm");
-	_var()->walk_sprite[5] = generate_image("./img/soldier/walk/northwest.xpm");
-	_var()->walk_sprite[6] = generate_image("./img/soldier/walk/west.xpm");
-	_var()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
+	_image()->walk_sprite[0] = generate_image("./img/soldier/walk/front.xpm");
+	_image()->walk_sprite[1] = generate_image("./img/soldier/walk/southeast.xpm");
+	_image()->walk_sprite[2] = generate_image("./img/soldier/walk/east.xpm");
+	_image()->walk_sprite[3] = generate_image("./img/soldier/walk/northeast.xpm");
+	_image()->walk_sprite[4] = generate_image("./img/soldier/walk/back.xpm");
+	_image()->walk_sprite[5] = generate_image("./img/soldier/walk/northwest.xpm");
+	_image()->walk_sprite[6] = generate_image("./img/soldier/walk/west.xpm");
+	_image()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
 
-	_var()->death_sprite = generate_image("./img/soldier/death.xpm");
+	_image()->death_sprite = generate_image("./img/soldier/death.xpm");
 
-	_var()->rifle = generate_image("./img/soldier/rifle.xpm");
+	_image()->rifle = generate_image("./img/soldier/rifle.xpm");
 }
 
 
@@ -107,6 +107,7 @@ void	ft_init_player_pos(void)
 	double	dist;
 
 	_player()->pseudo[0] = 0;
+	_player()->is_shooting = 0;
 	_player()->exchange = 4;
 	_player()->weapon_id = 0;
 	_player()->can_shoot = 1;
@@ -130,7 +131,7 @@ void	ft_init_player_pos(void)
 	_player()->hb.n = 0;
 	_player()->pitch = 0;
 	generate_dsprite();
-	_var()->sprite = generate_image("./img/front.xpm");
+	_image()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
 	_player()->is_walking = 0;
@@ -164,7 +165,10 @@ void	death_clock(void)
 void	reload_clock(void)
 {
 	if (get_clock(_var()->clock) - _player()->start_reload > _var()->weapon[_player()->weapon_id].reload_ms)
+	{
 		_player()->can_shoot = 1;
+		_player()->is_shooting = 0;
+	}
 }
 
 void	ft_init_player2(void)
@@ -175,7 +179,7 @@ void	ft_init_player2(void)
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
-		_var()->pseudo_img[i].img = NULL;
+		_image()->pseudo_img[i].img = NULL;
 		_var()->o_player[i].weapon_id = 0;
 		_var()->o_player[i].health = 100;
 		_var()->o_player[i].x = 7;
@@ -348,8 +352,9 @@ void	init_weapons(void)
 	_var()->weapon[0].name = malloc(sizeof(char) * 6);
 	_var()->weapon[0].name = "Rifle\0";
 	_var()->weapon[0].id = 0;
+	_var()->weapon[0].range = 10;
 	_var()->weapon[0].power = 10;
-	_var()->weapon[0].reload_ms = 100000;
+	_var()->weapon[0].reload_ms = 500000;
 	_var()->weapon[0].ammo = 15;
 }
 
@@ -362,10 +367,10 @@ void	init_var(void)
 	_var()->menu->mode = MENU_START;_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
-	//_var()->bullet = generate_image("./img/bullet.xpm");
+	//_image()->bullet = generate_image("./img/bullet.xpm");
 	i = 0;
 	while (i < MAX_PLAYER)
-		_var()->pseudo_img[i++].img = NULL;
+		_image()->pseudo_img[i++].img = NULL;
 	_var()->started = 0;
 }
 
@@ -376,7 +381,7 @@ void	init_data_shot(t_obj *player)
 
 	j = 0;
 	i = 0;
-	while (i < MAX_SHOT)
+	while (i < MAX_BULLET)
 	{
 		player->shott[i].end_pos = (t_vector2F){0, 0};
 		player->shott[i].n = 0;
@@ -415,12 +420,13 @@ int main(int argc, char **argv)
 	ft_init_player2();
 	ft_malloc_map();
 	init_key();
-	gen_menu_images();
-	_var()->bullet = generate_image("./img/bullet.xpm");
+	gen_menu_imagess();
+	_image()->bullet = generate_image("./img/bullet.xpm");
+	_image()->crosshair = generate_image("./img/crosshair.xpm");
 	if(WIN_W == 1440)
-		_var()->bg = generate_image("./img/spacebg1440.xpm");
+		_image()->bg = generate_image("./img/spacebg1440.xpm");
 	else
-		_var()->bg = generate_image("./img/spacebg.xpm");
+		_image()->bg = generate_image("./img/spacebg.xpm");
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);
