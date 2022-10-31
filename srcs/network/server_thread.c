@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/28 18:35:14 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 10:25:30 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int	ft_recv_first_data(t_client_thread *client)
 			sizeof(client->player_data), 0) < 0)
 			return (1);
 		client->is_recv = 1;
+		client->is_send = 0;
 		pthread_mutex_lock(client->mutex);
 		client->serv->player_data[client->id] = client->player_data;
 		printf("id %d ; data recv\n", client->id);
@@ -100,6 +101,31 @@ int	ft_is_get(t_client_thread *client)
 	return (0);
 }
 
+int ft_is_send(t_client_thread *client)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_lock(client->mutex);
+	while (i < client->nb_players)
+	{
+		if (!client->serv->clients[i].is_send)
+		{
+			pthread_mutex_unlock(client->mutex);
+			return (1);
+		}
+		++i;
+	}
+	pthread_mutex_unlock(client->mutex);
+	return (0);
+}
+
+void	ft_wait_all(t_client_thread *client)
+{
+	while (ft_is_send(client))
+		usleep(200);
+}
+
 int	ft_send_all_data(t_client_thread *client)
 {
 	int		i;
@@ -118,7 +144,11 @@ int	ft_send_all_data(t_client_thread *client)
 	if (send(client->socket, &data, sizeof(data), 0) < 0)
 		return (1);
 	pthread_mutex_lock(client->mutex);
-	printf("id %d ; data sent ; is_recv : %d\n", client->id, client->is_recv);
+	client->is_send = 1;
+	pthread_mutex_unlock(client->mutex);
+	while (ft_is_send(client))
+		usleep(200);
+	pthread_mutex_lock(client->mutex);
 	client->is_recv = 0;
 	pthread_mutex_unlock(client->mutex);
 	return (0);
@@ -171,6 +201,7 @@ void	*client_routine(void *client_t)
 	if (wait_lobby(client))
 		return (NULL);
 	client->is_recv = 0;
+	client->is_send = 0;
 	printf("on est la\n");
 	while (1)
 	{
