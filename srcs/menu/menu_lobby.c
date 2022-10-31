@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/27 15:24:38 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:53:11 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ void	get_pseudos(void)
 	{
 		memset(&player, 0, sizeof(player));
 		ft_copy_data_before_pong(&player);
-		send(_img()->socket, &player, sizeof(player), 0);
+		send(_var()->socket, &player, sizeof(player), 0);
 		sendo = 1;
 	}
 	start = 0;
-	if (recv(_img()->socket, &(_var()->linked_players), sizeof(int), 
+	if (recv(_var()->socket, &(_var()->linked_players), sizeof(int), 
 			0) < 0)
 		exit(1); //TODO
-	if (send(_img()->socket, &(_var()->started), sizeof(int), 0) < 0)
+	if (send(_var()->socket, &(_var()->started), sizeof(int), 0) < 0)
 		exit(1); //TODO
-	if (recv(_img()->socket, &start, sizeof(int), 0) < 0)
+	if (recv(_var()->socket, &start, sizeof(int), 0) < 0)
 		exit(1); //TODO
 	if (start)
 	{
@@ -41,7 +41,7 @@ void	get_pseudos(void)
 	}
 	while (i < _var()->linked_players && !_var()->started)
 	{
-		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
+		if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
 			exit(1); //TODO
 		_var()->o_player[i] = player;
 		if (!(_var()->pseudo_img[i].img))

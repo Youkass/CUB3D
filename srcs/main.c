@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/30 15:56:38 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 17:48:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,13 @@ void	ft_init_player_pos(void)
 	double	dist;
 
 	_player()->pseudo[0] = 0;
+	_player()->exchange = 4;
 	_player()->weapon_id = 0;
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
 	_player()->health = 100;
 	_player()->ammo = 0;
+	_player()->shoot_n = 0;
 	_player()->x = 5;
 	_player()->y = 3;
 	_player()->z = 0;
@@ -131,7 +133,8 @@ void	ft_init_player_pos(void)
 	_var()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
-	_player()->is_walking = 0;	
+	_player()->is_walking = 0;
+	init_data_shot(_player());
 }
 
 void	walk_clock(void)
@@ -184,8 +187,10 @@ void	ft_init_player2(void)
 		_var()->o_player[i].plane = (t_vector2F){0, -0.66};
 		_var()->o_player[i].hb.hit.r = 0.5;
 		_var()->o_player[i].hb.n = 0;
+		_var()->o_player[i].shoot_n = 0;
 		dist = hypot(_var()->o_player[i].dx, _var()->o_player[i].dy);
 		_var()->o_player[i].angle = 360 - acos(_var()->o_player[i].dx / dist) * 180 / M_PI;	
+		init_data_shot(&_var()->o_player[i]);
 		++i;
 	}
 }
@@ -203,8 +208,8 @@ void	ft_print_tab(char **s)
 		line = ft_strlen(s[i]);
 		++i;
 	}
-	_img()->map_width = line;
-	_img()->map_height = i;
+	_var()->map_width = line;
+	_var()->map_height = i;
 }
 
 int	ft_hook(int keycode)
@@ -235,9 +240,9 @@ void	init_sync(void)
 //	link = 0;
 	if (_var()->mode == GAME_START_ONLINE)
 	{
-//		if (send(_img()->socket, &link, sizeof(link), 0) < 0)
+//		if (send(_var()->socket, &link, sizeof(link), 0) < 0)
 //			return ;
-//		if (recv(_img()->socket, &link, sizeof(link), 0)< 0)
+//		if (recv(_var()->socket, &link, sizeof(link), 0)< 0)
 //			return ;
 		_var()->mode = GAME;
 	}
@@ -249,7 +254,7 @@ int	ft_loop_hook(void)
 
 	if (_var()->mode == ONLINE_START)
 	{
-			_img()->is_host = SERVER;
+			_var()->is_host = SERVER;
 			pid = fork();
 			if (pid == 0)
 			{
@@ -258,7 +263,7 @@ int	ft_loop_hook(void)
 			}
 			else
 			{
-				system(ft_strjoin("./server ", ft_itoa(_img()->nb_player)));
+				system(ft_strjoin("./server ", ft_itoa(_var()->nb_player)));
 				exit(1);
 			}
 		_var()->mode = LOBBY_WAIT;
@@ -344,7 +349,7 @@ void	init_weapons(void)
 	_var()->weapon[0].name = "Rifle\0";
 	_var()->weapon[0].id = 0;
 	_var()->weapon[0].power = 10;
-	_var()->weapon[0].reload_ms = 5000;
+	_var()->weapon[0].reload_ms = 100000;
 	_var()->weapon[0].ammo = 15;
 }
 
@@ -364,6 +369,31 @@ void	init_var(void)
 	_var()->started = 0;
 }
 
+void	init_data_shot(t_obj *player)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (i < MAX_SHOT)
+	{
+		player->shott[i].end_pos = (t_vector2F){0, 0};
+		player->shott[i].n = 0;
+		while (j < SHOT_FRAME)
+		{
+			player->shott[i].n_pos[j] = (t_vector2F){0, 0};
+			j++;
+		}
+		player->shott[i].pos = (t_vector2F){0, 0};
+		player->shott[i].shot = 0;
+		player->shott[i].start_pos = (t_vector2F){0, 0};
+		player->shott[i].start_time = 0;
+		player->shott[i].weapon_type = 0;
+		i++;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	int		fd;
@@ -373,11 +403,11 @@ int main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit(139);
-	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
-	if (!_img()->map)
+	_var()->map = resize_map(ft_split(read_file(fd), '\n'));
+	if (!_var()->map)
 		exit(139);
 	init_weapons();
-	ft_print_tab(_img()->map);
+	ft_print_tab(_var()->map);
 	ft_init_mlx();
 	ft_init_img();
 	_ray();

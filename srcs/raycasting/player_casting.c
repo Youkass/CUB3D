@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 15:54:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 16:52:58 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,16 +118,16 @@ void	sort_by_distance(void)
 
 	i = 0;
 	j = 0;
-	while (i < _img()->nb_player)
+	while (i < _var()->nb_player)
 	{
 		_var()->sort_player[i] = _var()->o_player[i];
 		i++;
 	}
 	i = 0;
-	while (i < _img()->nb_player)
+	while (i < _var()->nb_player)
 	{
 		j = i + 1;
-		while (j < _img()->nb_player)
+		while (j < _var()->nb_player)
 		{
 			if (compute_distance((t_vector2F){_player()->x, _player()->y}, (t_vector2F){_var()->sort_player[j].x, _var()->sort_player[j].y}) >
 			compute_distance((t_vector2F){_player()->x, _player()->y}, (t_vector2F){_var()->sort_player[i].x, _var()->sort_player[i].y}))
@@ -148,7 +148,7 @@ void	player_casting(void)
 
 	i = 0;
 	sort_by_distance();
-	while (i < _img()->nb_player)
+	while (i < _var()->nb_player)
 	{
 		if (_var()->sort_player[i].id != _player()->id)
 		{

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 16:33:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 17:25:21 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,30 +62,30 @@ void	shoot(void)
 {
 	int			i;
 	t_vector2F	closest;
+	int			touched;
 
 	i = 0;
-	while (i < _img()->nb_player)
+	touched = 0;
+	while (i < _var()->nb_player)
 	{
 		if (_var()->o_player[i].id != _player()->id &&
 			is_shoot_touch((t_vector2F){_player()->x, _player()->y},
-			(t_vector2F){_player()->x + (_player()->dx * 150), _player()->y
-			+ (_player()->dy * 150)}, (t_circle){(t_vector2F){_var()->o_player[i].x,
+			(t_vector2F){_player()->x + (_player()->dx * 30), _player()->y
+			+ (_player()->dy * 30)}, (t_circle){(t_vector2F){_var()->o_player[i].x,
 			_var()->o_player[i].y}, 1}, &closest))
 		{
 			_player()->shooted.id = _var()->o_player[i].id;
 			_player()->shooted.shoot = 1;
 			init_shot((t_vector2F){_player()->x, _player()->y}, closest);
-			//init_shot((t_vector2F){_player()->x, _player()->y},
-			//	(t_vector2F){_player()->x + (_player()->dx * 20), _player()->y
-			//+ (_player()->dy * 20)});
+			touched = 1;
+			break ;
 		}
-		else
-			init_shot((t_vector2F){_player()->x, _player()->y},
-				(t_vector2F){_player()->x + (_player()->dx * 20), _player()->y
-			+ (_player()->dy * 20)});
-			
 		i++;
 	}
+	if (touched == 0)
+		init_shot((t_vector2F){_player()->x, _player()->y},
+			(t_vector2F){_player()->x + (_player()->dx * 10), _player()->y
+		+ (_player()->dy * 10)});
 }
 
 void	compute_shot(t_vector2F start, t_vector2F end)
@@ -101,7 +101,7 @@ void	compute_shot(t_vector2F start, t_vector2F end)
 	i = 0;
 	while (i < SHOT_FRAME)
 	{
-		_var()->shott.n_pos[i] = start;
+		_player()->shott[_player()->shoot_n].n_pos[i] = start;
 		start = add_2f(start, nstep);
 		i++;
 	}
@@ -109,30 +109,16 @@ void	compute_shot(t_vector2F start, t_vector2F end)
 
 void	init_shot(t_vector2F start, t_vector2F end)
 {
-	t_vector2F	mid;
-	t_vector2F	up_quart;
-	t_vector2F	down_quart;
-
-	_var()->shott.start_pos = start;
-	_var()->shott.end_pos = end;
-	_var()->shott.n = 0;
-	_var()->shott.weapon_type = _player()->weapon_id;
-	_var()->shott.start_time = get_clock(_var()->clock);
-	//compute_shot(start, end);
-	mid =  (t_vector2F){( start.x + end.x) / 2, ( start.y + end.y) / 2};
-	up_quart = (t_vector2F){(end.x + mid.x) / 2,(end.y + mid.y) / 2};
-	down_quart = (t_vector2F){(start.x + mid.x) / 2,(start.y + mid.y) / 2};
-	_var()->shott.n_pos[0] = (t_vector2F){start.x + _player()->dx, start.y + _player()->dy};
-	//_var()->shott.n_pos[0] = (t_vector2F){(start.x + down_quart.x) / 2,(start.y + down_quart.y) / 2};
-	_var()->shott.n_pos[1] = (t_vector2F){(mid.x + down_quart.x) / 2,(mid.y + down_quart.y) / 2};
-	//_var()->shott.n_pos[1] = down_quart;
-	_var()->shott.n_pos[2] = mid;
-	_var()->shott.n_pos[3] = up_quart;
-	_var()->shott.n_pos[4] = (t_vector2F){(mid.x + up_quart.x) / 2,(mid.y + up_quart.y) / 2};;
-	//_var()->shott.n_pos[4] = (t_vector2F){(end.x + up_quart.x) / 2,(end.y + up_quart.y) / 2};;
-	_var()->shott.pos = _var()->shott.n_pos[0];
-	_var()->shott.shot = 1;
-	//return (shot);
+	printf("entree\n");
+	_player()->shott[_player()->shoot_n].start_pos = start;
+	_player()->shott[_player()->shoot_n].end_pos = end;
+	_player()->shott[_player()->shoot_n].n = 0;
+	_player()->shott[_player()->shoot_n].weapon_type = _player()->weapon_id;
+	_player()->shott[_player()->shoot_n].start_time = get_clock(_var()->clock);
+	compute_shot(start, end);
+	_player()->shott[_player()->shoot_n].pos = _player()->shott[_player()->shoot_n].n_pos[0];
+	_player()->shott[_player()->shoot_n].shot = 1;
+	_player()->shoot_n++;
 }
 
 // FAIRE LES SHOOTS COTE SERVEUR

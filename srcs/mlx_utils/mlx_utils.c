@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/30 02:28:42 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 17:21:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,12 +182,10 @@ void		draw_sky(void)
 	(void)draw_pl;
 	angle = atan2(_player()->dy, _player()->dx);
 	offset = (int)(angle * WIN_W* 2 / (M_PI * 2)) + (WIN_W / 2) * 2;
-	//printf("%d\n", offset);
 	pt.y = 0;
 	while (pt.y < WIN_H / 2 + _player()->pitch)
 	{
 		tex.y =( ((pt.y * 2 * WIN_W / (WIN_H)) / 4 )- (_player()->pitch * 0.8)) + WIN_H / 2;
-		printf("%d\n", tex.y);
 		pt.x = 0;
 		while (pt.x < WIN_W)
 		{
@@ -253,16 +251,21 @@ void	check_death(void)
 
 void	update_bullets(void)
 {
-	if (_var()->shott.shot == 1)
+	int	i;
+	int	new_shoot_n;
+
+	new_shoot_n = _player()->shoot_n;
+	i = 0;
+	while (i < _player()->shoot_n)
 	{
-		_var()->shott.n++;
-		if (_var()->shott.n > 5)
-		{
-			_var()->shott.shot = 0;
-			return ;
-		}
-		_var()->shott.pos = _var()->shott.n_pos[_var()->shott.n];
+		_player()->shott[i].n++;
+		if (_player()->shott[i].n > SHOT_FRAME)
+			new_shoot_n--;
+		else
+			_player()->shott[i].pos = _player()->shott[i].n_pos[_player()->shott[i].n];
+		i++;
 	}
+	_player()->shoot_n = new_shoot_n;
 }
 
 int	ft_loop()
@@ -276,7 +279,7 @@ int	ft_loop()
 	reload_clock();
 	draw_rays();
 	walk_clock();
-	if ((_img()->is_host == CLIENT || _img()->is_host == SERVER)  && _var()->mode == GAME)
+	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER)  && _var()->mode == GAME)
 	{
 		ft_pong_client();
 		player_casting();
