@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 15:52:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 16:52:58 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ void	menu_lobby(void)
 		draw_text(_var()->o_player[i].pseudo, (t_vector2D){200, 300 + i * 60}, _img());
 		i++;
 	}
-	if (_img()->is_host == SERVER)
+	if (_var()->is_host == SERVER)
 		draw_text(ft_get_host_ip(), (t_vector2D){200, 10}, _img());
 	else
 		draw_text(_var()->ip, (t_vector2D){200, 10}, _img());
-	if (_img()->is_host == SERVER && _var()->linked_players >= _img()->nb_player)
+	if (_var()->is_host == SERVER && _var()->linked_players >= _var()->nb_player)
 		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, _img());
 }
 

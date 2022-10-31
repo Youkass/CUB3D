@@ -238,6 +238,7 @@ int	ft_game(void);
 void	init_key(void);
 void	init_weapons(void);
 void	init_var(void);
+void	init_data_shot(t_obj *player);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   name_casting.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 18:46:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/22 19:15:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 16:52:58 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	name_casting(void)
 
 	i = 0;
 	sort_by_distance();
-	while (i < _img()->nb_player)
+	while (i < _var()->nb_player)
 	{
 		if (_var()->sort_player[i].id != _player()->id)
 		{

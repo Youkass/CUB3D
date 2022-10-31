@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 20:19:05 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:59:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,8 @@ esc : 65307
 # define VOID 3
 # define MAP 4
 
-# define SHOT_FRAME 30
+# define SHOT_FRAME 10
+# define MAX_SHOT 8
 
 # define MINIMAP_SIZE 512
 # define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)

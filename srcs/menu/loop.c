@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 20:19:47 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/30 16:52:58 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,26 +54,26 @@ void	check_button_state_pl(void)
 		{
 			if (i == 0 && _var()->menu->p_state[0].state == 2)
 			{
-				_img()->nb_player = 2;
+				_var()->nb_player = 2;
 				_var()->menu->mode = MENU_PSEUDO;
-				_img()->is_host = SERVER;
+				_var()->is_host = SERVER;
 			}
 			if (i == 1 && _var()->menu->p_state[1].state == 2)
 			{
-				_img()->nb_player = 4;
+				_var()->nb_player = 4;
 				_var()->menu->mode = MENU_PSEUDO;
-				_img()->is_host = SERVER;
+				_var()->is_host = SERVER;
 			}
 			if (i == 2 && _var()->menu->p_state[2].state == 2)
 			{
-				_img()->nb_player = 6;
+				_var()->nb_player = 6;
 				_var()->menu->mode = MENU_PSEUDO;
-				_img()->is_host = SERVER;
+				_var()->is_host = SERVER;
 			}
 			if (i == 3 && _var()->menu->p_state[3].state == 2)
 			{
 				_var()->menu->mode = MENU_IP;
-				_img()->is_host = CLIENT;
+				_var()->is_host = CLIENT;
 			}
 			_var()->menu->p_state[i].state = 
 			ft_hitbox(_var()->menu->p_state[i].hitbox, _var()->m_pos);
@@ -239,13 +239,13 @@ int	menu_hook_pseudo(int keycode)
 		n--;
 		_player()->pseudo[n] = 0;
 	}
-	if (keycode == ENTER && n > 3 && _img()->is_host == SERVER)
+	if (keycode == ENTER && n > 3 && _var()->is_host == SERVER)
 	{
 		//_player()->pseudo_img = create_text_img(_player()->pseudo);
 		_var()->menu->mode = MENU_LOBBY;
 		_var()->mode = ONLINE_START;
 	}
-	if (keycode == ENTER && n > 3 && _img()->is_host == CLIENT)
+	if (keycode == ENTER && n > 3 && _var()->is_host == CLIENT)
 	{
 		//_player()->pseudo_img = create_text_img(_player()->pseudo);
 		ft_init_client();
@@ -320,7 +320,7 @@ int	menu_hook_ip(int keycode)
 		n--;
 		_var()->ip[n] = 0;
 	}
-	if (keycode == ENTER && n > 3 && _img()->is_host == CLIENT)
+	if (keycode == ENTER && n > 3 && _var()->is_host == CLIENT)
 	{
 		_var()->menu->mode = MENU_PSEUDO;
 		_var()->mode = MENU;

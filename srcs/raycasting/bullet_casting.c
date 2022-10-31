@@ -6,16 +6,16 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 01:30:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 18:01:16 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-static void	init_cast()
+static void	init_cast(int i, t_obj *player)
 {
-	_pc()->pos.x = _var()->shott.pos.x - _player()->x;
-	_pc()->pos.y = _var()->shott.pos.y -_player()->y;
+	_pc()->pos.x = player->shott[i].pos.x - _player()->x;
+	_pc()->pos.y = player->shott[i].pos.y -_player()->y;
 	_pc()->inv_det = 1.0 / (_player()->plane.x * _player()->dy -
 			_player()->dx * _player()->plane.y);
 	_pc()->trans.x = _pc()->inv_det * (_player()->dy *
@@ -28,14 +28,14 @@ static void	init_cast()
 }
 static void	compute_draw(void)
 {
-	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 100;
+	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 5;
 	_pc()->draw_start.y = -_pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_start.y < 0)
 		_pc()->draw_start.y = 0;
 	_pc()->draw_end.y = _pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_end.y >= WIN_H)
 		_pc()->draw_end.y = WIN_H;
-	_pc()->size.x = abs((int)(WIN_H / (_pc()->trans.y))) / 100;
+	_pc()->size.x = abs((int)(WIN_H / (_pc()->trans.y))) / 5;
 	_pc()->draw_start.x = -_pc()->size.x / 2 + _pc()->sprite_screen_x;
 	if (_pc()->draw_start.x < 0)
 		_pc()->draw_start.x = 0;
@@ -71,8 +71,21 @@ static void	draw()
 
 void	bullet_casting(void)
 {
-	if (!_var()->shott.shot)
-		return ;
-	init_cast();
-	draw();
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (i < _var()->nb_player)
+	{
+		j = 0;
+		while (j < _var()->o_player[i].shoot_n)
+		{
+			printf("=> %d\n", _var()->o_player[i].shoot_n);
+			init_cast(j, &_var()->o_player[i]);
+			draw();
+			j++;
+		}
+		i++;
+	}
 }

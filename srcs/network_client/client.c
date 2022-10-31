@@ -32,38 +32,43 @@ int	ft_init_client(void)
 {
 	int			ret;
 
-	_img()->socket = socket(AF_INET, SOCK_STREAM, 0);
-	if (_img()->is_host == SERVER)
-		_img()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
-	else if (_img()->is_host == CLIENT) 
-		_img()->client.sin_addr.s_addr = inet_addr(_var()->ip);
-	_img()->client.sin_family = AF_INET;
-	_img()->client.sin_port = htons(30000);
-	ret = connect(_img()->socket,
-		(const struct sockaddr *)&(_img()->client), sizeof(_img()->client));
+	_var()->socket = socket(AF_INET, SOCK_STREAM, 0);
+	if (_var()->is_host == SERVER)
+		_var()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
+	else if (_var()->is_host == CLIENT) 
+		_var()->client.sin_addr.s_addr = inet_addr(_var()->ip);
+	_var()->client.sin_family = AF_INET;
+	_var()->client.sin_port = htons(30000);
+	ret = connect(_var()->socket,
+		(const struct sockaddr *)&(_var()->client), sizeof(_var()->client));
 	if (ret < 0)
 		return (EXIT_FAILURE);
-	recv(_img()->socket, &ret, sizeof(ret), 0);
+	recv(_var()->socket, &ret, sizeof(ret), 0);
 	_player()->id = ret;
-	if (_img()->is_host == CLIENT)
+	if (_var()->is_host == CLIENT)
 	{
-		recv(_img()->socket, &ret, sizeof(ret), 0);
-		_img()->nb_player = ret;
+		recv(_var()->socket, &ret, sizeof(ret), 0);
+		_var()->nb_player = ret;
 	}
 	int	i;
 
 	i = 0;
 	while (_player()->pseudo[i])
 	{
-		send(_img()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
+		send(_var()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
 		i++;
 	}
-	send(_img()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
+	send(_var()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
 	return (EXIT_SUCCESS);
 }
 
 void	ft_copy_data_before_pong(t_obj *player)
 {
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
 	player->id = _player()->id;
 	player->x = _player()->x;
 	player->y = _player()->y;
@@ -89,6 +94,18 @@ void	ft_copy_data_before_pong(t_obj *player)
     player->health = _player()->health;
     player->weapon_id = _player()->weapon_id;
     player->ammo = _player()->ammo;
+	player->shoot_n = _player()->shoot_n;
+	player->exchange = _player()->exchange;
+	while (i < _player()->shoot_n)
+	{
+		player->shott[i] = _player()->shott[i];
+		while (j < SHOT_FRAME)
+		{
+			player->shott[i].n_pos[j] = _player()->shott[i].n_pos[j];
+			j++;
+		}
+		i++;
+	}
 	memset(player->pseudo, 0, sizeof(player->pseudo));
 	strcpy(player->pseudo, _player()->pseudo);
 }
@@ -101,11 +118,11 @@ void	ft_copy_data_before_pong(t_obj *player)
 // 	i = 0;
 // 	memset(&player, 0, sizeof(player));
 // 	ft_copy_data_before_pong(&player);
-// 	if (send(_img()->socket, &player, sizeof(player), 0)< 0)
+// 	if (send(_var()->socket, &player, sizeof(player), 0)< 0)
 // 		return ;
 // 	while (i < _var()->linked_players)
 // 	{
-// 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
+// 		if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
 // 			return ;
 // 		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
 // 			_player()->health -= _var()->weapon[player.weapon_id].power;
@@ -120,6 +137,13 @@ void	ft_copy_data_before_pong(t_obj *player)
 // 	}
 // }
 
+void	print_data_recv(t_obj	*player)
+{
+	printf("-----RECV FROM %d-----\n", player->id);
+	printf("I RECEIVED :\n	POS = %f, %f\n	HEALTH = %d\n	ANGLE = %f\n	DIR = %f, %f\n	SHOOT_N = %d\n	EXCHANGE = %d\n\n",
+	player->x, player->y, player->health, player->angle, player->dx, player->dy, player->shoot_n, player->exchange);
+}
+
 void	ft_pong_client(void)
 {
 	t_obj	player[MAX_PLAYER];
@@ -128,13 +152,17 @@ void	ft_pong_client(void)
 	i = 0;
 	memset(&player[0], 0, sizeof(player[0]));
 	ft_copy_data_before_pong(&player[0]);
-	if (send(_img()->socket, &player[0], sizeof(player[0]), 0)< 0)
+	if (send(_var()->socket, &player[0], sizeof(player[0]), 0)< 0)
 		return ;
-	printf("%lu\n", sizeof(player));
-	if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
+	if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
 		return ;
 	while (i < _var()->linked_players)
 	{
+		if (player[i].exchange != 4)
+		{
+			i++;
+			continue ;
+		}
 		if (player[i].shooted.shoot == 1 && player[i].shooted.id == _player()->id)
 			_player()->health -= _var()->weapon[player[i].weapon_id].power;
 		if (player[i].shooted.shoot == 1 && i == _player()->id)
@@ -144,6 +172,7 @@ void	ft_pong_client(void)
 		}
 		_var()->o_player[i] = player[i];
 		_var()->o_player[i].id = i;
+		print_data_recv(&_var()->o_player[i]);
 		++i;
 	}
 }
