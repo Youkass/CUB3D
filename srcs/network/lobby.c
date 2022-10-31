@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 12:22:52 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:39:51 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,13 @@ static int	ft_has_start(t_client_thread *client)
 	return (pthread_mutex_unlock(client->mutex), 0);
 }
 
-static void	ft_check_start(t_client_thread *client, int nb)
+static void	ft_check_start(t_client_thread *client)
 {
-	int	i;
-
-	i = 0;
-	while (i < nb)
+	if (client->start > 0)
 	{
 		pthread_mutex_lock(client->mutex);
-		if (client->serv->clients[i].start > 0)
-		{
-			client->serv->started = 1;
-			pthread_mutex_unlock(client->mutex);
-			break ;
-		}
+		client->serv->started = 1;
 		pthread_mutex_unlock(client->mutex);
-		++i;
 	}
 }
 
@@ -89,7 +80,7 @@ int	ft_send_all_data_lobby(t_client_thread *client)
 	if (recv(client->socket, &(client->start), sizeof(int),
 			0) < 0)
 		return (1);
-	ft_check_start(client, nb);
+	ft_check_start(client);
 	pthread_mutex_lock(client->mutex);
 	if (send(client->socket, &(client->serv->started), sizeof(int),
 			0) < 0)
@@ -99,12 +90,14 @@ int	ft_send_all_data_lobby(t_client_thread *client)
 		return (0);
 	while (i < nb)
 	{
-		memset(&data, 0, sizeof(data));
 		pthread_mutex_lock(client->mutex);
+		memset(&data, 0, sizeof(data));
 		data = client->serv->player_data[i];
 		pthread_mutex_unlock(client->mutex);
 		if (send(client->socket, &data, sizeof(data), 0) < 0)
 			return (1);
+		printf("thread id : %d\n", client->id);
+		printf("data pseudo : %s\n", data.pseudo);
 		i++;
 	}
 	return (0);
