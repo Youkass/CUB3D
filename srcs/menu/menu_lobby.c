@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/27 15:24:38 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 11:33:07 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	get_pseudos(void)
 	{
 		if (recv(_img()->socket, &player, sizeof(player), 0) < 0)
 			exit(1); //TODO
-		_var()->o_player[i] = player;
+		_var()->o_player[i] = (t_obj)player;
+		printf("pseudo : %s\n", player.pseudo);
 		if (!(_var()->pseudo_img[i].img))
 			_var()->pseudo_img[i] = create_text_img(player.pseudo);
 		i++;
