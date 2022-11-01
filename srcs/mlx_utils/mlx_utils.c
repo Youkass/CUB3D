@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/31 23:41:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 09:06:37 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ void	update_bullets(void)
 	{
 		_player()->shott[i].n++;
 		t_vector2F test = velocity_get_point(_player()->shott[i].start_pos, _player()->shott[i].velo.velo, get_time(_player()->shott[i].start_time));
-		printf("player = %f, %f ... velo = %f, %f ... start = %f, %f ...  end = %f; %f\n", _player()->x, _player()->y, test.x, test.y, _player()->shott[i].start_pos.x, _player()->shott[i].start_pos.y, _player()->shott[i].end_pos.x, _player()->shott[i].end_pos.y);
+//		printf("player = %f, %f ... velo = %f, %f ... start = %f, %f ...  end = %f; %f\n", _player()->x, _player()->y, test.x, test.y, _player()->shott[i].start_pos.x, _player()->shott[i].start_pos.y, _player()->shott[i].end_pos.x, _player()->shott[i].end_pos.y);
 		//if (_player()->shott[i].n > SHOT_FRAME)
 		if (get_time(_player()->shott[i].start_time) >= (float)_player()->shott[i].velo.time_ms)
 			new_shoot_n--;
