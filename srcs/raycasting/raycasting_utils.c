@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 16:43:03 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/26 19:36:15 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 22:50:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,24 @@ int intersects(t_circle circle, t_rect rect)
     circle_dist.x = fabs(circle.pos.x - rect.x);
     circle_dist.y = fabs(circle.pos.y - rect.y);
 
-    if (circle_dist.x > (rect.width/2 + circle.r))
+    if (circle_dist.x > (rect.w/2 + circle.r))
 		return (0);
-    if (circle_dist.y > (rect.height/2 + circle.r))
+    if (circle_dist.y > (rect.h/2 + circle.r))
 		return (0);
 
-    if (circle_dist.x <= (rect.width/2))
+    if (circle_dist.x <= (rect.w/2))
 		return (1); 
-    if (circle_dist.y <= (rect.height/2))
+    if (circle_dist.y <= (rect.h/2))
 		return (1);
 
-    corner = pow((circle_dist.x - rect.width/2), 2) + pow((circle_dist.y - rect.height/2), 2);
+    corner = pow((circle_dist.x - rect.w/2), 2) + pow((circle_dist.y - rect.h/2), 2);
     return (corner <= (pow(circle.r, 2)));
 }
 
 void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b)
 {
-	if ((pos_b.x * 4 + pos_b.y * b->line_length > b->width * 4 + b->height * b->line_length)
-			|| (pos_a.x * 4 + pos_a.y * a->line_length > a->width * 4 + a->height * a->line_length))
+	if ((pos_b.x * 4 + pos_b.y * b->line_length > b->w * 4 + b->h * b->line_length)
+			|| (pos_a.x * 4 + pos_a.y * a->line_length > a->w * 4 + a->h * a->line_length))
 		return ;
 	if (b->addr[((pos_b.y *b->line_length)  + (pos_b.x * 4)) + 3] != -1)
 	{

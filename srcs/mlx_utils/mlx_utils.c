@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/31 09:06:01 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 09:06:37 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	ft_init_img()
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
 	_img()->bits_per_pixel /= 8;
-	_img()->height = WIN_H;
-	_img()->width = WIN_W;
+	_img()->h = WIN_H;
+	_img()->w = WIN_W;
 //	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
 
@@ -68,7 +68,7 @@ void	ft_pixel_put(float x, float y, int color)
 
 void	ft_reload_frame()
 {
-	// mlx_destroy_image(_mlx()->mlx, _img()->img);
+	// mlx_destroy_images(_mlx()->mlx, _img()->img);
 	// _img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
@@ -110,7 +110,7 @@ void	ft_fps(void)
 //				else if (var.i == 200 && (var.j + WIN_H / 2) - _player()->pitch == 200)
 //					planet[1] = (t_vector2D){xo, var.j};
 //				else
-//					ft_put_pixel(_img(), &_var()->bg, (t_vector2D){var.i, var.j}, (t_vector2D){xo, (var.j + WIN_H / 2) - _player()->pitch});
+//					ft_put_pixel(_img(), &_image()->bg, (t_vector2D){var.i, var.j}, (t_vector2D){xo, (var.j + WIN_H / 2) - _player()->pitch});
 //			}
 //			else
 //				ft_put_pixel_color(_img(), (char [4]){155, 155, 155, 0}, var.i, var.j);
@@ -119,9 +119,9 @@ void	ft_fps(void)
 //		var.i++;
 //	}
 //	if (planet[0].x != -1 && planet[0].y != -1)
-//		ft_put_sprite_to_image(*_img(), _var()->menu->planets[0],  planet[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+//		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0],  planet[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
 //	if (planet[1].x != -1 && planet[1].y != -1)
-//		ft_put_sprite_to_image(*_img(), _var()->menu->planets[0],  planet[1], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+//		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0],  planet[1], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
 //}
 
 void	*ft_draw_void(void *r)
@@ -148,7 +148,7 @@ void	*ft_draw_void(void *r)
 				else if (var.i == 200 && (var.j + WIN_H / 2) - _player()->pitch == 200)
 					_var()->menu->planets_pos[1] = (t_vector2D){xo, var.j};
 				else
-					ft_put_pixel(_img(), &_var()->bg, (t_vector2D){var.i, var.j}, (t_vector2D){xo, (var.j + WIN_H / 2) - _player()->pitch});
+					ft_put_pixel(_img(), &_image()->bg, (t_vector2D){var.i, var.j}, (t_vector2D){xo, (var.j + WIN_H / 2) - _player()->pitch});
 			}
 			else
 				ft_put_pixel_color(_img(), (char [4]){155, 155, 155, 0}, var.i, var.j);
@@ -177,12 +177,11 @@ void		draw_sky(void)
 	t_vector2D	tex;
 	t_vector2D	pt;
 	static t_vector2D	pl_coord[2] = (t_vector2D [2]){{2000, 500}, {1050, 500}};
-	t_vector2D	draw_pl[2] = {{-1, -1}, {-1, -1}};
+	_var()->menu->draw_pl[0] = pos(-1, -1);
+	_var()->menu->draw_pl[1] = pos(-1, -1);
 
-	(void)draw_pl;
 	angle = atan2(_player()->dy, _player()->dx);
 	offset = (int)(angle * WIN_W* 2 / (M_PI * 2)) + (WIN_W / 2) * 2;
-	//printf("%d\n", offset);
 	pt.y = 0;
 	while (pt.y < WIN_H / 2 + _player()->pitch)
 	{
@@ -192,9 +191,9 @@ void		draw_sky(void)
 		{
 			tex.x = pt.x * WIN_W / (4 * WIN_W / 2);
 			if (tex.x + offset == pl_coord[0].x && tex.y == 400)
-				draw_pl[0] = (t_vector2D){pt.x, pt.y};
+				_var()->menu->draw_pl[0] = (t_vector2D){pt.x, pt.y};
 			tex.x = (tex.x + offset) % WIN_W;
-			ft_put_pixel(_img(), &_var()->bg, pt, tex);
+			ft_put_pixel(_img(), &_image()->bg, pt, tex);
 			pt.x++;
 		}
 		pt.y++;
@@ -209,12 +208,10 @@ void		draw_sky(void)
 		}
 		pt.y++;
 	}
-	if ( draw_pl[0].x != -1 &&  draw_pl[0].y != -1)
-		ft_put_sprite_to_image(*_img(), _var()->menu->planets[0], draw_pl[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
-	//if ( _var()->menu->planets_pos[0].x != -1 &&  _var()->menu->planets_pos[0].y != -1)
-		//ft_put_sprite_to_image(*_img(), _var()->menu->planets[0], _var()->menu->planets_pos[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
-	//if ( _var()->menu->planets_pos[1].x != -1 &&  _var()->menu->planets_pos[1].y != -1)
-	//	ft_put_sprite_to_image(*_img(), _var()->menu->planets[0], _var()->menu->planets_pos[1], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+	//printf("planet = %d, %d\n", pl_coord[0].x, pl_coord[0].y);
+	//printf("view = [%d, %d] - [%d, %d]\n       [%d, %d] - [%d, %d]\n", offset, _player()->pitch,  WIN_W + offset);
+	if ( _var()->menu->draw_pl[0].x != -1 &&  _var()->menu->draw_pl[0].y != -1)
+		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0], _var()->menu->draw_pl[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
 }
 
 void	draw_void_thread()
@@ -235,9 +232,9 @@ void	draw_void_thread()
 	for (int i = 0; i < 10; i++)
 		pthread_join(_var()->th_void[i], NULL);
 	if ( _var()->menu->planets_pos[0].x != -1 &&  _var()->menu->planets_pos[0].y != -1)
-		ft_put_sprite_to_image(*_img(), _var()->menu->planets[0], _var()->menu->planets_pos[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0], _var()->menu->planets_pos[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
 	if ( _var()->menu->planets_pos[1].x != -1 &&  _var()->menu->planets_pos[1].y != -1)
-		ft_put_sprite_to_image(*_img(), _var()->menu->planets[0], _var()->menu->planets_pos[1], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0], _var()->menu->planets_pos[1], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
 }
 
 void	check_death(void)
@@ -252,37 +249,65 @@ void	check_death(void)
 
 void	update_bullets(void)
 {
-	if (_var()->shott.shot == 1)
+	int	i;
+	int	new_shoot_n;
+
+	new_shoot_n = _player()->shoot_n;
+	i = 0;
+	while (i < _player()->shoot_n)
 	{
-		_var()->shott.n++;
-		if (_var()->shott.n > 5)
-		{
-			_var()->shott.shot = 0;
-			return ;
-		}
-		_var()->shott.pos = _var()->shott.n_pos[_var()->shott.n];
+		_player()->shott[i].n++;
+		t_vector2F test = velocity_get_point(_player()->shott[i].start_pos, _player()->shott[i].velo.velo, get_time(_player()->shott[i].start_time));
+//		printf("player = %f, %f ... velo = %f, %f ... start = %f, %f ...  end = %f; %f\n", _player()->x, _player()->y, test.x, test.y, _player()->shott[i].start_pos.x, _player()->shott[i].start_pos.y, _player()->shott[i].end_pos.x, _player()->shott[i].end_pos.y);
+		//if (_player()->shott[i].n > SHOT_FRAME)
+		if (get_time(_player()->shott[i].start_time) >= (float)_player()->shott[i].velo.time_ms)
+			new_shoot_n--;
+		else
+			_player()->shott[i].pos = test;
+			//_player()->shott[i].pos = _player()->shott[i].n_pos[_player()->shott[i].n];
+		i++;
 	}
+	_player()->shoot_n = new_shoot_n;
+}
+
+void	hud(void)
+{
+	ft_put_image_to_image(*_img(), _image()->crosshair, pos(WIN_W / 2 - 8,
+		WIN_H / 2 - 8));
+	if (_player()->is_shooting)
+	{
+		ft_put_sprite_to_images(*_img(), _image()->rifle,
+					pos(WIN_W / 2 - (_image()->rifle.w / 4),
+					WIN_H - _image()->rifle.h), pos(_image()->rifle.w / 2, 0),
+					pos(_image()->rifle.w / 2, _image()->rifle.h));
+	}
+	else
+	{
+		ft_put_sprite_to_images(*_img(), _image()->rifle,
+			pos(WIN_W / 2 - (_image()->rifle.w / 4), WIN_H - _image()->rifle.h),
+			pos(0, 0), pos(_image()->rifle.w / 2, _image()->rifle.h));
+	}
+	
 }
 
 int	ft_loop()
 {
 	planet_clock();
-	//draw_void_thread();
 	draw_sky();
-	//ft_draw_void();
 	check_death();
 	death_clock();
 	reload_clock();
 	draw_rays();
 	walk_clock();
-	if ((_img()->is_host == CLIENT || _img()->is_host == SERVER)  && _var()->mode == GAME)
+	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER)  && _var()->mode == GAME)
 	{
 		ft_pong_client();
 		player_casting();
 		name_casting();
-		bullet_casting();
-		update_bullets();
 	}
+	bullet_casting();
+	update_bullets();
+	hud();
 	ft_draw_map();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();

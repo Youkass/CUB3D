@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   lobby.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
 /*   Updated: 2022/10/31 16:59:00 by yobougre         ###   ########.fr       */

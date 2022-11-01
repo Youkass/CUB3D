@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/27 12:29:03 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 23:00:00 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,16 @@ void	key_hook(void)
 		ft_down_head();
 	if (_var()->key.space)
 	{
-		if (_var()->mode == GAME)
+		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET)
 		{
 			_player()->can_shoot = 0;
 			_player()->start_reload = get_clock(_var()->clock);
+			_player()->is_shooting = 1;
 			shoot();
 		}
-		else if (_img()->is_host == SERVER &&
-				_var()->menu->mode == MENU_LOBBY &&
-				_img()->nb_player == _var()->linked_players) // menu lobby
+		else if (_var()->is_host == SERVER &&
+				_var()->menu->mode == MENU_LOBBY && _var()->mode != GAME && 
+				_var()->nb_player == _var()->linked_players) // menu lobby
 				{
 					_var()->started = 1;
 					printf("j'ai appuyé sur space\n");
@@ -130,8 +131,8 @@ int	ft_forward(void)
 
 int	ft_is_wall(t_vector2D pos)
 {
-	if (pos.x >= 0 && pos.y >= 0 && pos.x < _img()->map_width
-		&& pos.y < _img()->map_height && _img()->map[pos.y][pos.x] == '1')
+	if (pos.x >= 0 && pos.y >= 0 && pos.x < _var()->map_width
+		&& pos.y < _var()->map_height && _var()->map[pos.y][pos.x] == '1')
 		return (1);
 	return (0);
 }

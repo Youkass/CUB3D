@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:20:26 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 02:28:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	draw_text(char *text, t_vector2D pos, t_data *img)
 	while (i < len)
 	{
 		if (is_allow_alpha(text[i]))
-			ft_put_image_to_image(*img, _var()->alpha[(int)char_up(text[i])], tmp);
+			ft_put_image_to_image(*img, _image()->alpha[(int)char_up(text[i])], tmp);
 		tmp.x += 42;
 		if (tmp.x + 42 >= WIN_W)
 		{
@@ -62,14 +62,14 @@ t_data	create_text_img(char *text)
 	i = 0;
 	pos = (t_vector2D){10, 10};
 	len = ft_strlen(text);
-	new.width = (len * 42) + 20;
-	new.height = 66;
-	new.img = mlx_new_image(_mlx()->mlx, new.width, new.height);
+	new.w = (len * 42) + 20;
+	new.h = 66;
+	new.img = mlx_new_image(_mlx()->mlx, new.w, new.h);
 	new.addr = mlx_get_data_addr(new.img, &new.bits_per_pixel, &new.line_length, &new.endian);
 	while (i < len)
 	{
 		if (is_allow_alpha(text[i]))
-			ft_put_image_to_image(new, _var()->alpha[(int)char_up(text[i])], pos);
+			ft_put_image_to_image(new, _image()->alpha[(int)char_up(text[i])], pos);
 		pos.x += 42;
 		i++;
 	}

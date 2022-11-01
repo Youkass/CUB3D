@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clock.c                                            :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 09:20:27 by yobougre         ###   ########.fr       */
+/*   Created: 2022/10/31 22:16:19 by denissereno       #+#    #+#             */
+/*   Updated: 2022/10/31 23:15:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub.h"
+#include "../includes/cub.h"
 
-struct timeval	start_clock()
+/*
+-Cast two int in t_vector2D.
+*/
+t_vector2D	pos(int x, int y)
 {
-	struct timeval	start;
-
-	gettimeofday(&start, NULL);
-	return (start);
+	return ((t_vector2D){x, y});
 }
 
-unsigned long	get_clock(struct timeval start)
+/*
+-Cast two int in t_vector2F.
+*/
+t_vector2F	posf(float x, float y)
 {
-	struct timeval	stop;
-
-	gettimeofday(&stop, NULL);
-	return ((stop.tv_sec - start.tv_sec) * 1000000
-		+ stop.tv_usec - start.tv_usec);
-}
-
-unsigned long	get_time(unsigned long start)
-{
-	return (get_clock(_var()->clock) - start);
+	return ((t_vector2F){x, y});
 }

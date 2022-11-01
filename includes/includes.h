@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 02:27:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 21:58:00 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ esc : 65307
 # include "../mlx/mlx.h"
 # include <sys/time.h>
 # include <signal.h>
+# include <string.h>
 
 # define GAME 0
 # define MENU 1
@@ -140,7 +141,8 @@ esc : 65307
 # define VOID 3
 # define MAP 4
 
-# define SHOT_FRAME 30
+# define SHOT_FRAME 10
+# define MAX_BULLET 16
 
 # define MINIMAP_SIZE 512
 # define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)

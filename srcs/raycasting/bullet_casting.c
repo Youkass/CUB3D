@@ -6,16 +6,16 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 01:30:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-static void	init_cast()
+static void	init_cast(int i, t_obj *player)
 {
-	_pc()->pos.x = _var()->shott.pos.x - _player()->x;
-	_pc()->pos.y = _var()->shott.pos.y -_player()->y;
+	_pc()->pos.x = player->shott[i].pos.x - _player()->x;
+	_pc()->pos.y = player->shott[i].pos.y -_player()->y;
 	_pc()->inv_det = 1.0 / (_player()->plane.x * _player()->dy -
 			_player()->dx * _player()->plane.y);
 	_pc()->trans.x = _pc()->inv_det * (_player()->dy *
@@ -28,14 +28,14 @@ static void	init_cast()
 }
 static void	compute_draw(void)
 {
-	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 100;
+	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 5;
 	_pc()->draw_start.y = -_pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_start.y < 0)
 		_pc()->draw_start.y = 0;
 	_pc()->draw_end.y = _pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_end.y >= WIN_H)
 		_pc()->draw_end.y = WIN_H;
-	_pc()->size.x = abs((int)(WIN_H / (_pc()->trans.y))) / 100;
+	_pc()->size.x = abs((int)(WIN_H / (_pc()->trans.y))) / 5;
 	_pc()->draw_start.x = -_pc()->size.x / 2 + _pc()->sprite_screen_x;
 	if (_pc()->draw_start.x < 0)
 		_pc()->draw_start.x = 0;
@@ -53,15 +53,15 @@ static void	draw()
 	stripe = _pc()->draw_start.x;
 	while (stripe < _pc()->draw_end.x)
 	{
-		_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * _var()->bullet.width / _pc()->size.x) / 256;
+		_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * _image()->bullet.w / _pc()->size.x) / 256;
 		if(_pc()->trans.y > 0 && stripe > 0 && stripe < WIN_W && _pc()->trans.y < _var()->zbuffer[stripe])
 		{
 			y = _pc()->draw_start.y;
 			while (y < _pc()->draw_end.y)
 			{
 				_pc()->d = (y - _pc()->move_screen) * 256 - WIN_H * 128 + _pc()->size.y * 128;
-				_pc()->tex.y = ((_pc()->d * _var()->bullet.height) /_pc()->size.y) / 256;
-				ft_put_pixel(_img(), &_var()->bullet, (t_vector2D){stripe, y}, _pc()->tex);
+				_pc()->tex.y = ((_pc()->d * _image()->bullet.h) /_pc()->size.y) / 256;
+				ft_put_pixel(_img(), &_image()->bullet, (t_vector2D){stripe, y}, _pc()->tex);
 				y++;
 			}
 		}
@@ -71,8 +71,32 @@ static void	draw()
 
 void	bullet_casting(void)
 {
-	if (!_var()->shott.shot)
-		return ;
-	init_cast();
-	draw();
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (i < _var()->nb_player)
+	{
+		j = 0;
+		if (i == 0)
+		{
+			while (j < _player()->shoot_n)
+			{
+				init_cast(j, _player());
+				draw();
+				j++;
+			}	
+		}
+		while (j < _var()->o_player[i].shoot_n)
+		{
+			if (i == 0)
+				init_cast(j, _player());
+			else
+				init_cast(j, &_var()->o_player[i]);
+			draw();
+			j++;
+		}
+		i++;
+	}
 }

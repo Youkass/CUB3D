@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:10:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/05 23:13:44 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 10:21:09 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,19 @@ t_spritecasting	*_pc()
 	if (!pc)
 		return (NULL);
 	return (pc);
+}
+
+
+t_image	*_image()
+{
+	static t_image	*image = NULL;
+
+	if (!image)
+	{
+		image = malloc(sizeof(t_image));
+		if (!image)
+			return (NULL);
+		memset(image, 0, sizeof(t_image));
+	}
+	return (image);
 }

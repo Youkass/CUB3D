@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   network_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
 /*   Updated: 2022/10/31 10:27:44 by yobougre         ###   ########.fr       */

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   server_thread.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
 /*   Updated: 2022/10/31 16:57:16 by yobougre         ###   ########.fr       */

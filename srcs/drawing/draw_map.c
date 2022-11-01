@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/29 17:39:40 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:11:04 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ map.
 */
 void	ft_find_wall_scale(void)
 {
-	_img()->scale = MINIMAP_SIZE / ft_strlen(_img()->map[0]);
-	_img()->half_scale = _img()->scale / 2;
-	_img()->half_scale_offset = _img()->half_scale + MINIMAP_OFFSET;
+	_var()->scale = MINIMAP_SIZE / ft_strlen(_var()->map[0]);
+	_var()->half_scale = _var()->scale / 2;
+	_var()->half_scale_offset = _var()->half_scale + MINIMAP_OFFSET;
 }
 
 /*
@@ -36,10 +36,10 @@ void	ft_give_id(void)
 	int	j;
 
 	i = 0;
-	while (i < _img()->map_height)
+	while (i < _var()->map_height)
 	{
 		j = 0;
-		while (j < _img()->map_width)
+		while (j < _var()->map_width)
 		{
 			if (_var()->coord_map[i][j].c == 'Z')
 				_var()->coord_map[i][j].id = VOID;
@@ -78,17 +78,17 @@ t_obj	*ft_copy_map_line(char *line, int index)
 	t_obj	*new_line;
 
 	i = 1;
-	new_line = malloc(sizeof(t_obj) * _img()->map_width);
+	new_line = malloc(sizeof(t_obj) * _var()->map_width);
 	if (!new_line)
 		return (NULL);
 	new_line[0].c = line[0];
 	new_line[0].x = 0;
-	new_line[0].y = _img()->scale * index;
+	new_line[0].y = _var()->scale * index;
 	while (line[i])
 	{
 		new_line[i].c = line[i];
-		new_line[i].x = new_line[i - 1].x + _img()->scale;
-		new_line[i].y = _img()->scale * index;
+		new_line[i].x = new_line[i - 1].x + _var()->scale;
+		new_line[i].y = _var()->scale * index;
 		++i;
 	}
 	return (new_line);
@@ -100,12 +100,12 @@ int	ft_malloc_map(void)
 
 	i = 0;
 	ft_find_wall_scale();
-	_var()->coord_map = malloc(sizeof(t_obj *) * _img()->map_width);
+	_var()->coord_map = malloc(sizeof(t_obj *) * _var()->map_width);
 	if (!_var()->coord_map)
 		return (1); //TODO call garbage collector
-	while (_img()->map[i])
+	while (_var()->map[i])
 	{
-		_var()->coord_map[i] = ft_copy_map_line(_img()->map[i], i);
+		_var()->coord_map[i] = ft_copy_map_line(_var()->map[i], i);
 		if (!_var()->coord_map[i])
 			return (1); //TODO call garbage collector
 		++i;
@@ -124,17 +124,17 @@ void	ft_draw_wall(t_obj wall, t_vector2D pos)
 	t_int	var;
 
 	var.i = 0;
-	while (var.i < _img()->scale) 
+	while (var.i < _var()->scale) 
 	{
 		var.j = 0;
-		while (var.j < _img()->scale)
+		while (var.j < _var()->scale)
 		{
 			if (is_neighbor(pos))
 				ft_put_pixel_color(_img(), (char [4]){0, 89, 22, 0}, (int)wall.x + var.i + MINIMAP_OFFSET,  (int)wall.y + var.j);
 			else
 				ft_put_pixel_color(_img(), (char [4]){0, 15, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET,  (int)wall.y + var.j);
-			if (var.j == 0 || var.j == _img()->scale - 1 || var.i == 0 ||
-			var.i == _img()->scale - 1)
+			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
+			var.i == _var()->scale - 1)
 				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, wall.x + var.i + MINIMAP_OFFSET,  wall.y + var.j);
 			var.j++;
 		}
@@ -147,14 +147,14 @@ void	ft_draw_floor(t_obj wall)
 	t_int	var;
 
 	var.i = 0;
-	while (var.i < _img()->scale) 
+	while (var.i < _var()->scale) 
 	{
 		var.j = 0;
-		while (var.j < _img()->scale)
+		while (var.j < _var()->scale)
 		{
 			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET, (int)wall.y + var.j);
-			if (var.j == 0 || var.j == _img()->scale - 1 || var.i == 0 ||
-			var.i == _img()->scale - 1)
+			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
+			var.i == _var()->scale - 1)
 				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)wall.x + var.i + MINIMAP_OFFSET, (int)wall.y + var.j);
 			var.j++;
 		}
@@ -186,7 +186,6 @@ void DrawCircle(int xp, int yp, float radius, int color)
 		y = (int)(radius * sin(angle));
 		ft_pixel_put(x + xp, y + yp, color);
 		i += 0.1;
-		//printf("%d, %d\n", x + xp, y + yp);
 	}
 }
 
@@ -197,10 +196,10 @@ void	ft_draw_map(void)
 	t_vector2D	p_pos;
 
 	var.i = 0;
-	while (var.i < _img()->map_height)
+	while (var.i < _var()->map_height)
 	{
 		var.j = 0;
-		while (var.j < _img()->map_width)
+		while (var.j < _var()->map_width)
 		{
 			if (_var()->coord_map[var.i][var.j].id == WALL)
 				ft_draw_wall(_var()->coord_map[var.i][var.j], (t_vector2D){var.j, var.i});

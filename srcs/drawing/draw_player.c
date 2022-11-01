@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/23 17:28:15 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 16:55:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ t_vector2D	ft_first_vector(void)
 {
 	t_vector2D	vector;
 
-	vector.x = (_player()->x * (float)_img()->scale)
-		+ _img()->half_scale_offset;
-	vector.y = (_player()->y * (float)_img()->scale) + _img()->half_scale;
+	vector.x = (_player()->x * (float)_var()->scale)
+		+ _var()->half_scale_offset;
+	vector.y = (_player()->y * (float)_var()->scale) + _var()->half_scale;
 	return (vector);
 }
 
@@ -51,10 +51,10 @@ t_vector2D	ft_scnd_vector(void)
 {
 	t_vector2D	vector;
 
-	vector.x = ((_player()->x * (float)_img()->scale)
-		+ _img()->half_scale_offset) + _player()->dx * 10;
-	vector.y = (_player()->y * (float)_img()->scale)
-		+ (_player()->dy * 10) + _img()->half_scale;
+	vector.x = ((_player()->x * (float)_var()->scale)
+		+ _var()->half_scale_offset) + _player()->dx * 10;
+	vector.y = (_player()->y * (float)_var()->scale)
+		+ (_player()->dy * 10) + _var()->half_scale;
 	return (vector);
 }
 
@@ -68,32 +68,32 @@ int	ft_return_xp(void)
 {
 	_player()->hb.hit.pos.x = _player()->x;
 	return ((int)(_player()->hb.hit.pos.x
-		* _img()->scale) + _img()->half_scale_offset);
+		* _var()->scale) + _var()->half_scale_offset);
 }
 
 int	ft_return_yp(void)
 {
 	_player()->hb.hit.pos.y = _player()->y;
-	return ((int)(_player()->hb.hit.pos.y * _img()->scale) + _img()->half_scale);
+	return ((int)(_player()->hb.hit.pos.y * _var()->scale) + _var()->half_scale);
 }
 
 float	ft_return_radius(void)
 {
-	return ((_player()->hb.hit.r) * _img()->scale);
+	return ((_player()->hb.hit.r) * _var()->scale);
 }
 
 int	ft_return_xp_2(void)
 {
 	return ((int)(_player2()->hb.hit.pos.x
-		* _img()->scale) + _img()->half_scale_offset);
+		* _var()->scale) + _var()->half_scale_offset);
 }
 
 int	ft_return_yp_2(void)
 {
-	return ((int)(_player2()->hb.hit.pos.y * _img()->scale) + _img()->half_scale);
+	return ((int)(_player2()->hb.hit.pos.y * _var()->scale) + _var()->half_scale);
 }
 
 float	ft_return_radius_2(void)
 {
-	return ((_player2()->hb.hit.r) * _img()->scale);
+	return ((_player2()->hb.hit.r) * _var()->scale);
 }
