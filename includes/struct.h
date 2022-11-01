@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/27 15:11:10 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:54:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,6 +371,8 @@ struct	s_server_data
 	struct sockaddr_in		server;
 	t_client_thread			clients[MAX_PLAYER];
 	pthread_mutex_t			mutex;
+	pthread_mutex_t			mutex_start;
+	pthread_mutex_t			mutex_is_recv;
 	t_obj					player_data[MAX_PLAYER];
 	socklen_t				csize;
 	int						socket;

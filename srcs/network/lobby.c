@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/27 15:25:38 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:27:13 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_recv_first_data_lobby(t_client_thread *client)
 			return (1);
 		client->is_recv = 1;
 		pthread_mutex_lock(client->mutex);
-		_server()->player_data[client->id] = client->player_data;
+		client->serv->player_data[client->id] = client->player_data;
 		pthread_mutex_unlock(client->mutex);
 	}
 	return (0);
@@ -35,7 +35,7 @@ int	ft_is_get_lobby(t_client_thread *client)
 	pthread_mutex_lock(client->mutex);
 	while (i < client->serv->linked_players)
 	{
-		if (!_server()->clients[i].is_recv)
+		if (!client->serv->clients[i].is_recv)
 		{
 			pthread_mutex_unlock(client->mutex);
 			return (1);
@@ -101,7 +101,7 @@ int	ft_send_all_data_lobby(t_client_thread *client)
 	{
 		memset(&data, 0, sizeof(data));
 		pthread_mutex_lock(client->mutex);
-		data = _server()->player_data[i];
+		data = client->serv->player_data[i];
 		pthread_mutex_unlock(client->mutex);
 		if (send(client->socket, &data, sizeof(data), 0) < 0)
 			return (1);

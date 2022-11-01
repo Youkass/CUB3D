@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/01 10:36:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 11:47:56 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_exit(int signal)
 {
 	(void)signal;
-	pthread_mutex_unlock(&_server()->mutex);
+	pthread_mutex_unlock(&client->serv->mutex);
 	printf("client fermé\n");
 }*/
 
@@ -24,13 +24,13 @@ int	ft_init_client_thread(t_server_data *data)
 	int	i;
 
 	i = 0;
-	if (pthread_mutex_init(&_server()->mutex, NULL))
+	if (pthread_mutex_init(&data->mutex, NULL))
 		return (EXIT_FAILURE);
 	while (i < data->nb_players)
 	{
 		data->clients[i].nb_players = data->nb_players;
 		data->clients[i].id = i;
-		data->clients[i].mutex = &_server()->mutex;
+			data->clients[i].mutex = &data->mutex;
 		data->clients[i].is_recv = 0;
 		++i;
 	}
@@ -51,7 +51,6 @@ int	ft_connect_clients(t_server_data *data)
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
 		data->clients[i].start = 0;
 		data->clients[i].id = i;
-		printf("client socket accepted : %d\n", data->clients[i].socket);
 		if (data->clients[i].socket < 0)
 			return (EXIT_FAILURE); //TODO
 		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine, 
@@ -75,7 +74,7 @@ int	ft_recv_first_data(t_client_thread *client)
 		client->is_recv = 1;
 		pthread_mutex_lock(client->mutex);
 		client->serv->player_data[client->id] = client->player_data;
-		printf("id %d ; data recv\n", client->id);
+//		printf("id %d ; data recv\n", client->id);
 		pthread_mutex_unlock(client->mutex);
 	}
 	return (0);
@@ -130,12 +129,6 @@ int	send_nb_players(t_client_thread *client)
 
 	i = 0;
 	c = 1;
-	if (client->id == 0)
-	{
-		pthread_mutex_lock(client->mutex);
-		client->serv->nb_players = client->nb_players;
-		pthread_mutex_unlock(client->mutex);
-	}
 	if (client->id != 0)
 	{
 		pthread_mutex_lock(client->mutex);
@@ -147,7 +140,7 @@ int	send_nb_players(t_client_thread *client)
 	while (c != 0)
 	{
 		recv(client->socket, &c, sizeof(c), 0);
-		_server()->player_data[client->id].pseudo[i] = c;
+		client->serv->player_data[client->id].pseudo[i] = c;
 		i++;
 	}
 	return (1);
