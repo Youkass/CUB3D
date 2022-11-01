@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/31 16:57:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 15:52:10 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,17 @@ int	ft_init_client_thread(t_server_data *data)
 	i = 0;
 	if (pthread_mutex_init(&(data->mutex), NULL))
 		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&(data->mutex_start), NULL))
+		return (EXIT_FAILURE);
+	if (pthread_mutex_init(&(data->mutex_linked), NULL))
+		return (EXIT_FAILURE);
 	while (i < data->nb_players)
 	{
 		data->clients[i].nb_players = data->nb_players;
 		data->clients[i].id = i;
 		data->clients[i].mutex = &data->mutex;
-		data->clients[i].is_recv = 0;
+		data->clients[i].mutex_start = &data->mutex_start;
+		data->clients[i].mutex_linked = &data->mutex_linked;
 		++i;
 	}
 	return (EXIT_SUCCESS);
@@ -47,6 +52,7 @@ int	ft_connect_clients(t_server_data *data)
 	{
 		data->clients[i].csize = sizeof(data->clients[i].sockclient);
 		data->clients[i].serv = data;
+		data->clients[i].is_recv = 0;
 		data->clients[i].socket = accept(data->socket,
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
 		data->clients[i].start = 0;
@@ -140,11 +146,6 @@ int	ft_send_all_data(t_client_thread *client)
 	}
 	if (send(client->socket, &data, sizeof(data), 0) < 0)
 		return (1);
-	/*pthread_mutex_lock(client->mutex);
-	client->is_send = 1;
-	pthread_mutex_unlock(client->mutex);
-	while (ft_is_send(client))
-		usleep(200);*/
 	pthread_mutex_lock(client->mutex);
 	client->is_recv = 0;
 	pthread_mutex_unlock(client->mutex);
@@ -153,25 +154,8 @@ int	ft_send_all_data(t_client_thread *client)
 
 int	send_nb_players(t_client_thread *client)
 {
-	int		i;
-	char	c;
-
-	i = 0;
-	c = 1;
-	if (client->id != 0)
-	{
-		if (send(client->socket, &(client->nb_players), sizeof(client->id), 0) < 0)
-			return (1);
-	}
-	while (c != 0)
-	{
-		if (recv(client->socket, &c, sizeof(c), 0) < 0)
-			return (1);
-		pthread_mutex_lock(client->mutex);
-		client->serv->player_data[client->id].pseudo[i] = c;
-		pthread_mutex_unlock(client->mutex);
-		i++;
-	}
+	if (send(client->socket, &(client->nb_players), sizeof(int), 0) < 0)
+		return (1);
 	return (0);
 }
 
@@ -188,9 +172,6 @@ void	*client_routine(void *client_t)
 		return (NULL);
 	if (send_nb_players(client))
 		return (NULL);
-	pthread_mutex_lock(client->mutex);
-	client->is_recv = 0;
-	pthread_mutex_unlock(client->mutex);
 	if (wait_lobby(client))
 		return (NULL);
 	pthread_mutex_lock(client->mutex);

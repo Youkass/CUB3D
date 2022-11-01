@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prototypes.h                                       :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
+/*   Updated: 2022/11/01 14:57:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int main(int ac, char **av);
 /* -------------------------------------------------------------------------- */
 int	ft_recv_first_data_lobby(t_client_thread *client);
 int	ft_is_get_lobby(t_client_thread *client);
-int	ft_send_all_data_lobby(t_client_thread *client);
+int	ft_send_all_data_lobby(t_client_thread *client, int nb);
 int	wait_lobby(t_client_thread *client);
 
 /* -------------------------------------------------------------------------- */
@@ -255,7 +255,6 @@ void	ft_init_player2(void);
 void	ft_print_tab(char **s);
 int	ft_hook(int keycode);
 int	ft_mouse_hook(int keycode);
-void	init_sync(void);
 int	ft_loop_hook(void);
 int	ft_mouse_release(int keycode);
 int	ft_game(void);
