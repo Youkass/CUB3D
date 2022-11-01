@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/10/28 18:35:14 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 10:36:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int	ft_send_all_data(t_client_thread *client)
 	if (send(client->socket, &data, sizeof(data), 0) < 0)
 		return (1);
 	pthread_mutex_lock(client->mutex);
-	printf("id %d ; data sent ; is_recv : %d\n", client->id, client->is_recv);
 	client->is_recv = 0;
 	pthread_mutex_unlock(client->mutex);
 	return (0);
