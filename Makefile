@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/10/31 23:37:54 by denissereno      ###   ########.fr        #
+#    Updated: 2022/11/01 09:27:27 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,11 +56,19 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/network/lobby.c\
 				  	srcs/network_client/network_utils.c\
 				  	srcs/network/server_thread.c\
-					srcs/utils/clock.c\
 					srcs/math/math.c\
 					srcs/math/vector/operator2D.c\
 					srcs/math/vector/operator2F.c\
 					srcs/math/vector/tools.c\
+					srcs/utils/singleton.c\
+					srcs/utils/singleton_2.c\
+					srcs/utils/malloc_hooks_enum.c\
+					srcs/utils/key_hooks.c\
+					srcs/utils/clock.c\
+					srcs/utils/list.c\
+					srcs/utils/collisions.c\
+					srcs/tools.c\
+					srcs/shoot.c\
 					srcs/parsing/parsing.c
 
 
@@ -92,16 +100,19 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/math
 	@mkdir -p $(OBJS_DIR)srcs/math/vector
 	@mkdir -p $(OBJS_DIR)srcs/network_client
+	@mkdir -p $(OBJS_DIR)srcs
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 
 $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
-	@mkdir -p $(OBJS_DIR)srcs/math
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/math
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/math/vector
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
+	@mkdir -p $(OBJS_DIR_SERVER)srcs
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS_PREFIXED) maker
