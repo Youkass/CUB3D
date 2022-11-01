@@ -31,7 +31,7 @@ char	*ft_get_ip_input(void)
 int	ft_init_client(void)
 {
 	int			ret;
-
+	
 	_var()->socket = socket(AF_INET, SOCK_STREAM, 0);
 	if (_var()->is_host == SERVER)
 		_var()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
@@ -43,22 +43,13 @@ int	ft_init_client(void)
 		(const struct sockaddr *)&(_var()->client), sizeof(_var()->client));
 	if (ret < 0)
 		return (EXIT_FAILURE);
-	recv(_var()->socket, &ret, sizeof(ret), 0);
-	_player()->id = ret;
-	if (_var()->is_host == CLIENT)
-	{
-		recv(_var()->socket, &ret, sizeof(ret), 0);
-		_var()->nb_player = ret;
-	}
-	int	i;
-
-	i = 0;
-	while (_player()->pseudo[i])
-	{
-		send(_var()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
-		i++;
-	}
-	send(_var()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
+	printf("je suis connecté\n");
+	if (recv(_var()->socket, &(_player()->id), sizeof(int), 0) < 0)
+		return (EXIT_FAILURE);
+	printf("je reçois mon id : %d\n", _player()->id);
+	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int), 0) < 0)
+		return (EXIT_FAILURE);
+	printf("je sors de la fonction\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -154,6 +145,7 @@ void	ft_pong_client(void)
 	ft_copy_data_before_pong(&player[0]);
 	if (send(_var()->socket, &player[0], sizeof(player[0]), 0)< 0)
 		return ;
+	memset(&player, 0, sizeof(player));
 	if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
 		return ;
 	while (i < _var()->linked_players)

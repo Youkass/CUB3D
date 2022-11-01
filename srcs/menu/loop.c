@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 22:11:04 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 15:09:05 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void	check_button_state(void)
 		{
 			if (i == 0 && _var()->menu->s_state[0].state == 2)
 			{
-				_var()->nb_player = 1;
-				_var()->mode = GAME;
+				_var()->nb_player = 1; _var()->mode = GAME;
 			}
 			if (i == 1 && _var()->menu->s_state[1].state == 2)
 				_var()->menu->mode = MENU_PLAYER;
@@ -251,7 +250,9 @@ int	menu_hook_pseudo(int keycode)
 	if (keycode == ENTER && n > 3 && _var()->is_host == CLIENT)
 	{
 		//_player()->pseudo_img = create_text_img(_player()->pseudo);
-		ft_init_client();
+		if (ft_init_client() == EXIT_FAILURE)
+			exit(1); //TODO
+		printf("je passe en mode lobby\n");
 		_var()->menu->mode = MENU_LOBBY;
 		_var()->mode = MENU;
 	}
@@ -323,7 +324,7 @@ int	menu_hook_ip(int keycode)
 		n--;
 		_var()->ip[n] = 0;
 	}
-	if (keycode == ENTER && n > 3 && _var()->is_host == CLIENT)
+	if (keycode == ENTER && n > 2 && _var()->is_host == CLIENT)
 	{
 		_var()->menu->mode = MENU_PSEUDO;
 		_var()->mode = MENU;

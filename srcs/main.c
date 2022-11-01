@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/31 11:36:21 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 14:34:17 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,21 +237,6 @@ int	ft_mouse_hook(int keycode)
 	return (0);
 }
 
-void	init_sync(void)
-{
-//	int	link;
-
-//	link = 0;
-	if (_var()->mode == GAME_START_ONLINE)
-	{
-//		if (send(_var()->socket, &link, sizeof(link), 0) < 0)
-//			return ;
-//		if (recv(_var()->socket, &link, sizeof(link), 0)< 0)
-//			return ;
-		_var()->mode = GAME;
-	}
-}
-
 int	ft_loop_hook(void)
 {
 	int	pid;
@@ -264,17 +249,17 @@ int	ft_loop_hook(void)
 			{
 				sleep(1);
 				ft_init_client();
+				printf("je suis dans loop_hook\n");
 			}
 			else
 			{
-				system(ft_strjoin("valgrind --tool=helgrind ./server ", ft_itoa(_img()->nb_player)));
+				system(ft_strjoin("./server ", ft_itoa(_var()->nb_player)));
 				exit(1);
 			}
 		_var()->mode = LOBBY_WAIT;
 	}
 	ft_fps();
 	key_hook();
-	//init_sync();
 	if (_var()->mode == GAME)
 		ft_loop();
 	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
