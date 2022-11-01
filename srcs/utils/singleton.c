@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/19 20:15:15 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 10:20:21 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ t_data	*_img(void)
 	static t_data	*img = NULL;
 	
 	if (!img)
+	{
 		img = malloc(sizeof(t_data));
+		memset(img, 0, sizeof(t_data));
+	}
 	if (!img)
 		return (NULL);
 	return (img);
