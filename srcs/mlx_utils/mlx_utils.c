@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/31 23:41:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 17:31:46 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,7 @@ int	ft_loop()
 	update_bullets();
 	hud();
 	ft_draw_map();
+	ft_put_image_to_image_scale(*_img(), _var()->menu->planets[0], pos(100, 100), pos(2, 2));
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);
