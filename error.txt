@@ -1,8 +1,8 @@
-==405070== Memcheck, a memory error detector
-==405070== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==405070== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==405070== Command: ./cub3D map.cub
-==405070== 
+==391721== Memcheck, a memory error detector
+==391721== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==391721== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==391721== Command: ./cub3D map.cub
+==391721== 
 1111111111111111111111111ZZZZZ1111111111111111
 1000000000000000000000001ZZZZZ1000000000000001
 1000000000000000000000001ZZZZZ1111111111111101
@@ -16,42 +16,42 @@
 1111100000000000000000000000000001ZZZZZZZZZZZZ
 1111100000000000000000000000000001ZZZZZZZZZZZZ
 1111111111111111111111111111111111ZZZZZZZZZZZZ
-==405070== 
-==405070== HEAP SUMMARY:
-==405070==     in use at exit: 1,754,494 bytes in 505 blocks
-==405070==   total heap usage: 3,064 allocs, 2,559 frees, 1,981,881 bytes allocated
-==405070== 
-==405070== LEAK SUMMARY:
-==405070==    definitely lost: 2,691 bytes in 78 blocks
-==405070==    indirectly lost: 136 bytes in 1 blocks
-==405070==      possibly lost: 0 bytes in 0 blocks
-==405070==    still reachable: 1,751,667 bytes in 426 blocks
-==405070==         suppressed: 0 bytes in 0 blocks
-==405070== Rerun with --leak-check=full to see details of leaked memory
-==405070== 
-==405070== For lists of detected and suppressed errors, rerun with: -s
-==405070== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 12 from 1)
-==405114== 
-==405114== Process terminating with default action of signal 13 (SIGPIPE)
-==405114==    at 0x4BD7A60: send (send.c:28)
-==405114==    by 0x11CCCD: get_pseudos (menu_lobby.c:26)
-==405114==    by 0x11CF52: menu_pong (menu_lobby.c:55)
-==405114==    by 0x11D936: menu_loop (loop.c:195)
-==405114==    by 0x111498: ft_loop_hook (main.c:281)
-==405114==    by 0x122B6C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
-==405114==    by 0x111E13: main (main.c:431)
-==405114== 
-==405114== HEAP SUMMARY:
-==405114==     in use at exit: 1,762,673 bytes in 504 blocks
-==405114==   total heap usage: 3,062 allocs, 2,558 frees, 1,981,868 bytes allocated
-==405114== 
-==405114== LEAK SUMMARY:
-==405114==    definitely lost: 2,678 bytes in 76 blocks
-==405114==    indirectly lost: 136 bytes in 1 blocks
-==405114==      possibly lost: 0 bytes in 0 blocks
-==405114==    still reachable: 1,759,859 bytes in 427 blocks
-==405114==         suppressed: 0 bytes in 0 blocks
-==405114== Rerun with --leak-check=full to see details of leaked memory
-==405114== 
-==405114== For lists of detected and suppressed errors, rerun with: -s
-==405114== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 12 from 1)
+==391833== 
+==391833== Process terminating with default action of signal 2 (SIGINT)
+==391833==    at 0x11F6EA: draw_pixel (utils.c:61)
+==391833==    by 0x11FBEC: ft_put_sprite_to_images (utils.c:168)
+==391833==    by 0x117F1F: hud (mlx_utils.c:286)
+==391833==    by 0x117FBD: ft_loop (mlx_utils.c:310)
+==391833==    by 0x111497: ft_loop_hook (main.c:279)
+==391833==    by 0x122C5C: mlx_loop (in /mnt/nfs/homes/yobougre/Desktop/FT_42/Cercle_4/CUB3D/cub3D)
+==391833==    by 0x111E33: main (main.c:431)
+==391833== 
+==391833== HEAP SUMMARY:
+==391833==     in use at exit: 1,767,299 bytes in 546 blocks
+==391833==   total heap usage: 3,405 allocs, 2,859 frees, 1,989,197 bytes allocated
+==391833== 
+==391721== 
+==391721== HEAP SUMMARY:
+==391721==     in use at exit: 1,756,782 bytes in 516 blocks
+==391721==   total heap usage: 3,105 allocs, 2,589 frees, 1,977,924 bytes allocated
+==391721== 
+==391721== LEAK SUMMARY:
+==391721==    definitely lost: 2,691 bytes in 78 blocks
+==391721==    indirectly lost: 136 bytes in 1 blocks
+==391721==      possibly lost: 0 bytes in 0 blocks
+==391721==    still reachable: 1,753,955 bytes in 437 blocks
+==391721==         suppressed: 0 bytes in 0 blocks
+==391721== Rerun with --leak-check=full to see details of leaked memory
+==391721== 
+==391721== For lists of detected and suppressed errors, rerun with: -s
+==391721== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 16 from 1)
+==391833== LEAK SUMMARY:
+==391833==    definitely lost: 3,360 bytes in 98 blocks
+==391833==    indirectly lost: 136 bytes in 1 blocks
+==391833==      possibly lost: 1,088 bytes in 4 blocks
+==391833==    still reachable: 1,762,715 bytes in 443 blocks
+==391833==         suppressed: 0 bytes in 0 blocks
+==391833== Rerun with --leak-check=full to see details of leaked memory
+==391833== 
+==391833== For lists of detected and suppressed errors, rerun with: -s
+==391833== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 16 from 1)
