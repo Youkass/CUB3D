@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/30 02:28:42 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 10:39:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void		draw_sky(void)
 	t_vector2D	tex;
 	t_vector2D	pt;
 	static t_vector2D	pl_coord[2] = (t_vector2D [2]){{2000, 500}, {1050, 500}};
-	t_vector2D	draw_pl[2] = (t_vector2D [2]){{-1, -1}, {-1, -1}};
+	t_vector2D	draw_pl[2] = {{-1, -1}, {-1, -1}};
 
 	(void)draw_pl;
 	angle = atan2(_player()->dy, _player()->dx);
