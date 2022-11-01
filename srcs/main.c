@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/31 22:59:45 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 17:24:37 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,7 +274,6 @@ int	ft_loop_hook(void)
 	}
 	ft_fps();
 	key_hook();
-	//init_sync();
 	if (_var()->mode == GAME)
 		ft_loop();
 	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
@@ -420,7 +419,7 @@ int main(int argc, char **argv)
 	ft_init_player2();
 	ft_malloc_map();
 	init_key();
-	gen_menu_imagess();
+	gen_menu_images();
 	_image()->bullet = generate_image("./img/bullet.xpm");
 	_image()->crosshair = generate_image("./img/crosshair.xpm");
 	if(WIN_W == 1440)

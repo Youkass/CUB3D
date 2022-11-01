@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:20:26 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 17:34:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,32 @@ void	draw_text(char *text, t_vector2D pos, t_data *img)
 	{
 		if (is_allow_alpha(text[i]))
 			ft_put_image_to_image(*img, _image()->alpha[(int)char_up(text[i])], tmp);
+		tmp.x += 42;
+		if (tmp.x + 42 >= WIN_W)
+		{
+			tmp.x = pos.x;
+			tmp.y += 42;
+		}
+		if (tmp.y + 42 > WIN_H)
+			return ;
+		i++;
+	}
+}
+
+void	draw_text_scale(char *text, t_vector2D pos, t_data *img, t_vector2D scale)
+{
+	t_vector2D	tmp;
+	int			i;
+	int			len;
+
+	tmp = pos;
+	i = 0;
+	len = ft_strlen(text);
+	while (i < len)
+	{
+		if (is_allow_alpha(text[i]))
+			ft_put_image_to_image_scale(*img, _image()->alpha
+				[(int)char_up(text[i])], tmp, scale);
 		tmp.x += 42;
 		if (tmp.x + 42 >= WIN_W)
 		{

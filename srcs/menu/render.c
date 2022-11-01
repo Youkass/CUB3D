@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 17:34:58 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	menu_lobby(void)
 	i = 0;
 	while (i < _var()->linked_players)
 	{
-		draw_text(_var()->o_player[i].pseudo, (t_vector2D){200, 300 + i * 60}, _img());
+		draw_text_scale(_var()->o_player[i].pseudo, (t_vector2D){200, 300 + i * 60}, _img(), pos(2, 2));
 		i++;
 	}
 	if (_var()->is_host == SERVER)

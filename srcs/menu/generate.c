@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 22:50:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 17:24:37 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,7 +240,7 @@ void	gen_alpha(void)
 The following function will generate all images for the menu
 */
 
-void    gen_menu_imagess(void)
+void    gen_menu_images(void)
 {
 	_var()->menu->pos_m_bar = (t_vector2D){819 - OFFSET_X + 42,
 	542 - OFFSET_Y + 36};
