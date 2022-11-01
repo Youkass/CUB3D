@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/29 18:15:29 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos)
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
 	it = (t_vector2D){0, 0};
-	if (pos.x + lil.width > big.width
-	|| (pos.y) + lil.height > big.height)
+	if (pos.x + lil.w > big.w
+	|| (pos.y) + lil.h > big.h)
 		return (big);
-	while (it.y < lil.height)
+	while (it.y < lil.h)
 	{
 		it.x = 0;
-		while (it.x < lil.width)
+		while (it.x < lil.w)
 		{
 			draw_pixel(&big, lil, it, rel_pos[0]);
 			rel_pos[0].x += 4;
@@ -123,13 +123,13 @@ t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos)
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
 	it = (t_vector2D){0, 0};
-	if (pos.x + lil.width > big.width
-	|| (pos.y) + lil.height > big.height)
+	if (pos.x + lil.w > big.w
+	|| (pos.y) + lil.h > big.h)
 		return (big);
-	while (it.y < lil.height)
+	while (it.y < lil.h)
 	{
 		it.x = 0;
-		while (it.x < lil.width)
+		while (it.x < lil.w)
 		{
 			draw_pixel_create(&big, lil, it, rel_pos[0]);
 			rel_pos[0].x += 4;
@@ -145,15 +145,15 @@ t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos)
 }
 
 
-t_data	ft_put_sprite_to_image(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size)
+t_data	ft_put_sprite_to_images(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size)
 {
 	t_vector2D	rel_pos[2];
 	t_vector2D	it;
 	t_vector2D	save;
 
 	save = pos;
-	//if (pos.x >= big.width || pos.y >= big.height || size.x + pos.x
-	//	> big.width || size.y + pos.y > big.height)
+	//if (pos.x >= big.w || pos.y >= big.h || size.x + pos.x
+	//	> big.w || size.y + pos.y > big.h)
 	//	return (big);
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
@@ -164,7 +164,7 @@ t_data	ft_put_sprite_to_image(t_data big, t_data lil, t_vector2D pos, t_vector2D
 		pos.x = save.x;
 		while (it.x < size.x)
 		{
-			if (size.x + it.x < big.width)
+			if (size.x + it.x < big.w)
 				draw_pixel(&big, lil,(t_vector2D){(sp_pos.x + it.x), it.y + sp_pos.y}, rel_pos[0]);
 			rel_pos[0].x += 4;
 			pos.x++;

@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clock.c                                            :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 09:20:27 by yobougre         ###   ########.fr       */
+/*   Created: 2022/10/31 23:11:29 by denissereno       #+#    #+#             */
+/*   Updated: 2022/10/31 23:44:11 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub.h"
+#include "../../../includes/cub.h"
 
-struct timeval	start_clock()
+t_vector2F	dist_2f(t_vector2F a, t_vector2F b)
 {
-	struct timeval	start;
-
-	gettimeofday(&start, NULL);
-	return (start);
+	return (posf(b.x - a.x, b.y - a.y));
 }
 
-unsigned long	get_clock(struct timeval start)
+t_vector2F	velocity_ms(t_vector2F dist, float time_ms)
 {
-	struct timeval	stop;
-
-	gettimeofday(&stop, NULL);
-	return ((stop.tv_sec - start.tv_sec) * 1000000
-		+ stop.tv_usec - start.tv_usec);
+	return (posf(dist.x / time_ms, dist.y / time_ms));
 }
 
-unsigned long	get_time(unsigned long start)
+t_vector2F	velocity_get_point(t_vector2F start, t_vector2F velo, int time_ms)
 {
-	return (get_clock(_var()->clock) - start);
+	return (add_2f(start, posf(velo.x * time_ms, velo.y * time_ms)));
 }

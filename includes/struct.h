@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 10:17:12 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 10:32:25 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,12 @@ typedef struct s_data
 {	
 	void				*img;
 	char				*addr;
-	char				**map;
-	int					map_width;
-	int					map_height;
-	int					scale;
-	int					half_scale;
-	int					half_scale_offset;
 	int					bits_per_pixel;
 	int					line_length;
 	int					endian;
-	int					height;
-	int					width;
-	int					nb_player;
-	int					socket;
-	int					id;
-	int					network;
-	int					is_host;
+	int					h;
+	int					w;
 	t_vector2D			pos;
-	struct sockaddr_in	client;
 }	t_data;
 
 
@@ -111,6 +99,7 @@ typedef struct	s_weapon
 	int		power;
 	unsigned long		reload_ms;
 	int		ammo;
+	int		range;
 }	t_weapon;
 
 typedef struct	s_hitbox
@@ -119,6 +108,42 @@ typedef struct	s_hitbox
 	t_vector2D	nb[8];
 	int			n;
 }	t_hitbox;
+
+typedef struct	s_velo
+{
+	t_vector2F	dist;
+	t_vector2F	velo;
+	int			time_ms;
+}	t_velo;
+
+
+/*
+ Le but de cette struct est d'en faire une liste chainée pour pouvoir display
+ toutes les bullets en temps réel. On divise le segment en 6 point et on pourra
+ display du point 2 au point 5 (1 et 6 étant le debut et la fin du tir on
+ ne les affiche donc pas).
+ N sera la ou on en est (0-> premier display, 4-> dernier display).
+ Start et end pos sont la position de depart et de fin.
+ pos est la position actuel.
+ start_time est le moment de la clock ou le shot a demarré (peut etre inutile
+ car je ferai surement le display en fonction du framerate)
+ weapon_type est l'arme avec laquelle on a tiré (cela peut peut etre changer
+ la maniere d'afficher).
+*/
+
+typedef struct	s_shot
+{
+	t_vector2F		start_pos;
+	t_vector2F		end_pos;
+	t_vector2F		pos;
+	t_vector2F		n_pos[SHOT_FRAME];
+	t_velo			velo;
+	unsigned long	start_time;
+	int				n;
+	int				weapon_type;
+	int				shot;
+}	t_shot;
+
 
 struct	s_obj
 {
@@ -146,17 +171,15 @@ struct	s_obj
 	int			health;
 	int			ammo;
 	char		pseudo[16];
-	t_vector2F	dif;
 	t_vector2F	plane;
 	t_vector2F	old_plane;
 	t_hitbox	hb;
-	t_data		sprite;
-	t_data		dsprite[16];
-	t_data		walk_sprite[8];
-	t_data		death_sprite;
-	t_data		rifle;
 	int			pitch;
+	t_shot		shott[MAX_BULLET];
+	int			shoot_n;
 	t_hit		shooted;
+	int			exchange;
+	int			is_shooting;
 };
 
 typedef struct	s_network_data
@@ -257,12 +280,13 @@ typedef struct s_menu
 	int			ny;
 	unsigned long	start;
 	t_data		wait;
+	t_vector2D	draw_pl[2];
 }	t_menu;
 
 typedef struct	s_rect
 {
-	float	width;
-	float	height;
+	float	w;
+	float	h;
 	float	x;
 	float	y;
 }	t_rect;
@@ -315,33 +339,6 @@ typedef struct s_key
 	int	space;
 }	t_key;
 
-/*
- Le but de cette struct est d'en faire une liste chainée pour pouvoir display
- toutes les bullets en temps réel. On divise le segment en 6 point et on pourra
- display du point 2 au point 5 (1 et 6 étant le debut et la fin du tir on
- ne les affiche donc pas).
- N sera la ou on en est (0-> premier display, 4-> dernier display).
- Start et end pos sont la position de depart et de fin.
- pos est la position actuel.
- start_time est le moment de la clock ou le shot a demarré (peut etre inutile
- car je ferai surement le display en fonction du framerate)
- weapon_type est l'arme avec laquelle on a tiré (cela peut peut etre changer
- la maniere d'afficher).
-*/
-
-typedef struct	s_shot
-{
-	t_vector2F		start_pos;
-	t_vector2F		end_pos;
-	t_vector2F		pos;
-	t_vector2F		n_pos[5];
-	unsigned long	start_time;
-	int				n;
-	int				weapon_type;
-	int				shot; // En attendant que ce soit une liste chainé ce booleen servira a savoir si un shot a été tiré.
-	// quand j'aurai la liste il suffira de savori si un maillon existe et que n != 4.
-}	t_shot;
-
 typedef struct s_var
 {
 	t_menu			*menu;
@@ -359,20 +356,36 @@ typedef struct s_var
 	int				zbuffer[WIN_W];
 	unsigned long	walk_start;
 	int				walk_n;
-	t_data			rifle;
 	t_obj			o_player[MAX_PLAYER];
 	t_obj			sort_player[MAX_PLAYER];
 	t_weapon		weapon[NB_WEAPONS];
-	t_data			alpha[255];
 	int				linked_players;
 	char			ip[16];
+	int				started;
+	int				is_host;
+	struct sockaddr_in	client;
+	int					nb_player;
+	int					socket;
+	char				**map;
+	int					map_width;
+	int					map_height;
+	int					scale;
+	int					half_scale;
+	int					half_scale_offset;
+}	t_var;
+typedef struct	s_image
+{
+	t_data			alpha[255];
+	t_data			rifle;
 	t_data			pseudo_img[MAX_PLAYER];
 	t_data			bullet;
-	t_list			*shot;
-	t_shot			shott; // sera une liste chainé.
 	t_data			bg;
-	int				started;
-}	t_var;
+	t_data			dsprite[16];
+	t_data			sprite;
+	t_data			death_sprite;
+	t_data			walk_sprite[8];
+	t_data			crosshair;
+}	t_image;
 
 typedef struct s_player
 {

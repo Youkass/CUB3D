@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 14:21:21 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,11 @@ static void	draw(t_obj *player)
 	while (stripe < _pc()->draw_end.x)
 	{
 		if (!tex_mode)
-			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * _player()->dsprite[tex_dir].width / _pc()->size.x) / 256;
+			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * _image()->dsprite[tex_dir].w / _pc()->size.x) / 256;
 		else if (tex_mode == 1)
-			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * ((_player()->walk_sprite[walk_tex].width / 16)) / _pc()->size.x) / 256;
+			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * ((_image()->walk_sprite[walk_tex].w / 16)) / _pc()->size.x) / 256;
 		else
-			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * ((_player()->death_sprite.width / 16)) / _pc()->size.x) / 256;
+			_pc()->tex.x = (int)(256 * (stripe - (-_pc()->size.x / 2 + _pc()->sprite_screen_x)) * ((_image()->death_sprite.w / 16)) / _pc()->size.x) / 256;
 		if(_pc()->trans.y > 0 && stripe > 0 && stripe < WIN_W && _pc()->trans.y < _var()->zbuffer[stripe])
 		{
 			y = _pc()->draw_start.y;
@@ -85,18 +85,18 @@ static void	draw(t_obj *player)
 				_pc()->d = (y - _pc()->move_screen) * 256 - WIN_H * 128 + _pc()->size.y * 128;
 				if (!tex_mode)
 				{
-					_pc()->tex.y = ((_pc()->d * _player()->dsprite[tex_dir].height) /_pc()->size.y) / 256;
-					ft_put_pixel(_img(), &_player()->dsprite[tex_dir], (t_vector2D){stripe, y}, _pc()->tex);
+					_pc()->tex.y = ((_pc()->d * _image()->dsprite[tex_dir].h) /_pc()->size.y) / 256;
+					ft_put_pixel(_img(), &_image()->dsprite[tex_dir], (t_vector2D){stripe, y}, _pc()->tex);
 				}
 				else if (tex_mode == 1)
 				{
-					_pc()->tex.y = ((_pc()->d * _player()->walk_sprite[0].height) /_pc()->size.y) / 256;
-					ft_put_pixel(_img(), &_player()->walk_sprite[walk_tex], (t_vector2D){stripe, y}, (t_vector2D){_pc()->tex.x + 43 * _var()->walk_n, _pc()->tex.y});
+					_pc()->tex.y = ((_pc()->d * _image()->walk_sprite[0].h) /_pc()->size.y) / 256;
+					ft_put_pixel(_img(), &_image()->walk_sprite[walk_tex], (t_vector2D){stripe, y}, (t_vector2D){_pc()->tex.x + 43 * _var()->walk_n, _pc()->tex.y});
 				}
 				else
 				{
-					_pc()->tex.y = ((_pc()->d * _player()->death_sprite.height) /_pc()->size.y) / 256;
-					ft_put_pixel(_img(), &_player()->death_sprite, (t_vector2D){stripe, y + 5}, (t_vector2D){_pc()->tex.x + 39 * player->death_n, _pc()->tex.y});
+					_pc()->tex.y = ((_pc()->d * _image()->death_sprite.h) /_pc()->size.y) / 256;
+					ft_put_pixel(_img(), &_image()->death_sprite, (t_vector2D){stripe, y + 5}, (t_vector2D){_pc()->tex.x + 39 * player->death_n, _pc()->tex.y});
 				}
 				y++;
 			}
@@ -118,16 +118,16 @@ void	sort_by_distance(void)
 
 	i = 0;
 	j = 0;
-	while (i < _img()->nb_player)
+	while (i < _var()->nb_player)
 	{
 		_var()->sort_player[i] = _var()->o_player[i];
 		i++;
 	}
 	i = 0;
-	while (i < _img()->nb_player)
+	while (i < _var()->nb_player)
 	{
 		j = i + 1;
-		while (j < _img()->nb_player)
+		while (j < _var()->nb_player)
 		{
 			if (compute_distance((t_vector2F){_player()->x, _player()->y}, (t_vector2F){_var()->sort_player[j].x, _var()->sort_player[j].y}) >
 			compute_distance((t_vector2F){_player()->x, _player()->y}, (t_vector2F){_var()->sort_player[i].x, _var()->sort_player[i].y}))
@@ -148,7 +148,7 @@ void	player_casting(void)
 
 	i = 0;
 	sort_by_distance();
-	while (i < _img()->nb_player)
+	while (i < _var()->nb_player)
 	{
 		if (_var()->sort_player[i].id != _player()->id)
 		{

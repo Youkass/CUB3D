@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/25 18:16:09 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/10/31 22:50:24 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_data	generate_image(char *path)
 		return (sprite);
 	}
 	sprite.img = mlx_xpm_file_to_image(_mlx()->mlx, path,
-			&sprite.width, &sprite.height);
+			&sprite.w, &sprite.h);
 	if (!sprite.img)
 		return (sprite);
 	sprite.addr = mlx_get_data_addr(sprite.img, &sprite.bits_per_pixel,
@@ -75,14 +75,14 @@ t_vector2D	*_butp(void)
 	if (!butp)
 	{
 		butp = malloc(sizeof(t_vector2D) * 4);
-		but = perc(WIN_H, 40) - (_var()->menu->buttons[PLAY]->height / 2);
-		butp[0] = (t_vector2D){(WIN_W / 2) - (_var()->menu->buttons[PLAY]->width / 2), but};
-		but += _var()->menu->buttons[PLAY]->height + perc(WIN_H, 3);
-		butp[1] = (t_vector2D){(WIN_W / 2) - (_var()->menu->buttons[PLAY]->width / 2), but};
-		but += _var()->menu->buttons[PLAY]->height + perc(WIN_H, 3);
-		butp[2] = (t_vector2D){(WIN_W / 2) - (_var()->menu->buttons[PLAY]->width / 2), but};
-		but += _var()->menu->buttons[PLAY]->height + perc(WIN_H, 3);
-		butp[3] = (t_vector2D){(WIN_W / 2) - (_var()->menu->buttons[PLAY]->width / 2), but};
+		but = perc(WIN_H, 40) - (_var()->menu->buttons[PLAY]->h / 2);
+		butp[0] = (t_vector2D){(WIN_W / 2) - (_var()->menu->buttons[PLAY]->w / 2), but};
+		but += _var()->menu->buttons[PLAY]->h + perc(WIN_H, 3);
+		butp[1] = (t_vector2D){(WIN_W / 2) - (_var()->menu->buttons[PLAY]->w / 2), but};
+		but += _var()->menu->buttons[PLAY]->h + perc(WIN_H, 3);
+		butp[2] = (t_vector2D){(WIN_W / 2) - (_var()->menu->buttons[PLAY]->w / 2), but};
+		but += _var()->menu->buttons[PLAY]->h + perc(WIN_H, 3);
+		butp[3] = (t_vector2D){(WIN_W / 2) - (_var()->menu->buttons[PLAY]->w / 2), but};
 	}
 	return (butp);
 }
@@ -165,8 +165,8 @@ void	generate_button_state(void)
 	static t_vector2D	btn[7] = (t_vector2D [7]){{678, 460}, {774, 460},
 	{1083, 460}, {678, 560}, {774, 560}, {1083, 560}, {888, 668}};
 
-	width = _var()->menu->buttons[PLAY]->width;
-	height =  _var()->menu->buttons[PLAY]->height;
+	width = _var()->menu->buttons[PLAY]->w;
+	height =  _var()->menu->buttons[PLAY]->h;
 	_var()->menu->s_state = malloc(sizeof(t_button) * 4);
 	i = 0;
 	while (i < 4)
@@ -186,13 +186,13 @@ void	generate_button_state(void)
 		_var()->menu->o_state[i].hitbox[0] = (t_vector2D){btn[i].x - OFFSET_X,
 			btn[i].y - OFFSET_Y};
 		_var()->menu->o_state[i].hitbox[1] = (t_vector2D){btn[i].x - OFFSET_X
-			+ _var()->menu->buttons[NORMAL][MUTE_S].width , btn[i].y
+			+ _var()->menu->buttons[NORMAL][MUTE_S].w , btn[i].y
 			- OFFSET_Y};
 		_var()->menu->o_state[i].hitbox[2] = (t_vector2D){btn[i].x - OFFSET_X,
-			btn[i].y - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].height};
+			btn[i].y - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].h};
 		_var()->menu->o_state[i].hitbox[3] = (t_vector2D){btn[i].x - OFFSET_X,
-			btn[i].y - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].width
-			+ _var()->menu->buttons[NORMAL][MUTE_S].height};
+			btn[i].y - OFFSET_Y + _var()->menu->buttons[NORMAL][MUTE_S].w
+			+ _var()->menu->buttons[NORMAL][MUTE_S].h};
 		i++;
 	}
 	_var()->menu->p_state = malloc(sizeof(t_button) * 4);
@@ -219,28 +219,28 @@ void	gen_alpha(void)
 	i = 65;
 	while (i <= 90)
 	{
-		_var()->alpha[i] = generate_image(ft_strjoin(ft_strjoin("./img/menu/alpha/", (char [2]){i, 0}), ".xpm"));
+		_image()->alpha[i] = generate_image(ft_strjoin(ft_strjoin("./img/menu/alpha/", (char [2]){i, 0}), ".xpm"));
 		i++;
 	}
 	i = 48;
 	while (i <= 57)
 	{
-		_var()->alpha[i] = generate_image(ft_strjoin(ft_strjoin("./img/menu/alpha/", (char [2]){i, 0}), ".xpm"));
+		_image()->alpha[i] = generate_image(ft_strjoin(ft_strjoin("./img/menu/alpha/", (char [2]){i, 0}), ".xpm"));
 		i++;
 	}
-	_var()->alpha['_'] = generate_image("./img/menu/alpha/_.xpm");
-	_var()->alpha['.'] = generate_image("./img/menu/alpha/dot.xpm");
-	_var()->alpha['('] = generate_image("./img/menu/alpha/(.xpm");
-	_var()->alpha[')'] = generate_image("./img/menu/alpha/).xpm");
-	_var()->alpha[':'] = generate_image("./img/menu/alpha/:.xpm");
-	_var()->alpha['\''] = generate_image("./img/menu/alpha/'.xpm");
+	_image()->alpha['_'] = generate_image("./img/menu/alpha/_.xpm");
+	_image()->alpha['.'] = generate_image("./img/menu/alpha/dot.xpm");
+	_image()->alpha['('] = generate_image("./img/menu/alpha/(.xpm");
+	_image()->alpha[')'] = generate_image("./img/menu/alpha/).xpm");
+	_image()->alpha[':'] = generate_image("./img/menu/alpha/:.xpm");
+	_image()->alpha['\''] = generate_image("./img/menu/alpha/'.xpm");
 }
 
 /*
 The following function will generate all images for the menu
 */
 
-void    gen_menu_images(void)
+void    gen_menu_imagess(void)
 {
 	_var()->menu->pos_m_bar = (t_vector2D){819 - OFFSET_X + 42,
 	542 - OFFSET_Y + 36};
@@ -249,8 +249,8 @@ void    gen_menu_images(void)
 	_img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	_img()->addr = mlx_get_data_addr(_img()->img,
 	&_img()->bits_per_pixel, &_img()->line_length,& _img()->endian);
-	_img()->height = WIN_H;
-	_img()->width = WIN_W;
+	_img()->h = WIN_H;
+	_img()->w = WIN_W;
 	_var()->menu->mute_m_state = MUTE_M;
 	_var()->menu->mute_s_state = MUTE_S;
 	_var()->menu->s_bar = 0;

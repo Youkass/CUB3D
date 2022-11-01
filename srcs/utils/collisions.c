@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/23 18:28:22 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/10/30 16:53:43 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	*detect_neighbors(void)
 		it.y = 1;
 		while (it.y > -2)
 		{
-			if ((int)(_player()->x + it.x + 0.5) >= 0 && (int)(_player()->x + it.x + 0.5) < _img()->map_width
-			&& (int)(_player()->y + it.y + 0.5) >= 0 && (int)(_player()->y + it.y + 0.5) < _img()->map_height
-			&& _img()->map[(int)(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x + 0.5)] == '1')
+			if ((int)(_player()->x + it.x + 0.5) >= 0 && (int)(_player()->x + it.x + 0.5) < _var()->map_width
+			&& (int)(_player()->y + it.y + 0.5) >= 0 && (int)(_player()->y + it.y + 0.5) < _var()->map_height
+			&& _var()->map[(int)(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x + 0.5)] == '1')
 				_player()->hb.nb[n++] = (t_vector2D){(int)(_player()->x + it.x + 0.5), (int)(_player()->y + it.y + 0.5)};
 			it.y--;
 		}
@@ -106,7 +106,7 @@ void	*compute_nb(int i)
 {
 	float	overlap;
 
-	if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0 && _img()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x] == '1')
+	if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0 && _var()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x] == '1')
 	{
 		_nb()->nearest[0].x = max_f((float)(_player()->hb.nb[i].x - 0.5), min_f(_nb()->potential.x,(float)_player()->hb.nb[i].x + 0.5));
 		_nb()->nearest[0].y = max_f((float)(_player()->hb.nb[i].y- 0.5), min_f(_nb()->potential.y,(float)_player()->hb.nb[i].y + 0.5));
@@ -165,7 +165,7 @@ int	circle_collide(void)
 
 	i = 0;
 	length = 0;
-	while (i < _img()->nb_player)
+	while (i < _var()->nb_player)
 	{
 		if (circle_circle_col(&_var()->o_player[i]))
 		{

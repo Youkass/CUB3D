@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
 /*   Updated: 2022/10/31 11:36:21 by yobougre         ###   ########.fr       */
@@ -70,35 +70,35 @@ int	ft_release(int keycode)
 
 void	generate_dsprite(void)
 {
-	_player()->dsprite[0] = generate_image("./img/soldier/front.xpm"); // front
-	_player()->dsprite[1] = generate_image("./img/soldier/front_east_1.xpm"); // front east
-	_player()->dsprite[2] = generate_image("./img/soldier/front_east_2.xpm"); // front east
-	_player()->dsprite[3] = generate_image("./img/soldier/front_east_3.xpm"); // front east
-	_player()->dsprite[4] = generate_image("./img/soldier/east.xpm"); // east
-	_player()->dsprite[5] = generate_image("./img/soldier/back_east_1.xpm"); // back east
-	_player()->dsprite[6] = generate_image("./img/soldier/back_east_2.xpm"); // back east
-	_player()->dsprite[7] = generate_image("./img/soldier/back_east_3.xpm"); // back east
-	_player()->dsprite[8] = generate_image("./img/soldier/back.xpm"); // back
-	_player()->dsprite[9] = generate_image("./img/soldier/back_west_3.xpm"); // back west
-	_player()->dsprite[10] = generate_image("./img/soldier/back_west_2.xpm"); // back west
-	_player()->dsprite[11] = generate_image("./img/soldier/back_west_1.xpm"); // back west
-	_player()->dsprite[12] = generate_image("./img/soldier/west.xpm"); // west
-	_player()->dsprite[13] = generate_image("./img/soldier/front_west_3.xpm"); // front west
-	_player()->dsprite[14] = generate_image("./img/soldier/front_west_2.xpm"); // front west
-	_player()->dsprite[15] = generate_image("./img/soldier/front_west_1.xpm"); // front westwest
+	_image()->dsprite[0] = generate_image("./img/soldier/front.xpm"); // front
+	_image()->dsprite[1] = generate_image("./img/soldier/front_east_1.xpm"); // front east
+	_image()->dsprite[2] = generate_image("./img/soldier/front_east_2.xpm"); // front east
+	_image()->dsprite[3] = generate_image("./img/soldier/front_east_3.xpm"); // front east
+	_image()->dsprite[4] = generate_image("./img/soldier/east.xpm"); // east
+	_image()->dsprite[5] = generate_image("./img/soldier/back_east_1.xpm"); // back east
+	_image()->dsprite[6] = generate_image("./img/soldier/back_east_2.xpm"); // back east
+	_image()->dsprite[7] = generate_image("./img/soldier/back_east_3.xpm"); // back east
+	_image()->dsprite[8] = generate_image("./img/soldier/back.xpm"); // back
+	_image()->dsprite[9] = generate_image("./img/soldier/back_west_3.xpm"); // back west
+	_image()->dsprite[10] = generate_image("./img/soldier/back_west_2.xpm"); // back west
+	_image()->dsprite[11] = generate_image("./img/soldier/back_west_1.xpm"); // back west
+	_image()->dsprite[12] = generate_image("./img/soldier/west.xpm"); // west
+	_image()->dsprite[13] = generate_image("./img/soldier/front_west_3.xpm"); // front west
+	_image()->dsprite[14] = generate_image("./img/soldier/front_west_2.xpm"); // front west
+	_image()->dsprite[15] = generate_image("./img/soldier/front_west_1.xpm"); // front westwest
 
-	_player()->walk_sprite[0] = generate_image("./img/soldier/walk/front.xpm");
-	_player()->walk_sprite[1] = generate_image("./img/soldier/walk/southeast.xpm");
-	_player()->walk_sprite[2] = generate_image("./img/soldier/walk/east.xpm");
-	_player()->walk_sprite[3] = generate_image("./img/soldier/walk/northeast.xpm");
-	_player()->walk_sprite[4] = generate_image("./img/soldier/walk/back.xpm");
-	_player()->walk_sprite[5] = generate_image("./img/soldier/walk/northwest.xpm");
-	_player()->walk_sprite[6] = generate_image("./img/soldier/walk/west.xpm");
-	_player()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
+	_image()->walk_sprite[0] = generate_image("./img/soldier/walk/front.xpm");
+	_image()->walk_sprite[1] = generate_image("./img/soldier/walk/southeast.xpm");
+	_image()->walk_sprite[2] = generate_image("./img/soldier/walk/east.xpm");
+	_image()->walk_sprite[3] = generate_image("./img/soldier/walk/northeast.xpm");
+	_image()->walk_sprite[4] = generate_image("./img/soldier/walk/back.xpm");
+	_image()->walk_sprite[5] = generate_image("./img/soldier/walk/northwest.xpm");
+	_image()->walk_sprite[6] = generate_image("./img/soldier/walk/west.xpm");
+	_image()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
 
-	_player()->death_sprite = generate_image("./img/soldier/death.xpm");
+	_image()->death_sprite = generate_image("./img/soldier/death.xpm");
 
-	_player()->rifle = generate_image("./img/soldier/rifle.xpm");
+	_image()->rifle = generate_image("./img/soldier/rifle.xpm");
 }
 
 
@@ -107,11 +107,14 @@ void	ft_init_player_pos(void)
 	double	dist;
 
 	_player()->pseudo[0] = 0;
+	_player()->is_shooting = 0;
+	_player()->exchange = 4;
 	_player()->weapon_id = 0;
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
 	_player()->health = 100;
 	_player()->ammo = 0;
+	_player()->shoot_n = 0;
 	_player()->x = 5;
 	_player()->y = 3;
 	_player()->z = 0;
@@ -124,14 +127,15 @@ void	ft_init_player_pos(void)
 	_player()->plane = (t_vector2F){0, -0.66};
 	_var()->time = 0;
 	_var()->old_time = 0;
-	_player()->hb.hit.r = 0.25;
+	_player()->hb.hit.r = 0.5;
 	_player()->hb.n = 0;
 	_player()->pitch = 0;
 	generate_dsprite();
-	_player()->sprite = generate_image("./img/front.xpm");
+	_image()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
-	_player()->is_walking = 0;	
+	_player()->is_walking = 0;
+	init_data_shot(_player());
 }
 
 void	walk_clock(void)
@@ -161,7 +165,10 @@ void	death_clock(void)
 void	reload_clock(void)
 {
 	if (get_clock(_var()->clock) - _player()->start_reload > _var()->weapon[_player()->weapon_id].reload_ms)
+	{
 		_player()->can_shoot = 1;
+		_player()->is_shooting = 0;
+	}
 }
 
 void	ft_init_player2(void)
@@ -172,7 +179,7 @@ void	ft_init_player2(void)
 	i = 0;
 	while (i < MAX_PLAYER)
 	{
-		_var()->pseudo_img[i].img = NULL;
+		_image()->pseudo_img[i].img = NULL;
 		_var()->o_player[i].weapon_id = 0;
 		_var()->o_player[i].health = 100;
 		_var()->o_player[i].x = 7;
@@ -184,8 +191,10 @@ void	ft_init_player2(void)
 		_var()->o_player[i].plane = (t_vector2F){0, -0.66};
 		_var()->o_player[i].hb.hit.r = 0.5;
 		_var()->o_player[i].hb.n = 0;
+		_var()->o_player[i].shoot_n = 0;
 		dist = hypot(_var()->o_player[i].dx, _var()->o_player[i].dy);
 		_var()->o_player[i].angle = 360 - acos(_var()->o_player[i].dx / dist) * 180 / M_PI;	
+		init_data_shot(&_var()->o_player[i]);
 		++i;
 	}
 }
@@ -203,8 +212,8 @@ void	ft_print_tab(char **s)
 		line = ft_strlen(s[i]);
 		++i;
 	}
-	_img()->map_width = line;
-	_img()->map_height = i;
+	_var()->map_width = line;
+	_var()->map_height = i;
 }
 
 int	ft_hook(int keycode)
@@ -235,9 +244,9 @@ void	init_sync(void)
 //	link = 0;
 	if (_var()->mode == GAME_START_ONLINE)
 	{
-//		if (send(_img()->socket, &link, sizeof(link), 0) < 0)
+//		if (send(_var()->socket, &link, sizeof(link), 0) < 0)
 //			return ;
-//		if (recv(_img()->socket, &link, sizeof(link), 0)< 0)
+//		if (recv(_var()->socket, &link, sizeof(link), 0)< 0)
 //			return ;
 		_var()->mode = GAME;
 	}
@@ -249,7 +258,7 @@ int	ft_loop_hook(void)
 
 	if (_var()->mode == ONLINE_START)
 	{
-			_img()->is_host = SERVER;
+			_var()->is_host = SERVER;
 			pid = fork();
 			if (pid == 0)
 			{
@@ -343,8 +352,9 @@ void	init_weapons(void)
 	_var()->weapon[0].name = malloc(sizeof(char) * 6);
 	_var()->weapon[0].name = "Rifle\0";
 	_var()->weapon[0].id = 0;
+	_var()->weapon[0].range = 10;
 	_var()->weapon[0].power = 10;
-	_var()->weapon[0].reload_ms = 5000;
+	_var()->weapon[0].reload_ms = 500000;
 	_var()->weapon[0].ammo = 15;
 }
 
@@ -357,11 +367,36 @@ void	init_var(void)
 	_var()->menu->mode = MENU_START;_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
-	//_var()->bullet = generate_image("./img/bullet.xpm");
+	//_image()->bullet = generate_image("./img/bullet.xpm");
 	i = 0;
 	while (i < MAX_PLAYER)
-		_var()->pseudo_img[i++].img = NULL;
+		_image()->pseudo_img[i++].img = NULL;
 	_var()->started = 0;
+}
+
+void	init_data_shot(t_obj *player)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = 0;
+	while (i < MAX_BULLET)
+	{
+		player->shott[i].end_pos = (t_vector2F){0, 0};
+		player->shott[i].n = 0;
+		while (j < SHOT_FRAME)
+		{
+			player->shott[i].n_pos[j] = (t_vector2F){0, 0};
+			j++;
+		}
+		player->shott[i].pos = (t_vector2F){0, 0};
+		player->shott[i].shot = 0;
+		player->shott[i].start_pos = (t_vector2F){0, 0};
+		player->shott[i].start_time = 0;
+		player->shott[i].weapon_type = 0;
+		i++;
+	}
 }
 
 int main(int argc, char **argv)
@@ -373,11 +408,11 @@ int main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit(139);
-	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
-	if (!_img()->map)
+	_var()->map = resize_map(ft_split(read_file(fd), '\n'));
+	if (!_var()->map)
 		exit(139);
 	init_weapons();
-	ft_print_tab(_img()->map);
+	ft_print_tab(_var()->map);
 	ft_init_mlx();
 	ft_init_img();
 	_ray();
@@ -385,12 +420,13 @@ int main(int argc, char **argv)
 	ft_init_player2();
 	ft_malloc_map();
 	init_key();
-	gen_menu_images();
-	_var()->bullet = generate_image("./img/bullet.xpm");
+	gen_menu_imagess();
+	_image()->bullet = generate_image("./img/bullet.xpm");
+	_image()->crosshair = generate_image("./img/crosshair.xpm");
 	if(WIN_W == 1440)
-		_var()->bg = generate_image("./img/spacebg1440.xpm");
+		_image()->bg = generate_image("./img/spacebg1440.xpm");
 	else
-		_var()->bg = generate_image("./img/spacebg.xpm");
+		_image()->bg = generate_image("./img/spacebg.xpm");
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);
