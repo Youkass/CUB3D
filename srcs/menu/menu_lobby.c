@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 22:13:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 10:32:24 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	get_pseudos(void)
 	{
 		memset(&player, 0, sizeof(player));
 		ft_copy_data_before_pong(&player);
-		send(_var()->socket, &player, sizeof(player), 0);
+		if (send(_var()->socket, &player, sizeof(player), 0) < 0)
+			exit (1); //TODO
 		sendo = 1;
 	}
 	start = 0;
