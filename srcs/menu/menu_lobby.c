@@ -6,12 +6,21 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 16:20:11 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 17:57:55 by yuro4ka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
+/* ************************************************************************** */
+/* besoin de faire une refonte totale de wait_lobby:
+	# constement envoyer ses propres data et le tableau de player ensuite, verifier
+		du cote server que toute les datas sont bien recu et ensuite bien envoye
+	# ne plus envoyer linked_player seul, le faire dans une structure contenant
+		1-tableau des joueurs et leurs data
+		2-linked_player
+		3-n'importe quel data utile */
+/* ************************************************************************** */
 int	ft_send_start(void)
 {
 	if (_var()->is_host == SERVER)
