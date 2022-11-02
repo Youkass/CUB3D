@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/01 14:34:17 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/02 13:59:25 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void	ft_init_player_pos(void)
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
 	_player()->is_walking = 0;
 	init_data_shot(_player());
+	_player()->is_start = 0;
 }
 
 void	walk_clock(void)

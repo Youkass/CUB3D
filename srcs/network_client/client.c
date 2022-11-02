@@ -87,6 +87,7 @@ void	ft_copy_data_before_pong(t_obj *player)
     player->ammo = _player()->ammo;
 	player->shoot_n = _player()->shoot_n;
 	player->exchange = _player()->exchange;
+	player->is_start = _player()->is_start;
 	while (i < _player()->shoot_n)
 	{
 		player->shott[i] = _player()->shott[i];
