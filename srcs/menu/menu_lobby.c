@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/02 15:27:29 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/02 15:32:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ static int	ft_is_start(void)
 	int	i;
 
 	i = 0;
+	printf("linked player : %d\n", _var()->linked_players);
 	while (i < _var()->linked_players)
 	{
 		printf("je passe bien dans cette boucle\n");
 		if (_var()->o_player[i].is_start)
 			printf("ce player veut start : %d\n", _var()->o_player[i].id);
 		if (!_var()->o_player[i].is_start)
-			return (1);
+			return (printf("pourquoi ?\n"), 1);
 		++i;
 	}
 	printf("i launch de the game\n");
