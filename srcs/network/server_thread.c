@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_thread.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/02 13:44:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:35:38 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,17 @@ int	ft_connect_clients(t_server_data *data)
 
 int	ft_recv_first_data(t_client_thread *client)
 {
-	if (!client->is_recv)
-	{
+	// if (!client->is_recv)
+	// {
 		if (recv(client->socket, &(client->player_data), 
 			sizeof(client->player_data), 0) < 0)
 			return (1);
+		printf("ici\n");
 		pthread_mutex_lock(client->mutex);
-		client->is_recv = 1;
-		client->is_send = 0;
+		// client->is_recv = 1;
+		// client->is_send = 0;
 		client->serv->player_data[client->id] = client->player_data;
-		pthread_mutex_unlock(client->mutex); }
+		pthread_mutex_unlock(client->mutex);
 	return (0);
 }
 
@@ -135,8 +136,8 @@ int	ft_send_all_data(t_client_thread *client)
 	t_obj	data[MAX_PLAYER];
 
 	i = 0;
-	if (!ft_is_get(client))
-		return (1);
+	// if (!ft_is_get(client))
+	// 	return (1);
 	while (i < client->nb_players)
 	{
 		pthread_mutex_lock(client->mutex);
@@ -146,9 +147,10 @@ int	ft_send_all_data(t_client_thread *client)
 	}
 	if (send(client->socket, &data, sizeof(data), 0) < 0)
 		return (1);
-	pthread_mutex_lock(client->mutex);
-	client->is_recv = 0;
-	pthread_mutex_unlock(client->mutex);
+	printf("la\n");
+	// pthread_mutex_lock(client->mutex);
+	// client->is_recv = 0;
+	// pthread_mutex_unlock(client->mutex);
 	return (0);
 }
 
