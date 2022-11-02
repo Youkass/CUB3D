@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 13:37:50 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/02 11:29:39 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ struct	s_obj
 	t_hit		shooted;
 	int			exchange;
 	int			is_shooting;
+	int				is_start;
 };
 
 typedef struct	s_network_data
@@ -401,6 +402,13 @@ typedef struct	s_nb
 	t_vector2F	potential;
 }	t_nb;
 
+typedef struct	s_data_plyr
+{
+	t_obj	player_data[MAX_PLAYER];
+	int		nb_linked;
+	int		nb_player;
+}	t_data_plyr;
+
 typedef struct	s_client_thread
 {
 	pthread_mutex_t			*mutex;
@@ -424,9 +432,10 @@ struct	s_server_data
 	struct sockaddr_in		server;
 	t_client_thread			clients[MAX_PLAYER];
 	pthread_mutex_t			mutex;
-	pthread_mutex_t			mutex_linked;
 	pthread_mutex_t			mutex_start;
+	pthread_mutex_t			mutex_linked;
 	t_obj					player_data[MAX_PLAYER];
+	t_data_plyr				players;
 	socklen_t				csize;
 	int						socket;
 	int						nb_players;

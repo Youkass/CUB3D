@@ -6,7 +6,7 @@
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/11/01 14:57:31 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/02 12:34:17 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ int main(int ac, char **av);
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/network/lobby.c                         */
 /* -------------------------------------------------------------------------- */
-int	ft_recv_first_data_lobby(t_client_thread *client);
-int	ft_is_get_lobby(t_client_thread *client);
+int	ft_recv_first_data_lobby(t_client_thread *client, int nb);
 int	ft_send_all_data_lobby(t_client_thread *client, int nb);
 int	wait_lobby(t_client_thread *client);
 
