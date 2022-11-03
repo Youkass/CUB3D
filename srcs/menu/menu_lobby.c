@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/02 15:32:53 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:29:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 		3-n'importe quel data utile */
 /* ************************************************************************** */
 
-static int	ft_is_start(void)
+int	ft_is_start(void)
 {
 	int	i;
 
@@ -58,25 +58,23 @@ static void	ft_cpy_tab(t_obj *o_player)
 void	get_pseudos(void)
 {
 	int		i;
-	t_obj	player;
-	t_obj	o_player[MAX_PLAYER];
-	
-	memset(&player, 0, sizeof(player));
-	ft_copy_data_before_pong(&player);
-	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
+	t_send_server	pl;
+	t_send_client	cli;
+
+	memset(&cli, 0, sizeof(cli));
+	ft_copy_data_before_pong(&cli.player);
+	if (_player()->is_start == 1)
+		cli.start = 1;
+	else
+		cli.start = 0;
+	if (send(_var()->socket, &cli, sizeof(cli), 0) < 0)
 		exit (1); //TODO
-	if (recv(_var()->socket, &(_var()->linked_players), sizeof(int), 0) < 0)
-		exit (1);//TODO
-	memset(&o_player, 0, sizeof(o_player));
-	if (recv(_var()->socket, &o_player, sizeof(o_player), 0) < 0)
+	memset(&pl.player, 0, sizeof(pl.player));
+	if (recv(_var()->socket, &pl, sizeof(pl), 0) < 0)
 		exit (1); //TODO
+	_var()->linked_players = pl.linked_pl;
 	memset(&_var()->o_player, 0, sizeof(_var()->o_player));
-	ft_cpy_tab(o_player);
-	if (!ft_is_start())
-	{
-		printf("je sors de get_pseudos\n");
-		return ;
-	}
+	ft_cpy_tab(pl.player);
 	i = 0;
 	while (i < _var()->linked_players && !_var()->started)
 	{
@@ -86,6 +84,11 @@ void	get_pseudos(void)
 			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo);
 		}
 		i++;
+	}
+	if (pl.start == 1)
+	{
+		_var()->mode = GAME;
+		_var()->started = 1;
 	}
 }
 
