@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/02 11:29:39 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/03 15:16:55 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -408,6 +408,19 @@ typedef struct	s_data_plyr
 	int		nb_linked;
 	int		nb_player;
 }	t_data_plyr;
+
+typedef struct	s_send_client
+{
+	t_obj		player;
+	int			start;
+}	t_send_client;
+
+typedef struct	s_send_server
+{
+	t_obj		player[MAX_PLAYER];
+	int			start;
+	int			linked_pl;
+}	t_send_server;
 
 typedef struct	s_client_thread
 {

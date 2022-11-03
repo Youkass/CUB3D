@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/02 13:44:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/03 12:17:03 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,13 +137,13 @@ int	ft_send_all_data(t_client_thread *client)
 	i = 0;
 	if (!ft_is_get(client))
 		return (1);
+	pthread_mutex_lock(client->mutex);
 	while (i < client->nb_players)
 	{
-		pthread_mutex_lock(client->mutex);
 		data[i] = client->serv->player_data[i];
-		pthread_mutex_unlock(client->mutex);
 		++i;
 	}
+	pthread_mutex_unlock(client->mutex);
 	if (send(client->socket, &data, sizeof(data), 0) < 0)
 		return (1);
 	pthread_mutex_lock(client->mutex);

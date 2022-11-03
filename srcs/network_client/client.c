@@ -14,8 +14,7 @@
 char	*ft_get_ip_input(void)
 {
 	char	*buf;
-	int		r;
-
+	int		r; 
 	printf("Enter Host Ip on the next line : \n");
 	buf = malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buf)
@@ -139,12 +138,13 @@ void	print_data_recv(t_obj	*player)
 void	ft_pong_client(void)
 {
 	t_obj	player[MAX_PLAYER];
+	t_obj	my_player;	
 	int		i;
 	
 	i = 0;
-	memset(&player[0], 0, sizeof(player[0]));
-	ft_copy_data_before_pong(&player[0]);
-	if (send(_var()->socket, &player[0], sizeof(player[0]), 0)< 0)
+	memset(&my_player, 0, sizeof(my_player));
+	ft_copy_data_before_pong(&my_player);
+	if (send(_var()->socket, &my_player, sizeof(my_player), 0) < 0)
 		return ;
 	memset(&player, 0, sizeof(player));
 	if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
