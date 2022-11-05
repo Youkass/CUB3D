@@ -14,8 +14,7 @@
 char	*ft_get_ip_input(void)
 {
 	char	*buf;
-	int		r;
-
+	int		r; 
 	printf("Enter Host Ip on the next line : \n");
 	buf = malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buf)
@@ -23,16 +22,14 @@ char	*ft_get_ip_input(void)
 	r = read(STDIN_FILENO, buf, BUFFER_SIZE);
 	if (r < 0)
 		return (NULL);
-	buf[r] = 0;
-	return (buf);
-
+	buf[r] = 0; return (buf);
 }
 
 int	ft_init_client(void)
 {
 	int			ret;
 	
-	_var()->socket = socket(AF_INET, SOCK_STREAM, 0);
+	_var()->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (_var()->is_host == SERVER)
 		_var()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	else if (_var()->is_host == CLIENT) 
@@ -139,23 +136,19 @@ void	print_data_recv(t_obj	*player)
 void	ft_pong_client(void)
 {
 	t_obj	player[MAX_PLAYER];
+	t_obj	my_player;	
 	int		i;
 	
 	i = 0;
-	memset(&player[0], 0, sizeof(player[0]));
-	ft_copy_data_before_pong(&player[0]);
-	if (send(_var()->socket, &player[0], sizeof(player[0]), 0)< 0)
+	memset(&my_player, 0, sizeof(my_player));
+	ft_copy_data_before_pong(&my_player);
+	if (send(_var()->socket, &my_player, sizeof(my_player), 0) < 0)
 		return ;
 	memset(&player, 0, sizeof(player));
-	if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
+	if (recv(_var()->socket, &player, sizeof(player), MSG_WAITALL) < 0)
 		return ;
 	while (i < _var()->linked_players)
 	{
-		if (player[i].exchange != 4)
-		{
-			i++;
-			continue ;
-		}
 		if (player[i].shooted.shoot == 1 && player[i].shooted.id == _player()->id)
 			_player()->health -= _var()->weapon[player[i].weapon_id].power;
 		if (player[i].shooted.shoot == 1 && i == _player()->id)

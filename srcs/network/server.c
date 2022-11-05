@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/31 10:43:19 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:10:06 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_init_server(t_server_data *data)
 	int option;
 
 	option = 1;
-	data->socket = socket(AF_INET, SOCK_STREAM, 0);
+	data->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (data->socket < 0)
 	{
 		perror("Socket error\n");
@@ -36,7 +36,8 @@ int	ft_init_server(t_server_data *data)
 	data->server.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	data->server.sin_family = AF_INET;
 	data->server.sin_port = htons(30000);
-	if (setsockopt(data->socket, SOL_SOCKET, (SO_REUSEADDR | SO_REUSEPORT), &option, sizeof(option)) < 0)
+	if (setsockopt(data->socket, SOL_SOCKET,
+		(SO_REUSEADDR | SO_REUSEPORT), &option, sizeof(option)) < 0)
 		exit(1);
 	if (bind(data->socket,
 		(const struct sockaddr *)&(data->server), 
