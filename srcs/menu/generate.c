@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 17:24:37 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 22:16:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,7 @@ void	gen_alpha(void)
 	}
 	_image()->alpha['_'] = generate_image("./img/menu/alpha/_.xpm");
 	_image()->alpha['.'] = generate_image("./img/menu/alpha/dot.xpm");
+	_image()->alpha[':'] = generate_image("./img/menu/alpha/ddot.xpm");
 	_image()->alpha['('] = generate_image("./img/menu/alpha/(.xpm");
 	_image()->alpha[')'] = generate_image("./img/menu/alpha/).xpm");
 	_image()->alpha[':'] = generate_image("./img/menu/alpha/:.xpm");

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 17:33:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 23:02:02 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vecto
 	}
 	return (big);
 }
+
+
 
 
 /*

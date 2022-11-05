@@ -3,50 +3,97 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 10:32:24 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 15:33:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
+/* ************************************************************************** */
+/* besoin de faire une refonte totale de wait_lobby:
+	# constement envoyer ses propres data et le tableau de player ensuite, verifier
+		du cote server que toute les datas sont bien recu et ensuite bien envoye
+	# ne plus envoyer linked_player seul, le faire dans une structure contenant
+		1-tableau des joueurs et leurs data
+		2-linked_player
+		3-n'importe quel data utile */
+/* ************************************************************************** */
+static void	ft_cpy_tab(t_send_server o_player)
+{
+	int	i;
+
+	i = 0;
+	_var()->linked_players = o_player.linked_pl;
+	//printf("linked : %d\n", _var()->linked_players);
+	while (i < _var()->nb_player)
+	{
+		if (o_player.player[i].pseudo)
+			_var()->o_player[i] = o_player.player[i];
+		++i;
+	}
+}
+
 void	get_pseudos(void)
 {
-	static int	i = 0;
-	static int sendo = 0;
-	t_obj	player;
-	int		start;
+	int		i;
+	t_send_client	player;
+	t_send_server	o_player;
 
-	if (!sendo)
+	memset(&player, 0, sizeof(player));
+	ft_copy_data_before_pong(&player.player);
+	if (_player()->is_start)
+		player.start = 1;
+	else
+		player.start = 0;
+	player.flag = 1;
+	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
 	{
-		memset(&player, 0, sizeof(player));
-		ft_copy_data_before_pong(&player);
-		if (send(_var()->socket, &player, sizeof(player), 0) < 0)
-			exit (1); //TODO
-		sendo = 1;
+		printf("j'exit ici\n");
+		exit (1); //TODO
 	}
-	start = 0;
-	if (recv(_var()->socket, &(_var()->linked_players), sizeof(int), 
-			0) < 0)
-		exit(1); //TODO
-	if (send(_var()->socket, &(_var()->started), sizeof(int), 0) < 0)
-		exit(1); //TODO
-	if (recv(_var()->socket, &start, sizeof(int), 0) < 0)
-		exit(1); //TODO
-	if (start)
+	memset(&o_player, 0, sizeof(o_player));
+	if (ft_recv_players(&o_player, sizeof(t_send_server)))
+		exit (1); //TODO
+	i = 0;
+	memset(&_var()->o_player, 0, sizeof(_var()->o_player));
+	ft_cpy_tab(o_player);
+	if (o_player.start)
 	{
-		_var()->started = start;
+		printf("start : %d\n", o_player.start);
 		_var()->mode = GAME;
+		_var()->started = 1;
 	}
+	_var()->n_blue = 0;
+	_var()->n_red = 0;
+	_var()->n_neutral = 0;
 	while (i < _var()->linked_players && !_var()->started)
 	{
 		if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
 			exit(1); //TODO
 		_var()->o_player[i] = player;
+		if (_var()->o_player[i].team == TEAM_BLUE)
+		{
+			_var()->blue[_var()->n_blue] = _var()->o_player[i].pseudo;
+			++_var()->n_blue;
+		}
+		else if (_var()->o_player[i].team == TEAM_RED)
+		{
+			_var()->red[_var()->n_red] = _var()->o_player[i].pseudo;
+			++_var()->n_red;
+		}
+		else
+		{
+			_var()->neutral[_var()->n_neutral] = _var()->o_player[i].pseudo;
+			++_var()->n_neutral;
+		}
 		if (!(_image()->pseudo_img[i].img))
-			_image()->pseudo_img[i] = create_text_img(player.pseudo);
+		{
+			printf("pseudo : %s\n", _var()->o_player[i].pseudo);
+			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo);
+		}
 		i++;
 	}
 }

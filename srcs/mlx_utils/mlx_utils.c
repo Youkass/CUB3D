@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/01 17:31:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/02 13:57:12 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	ft_fps(void)
 	_var()->time = get_clock(_var()->clock);
 	_var()->frame_time = (get_clock(_var()->clock) - _var()->old_time) / 1000000.0;
 	//printf("FPS = %d\n",  (int)(1.0 / _var()->frame_time));ft_
-	_player()->move_speed = _var()->frame_time * 5.0;
+	_player()->move_speed = _var()->frame_time * 3.0;
 	_player()->rot_speed = _var()->frame_time * 2.0;
 }
 
@@ -251,24 +251,46 @@ void	update_bullets(void)
 {
 	int	i;
 	int	new_shoot_n;
+	t_vector2F velo;
 
 	new_shoot_n = _player()->shoot_n;
 	i = 0;
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		t_vector2F test = velocity_get_point(_player()->shott[i].start_pos, _player()->shott[i].velo.velo, get_time(_player()->shott[i].start_time));
-//		printf("player = %f, %f ... velo = %f, %f ... start = %f, %f ...  end = %f; %f\n", _player()->x, _player()->y, test.x, test.y, _player()->shott[i].start_pos.x, _player()->shott[i].start_pos.y, _player()->shott[i].end_pos.x, _player()->shott[i].end_pos.y);
-		//if (_player()->shott[i].n > SHOT_FRAME)
+		velo = velocity_get_point(_player()->shott[i].start_pos, _player()->shott[i].velo.velo, get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time) >= (float)_player()->shott[i].velo.time_ms)
 			new_shoot_n--;
 		else
-			_player()->shott[i].pos = test;
-			//_player()->shott[i].pos = _player()->shott[i].n_pos[_player()->shott[i].n];
+			_player()->shott[i].pos = velo;
 		i++;
 	}
 	_player()->shoot_n = new_shoot_n;
 }
+
+void	update_bullets3F(void)
+{
+	int	i;
+	int	new_shoot_n;
+	t_vector3F velo;
+
+	new_shoot_n = _player()->shoot_n;
+	i = 0;
+	while (i < _player()->shoot_n)
+	{
+		if (_player()->shott[i].n == 0)
+			_player()->shott[i].start_time = get_clock(_var()->clock);
+		_player()->shott[i].n++;
+		velo = velocity_get_point3F(_player()->shott[i].start_pos3F, _player()->shott[i].velo3.velo, get_time(_player()->shott[i].start_time));
+		if (get_time(_player()->shott[i].start_time) >= (float)_player()->shott[i].velo3.time_ms)
+			new_shoot_n--;
+		else
+			_player()->shott[i].pos3F = velo;
+		i++;
+	}
+	_player()->shoot_n = new_shoot_n;
+}
+
 
 void	hud(void)
 {
@@ -305,8 +327,8 @@ int	ft_loop()
 		player_casting();
 		name_casting();
 	}
+	update_bullets3F();
 	bullet_casting();
-	update_bullets();
 	hud();
 	ft_draw_map();
 	ft_put_image_to_image_scale(*_img(), _var()->menu->planets[0], pos(100, 100), pos(2, 2));
