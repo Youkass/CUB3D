@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/05 14:46:03 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 15:34:40 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_exit(int signal)
 	pthread_mutex_unlock(data->mutex);
 	printf("client fermé\n");
 }*/
-
 int	ft_init_client_thread(t_server_data *data)
 {
 	int	i;
@@ -59,7 +58,7 @@ int	ft_connect_clients(t_server_data *data)
 		data->clients[i].id = i;
 		if (data->clients[i].socket < 0)
 			return (EXIT_FAILURE); //TODO
-		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine, 
+		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine,
 				&(data->clients[i])))
 			return (EXIT_FAILURE); //TODO
 		i++;
@@ -72,14 +71,14 @@ int	ft_connect_clients(t_server_data *data)
 
 int	ft_recv_first_data(t_client_thread *client)
 {
-	if (recv(client->socket, &(client->player_data), 
+	if (recv(client->socket, &(client->player_data),
 				sizeof(client->player_data), MSG_WAITALL) < 0)
 		return (1);
 	pthread_mutex_lock(client->mutex);
 	client->is_recv = 1;
 	client->is_send = 0;
 	client->serv->player_data[client->id] = client->player_data;
-	pthread_mutex_unlock(client->mutex); 
+	pthread_mutex_unlock(client->mutex);
 	while (ft_is_get(client))
 	{}
 	return (0);
