@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/03 15:21:44 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/04 16:10:06 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_init_server(t_server_data *data)
 	int option;
 
 	option = 1;
-	data->socket = socket(AF_INET, SOCK_STREAM, 0);
+	data->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (data->socket < 0)
 	{
 		perror("Socket error\n");
