@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/04 19:30:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	init_cast(int i, t_obj *player)
 {
-	_pc()->pos.x = player->shott[i].pos.x - _player()->x;
-	_pc()->pos.y = player->shott[i].pos.y -_player()->y;
+	_pc()->pos.x = player->shott[i].pos3F.x - _player()->x;
+	_pc()->pos.y = player->shott[i].pos3F.y -_player()->y;
 	_pc()->inv_det = 1.0 / (_player()->plane.x * _player()->dy -
 			_player()->dx * _player()->plane.y);
 	_pc()->trans.x = _pc()->inv_det * (_player()->dy *
@@ -24,7 +24,9 @@ static void	init_cast(int i, t_obj *player)
 			_pc()->pos.x + _player()->plane.x * _pc()->pos.y);
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
-	_pc()->move_screen = (int)(100 / _pc()->trans.y) + _player()->pitch + _player()->z / _pc()->trans.y;
+	_pc()->move_screen = (int)((int)player->shott[i].pos3F.z / _pc()->trans.y) + _player()->pitch + _player()->z / _pc()->trans.y;
+		//_pc()->move_screen = (int)(100 / _pc()->trans.y) + _player()->z / _pc()->trans.y;
+	printf("===> %d\n", ((int)player->shott[i].pos3F.z / 100));
 }
 static void	compute_draw(void)
 {

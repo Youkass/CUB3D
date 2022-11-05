@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/01 10:22:37 by yobougre         ###   ########.fr        #
+#    Updated: 2022/11/05 11:52:11 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS		=	srcs/main.c\
 				srcs/menu/utils.c\
 				srcs/menu/mouse_hook.c\
 				srcs/menu/dragbar.c\
+				srcs/menu/recv_utils.c\
 				srcs/parsing/parsing.c\
 				srcs/network_client/network_utils.c\
 				srcs/network_client/client.c\
@@ -69,6 +70,7 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/utils/collisions.c\
 					srcs/tools.c\
 					srcs/shoot.c\
+					srcs/menu/recv_utils.c\
 					srcs/parsing/parsing.c
 
 
@@ -86,7 +88,7 @@ OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra -g3
-MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
+MLB_FLAGS	= -g -fsanitize=address -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
 
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
@@ -107,6 +109,7 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/math
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/menu
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/math/vector
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing

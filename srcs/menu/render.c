@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 17:34:58 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/03 00:57:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,43 +72,147 @@ void	menu_player(void)
 	ft_put_image_to_image(*_img(), _var()->menu->nb_p[3][_var()->menu->p_state[3].state],  _butpl()[3]);
 }
 
+void	draw_lobby(void)
+{
+	int	i;
+	int	size_box;
+
+	i = 0;
+	size_box = _var()->menu->wait.w / _var()->nb_player;
+	// Couleur rouge blanc et bleu
+	draw_rectange(pos(0, 0), pos(WIN_W / 3, WIN_H), RED);
+	draw_rectange(pos(WIN_W / 3, 0), pos(WIN_W / 3, WIN_H), LIGTH_GREY);
+	draw_rectange(pos((WIN_W / 3) * 2, 0), pos(WIN_W / 3, WIN_H), BLUE);
+	//bandeau gris en haut
+	draw_rectange(pos(0, 0), pos(WIN_W, WIN_H / 3), LIGTH_GREY);
+	// bande grise
+	draw_rectange(pos(0, WIN_H / 3 - 8), pos(WIN_W, 16), DARK_GREY);
+	draw_rectange(pos(WIN_W / 3 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
+	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
+	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
+	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
+	while (i < _var()->linked_players)
+	{
+		if (_var()->o_player[i].team == TEAM_VOID)
+		{
+			draw_rectange(
+			pos(WIN_W / 4 - (_var()->menu->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
+			pos(size_box - 16, 16), colo(0, 0, 0));
+		}
+		else if (_var()->o_player[i].team == TEAM_RED)
+		{
+			draw_rectange(
+			pos(WIN_W / 4 - (_var()->menu->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
+			pos(size_box - 16, 16), RED);
+		}
+		else
+		{
+			draw_rectange(
+			pos(WIN_W / 4 - (_var()->menu->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
+			pos(size_box - 16, 16), BLUE);
+		}
+		i++;
+	}
+}
+
+void	click(void)
+{
+	_var()->start_click = get_clock(_var()->clock);
+	_var()->click = 1;
+}
+
+int	click_update(void)
+{
+	if (_var()->click && get_time(_var()->start_click)> 170000)
+		_var()->click = 0;
+	return (0);
+}
+
+int	click_delay(void)
+{
+	if (_var()->click == 1)
+		return(1);
+	return (0);
+}
+
+void	update_key(void)
+{
+	if (_var()->key[left] == 1 && _player()->team > 0 && !click_delay())
+	{
+		click();
+		_player()->team--;
+	}
+	if (_var()->key[right] == 1 && _player()->team < 2 && !click_delay())
+	{
+		click();
+		_player()->team++;
+	}
+}
+
+void	draw_pseudo_box(char	*pseudo, int i, int team)
+{
+	int	size;
+
+	size = ft_strlen(pseudo) * 21;
+	if (team == TEAM_VOID)
+		draw_text_scale(pseudo, pos(WIN_W / 2 - size / 2, WIN_H / 3 + 64 + i * 60), _img(), pos(2, 2), colo(12, 12, 12));
+	if (team == TEAM_RED)
+		draw_text_scale(pseudo, pos((WIN_W / 3) / 2 - size / 2, WIN_H / 3 + 64 + i * 60), _img(), pos(2, 2), colo(12, 12, 12));
+	if (team == TEAM_BLUE)
+		draw_text_scale(pseudo, pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2, WIN_H / 3 + 64 + i * 60), _img(), pos(2, 2), colo(12, 12, 12));
+}
+
 void	menu_lobby(void)
 {
 	int	i;
 
-	draw_bg((char [4]){250, 200, 0, 0});
+	update_key();
+	draw_lobby();
 	ft_put_image_to_image(*_img(), _var()->menu->wait,
-		(t_vector2D){WIN_W / 2 - (_var()->menu->wait.w / 2), perc(WIN_H, 20) - (_var()->menu->wait.h / 2)});
+	(t_vector2D){WIN_W / 4 - (_var()->menu->wait.w / 2), (WIN_H / 3) / 2 - (_var()->menu->wait.h / 2) - 16});
 	i = 0;
-	while (i < _var()->linked_players)
+	while (i < _var()->n_red)
 	{
-		draw_text_scale(_var()->o_player[i].pseudo, (t_vector2D){200, 300 + i * 60}, _img(), pos(2, 2));
+		draw_pseudo_box(_var()->red[i], i, TEAM_RED);
+		i++;
+	}
+	i = 0;
+	while (i < _var()->n_blue)
+	{
+		draw_pseudo_box(_var()->blue[i], i, TEAM_BLUE);
+		i++;
+	}
+	i = 0;
+	while (i < _var()->n_neutral)
+	{
+		draw_pseudo_box(_var()->neutral[i], i, TEAM_VOID);
 		i++;
 	}
 	if (_var()->is_host == SERVER)
-		draw_text(ft_get_host_ip(), (t_vector2D){200, 10}, _img());
+		draw_text_scale(ft_strjoin("ip ", ft_get_host_ip()), (t_vector2D){200, 10},
+		 _img(), pos(2, 2), colo(100, 86, 68));
 	else
-		draw_text(_var()->ip, (t_vector2D){200, 10}, _img());
+		draw_text(_var()->ip, (t_vector2D){200, 10}, _img(), colo(100, 86, 68));
 	if (_var()->is_host == SERVER && _var()->linked_players >= _var()->nb_player)
-		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, _img());
+		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, _img(), colo(100, 86, 68));
 }
 
 void	menu_pseudo(void)
 {
 	draw_bg((char [4]){250, 200, 0, 0});
 	ft_put_image_to_image(*_img(), _image()->alpha['D'], (t_vector2D){300, 300});
-	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, _img());
-	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, _img(), (char [4]){0, 0, 0, 0});
-	draw_text(_player()->pseudo, (t_vector2D){350, 350}, _img());
+	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, _img(), GREEN);
+	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
+	draw_text(_player()->pseudo, (t_vector2D){350, 350}, _img(), colo(100, 86, 68));
 }
 
 void	menu_ip(void)
 {
 
 	draw_bg((char [4]){250, 200, 0, 0});
-	draw_text("Enter your ip (max 15)('space for '.')", (t_vector2D){100, 100}, _img());
-	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, _img(), (char [4]){0, 0, 0, 0});
-	draw_text(_var()->ip, (t_vector2D){350, 350}, _img());
+	draw_text("Enter your ip (max 15)('space for '.')", (t_vector2D){100, 100}, _img(), colo(100, 86, 68));
+	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
+	draw_text(_var()->ip, (t_vector2D){350, 350}, _img(), colo(100, 86, 68));
 }
 
 

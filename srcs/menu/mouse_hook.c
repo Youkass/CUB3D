@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:04:44 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/21 18:03:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/01 23:36:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	check_button_state_mouse(int kc)
 	(void)kc;
 	while (i < 4)
 	{
-		if (_var()->key.mouse && ft_hitbox(_var()->menu->s_state[i].hitbox,
+		if (_var()->key[mouse] && ft_hitbox(_var()->menu->s_state[i].hitbox,
 				_var()->m_pos))
 		{
 			_var()->menu->s_state[i].state = 2;
@@ -39,7 +39,7 @@ void	check_button_state_mouse_pl(int kc)
 	(void)kc;
 	while (i < 4)
 	{
-		if (_var()->key.mouse && ft_hitbox(_var()->menu->p_state[i].hitbox,
+		if (_var()->key[mouse] && ft_hitbox(_var()->menu->p_state[i].hitbox,
 				_var()->m_pos))
 		{
 			_var()->menu->p_state[i].state = 2;
@@ -85,7 +85,7 @@ void	check_button_state_mouse_options(int kc)
 int	menu_mouse_hook(int keycode)
 {
 	if (keycode == 1)
-		_var()->key.mouse = 1;
+		_var()->key[mouse] = 1;
 	if (_var()->menu->mode == MENU_START)
 		check_button_state_mouse(keycode);
 	if (_var()->menu->mode == MENU_PLAYER)

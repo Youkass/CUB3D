@@ -14,8 +14,7 @@
 char	*ft_get_ip_input(void)
 {
 	char	*buf;
-	int		r;
-
+	int		r; 
 	printf("Enter Host Ip on the next line : \n");
 	buf = malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buf)
@@ -23,16 +22,14 @@ char	*ft_get_ip_input(void)
 	r = read(STDIN_FILENO, buf, BUFFER_SIZE);
 	if (r < 0)
 		return (NULL);
-	buf[r] = 0;
-	return (buf);
-
+	buf[r] = 0; return (buf);
 }
 
 int	ft_init_client(void)
 {
 	int			ret;
-
-	_var()->socket = socket(AF_INET, SOCK_STREAM, 0);
+	
+	_var()->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (_var()->is_host == SERVER)
 		_var()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	else if (_var()->is_host == CLIENT) 
@@ -43,22 +40,13 @@ int	ft_init_client(void)
 		(const struct sockaddr *)&(_var()->client), sizeof(_var()->client));
 	if (ret < 0)
 		return (EXIT_FAILURE);
-	recv(_var()->socket, &ret, sizeof(ret), 0);
-	_player()->id = ret;
-	if (_var()->is_host == CLIENT)
-	{
-		recv(_var()->socket, &ret, sizeof(ret), 0);
-		_var()->nb_player = ret;
-	}
-	int	i;
-
-	i = 0;
-	while (_player()->pseudo[i])
-	{
-		send(_var()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
-		i++;
-	}
-	send(_var()->socket, &_player()->pseudo[i], sizeof(_player()->pseudo[i]), 0);
+	printf("je suis connecté\n");
+	if (recv(_var()->socket, &(_player()->id), sizeof(int), 0) < 0)
+		return (EXIT_FAILURE);
+	printf("je reçois mon id : %d\n", _player()->id);
+	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int), 0) < 0)
+		return (EXIT_FAILURE);
+	printf("je sors de la fonction\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -69,6 +57,7 @@ void	ft_copy_data_before_pong(t_obj *player)
 
 	j = 0;
 	i = 0;
+	player->team = _player()->team;
 	player->id = _player()->id;
 	player->x = _player()->x;
 	player->y = _player()->y;
@@ -96,6 +85,7 @@ void	ft_copy_data_before_pong(t_obj *player)
     player->ammo = _player()->ammo;
 	player->shoot_n = _player()->shoot_n;
 	player->exchange = _player()->exchange;
+	player->is_start = _player()->is_start;
 	while (i < _player()->shoot_n)
 	{
 		player->shott[i] = _player()->shott[i];
@@ -147,22 +137,19 @@ void	print_data_recv(t_obj	*player)
 void	ft_pong_client(void)
 {
 	t_obj	player[MAX_PLAYER];
+	t_obj	my_player;	
 	int		i;
 	
 	i = 0;
-	memset(&player[0], 0, sizeof(player[0]));
-	ft_copy_data_before_pong(&player[0]);
-	if (send(_var()->socket, &player[0], sizeof(player[0]), 0)< 0)
+	memset(&my_player, 0, sizeof(my_player));
+	ft_copy_data_before_pong(&my_player);
+	if (send(_var()->socket, &my_player, sizeof(my_player), 0) < 0)
 		return ;
-	if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
+	memset(&player, 0, sizeof(player));
+	if (recv(_var()->socket, &player, sizeof(player), MSG_WAITALL) < 0)
 		return ;
 	while (i < _var()->linked_players)
 	{
-		if (player[i].exchange != 4)
-		{
-			i++;
-			continue ;
-		}
 		if (player[i].shooted.shoot == 1 && player[i].shooted.id == _player()->id)
 			_player()->health -= _var()->weapon[player[i].weapon_id].power;
 		if (player[i].shooted.shoot == 1 && i == _player()->id)
@@ -172,6 +159,7 @@ void	ft_pong_client(void)
 		}
 		_var()->o_player[i] = player[i];
 		_var()->o_player[i].id = i;
+		_player()->team = player[i].team;
 		//print_data_recv(&_var()->o_player[i]);
 		++i;
 	}
