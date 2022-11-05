@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/03 15:23:04 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 13:46:37 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ static void	ft_cpy_tab(t_send_server o_player)
 
 	i = 0;
 	_var()->linked_players = o_player.linked_pl;
-	printf("linked : %d\n", _var()->linked_players);
+	//printf("linked : %d\n", _var()->linked_players);
 	while (i < _var()->nb_player)
 	{
-		_var()->o_player[i] = o_player.player[i];
+		if (o_player.player[i].pseudo)
+			_var()->o_player[i] = o_player.player[i];
 		++i;
 	}
 }
@@ -48,13 +49,16 @@ void	get_pseudos(void)
 		player.start = 1;
 	else
 		player.start = 0;
+	player.flag = 1;
 	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
+	{
+		printf("j'exit ici\n");
 		exit (1); //TODO
-	printf("j'ai send mes data\n");
+	}
 	memset(&o_player, 0, sizeof(o_player));
-	if (recv(_var()->socket, &o_player, sizeof(t_send_server), 0) < 0)
+	if (ft_recv_players(&o_player, sizeof(t_send_server)))
 		exit (1); //TODO
-	printf("j'ai recu les data\n");
+	i = 0;
 	memset(&_var()->o_player, 0, sizeof(_var()->o_player));
 	ft_cpy_tab(o_player);
 	if (o_player.start)
@@ -62,7 +66,6 @@ void	get_pseudos(void)
 		printf("start : %d\n", o_player.start);
 		_var()->mode = GAME;
 		_var()->started = 1;
-		return ;
 	}
 	i = 0;
 	while (i < _var()->linked_players && !_var()->started)

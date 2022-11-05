@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/03 15:18:08 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 12:05:40 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 	t_send_client	player;
 	
 	memset(&player, 0, sizeof(player));
-	if (recv(client->socket, &player, 
-				sizeof(t_send_client), 0) < 0)
+	if (ft_recv_one(client->socket, &player, 
+				sizeof(t_send_client)))
 		return (1);
 	pthread_mutex_lock(client->mutex);
-	client->serv->player_data[client->id] = player.player;
+	if (player.flag || player.player.pseudo)
+		client->serv->player_data[client->id] = player.player;
 	client->is_send = 0;
 	client->is_recv = 1;
 	if (player.start)
 		client->serv->started = 1;
+	printf("NB : %d RECV FROM ID : %d\n", nb , client->id);
 	pthread_mutex_unlock(client->mutex);
 	while (ft_has_recv(client, nb))
-	{
-		printf("j'attend de tout recevoir\n");
-	}
+	{}
 	return (0);
 }
 
@@ -95,16 +95,16 @@ int	ft_send_all_data_lobby(t_client_thread *client, int nb)
 	}
 	pthread_mutex_unlock(client->mutex);
 	o_player.linked_pl = nb;
+	o_player.flag = 1;
 	if (send(client->socket, &o_player, sizeof(t_send_server), 0) < 0)
 		return (1);
-	printf("data send to id : %d\n", client->id);
+	i = 0;
 	pthread_mutex_lock(client->mutex);
+	printf("SEND TO ID : %d\n", client->id);
 	client->is_send = 1;
 	pthread_mutex_unlock(client->mutex);
 	while (ft_has_sent(client, nb))
-	{
-		printf("j'attend que tout soit envoyé\n");
-	}
+	{}
 	pthread_mutex_lock(client->mutex);
 	client->is_recv = 0;
 	pthread_mutex_unlock(client->mutex);
@@ -127,6 +127,7 @@ int	wait_lobby(t_client_thread *client)
 			return (1);
 		if (ft_send_all_data_lobby(client, nb))
 			return (1);
+		//usleep(20000);
 		if (!ft_has_start(client))
 			return (printf("je sors bien de wait_lobby\n"), 0);
 	}
