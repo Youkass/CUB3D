@@ -6,7 +6,7 @@
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
+/*   Updated: 2022/11/05 11:47:42 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,8 @@ t_obj	ft_get_data(t_obj *player);
 /*                       FILE = srcs/menu/menu_lobby.c                        */
 /* -------------------------------------------------------------------------- */
 void	get_pseudos(void);
+int		ft_recv_one(int socket, t_send_client *player, int size);
+int		ft_recv_players(t_send_server *o_player, int size);
 void	menu_pong(void);
 
 /* -------------------------------------------------------------------------- */

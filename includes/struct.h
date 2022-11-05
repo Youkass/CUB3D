@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/02 17:28:11 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/04 17:44:59 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,12 +413,14 @@ typedef struct	s_send_client
 {
 	t_obj		player;
 	int			start;
+	int			flag;
 }	t_send_client;
 
 typedef struct	s_send_server
 {
 	t_obj		player[MAX_PLAYER];
 	int			start;
+	int			flag;
 	int			linked_pl;
 }	t_send_server;
 
