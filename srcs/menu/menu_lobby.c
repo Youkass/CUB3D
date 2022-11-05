@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 13:46:37 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 15:33:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 		2-linked_player
 		3-n'importe quel data utile */
 /* ************************************************************************** */
-
 static void	ft_cpy_tab(t_send_server o_player)
 {
 	int	i;
@@ -42,7 +41,7 @@ void	get_pseudos(void)
 	int		i;
 	t_send_client	player;
 	t_send_server	o_player;
-	
+
 	memset(&player, 0, sizeof(player));
 	ft_copy_data_before_pong(&player.player);
 	if (_player()->is_start)
@@ -76,11 +75,6 @@ void	get_pseudos(void)
 			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo);
 		}
 		i++;
-	}
-	if (pl.start == 1)
-	{
-		_var()->mode = GAME;
-		_var()->started = 1;
 	}
 }
 

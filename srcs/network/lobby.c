@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lobby.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 12:05:40 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 15:33:08 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-int	ft_has_recv(t_client_thread *client, int nb)
+static int	ft_has_recv(t_client_thread *client, int nb)
 {
 	int	i;
 
@@ -28,7 +28,7 @@ int	ft_has_recv(t_client_thread *client, int nb)
 	return (0);
 }
 
-int	ft_has_sent(t_client_thread *client, int nb)
+static int	ft_has_sent(t_client_thread *client, int nb)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ static int	ft_has_start(t_client_thread *client)
 	return (0);
 }
 
-int	ft_recv_first_data_lobby(t_client_thread *client)
+int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 {
 	t_send_client	player;
 	
@@ -70,12 +70,12 @@ int	ft_recv_first_data_lobby(t_client_thread *client)
 		client->serv->started = 1;
 	printf("NB : %d RECV FROM ID : %d\n", nb , client->id);
 	pthread_mutex_unlock(client->mutex);
-	// while (ft_has_recv(client, nb))
-	// {}
+	while (ft_has_recv(client, nb))
+	{}
 	return (0);
 }
 
-int	ft_send_all_data_lobby(t_client_thread *client)
+int	ft_send_all_data_lobby(t_client_thread *client, int nb)
 {
 	t_send_server	o_player;
 	int		i;
@@ -103,11 +103,18 @@ int	ft_send_all_data_lobby(t_client_thread *client)
 	printf("SEND TO ID : %d\n", client->id);
 	client->is_send = 1;
 	pthread_mutex_unlock(client->mutex);
+	while (ft_has_sent(client, nb))
+	{}
+	pthread_mutex_lock(client->mutex);
+	client->is_recv = 0;
+	pthread_mutex_unlock(client->mutex);
 	return (0);
 }
 
 int	wait_lobby(t_client_thread *client)
 {
+	int	nb;
+
 	while (1)
 	{
 		pthread_mutex_lock(client->mutex);
