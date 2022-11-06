@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/06 14:20:12 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/06 15:02:25 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,31 +182,6 @@ struct	s_obj
 	int			is_shooting;
 	int				is_start;
 };
-
-typedef struct	s_obj_send
-{
-	int			id;
-	float		x;
-	float		y;
-	float		z;
-	char		c;
-	float		dx;
-	float		dy;
-	float		da;
-	float		angle;
-	int			is_walking;
-	int			is_dead;
-	int			weapon_id;
-	int			health;
-	char		pseudo[16];
-	int			pitch;
-	t_shot2		shott[MAX_BULLET];
-	t_hit		shooted;
-	int			exchange;
-	int			is_shooting;
-	int			is_start;
-	t_vector2F	bullet_pos;
-}	t_obj_send;
 
 typedef struct	s_network_data
 {
