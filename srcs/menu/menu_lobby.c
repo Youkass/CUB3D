@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 15:33:53 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:44:47 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,10 @@ static void	ft_cpy_tab(t_send_server o_player)
 	}
 }
 
-void	get_pseudos(void)
+static void	ft_copy_new_data(t_send_server o_player)
 {
 	int		i;
-	t_send_client	player;
-	t_send_server	o_player;
 
-	memset(&player, 0, sizeof(player));
-	ft_copy_data_before_pong(&player.player);
-	if (_player()->is_start)
-		player.start = 1;
-	else
-		player.start = 0;
-	player.flag = 1;
-	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
-	{
-		printf("j'exit ici\n");
-		exit (1); //TODO
-	}
-	memset(&o_player, 0, sizeof(o_player));
-	if (ft_recv_players(&o_player, sizeof(t_send_server)))
-		exit (1); //TODO
-	i = 0;
 	memset(&_var()->o_player, 0, sizeof(_var()->o_player));
 	ft_cpy_tab(o_player);
 	if (o_player.start)
@@ -70,12 +52,29 @@ void	get_pseudos(void)
 	while (i < _var()->linked_players && !_var()->started)
 	{
 		if (!(_image()->pseudo_img[i].img))
-		{
-			printf("pseudo : %s\n", _var()->o_player[i].pseudo);
 			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo);
-		}
 		i++;
 	}
+}
+
+void	get_pseudos(void)
+{
+	t_send_client	player;
+	t_send_server	o_player;
+
+	memset(&player, 0, sizeof(player));
+	ft_copy_data_before_pong(&player.player);
+	if (_player()->is_start)
+		player.start = 1;
+	else
+		player.start = 0;
+	player.flag = 1;
+	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
+		exit (1); //TODO
+	memset(&o_player, 0, sizeof(o_player));
+	if (ft_recv_players(&o_player, sizeof(t_send_server)))
+		exit (1); //TODO
+	ft_copy_new_data(o_player);
 }
 
 void	menu_pong(void)

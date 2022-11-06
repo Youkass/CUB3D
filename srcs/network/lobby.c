@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 15:33:08 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/06 13:35:43 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 	client->is_recv = 1;
 	if (player.start)
 		client->serv->started = 1;
-	printf("NB : %d RECV FROM ID : %d\n", nb , client->id);
 	pthread_mutex_unlock(client->mutex);
 	while (ft_has_recv(client, nb))
 	{}
@@ -100,7 +99,6 @@ int	ft_send_all_data_lobby(t_client_thread *client, int nb)
 		return (1);
 	i = 0;
 	pthread_mutex_lock(client->mutex);
-	printf("SEND TO ID : %d\n", client->id);
 	client->is_send = 1;
 	pthread_mutex_unlock(client->mutex);
 	while (ft_has_sent(client, nb))
@@ -119,15 +117,11 @@ int	wait_lobby(t_client_thread *client)
 	{
 		pthread_mutex_lock(client->mutex);
 		nb = client->serv->linked_players;
-//		printf("client->id : %d nb : %d\n", client->id, nb);
 		pthread_mutex_unlock(client->mutex);
-//		if (send(client->socket, &nb, sizeof(int), 0) < 0)
-//			return (1);
 		if (ft_recv_first_data_lobby(client, nb))
 			return (1);
 		if (ft_send_all_data_lobby(client, nb))
 			return (1);
-		//usleep(20000);
 		if (!ft_has_start(client))
 			return (printf("je sors bien de wait_lobby\n"), 0);
 	}
