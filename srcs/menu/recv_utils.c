@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:50:49 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/05 14:14:05 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/07 15:12:23 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_recv_players(t_send_server *o_player, int size)
 		if (ret < 0 || i < 0)
 			return (1);
 	}
-	return (printf("j'ai tout recu\n"), 0);
+	return (0);
 }
 
 int	ft_recv_one(int socket, t_send_client *player, int size)
@@ -42,7 +42,6 @@ int	ft_recv_one(int socket, t_send_client *player, int size)
 	{
 		i = recv(socket, player + ret, size, MSG_WAITALL);
 		ret += i;
-		printf("socket : %d ret : %d\n", socket, ret);
 		if (ret == size || !i)
 			return (0);
 		if (ret < 0 || i < 0)
