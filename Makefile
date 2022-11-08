@@ -51,7 +51,8 @@ SRCS		=	srcs/main.c\
 				srcs/math/math.c\
 				srcs/math/vector/operator2D.c\
 				srcs/math/vector/operator2F.c\
-				srcs/math/vector/tools.c
+				srcs/math/vector/tools.c\
+				srcs/new_raycaster.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/network/lobby.c\

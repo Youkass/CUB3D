@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/04 18:17:29 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 20:05:47 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,55 +16,55 @@
 void	get_key(int keycode)
 {
 	if (keycode == A)
-		_var()->key.a = 1;
+		_var()->key[a] = 1;
 	if (keycode == W)
-		_var()->key.w = 1;
+		_var()->key[w] = 1;
 	if (keycode == S)
-		_var()->key.s = 1;
+		_var()->key[s] = 1;
 	if (keycode == D)
-		_var()->key.d = 1;
+		_var()->key[d] = 1;
 	if (keycode == ESC)
-		_var()->key.esc = 1;
+		_var()->key[esc] = 1;
 	if (keycode == ARR_UP)
-		_var()->key.up = 1;
+		_var()->key[up] = 1;
 	if (keycode == ARR_DOWN)
-		_var()->key.down = 1;
+		_var()->key[down] = 1;
 	if (keycode == ARR_LEFT)
-		_var()->key.left = 1;
+		_var()->key[left] = 1;
 	if (keycode == ARR_RIGHT)
-		_var()->key.right = 1;
+		_var()->key[right] = 1;
 	if (keycode == SPACE)
-		_var()->key.space = 1;
+		_var()->key[space] = 1;
 }
 
 int	ft_release(int keycode)
 {
 	if (keycode == A)
-		_var()->key.a = 0;
+		_var()->key[a] = 0;
 	if (keycode == W)
 	{
-		_var()->key.w = 0;
+		_var()->key[w] = 0;
 		_player()->is_walking = 0;
 	}
 	if (keycode == S)
 	{
-		_var()->key.s = 0;
+		_var()->key[s] = 0;
 		_player()->is_walking = 0;
 	}
 	if (keycode == D)
-		_var()->key.d = 0;
+		_var()->key[d] = 0;
 	if (keycode == ESC)
-		_var()->key.esc = 0;
+		_var()->key[esc] = 0;
 	if (keycode == ARR_UP)
-		_var()->key.up = 0;
+		_var()->key[up] = 0;
 	if (keycode == ARR_DOWN)
-		_var()->key.down = 0;
+		_var()->key[down] = 0;
 	if (keycode == ARR_LEFT)
-		_var()->key.left = 0;
+		_var()->key[left] = 0;
 	if (keycode == ARR_RIGHT)
-		_var()->key.right = 0;
+		_var()->key[right] = 0;
 	if (keycode == SPACE)
-		_var()->key.space = 0;
+		_var()->key[space] = 0;
 	return (0);
 }
 
@@ -106,6 +106,13 @@ void	ft_init_player_pos(void)
 {
 	double	dist;
 
+	_player()->team = TEAM_VOID;
+	memset(_var()->blue, 0, sizeof(_var()->blue));
+	memset(_var()->red, 0, sizeof(_var()->red));
+	memset(_var()->neutral, 0, sizeof(_var()->neutral));
+	_var()->n_blue = 0;
+	_var()->n_red = 0;
+	_var()->n_neutral = 0;
 	_player()->pseudo[0] = 0;
 	_player()->is_shooting = 0;
 	_player()->exchange = 4;
@@ -117,7 +124,9 @@ void	ft_init_player_pos(void)
 	_player()->shoot_n = 0;
 	_player()->x = 5;
 	_player()->y = 3;
+	_player()->change_team = -1;
 	_player()->z = 0;
+	_player()->scale = 0.8;
 	_player()->dx = -1;
 	_player()->shooted.id = -1;
 	_player()->shooted.shoot = 0;
@@ -130,6 +139,7 @@ void	ft_init_player_pos(void)
 	_player()->hb.hit.r = 0.5;
 	_player()->hb.n = 0;
 	_player()->pitch = 0;
+	_player()->norm_pitch = 0;
 	generate_dsprite();
 	_image()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
@@ -165,7 +175,7 @@ void	death_clock(void)
 
 void	reload_clock(void)
 {
-	if (get_clock(_var()->clock) - _player()->start_reload > _var()->weapon[_player()->weapon_id].reload_ms)
+	if (get_clock(_var()->clock) - _player()->start_reload > _weapon()[_player()->weapon_id]->reload_ms)
 	{
 		_player()->can_shoot = 1;
 		_player()->is_shooting = 0;
@@ -182,6 +192,7 @@ void	ft_init_player2(void)
 	{
 		_image()->pseudo_img[i].img = NULL;
 		_var()->o_player[i].weapon_id = 0;
+			_var()->o_player[i].team = 0;
 		_var()->o_player[i].health = 100;
 		_var()->o_player[i].x = 7;
 		_var()->o_player[i].y = 8;
@@ -224,9 +235,9 @@ int	ft_hook(int keycode)
 	//	ft_game_hook(keycode);
 	if (_var()->mode == MENU)
 		menu_hook(keycode);
-	if (_var()->mode == MENU && _var()->menu->mode == MENU_PSEUDO)
+	if (_var()->mode == MENU && _menu()->mode == MENU_PSEUDO)
 		menu_hook_pseudo(keycode);
-	if (_var()->mode == MENU && _var()->menu->mode == MENU_IP)
+	if (_var()->mode == MENU && _menu()->mode == MENU_IP)
 		menu_hook_ip(keycode);
 	return (0);
 }
@@ -265,13 +276,14 @@ int	ft_loop_hook(void)
 		ft_loop();
 	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
+
 	return (0);
 }
 
 int	ft_mouse_release(int keycode)
 {
 	if (keycode == 1)
-		_var()->key.mouse = 0;
+		_var()->key[mouse] = 0;
 	return (0);
 }
 
@@ -287,70 +299,71 @@ int	ft_game(void)
 
 void	init_key(void)
 {
-	_var()->key.a = 0;
-	_var()->key.b = 0;
-	_var()->key.c = 0;
-	_var()->key.d = 0;
-	_var()->key.e = 0;
-	_var()->key.f = 0;
-	_var()->key.g = 0;
-	_var()->key.h = 0;
-	_var()->key.i = 0;
-	_var()->key.j = 0;
-	_var()->key.k = 0;
-	_var()->key.l = 0;
-	_var()->key.m = 0;
-	_var()->key.n = 0;
-	_var()->key.o = 0;
-	_var()->key.p = 0;
-	_var()->key.q = 0;
-	_var()->key.r = 0;
-	_var()->key.s = 0;
-	_var()->key.t = 0;
-	_var()->key.u = 0;
-	_var()->key.v = 0;
-	_var()->key.w = 0;
-	_var()->key.x = 0;
-	_var()->key.y = 0;
-	_var()->key.z = 0;
-	_var()->key.one = 0;
-	_var()->key.two = 0;
-	_var()->key.three = 0;
-	_var()->key.four = 0;
-	_var()->key.five = 0;
-	_var()->key.six = 0;
-	_var()->key.seven = 0;
-	_var()->key.eight = 0;
-	_var()->key.nine = 0;
-	_var()->key.zero = 0;
-	_var()->key.underscore = 0;
-	_var()->key.esc = 0;
-	_var()->key.mouse = 0;
-	_var()->key.up = 0;
-	_var()->key.down = 0;
-	_var()->key.left = 0;
-	_var()->key.right = 0;
-	_var()->key.space = 0;
+	_var()->key[a] = 0;
+	_var()->key[b] = 0;
+	_var()->key[c] = 0;
+	_var()->key[d] = 0;
+	_var()->key[e] = 0;
+	_var()->key[f] = 0;
+	_var()->key[g] = 0;
+	_var()->key[h] = 0;
+	_var()->key[i] = 0;
+	_var()->key[j] = 0;
+	_var()->key[k] = 0;
+	_var()->key[l] = 0;
+	_var()->key[m] = 0;
+	_var()->key[n] = 0;
+	_var()->key[o] = 0;
+	_var()->key[p] = 0;
+	_var()->key[q] = 0;
+	_var()->key[r] = 0;
+	_var()->key[s] = 0;
+	_var()->key[t] = 0;
+	_var()->key[u] = 0;
+	_var()->key[v] = 0;
+	_var()->key[w] = 0;
+	_var()->key[x] = 0;
+	_var()->key[y] = 0;
+	_var()->key[z] = 0;
+	_var()->key[one] = 0;
+	_var()->key[two] = 0;
+	_var()->key[three] = 0;
+	_var()->key[four] = 0;
+	_var()->key[five] = 0;
+	_var()->key[six] = 0;
+	_var()->key[seven] = 0;
+	_var()->key[eight] = 0;
+	_var()->key[nine] = 0;
+	_var()->key[zero] = 0;
+	_var()->key[underscore] = 0;
+	_var()->key[esc] = 0;
+	_var()->key[mouse] = 0;
+	_var()->key[up] = 0;
+	_var()->key[down] = 0;
+	_var()->key[left] = 0;
+	_var()->key[right] = 0;
+	_var()->key[space] = 0;
 }
 
 void	init_weapons(void)
 {
-	_var()->weapon[0].name = malloc(sizeof(char) * 6);
-	_var()->weapon[0].name = "Rifle\0";
-	_var()->weapon[0].id = 0;
-	_var()->weapon[0].range = 10;
-	_var()->weapon[0].power = 10;
-	_var()->weapon[0].reload_ms = 500000;
-	_var()->weapon[0].ammo = 15;
+	_weapon()[0]->name = malloc(sizeof(char) * 6);
+	_weapon()[0]->name = "Rifle\0";
+	_weapon()[0]->id = 0;
+	_weapon()[0]->range = 25;
+	_weapon()[0]->power = 25;
+	_weapon()[0]->reload_ms = 500000;
+	_weapon()[0]->ammo = 15;
+	_weapon()[0]->headshot = 50;
+	_weapon()[0]->footshot = 10;
 }
 
 void	init_var(void)
 {
 	int	i;
 
-	_var()->menu = malloc(sizeof(t_menu));
 	_var()->mode = MENU;
-	_var()->menu->mode = MENU_START;_var()->walk_n = 0;
+	_menu()->mode = MENU_START;_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
 	//_image()->bullet = generate_image("./img/bullet.xpm");
@@ -385,6 +398,44 @@ void	init_data_shot(t_obj *player)
 	}
 }
 
+//int	is_wall(char c)
+//{
+//	if (c != 0 || c != 'P')
+//		return (1);
+//	return (0);
+//}
+
+void	init_teams(void)
+{
+	int			i;
+	
+	_team()[TRED]->loose = 0;
+	_team()[TRED]->win = 0;
+	_team()[TRED]->team_spawn = posf(3, 3);
+	i = 0;
+	while (i < _var()->nb_player / 2)
+	{
+		_team()[TRED]->players[i] = _var()->red[i];
+		i++;
+	}
+	_team()[TRED]->player_spawn[0] = posf(3, 3);
+	_team()[TRED]->player_spawn[1] = posf(3, 4);
+	_team()[TRED]->player_spawn[2] = posf(3, 2);
+
+	_team()[TBLUE]->loose = 0;
+	_team()[TBLUE]->win = 0;
+	_team()[TBLUE]->team_spawn = posf(40, 9);
+	i = 0;
+	while (i < _var()->nb_player / 2)
+	{
+		_team()[TBLUE]->players[i] = _var()->blue[i];
+		i++;
+	}
+	_team()[TBLUE]->player_spawn[0] = posf(40, 9);
+	_team()[TBLUE]->player_spawn[1] = posf(40, 10);
+	_team()[TBLUE]->player_spawn[2] = posf(41, 9);
+}
+
 int main(int argc, char **argv)
 {
 	int		fd;
@@ -406,9 +457,10 @@ int main(int argc, char **argv)
 	ft_init_player2();
 	ft_malloc_map();
 	init_key();
-	gen_menu_imagess();
+	gen_menu_images();
 	_image()->bullet = generate_image("./img/bullet.xpm");
 	_image()->crosshair = generate_image("./img/crosshair.xpm");
+	_image()->front = generate_image("./img/soldier/front.xpm");
 	if(WIN_W == 1440)
 		_image()->bg = generate_image("./img/spacebg1440.xpm");
 	else
