@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/01 10:20:21 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/08 18:04:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ t_mlx	*_mlx(void)
 	if (!mlx)
 		return (NULL);
 	return (mlx);
+}
+
+t_media	*_media(void)
+{
+	static t_media	*media = NULL;
+
+	if (!media)
+		media = malloc(sizeof(t_media));
+	if (!media)
+		return (NULL);
+	return (&media);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 15:09:05 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:04:06 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ int	menu_hook_pseudo(int keycode)
 {
 	static int	n = 0;
 
-	if (keycode >= A && keycode <= Z && n + 1 < 17)
+	if (keycode >= A_ && keycode <= Z && n + 1 < 17)
 	{
 		_player()->pseudo[n++] = keycode - 32;
 		_player()->pseudo[n] = 0;

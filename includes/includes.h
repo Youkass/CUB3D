@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 21:58:00 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/08 17:58:25 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ esc : 65307
 # include <sys/time.h>
 # include <signal.h>
 # include <string.h>
-
+# ifndef MINIAUDIO_IMPLEMENTATION
+#  define MINIAUDIO_IMPLEMENTATION
+#  include "../miniaudio/extras/miniaudio_split/miniaudio.h"
+# endif
 # define GAME 0
 # define MENU 1
 # define ONLINE_START 2
@@ -62,7 +65,7 @@ esc : 65307
 
 # define TH_RAY 5
 
-# define A 97
+# define A_ 97
 # define B 98
 # define C 99
 # define D 100
@@ -70,8 +73,6 @@ esc : 65307
 # define F 102
 # define G 103
 # define H 104
-# define I 105
-# define J 106
 # define K 107
 # define L 108
 # define M 109
@@ -80,7 +81,7 @@ esc : 65307
 # define P 112
 # define Q 113
 # define R 114
-# define S 115
+# define S_ 115
 # define T 116
 # define U 117
 # define V 118
@@ -127,8 +128,8 @@ esc : 65307
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119
-# define A 97
-# define S 115
+# define A_ 97
+# define S_ 115
 # define D 100
 # define ESC 65307
 # define ARR_UP 65362
