@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
 /*   Updated: 2022/11/06 13:44:47 by yobougre         ###   ########.fr       */
@@ -30,7 +30,7 @@ static void	ft_cpy_tab(t_send_server o_player)
 	//printf("linked : %d\n", _var()->linked_players);
 	while (i < _var()->nb_player)
 	{
-		if (o_player.player[i].pseudo)
+		if (o_player.player[i].pseudo[0] != 0)
 			_var()->o_player[i] = o_player.player[i];
 		++i;
 	}
@@ -48,9 +48,26 @@ static void	ft_copy_new_data(t_send_server o_player)
 		_var()->mode = GAME;
 		_var()->started = 1;
 	}
-	i = 0;
+	_var()->n_blue = 0;
+	_var()->n_red = 0;
+	_var()->n_neutral = 0;
 	while (i < _var()->linked_players && !_var()->started)
 	{
+		if (_var()->o_player[i].team == TEAM_BLUE)
+		{
+			_var()->blue[_var()->n_blue] = _var()->o_player[i].pseudo;
+			++_var()->n_blue;
+		}
+		else if (_var()->o_player[i].team == TEAM_RED)
+		{
+			_var()->red[_var()->n_red] = _var()->o_player[i].pseudo;
+			++_var()->n_red;
+		}
+		else
+		{
+			_var()->neutral[_var()->n_neutral] = _var()->o_player[i].pseudo;
+			++_var()->n_neutral;
+		}
 		if (!(_image()->pseudo_img[i].img))
 			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo);
 		i++;

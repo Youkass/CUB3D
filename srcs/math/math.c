@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:43:05 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 23:08:29 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/04 19:43:47 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ int	normalise_between(t_vector2D r, t_vector2D t, int nb)
 	return ((int)round((((float)nb - (float)r.x) / ((float)r.y - (float)r.x)) * t.y));
 }
 
+float	normalise_between2F(t_vector2F r, t_vector2F t, int nb)
+{
+	return (2 * (((nb - r.x) / (r.y - r.x)) * t.y) - 1);
+	//return (((nb - r.x) / (r.y - r.x)) * t.y);
+}
 /*
 -Function that calculate the modulo of a by b.
 */
@@ -84,10 +89,18 @@ int mod(int a, int b)
 
 float	rad_to_deg(float rad)
 {
-	float	res;
+	float	deg;
 
-	res = rad * (180 / M_PI);
-	if (res < 0)
-		res += 360;
-	return (res);
+	deg = rad * (180 / M_PI);
+	if (deg < 0)
+		deg += 360;
+	return (deg);
+}
+
+float	deg_to_rad(float deg)
+{
+	float	rad;
+
+	rad = deg * (M_PI / 180);
+	return (rad);
 }

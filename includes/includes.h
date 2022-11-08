@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 21:58:00 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/07 16:59:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,17 @@ esc : 65307
 # include <signal.h>
 # include <string.h>
 
+# define colo(x, y, z) (char [4]){z, y, x, 100}
+# define RED colo(253, 92, 76)
+# define GREEN colo(0, 255, 0)
+# define BLUE colo(69, 154, 255)
+# define WHITE colo(238, 238, 238)
+# define DARK_GREY colo(71, 71, 71)
+# define LIGTH_GREY colo(100, 100, 100)
+
+# define TRED 0
+# define TBLUE 1
+
 # define GAME 0
 # define MENU 1
 # define ONLINE_START 2
@@ -57,6 +68,10 @@ esc : 65307
 # define MENU_PSEUDO 4
 # define MENU_LOBBY 5
 # define MENU_IP 6
+
+# define TEAM_RED 0
+# define TEAM_VOID 1
+# define TEAM_BLUE 2
 
 # define NB_WEAPONS 1
 
@@ -141,7 +156,16 @@ esc : 65307
 # define VOID 3
 # define MAP 4
 
-# define SHOT_FRAME 10
+# define res 1
+# define SW WIN_W*res
+# define SH WIN_H*res
+# define SW2 (SW / 2)
+# define SH2 (SW/2)
+# define pixelscale 4/res
+# define GLSW (SW / pixelscale)
+# define GLSH (SH / pixelscale)
+
+# define SHOT_FRAME 30
 # define MAX_BULLET 16
 
 # define MINIMAP_SIZE 512

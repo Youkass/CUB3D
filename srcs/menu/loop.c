@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 15:09:05 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ void	check_button_state(void)
 	i = 0;
 	while (i < 4)
 	{
-		if (_var()->menu->s_state[i].state != 2 || (_var()->menu->s_state[i]
-				.state == 2 && get_clock(_var()->menu->s_state[i].clock)
+		if (_menu()->s_state[i].state != 2 || (_menu()->s_state[i]
+				.state == 2 && get_clock(_menu()->s_state[i].clock)
 				> BUT_CL_TIME))
 		{
-			if (i == 0 && _var()->menu->s_state[0].state == 2)
+			if (i == 0 && _menu()->s_state[0].state == 2)
 			{
 				_var()->nb_player = 1; _var()->mode = GAME;
 			}
-			if (i == 1 && _var()->menu->s_state[1].state == 2)
-				_var()->menu->mode = MENU_PLAYER;
-			if (i == 2 && _var()->menu->s_state[2].state == 2)
-				_var()->menu->mode = MENU_OPTION;
-			if (i == 3 && _var()->menu->s_state[3].state == 2)
+			if (i == 1 && _menu()->s_state[1].state == 2)
+				_menu()->mode = MENU_PLAYER;
+			if (i == 2 && _menu()->s_state[2].state == 2)
+				_menu()->mode = MENU_OPTION;
+			if (i == 3 && _menu()->s_state[3].state == 2)
 				exit(0); // TODO FREE TOUT ICI
-			_var()->menu->s_state[i].state = 
-			ft_hitbox(_var()->menu->s_state[i].hitbox, _var()->m_pos);
+			_menu()->s_state[i].state = 
+			ft_hitbox(_menu()->s_state[i].hitbox, _var()->m_pos);
 		}
 		i++;
 	}
@@ -50,35 +50,35 @@ void	check_button_state_pl(void)
 	i = 0;
 	while (i < 4)
 	{
-		if (_var()->menu->p_state[i].state != 2 || (_var()->menu->p_state[i]
-				.state == 2 && get_clock(_var()->menu->p_state[i].clock)
+		if (_menu()->p_state[i].state != 2 || (_menu()->p_state[i]
+				.state == 2 && get_clock(_menu()->p_state[i].clock)
 				> BUT_CL_TIME))
 		{
-			if (i == 0 && _var()->menu->p_state[0].state == 2)
+			if (i == 0 && _menu()->p_state[0].state == 2)
 			{
 				_var()->nb_player = 2;
-				_var()->menu->mode = MENU_PSEUDO;
+				_menu()->mode = MENU_PSEUDO;
 				_var()->is_host = SERVER;
 			}
-			if (i == 1 && _var()->menu->p_state[1].state == 2)
+			if (i == 1 && _menu()->p_state[1].state == 2)
 			{
 				_var()->nb_player = 4;
-				_var()->menu->mode = MENU_PSEUDO;
+				_menu()->mode = MENU_PSEUDO;
 				_var()->is_host = SERVER;
 			}
-			if (i == 2 && _var()->menu->p_state[2].state == 2)
+			if (i == 2 && _menu()->p_state[2].state == 2)
 			{
 				_var()->nb_player = 6;
-				_var()->menu->mode = MENU_PSEUDO;
+				_menu()->mode = MENU_PSEUDO;
 				_var()->is_host = SERVER;
 			}
-			if (i == 3 && _var()->menu->p_state[3].state == 2)
+			if (i == 3 && _menu()->p_state[3].state == 2)
 			{
-				_var()->menu->mode = MENU_IP;
+				_menu()->mode = MENU_IP;
 				_var()->is_host = CLIENT;
 			}
-			_var()->menu->p_state[i].state = 
-			ft_hitbox(_var()->menu->p_state[i].hitbox, _var()->m_pos);
+			_menu()->p_state[i].state = 
+			ft_hitbox(_menu()->p_state[i].hitbox, _var()->m_pos);
 		}
 		i++;
 	}
@@ -89,29 +89,29 @@ void	check_button_state_pl(void)
 */
 void	check_action_state_bar(int i)
 {
-	if (i == 1 && _var()->menu->o_state[1].state == 2
-		&& _var()->menu->s_bar > 0)
+	if (i == 1 && _menu()->o_state[1].state == 2
+		&& _menu()->s_bar > 0)
 	{
-		_var()->menu->s_bar -= 5;
-		_var()->menu->pos_s_bar.x -= 5 * BAR_INC;
+		_menu()->s_bar -= 5;
+		_menu()->pos_s_bar.x -= 5 * BAR_INC;
 	}
-	if (i == 2 && _var()->menu->o_state[2].state == 2
-		&& _var()->menu->s_bar < 100)
+	if (i == 2 && _menu()->o_state[2].state == 2
+		&& _menu()->s_bar < 100)
 	{
-		_var()->menu->s_bar += 5;
-		_var()->menu->pos_s_bar.x += 5 * BAR_INC;
+		_menu()->s_bar += 5;
+		_menu()->pos_s_bar.x += 5 * BAR_INC;
 	}
-	if (i == 4 && _var()->menu->o_state[4].state == 2
-		&& _var()->menu->s_bar > 0)
+	if (i == 4 && _menu()->o_state[4].state == 2
+		&& _menu()->s_bar > 0)
 	{
-		_var()->menu->m_bar -= 5;
-		_var()->menu->pos_m_bar.x -= 5 * BAR_INC;
+		_menu()->m_bar -= 5;
+		_menu()->pos_m_bar.x -= 5 * BAR_INC;
 	}
-	if (i == 5 && _var()->menu->o_state[5].state == 2
-		&& _var()->menu->m_bar < 100)
+	if (i == 5 && _menu()->o_state[5].state == 2
+		&& _menu()->m_bar < 100)
 	{
-		_var()->menu->m_bar += 5;
-		_var()->menu->pos_s_bar.x += 5 * BAR_INC;
+		_menu()->m_bar += 5;
+		_menu()->pos_s_bar.x += 5 * BAR_INC;
 	}
 }
 
@@ -120,23 +120,23 @@ void	check_action_state_bar(int i)
 */
 void	check_action_state_options(int i)
 {
-	if (i == 0 && _var()->menu->o_state[0].state == 2)
+	if (i == 0 && _menu()->o_state[0].state == 2)
 	{
-		if (_var()->menu->mute_s_state == MUTE_S)
-			_var()->menu->mute_s_state = SOUND;
+		if (_menu()->mute_s_state == MUTE_S)
+			_menu()->mute_s_state = SOUND;
 		else
-			_var()->menu->mute_s_state = MUTE_S;
+			_menu()->mute_s_state = MUTE_S;
 	}
-	if (i == 3 && _var()->menu->o_state[3].state == 2)
+	if (i == 3 && _menu()->o_state[3].state == 2)
 	{
-		if (_var()->menu->mute_m_state == MUTE_M)
-			_var()->menu->mute_m_state = MUSIC;
+		if (_menu()->mute_m_state == MUTE_M)
+			_menu()->mute_m_state = MUSIC;
 		else
-			_var()->menu->mute_m_state = MUTE_M;
+			_menu()->mute_m_state = MUTE_M;
 	}
-	if (i == 6 && _var()->menu->o_state[6].state == 2)
+	if (i == 6 && _menu()->o_state[6].state == 2)
 	{
-		_var()->menu->mode = MENU_START;
+		_menu()->mode = MENU_START;
 		restart_button();
 	}
 	check_action_state_bar(i);
@@ -152,13 +152,13 @@ void	check_button_state_options(void)
 	i = 0;
 	while (i < 7)
 	{
-		if (_var()->menu->o_state[i].state != 2 || (_var()->menu->o_state[i]
-				.state == 2 && get_clock(_var()->menu->o_state[i].clock)
+		if (_menu()->o_state[i].state != 2 || (_menu()->o_state[i]
+				.state == 2 && get_clock(_menu()->o_state[i].clock)
 				> BUT_CL_TIME))
 		{
 			check_action_state_options(i);
-			_var()->menu->o_state[i].state = 
-			ft_hitbox(_var()->menu->o_state[i].hitbox, _var()->m_pos);
+			_menu()->o_state[i].state = 
+			ft_hitbox(_menu()->o_state[i].hitbox, _var()->m_pos);
 		}
 		i++;
 	}
@@ -169,19 +169,19 @@ void	check_button_state_options(void)
 */
 void	planet_clock(void)
 {
-	if (get_clock(_var()->clock) - _var()->menu->start > 100000 )
+	if (get_clock(_var()->clock) - _menu()->start > 100000)
 	{
-		_var()->menu->n++;
-		if (_var()->menu->n >= 120)
-			_var()->menu->n = 0;
-		if (!((_var()->menu->n + 1) % 12))
+		_menu()->n++;
+		if (_menu()->n >= 120)
+			_menu()->n = 0;
+		if (!((_menu()->n + 1) % 12))
 		{
-			_var()->menu->n = 0;
-			_var()->menu->ny++;
+			_menu()->n = 0;
+			_menu()->ny++;
 		}
-		if (_var()->menu->ny >= 10)
-			_var()->menu->ny = 0;
-		_var()->menu->start = get_clock(_var()->clock);
+		if (_menu()->ny >= 10)
+			_menu()->ny = 0;
+		_menu()->start = get_clock(_var()->clock);
 	}
 }
 
@@ -190,28 +190,33 @@ void	planet_clock(void)
 */
 int	menu_loop(void)
 {
-	if(_var()->menu->mode == MENU_LOBBY && (_var()->mode != GAME && _var()->mode != GAME_START_ONLINE))
+	printf("lol\n");
+	click_update();
+	if(_menu()->mode == MENU_LOBBY && (_var()->mode != GAME && _var()->mode != GAME_START_ONLINE))
+	{
+		printf("ici\n");
 		menu_pong();
+	}
 	drag_bar();
-	if (_var()->menu->mode == MENU_START)
+	if (_menu()->mode == MENU_START)
 		check_button_state();
-	else if (_var()->menu->mode == MENU_PLAYER)
+	else if (_menu()->mode == MENU_PLAYER)
 		check_button_state_pl();
-	else if (_var()->menu->mode == MENU_OPTION)
+	else if (_menu()->mode == MENU_OPTION)
 		check_button_state_options();
 	mlx_mouse_get_pos(_mlx()->mlx, _mlx()->mlx_win,
 		&_var()->m_pos.x, &_var()->m_pos.y);
-	if (_var()->menu->mode == MENU_START)
+	if (_menu()->mode == MENU_START)
 		menu_start();
-	else if (_var()->menu->mode == MENU_PLAYER)
+	else if (_menu()->mode == MENU_PLAYER)
 		menu_player();
-	else if (_var()->menu->mode == MENU_PSEUDO)
+	else if (_menu()->mode == MENU_PSEUDO)
 		menu_pseudo();
-	else if (_var()->menu->mode == MENU_IP)
+	else if (_menu()->mode == MENU_IP)
 		menu_ip();
-	else if (_var()->menu->mode == MENU_LOBBY)
+	else if (_menu()->mode == MENU_LOBBY)
 		menu_lobby();
-	else if (_var()->menu->mode == MENU_OPTION)
+	else if (_menu()->mode == MENU_OPTION)
 		menu_option();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win,
 		_img()->img, 0, 0);
@@ -244,7 +249,7 @@ int	menu_hook_pseudo(int keycode)
 	if (keycode == ENTER && n > 3 && _var()->is_host == SERVER)
 	{
 		//_player()->pseudo_img = create_text_img(_player()->pseudo);
-		_var()->menu->mode = MENU_LOBBY;
+		_menu()->mode = MENU_LOBBY;
 		_var()->mode = ONLINE_START;
 	}
 	if (keycode == ENTER && n > 3 && _var()->is_host == CLIENT)
@@ -253,7 +258,7 @@ int	menu_hook_pseudo(int keycode)
 		if (ft_init_client() == EXIT_FAILURE)
 			exit(1); //TODO
 		printf("je passe en mode lobby\n");
-		_var()->menu->mode = MENU_LOBBY;
+		_menu()->mode = MENU_LOBBY;
 		_var()->mode = MENU;
 	}
 	return (0);
@@ -326,7 +331,7 @@ int	menu_hook_ip(int keycode)
 	}
 	if (keycode == ENTER && n > 2 && _var()->is_host == CLIENT)
 	{
-		_var()->menu->mode = MENU_PSEUDO;
+		_menu()->mode = MENU_PSEUDO;
 		_var()->mode = MENU;
 	}
 	return (0);
