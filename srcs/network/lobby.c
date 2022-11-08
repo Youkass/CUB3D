@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 15:33:08 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 16:57:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 				sizeof(t_send_client)))
 		return (1);
 	pthread_mutex_lock(client->mutex);
-	if (player.flag || player.player.pseudo)
+	if (player.flag || player.player.pseudo[0])
 		client->serv->player_data[client->id] = player.player;
 	client->is_send = 0;
 	client->is_recv = 1;
@@ -93,20 +93,6 @@ int	ft_send_all_data_lobby(t_client_thread *client, int nb)
 		o_player.player[i] = client->serv->player_data[i];
 		++i;
 	}
-}
-
-int	ft_send_all_data_lobby(t_client_thread *client)
-{
-	static __thread int i = 0;
-	int		nb;
-	t_obj	data;
-	
-
-	pthread_mutex_lock(client->mutex);
-	if (send(client->socket, &(client->serv->linked_players), sizeof(int),
-			0) < 0)
-		return (pthread_mutex_unlock(client->mutex), 1);
-	nb = client->serv->linked_players;
 	pthread_mutex_unlock(client->mutex);
 	o_player.linked_pl = nb;
 	o_player.flag = 1;

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/02 13:57:12 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,9 @@ void	ft_fps(void)
 //		var.i++;
 //	}
 //	if (planet[0].x != -1 && planet[0].y != -1)
-//		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0],  planet[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+//		ft_put_sprite_to_images(*_img(), _menu()->planets[0],  planet[0], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
 //	if (planet[1].x != -1 && planet[1].y != -1)
-//		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0],  planet[1], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+//		ft_put_sprite_to_images(*_img(), _menu()->planets[0],  planet[1], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
 //}
 
 void	*ft_draw_void(void *r)
@@ -144,9 +144,9 @@ void	*ft_draw_void(void *r)
 			if (var.j < WIN_H / 2 + _player()->pitch)
 			{
 				if (var.i == 800 && (var.j + WIN_H / 2) - _player()->pitch == 550)
-					_var()->menu->planets_pos[0] = (t_vector2D){xo, var.j};
+					_menu()->planets_pos[0] = (t_vector2D){xo, var.j};
 				else if (var.i == 200 && (var.j + WIN_H / 2) - _player()->pitch == 200)
-					_var()->menu->planets_pos[1] = (t_vector2D){xo, var.j};
+					_menu()->planets_pos[1] = (t_vector2D){xo, var.j};
 				else
 					ft_put_pixel(_img(), &_image()->bg, (t_vector2D){var.i, var.j}, (t_vector2D){xo, (var.j + WIN_H / 2) - _player()->pitch});
 			}
@@ -159,7 +159,7 @@ void	*ft_draw_void(void *r)
 		//while (var.j < WIN_H)
 		//{
 		//	if (var.j < (WIN_H / 2) + _player()->pitch)
-		//		ft_put_pixel(_img(), &_var()->menu->bg, (t_vector2D){(int)var.i, (int)var.j}, (t_vector2D){(int)var.i, (int)var.j});
+		//		ft_put_pixel(_img(), &_menu()->bg, (t_vector2D){(int)var.i, (int)var.j}, (t_vector2D){(int)var.i, (int)var.j});
 		//	else
 		//		ft_put_pixel_color(_img(), (char [4]){50, 168, 82, 0}, (int)var.i, (int)var.j);
 		//	var.j++;
@@ -177,8 +177,8 @@ void		draw_sky(void)
 	t_vector2D	tex;
 	t_vector2D	pt;
 	static t_vector2D	pl_coord[2] = (t_vector2D [2]){{2000, 500}, {1050, 500}};
-	_var()->menu->draw_pl[0] = pos(-1, -1);
-	_var()->menu->draw_pl[1] = pos(-1, -1);
+	_menu()->draw_pl[0] = pos(-1, -1);
+	_menu()->draw_pl[1] = pos(-1, -1);
 
 	angle = atan2(_player()->dy, _player()->dx);
 	offset = (int)(angle * WIN_W* 2 / (M_PI * 2)) + (WIN_W / 2) * 2;
@@ -191,7 +191,7 @@ void		draw_sky(void)
 		{
 			tex.x = pt.x * WIN_W / (4 * WIN_W / 2);
 			if (tex.x + offset == pl_coord[0].x && tex.y == 400)
-				_var()->menu->draw_pl[0] = (t_vector2D){pt.x, pt.y};
+				_menu()->draw_pl[0] = (t_vector2D){pt.x, pt.y};
 			tex.x = (tex.x + offset) % WIN_W;
 			ft_put_pixel(_img(), &_image()->bg, pt, tex);
 			pt.x++;
@@ -210,8 +210,8 @@ void		draw_sky(void)
 	}
 	//printf("planet = %d, %d\n", pl_coord[0].x, pl_coord[0].y);
 	//printf("view = [%d, %d] - [%d, %d]\n       [%d, %d] - [%d, %d]\n", offset, _player()->pitch,  WIN_W + offset);
-	if ( _var()->menu->draw_pl[0].x != -1 &&  _var()->menu->draw_pl[0].y != -1)
-		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0], _var()->menu->draw_pl[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+	if ( _menu()->draw_pl[0].x != -1 &&  _menu()->draw_pl[0].y != -1)
+		ft_put_sprite_to_images(*_img(), _menu()->planets[0], _menu()->draw_pl[0], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
 }
 
 void	draw_void_thread()
@@ -219,8 +219,8 @@ void	draw_void_thread()
 	static t_vector2D	r[10];
 	static int			started = 0;
 
-	_var()->menu->planets_pos[0] = (t_vector2D){-1, -1};
-	_var()->menu->planets_pos[1] = (t_vector2D){-1, -1};
+	_menu()->planets_pos[0] = (t_vector2D){-1, -1};
+	_menu()->planets_pos[1] = (t_vector2D){-1, -1};
 	if (!started)
 	{
 		for (int i = 0; i < 10; i++)
@@ -231,10 +231,10 @@ void	draw_void_thread()
 		pthread_create(&_var()->th_void[i], NULL, ft_draw_void, &r[i]);
 	for (int i = 0; i < 10; i++)
 		pthread_join(_var()->th_void[i], NULL);
-	if ( _var()->menu->planets_pos[0].x != -1 &&  _var()->menu->planets_pos[0].y != -1)
-		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0], _var()->menu->planets_pos[0], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
-	if ( _var()->menu->planets_pos[1].x != -1 &&  _var()->menu->planets_pos[1].y != -1)
-		ft_put_sprite_to_images(*_img(), _var()->menu->planets[0], _var()->menu->planets_pos[1], (t_vector2D){_var()->menu->n * 48, _var()->menu->ny * 48},  (t_vector2D){48, 48});
+	if ( _menu()->planets_pos[0].x != -1 &&  _menu()->planets_pos[0].y != -1)
+		ft_put_sprite_to_images(*_img(), _menu()->planets[0], _menu()->planets_pos[0], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
+	if ( _menu()->planets_pos[1].x != -1 &&  _menu()->planets_pos[1].y != -1)
+		ft_put_sprite_to_images(*_img(), _menu()->planets[0], _menu()->planets_pos[1], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
 }
 
 void	check_death(void)
@@ -331,7 +331,9 @@ int	ft_loop()
 	bullet_casting();
 	hud();
 	ft_draw_map();
-	ft_put_image_to_image_scale(*_img(), _var()->menu->planets[0], pos(100, 100), pos(2, 2));
+	ft_put_image_to_image_scale(*_img(), _menu()->planets[0], pos(100, 100), pos(2, 2));
+	//raycast();
+
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);

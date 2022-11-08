@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 16:33:14 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/05 19:53:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ int	is_shoot_touch(t_vector2F a, t_vector2F b, t_circle c, t_vector2F *closest)
 void	shoot_alone3F(void)
 {
 	init_shot3F(pos3f(_player()->x, _player()->y, (_player()->z) + 100), pos3f(_player()->x
-		+ _player()->dx * 5, _player()->y + _player()->dy * 5, _player()->z - ((sin(normalise_between2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * 5)));
+		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y +
+		_player()->dy * _weapon()[_player()->weapon_id]->range, _player()->z -
+		((sin(normalise_between2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * _weapon()[_player()->weapon_id]->range)));
 }
 
 /*
@@ -107,23 +109,37 @@ void	shoot(void)
 		shoot_alone3F();
 		return ;
 	}
-	while (i < _var()->nb_player - 1)
+	while (i < _var()->nb_player)
 	{
 		if (_var()->o_player[i].id != _player()->id &&
 			is_shoot_touch((t_vector2F){_player()->x, _player()->y},
-			(t_vector2F){_player()->x + (_player()->dx * _var()->weapon[_player()->weapon_id].range), _player()->y
-			+ (_player()->dy * _var()->weapon[_player()->weapon_id].range)}, (t_circle){(t_vector2F){_var()->o_player[i].x,
+			(t_vector2F){_player()->x + (_player()->dx * _weapon()[_player()->weapon_id]->range), _player()->y
+			+ (_player()->dy * _weapon()[_player()->weapon_id]->range)}, (t_circle){(t_vector2F){_var()->o_player[i].x,
 			_var()->o_player[i].y}, 0.30}, &closest))
 		{
 			closest3F = pos3f(closest.x, closest.y, one_dist2F(
 				posf(_player()->x, _player()->y), closest) *
 				-sin(normalise_between2F(posf(-960, 960), posf(-1, 1),
 				_player()->pitch)) * 1000);
-			printf("= %f\n", closest3F.z);
-			if (-closest3F.z > -1600)
+			printf("Shot touched at : {%f, %f, %f}\n",
+				closest3F.x,closest3F.y, closest3F.z);
+			if (closest3F.z < 450 && closest3F.z > -250)
 			{
+				printf("player touched = %f\n", closest3F.z);
 				_player()->shooted.id = _var()->o_player[i].id;
 				_player()->shooted.shoot = 1;
+				if (closest3F.z < -33) // HEADSHOT WHEN NOT CROUCH
+				{
+					printf("HEADSHOT\n");
+					_player()->shooted.shoot = 2;
+				}
+				else if (closest3F.z > 220) // FOOTSHOT WHEN NOT CROUCH
+				{
+					printf("shoot in the leg..\n");
+					_player()->shooted.shoot = 3;
+				}
+				else
+					printf("touched \n");
 				touched = 1;
 				init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
 			}
@@ -139,7 +155,7 @@ void	shoot(void)
 			init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
 		else
 				init_shot3F(pos3f(_player()->x, _player()->y, (_player()->z) + 100), pos3f(_player()->x
-		+ _player()->dx * 5, _player()->y + _player()->dy * 5, _player()->z - ((sin(normalise_between2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * 5)));
+		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y + _player()->dy * _weapon()[_player()->weapon_id]->range, _player()->z - ((sin(normalise_between2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * 5)));
 	}
 }
 
@@ -242,7 +258,7 @@ int	nearest_wall3D(t_vector3F	*closest)
 	init_dda_wall(&r);
 	dda_wall(&r, &n);
 	tmp = closest_point(posf(_player()->x, _player()->y), posf(_player()->x
-		+ _player()->dx * 40, _player()->y + _player()->dy * 40),
+		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y + _player()->dy * _weapon()[_player()->weapon_id]->range),
 		posf(r.map.x - 0.5, r.map.y - 0.5));
 	closest->x = tmp.x;
 	closest->y = tmp.y;
@@ -266,14 +282,12 @@ void	init_shot3F(t_vector3F start, t_vector3F end)
 	_player()->shott[n].weapon_type = _player()->weapon_id;
 	_player()->shott[n].pos = _player()->shott[n].n_pos[0];
 	_player()->shott[n].shot = 1;
-	
 	_player()->shott[n].velo3.dist = dist_3f(start, end);
-	_player()->shott[n].velo3.time_ms = 150000;
+	_player()->shott[n].velo3.time_ms = 500000;
 	_player()->shott[n].velo3.velo = velocity_ms3F(_player()->shott[n].velo3.dist,
-		150000);
-	
-	printf("Shot touched at : {%f, %f, %f}, %f\n",
-	_player()->shott[n].end_pos3F.x,_player()->shott[n].end_pos3F.y,
-	_player()->shott[n].end_pos3F.z, _player()->z / 1000 + _player()->scale);
+		500000);
+	/*
+	Calculer le temps du shoot en fonction de la longueur.
+	*/
 	_player()->shoot_n++;
 }

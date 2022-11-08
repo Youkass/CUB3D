@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/11/05 15:35:36 by yobougre         ###   ########.fr       */
+/*   Updated: 2021/10/19 15:08:54 by rmechety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	ft_init_client_thread(t_server_data *data);
 int	ft_connect_clients(t_server_data *data);
 int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
+int ft_is_send(t_client_thread *client);
 int	ft_send_all_data(t_client_thread *client);
 int	send_nb_players(t_client_thread *client);
 void	*client_routine(void *client_t);
@@ -164,6 +165,9 @@ int	circle_collide(void);
 /* -------------------------------------------------------------------------- */
 t_obj	*_player2();
 t_spritecasting	*_pc();
+t_menu	*_menu();
+t_weapon	**_weapon(void);
+t_team	**_team(void);
 t_image	*_image();
 
 /* -------------------------------------------------------------------------- */
@@ -275,6 +279,8 @@ void	init_key(void);
 void	init_weapons(void);
 void	init_var(void);
 void	init_data_shot(t_obj *player);
+int	is_wall(char c);
+void	init_teams(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
@@ -303,8 +309,6 @@ void    gen_menu_images(void);
 /*                       FILE = srcs/menu/menu_lobby.c                        */
 /* -------------------------------------------------------------------------- */
 void	get_pseudos(void);
-int		ft_recv_one(int socket, t_send_client *player, int size);
-int		ft_recv_players(t_send_server *o_player, int size);
 void	menu_pong(void);
 
 /* -------------------------------------------------------------------------- */
@@ -371,6 +375,20 @@ void	m_bar_drag(void);
 void	drag_bar(void);
 
 /* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/menu/recv_utils.c                        */
+/* -------------------------------------------------------------------------- */
+int	ft_recv_players(t_send_server *o_player, int size);
+int	ft_recv_one(int socket, t_send_client *player, int size);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/new_raycaster.c                         */
+/* -------------------------------------------------------------------------- */
+void	ft_draw_wall2(t_obj wall, t_vector2D pos);
+void	ft_draw_floor2(t_obj wall);
+void	ft_draw_map2(void);
+void	raycast();
+
+/* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/parsing/parsing.c                        */
 /* -------------------------------------------------------------------------- */
 size_t	ft_strlen(const char *s);
@@ -412,4 +430,3 @@ int	ft_loop();
 
 
 #endif
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 15:33:53 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 17:03:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_cpy_tab(t_send_server o_player)
 	//printf("linked : %d\n", _var()->linked_players);
 	while (i < _var()->nb_player)
 	{
-		if (o_player.player[i].pseudo)
+		if (o_player.player[i].pseudo[0] != 0)
 			_var()->o_player[i] = o_player.player[i];
 		++i;
 	}
@@ -71,9 +71,6 @@ void	get_pseudos(void)
 	_var()->n_neutral = 0;
 	while (i < _var()->linked_players && !_var()->started)
 	{
-		if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
-			exit(1); //TODO
-		_var()->o_player[i] = player;
 		if (_var()->o_player[i].team == TEAM_BLUE)
 		{
 			_var()->blue[_var()->n_blue] = _var()->o_player[i].pseudo;
@@ -92,7 +89,7 @@ void	get_pseudos(void)
 		if (!(_image()->pseudo_img[i].img))
 		{
 			printf("pseudo : %s\n", _var()->o_player[i].pseudo);
-			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo);
+			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo, BLUE);
 		}
 		i++;
 	}

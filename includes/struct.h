@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/04 22:59:08 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/05 19:53:45 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ typedef struct	s_weapon
 	unsigned long		reload_ms;
 	int		ammo;
 	int		range;
+	int		headshot;
+	int		footshot;
 }	t_weapon;
 
 typedef struct	s_hitbox
@@ -426,9 +428,11 @@ typedef struct	s_image
 
 typedef struct	s_team
 {
-	int	win;
-	int	loose;
-	char *players[3];
+	int			win;
+	int			loose;
+	char		*players[3];
+	t_vector2F	team_spawn;
+	t_vector2F	player_spawn[3];
 }	t_team;
 
 typedef struct s_player

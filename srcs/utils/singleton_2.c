@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:10:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 10:21:09 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 19:54:42 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,47 @@ t_spritecasting	*_pc()
 	if (!pc)
 		return (NULL);
 	return (pc);
+}
+
+t_menu	*_menu()
+{
+	static t_menu	*menu = NULL;
+
+	if (!menu)
+		menu = malloc(sizeof(t_menu));
+	if (!menu)
+		return (NULL);
+	return (menu);
+}
+
+t_weapon	**_weapon(void)
+{
+	static t_weapon	**weapon = NULL;
+
+	if (!weapon)
+	{
+		weapon = malloc(sizeof(t_weapon *) * NB_WEAPONS);
+		for (int i = 0; i < NB_WEAPONS; i++)
+			weapon[i] = malloc(sizeof(t_weapon));
+	}
+	if (!weapon)
+		return (NULL);
+	return (weapon);
+}
+
+t_team	**_team(void)
+{
+	static t_team	**team = NULL;
+
+	if (!team)
+	{
+		team = malloc(sizeof(t_team *) * 2);
+		for (int i = 0; i < 2; i++)
+			team[i] = malloc(sizeof(t_team));
+	}
+	if (!team)
+		return (NULL);
+	return (team);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/04 19:30:57 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/05 18:39:44 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	init_cast(int i, t_obj *player)
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
 	_pc()->move_screen = (int)((int)player->shott[i].pos3F.z / _pc()->trans.y) + _player()->pitch + _player()->z / _pc()->trans.y;
-		//_pc()->move_screen = (int)(100 / _pc()->trans.y) + _player()->z / _pc()->trans.y;
 	printf("===> %d\n", ((int)player->shott[i].pos3F.z / 100));
 }
 static void	compute_draw(void)
@@ -81,8 +80,9 @@ void	bullet_casting(void)
 	while (i < _var()->nb_player)
 	{
 		j = 0;
-		if (i == 0)
+		if (i == _player()->id)
 		{
+			j = 0;
 			while (j < _player()->shoot_n)
 			{
 				init_cast(j, _player());
@@ -90,6 +90,7 @@ void	bullet_casting(void)
 				j++;
 			}	
 		}
+		j = 0;
 		while (j < _var()->o_player[i].shoot_n)
 		{
 			if (i == 0)

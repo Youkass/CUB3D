@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:04:44 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 23:36:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	check_button_state_mouse(int kc)
 	(void)kc;
 	while (i < 4)
 	{
-		if (_var()->key[mouse] && ft_hitbox(_var()->menu->s_state[i].hitbox,
+		if (_var()->key[mouse] && ft_hitbox(_menu()->s_state[i].hitbox,
 				_var()->m_pos))
 		{
-			_var()->menu->s_state[i].state = 2;
-			_var()->menu->s_state[i].clock = start_clock();
+			_menu()->s_state[i].state = 2;
+			_menu()->s_state[i].clock = start_clock();
 			break ;
 		}
 		i++;
@@ -39,11 +39,11 @@ void	check_button_state_mouse_pl(int kc)
 	(void)kc;
 	while (i < 4)
 	{
-		if (_var()->key[mouse] && ft_hitbox(_var()->menu->p_state[i].hitbox,
+		if (_var()->key[mouse] && ft_hitbox(_menu()->p_state[i].hitbox,
 				_var()->m_pos))
 		{
-			_var()->menu->p_state[i].state = 2;
-			_var()->menu->p_state[i].clock = start_clock();
+			_menu()->p_state[i].state = 2;
+			_menu()->p_state[i].clock = start_clock();
 			break ;
 		}
 		i++;
@@ -68,11 +68,11 @@ void	check_button_state_mouse_options(int kc)
 	i = 0;
 	while (i < 7)
 	{
-		if (kc == 1 && ft_hitbox(_var()->menu->o_state[i].hitbox,
-				_var()->m_pos) && _var()->menu->o_state[i].state != 2)
+		if (kc == 1 && ft_hitbox(_menu()->o_state[i].hitbox,
+				_var()->m_pos) && _menu()->o_state[i].state != 2)
 		{
-			_var()->menu->o_state[i].state = 2;
-			_var()->menu->o_state[i].clock = start_clock();
+			_menu()->o_state[i].state = 2;
+			_menu()->o_state[i].clock = start_clock();
 			break ;
 		}
 		i++;
@@ -86,11 +86,11 @@ int	menu_mouse_hook(int keycode)
 {
 	if (keycode == 1)
 		_var()->key[mouse] = 1;
-	if (_var()->menu->mode == MENU_START)
+	if (_menu()->mode == MENU_START)
 		check_button_state_mouse(keycode);
-	if (_var()->menu->mode == MENU_PLAYER)
+	if (_menu()->mode == MENU_PLAYER)
 		check_button_state_mouse_pl(keycode);
-	if (_var()->menu->mode == MENU_OPTION)
+	if (_menu()->mode == MENU_OPTION)
 		check_button_state_mouse_options(keycode);
 	return (0);
 }

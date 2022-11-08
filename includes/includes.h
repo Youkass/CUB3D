@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/04 16:45:40 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/07 16:59:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,16 @@ esc : 65307
 # include <signal.h>
 # include <string.h>
 
-# define colo(x, y, z) (char [4]){z, y, x}
+# define colo(x, y, z) (char [4]){z, y, x, 100}
 # define RED colo(253, 92, 76)
 # define GREEN colo(0, 255, 0)
 # define BLUE colo(69, 154, 255)
 # define WHITE colo(238, 238, 238)
 # define DARK_GREY colo(71, 71, 71)
 # define LIGTH_GREY colo(100, 100, 100)
+
+# define TRED 0
+# define TBLUE 1
 
 # define GAME 0
 # define MENU 1

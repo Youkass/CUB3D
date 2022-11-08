@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/03 00:57:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,32 +44,32 @@ int	perc(int a, int b)
 void	menu_start(void)
 {
 	draw_bg((char [4]){0, 0, 0, 0});
-	ft_put_image_to_image(*_img(), _var()->menu->bg,
+	ft_put_image_to_image(*_img(), _menu()->bg,
 		(t_vector2D){0, 0});
-	ft_put_image_to_image(*_img(), _var()->menu->logo,
-		(t_vector2D){WIN_W / 2 - (_var()->menu->logo.w / 2), perc(WIN_H, 20) - (_var()->menu->logo.h / 2)});
-	ft_put_image_to_image(*_img(), _var()->menu->buttons
-	[_var()->menu->s_state[0].state][PLAY], _butp()[0]);
-	ft_put_image_to_image(*_img(), _var()->menu->buttons
-	[_var()->menu->s_state[1].state][OPTIONS], _butp()[1]);
-	ft_put_image_to_image(*_img(), _var()->menu->buttons
-	[_var()->menu->s_state[2].state][CREDITS], _butp()[2]);
-	ft_put_image_to_image(*_img(), _var()->menu->buttons
-	[_var()->menu->s_state[3].state][EXIT], _butp()[3]);
+	ft_put_image_to_image(*_img(), _menu()->logo,
+		(t_vector2D){WIN_W / 2 - (_menu()->logo.w / 2), perc(WIN_H, 20) - (_menu()->logo.h / 2)});
+	ft_put_image_to_image(*_img(), _menu()->buttons
+	[_menu()->s_state[0].state][PLAY], _butp()[0]);
+	ft_put_image_to_image(*_img(), _menu()->buttons
+	[_menu()->s_state[1].state][OPTIONS], _butp()[1]);
+	ft_put_image_to_image(*_img(), _menu()->buttons
+	[_menu()->s_state[2].state][CREDITS], _butp()[2]);
+	ft_put_image_to_image(*_img(), _menu()->buttons
+	[_menu()->s_state[3].state][EXIT], _butp()[3]);
 }
 
 void	menu_player(void)
 {
 	draw_bg((char [4]){0, 0, 0, 0});
-	ft_put_image_to_image(*_img(), _var()->menu->bg,
+	ft_put_image_to_image(*_img(), _menu()->bg,
 		(t_vector2D){0, 0});
-	ft_put_image_to_image(*_img(), _var()->menu->logo,
-		(t_vector2D){WIN_W / 2 - (_var()->menu->logo.w / 2), perc(WIN_H, 20) - (_var()->menu->logo.h / 2)});
+	ft_put_image_to_image(*_img(), _menu()->logo,
+		(t_vector2D){WIN_W / 2 - (_menu()->logo.w / 2), perc(WIN_H, 20) - (_menu()->logo.h / 2)});
 
-	ft_put_image_to_image(*_img(), _var()->menu->nb_p[0][_var()->menu->p_state[0].state], _butpl()[0]);
-	ft_put_image_to_image(*_img(), _var()->menu->nb_p[1][_var()->menu->p_state[1].state],  _butpl()[1]);
-	ft_put_image_to_image(*_img(), _var()->menu->nb_p[2][_var()->menu->p_state[2].state],  _butpl()[2]);
-	ft_put_image_to_image(*_img(), _var()->menu->nb_p[3][_var()->menu->p_state[3].state],  _butpl()[3]);
+	ft_put_image_to_image(*_img(), _menu()->nb_p[0][_menu()->p_state[0].state], _butpl()[0]);
+	ft_put_image_to_image(*_img(), _menu()->nb_p[1][_menu()->p_state[1].state],  _butpl()[1]);
+	ft_put_image_to_image(*_img(), _menu()->nb_p[2][_menu()->p_state[2].state],  _butpl()[2]);
+	ft_put_image_to_image(*_img(), _menu()->nb_p[3][_menu()->p_state[3].state],  _butpl()[3]);
 }
 
 void	draw_lobby(void)
@@ -78,7 +78,7 @@ void	draw_lobby(void)
 	int	size_box;
 
 	i = 0;
-	size_box = _var()->menu->wait.w / _var()->nb_player;
+	size_box = _menu()->wait.w / _var()->nb_player;
 	// Couleur rouge blanc et bleu
 	draw_rectange(pos(0, 0), pos(WIN_W / 3, WIN_H), RED);
 	draw_rectange(pos(WIN_W / 3, 0), pos(WIN_W / 3, WIN_H), LIGTH_GREY);
@@ -96,19 +96,19 @@ void	draw_lobby(void)
 		if (_var()->o_player[i].team == TEAM_VOID)
 		{
 			draw_rectange(
-			pos(WIN_W / 4 - (_var()->menu->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
+			pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
 			pos(size_box - 16, 16), colo(0, 0, 0));
 		}
 		else if (_var()->o_player[i].team == TEAM_RED)
 		{
 			draw_rectange(
-			pos(WIN_W / 4 - (_var()->menu->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
+			pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
 			pos(size_box - 16, 16), RED);
 		}
 		else
 		{
 			draw_rectange(
-			pos(WIN_W / 4 - (_var()->menu->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
+			pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
 			pos(size_box - 16, 16), BLUE);
 		}
 		i++;
@@ -168,8 +168,8 @@ void	menu_lobby(void)
 
 	update_key();
 	draw_lobby();
-	ft_put_image_to_image(*_img(), _var()->menu->wait,
-	(t_vector2D){WIN_W / 4 - (_var()->menu->wait.w / 2), (WIN_H / 3) / 2 - (_var()->menu->wait.h / 2) - 16});
+	ft_put_image_to_image(*_img(), _menu()->wait,
+	(t_vector2D){WIN_W / 4 - (_menu()->wait.w / 2), (WIN_H / 3) / 2 - (_menu()->wait.h / 2) - 16});
 	i = 0;
 	while (i < _var()->n_red)
 	{
@@ -221,21 +221,21 @@ void	menu_ip(void)
 */
 static void	menu_bot_options(void)
 {
-	ft_put_image_to_image(*_img(), _var()->menu->buttons[_var()
-		->menu->o_state[3].state][_var()->menu->mute_m_state],
-		_var()->menu->o_state[3].hitbox[0]);
-	ft_put_image_to_image(*_img(), _var()->menu->buttons[_var()->menu
-		->o_state[4].state][L_ARR], _var()->menu->o_state[4].hitbox[0]);
-	ft_put_image_to_image(*_img(), _var()->menu->bar[EMPTY][BAR_LEFT],
+	ft_put_image_to_image(*_img(), _menu()->buttons[_var()
+		->menu->o_state[3].state][_menu()->mute_m_state],
+		_menu()->o_state[3].hitbox[0]);
+	ft_put_image_to_image(*_img(), _menu()->buttons[_menu()
+		->o_state[4].state][L_ARR], _menu()->o_state[4].hitbox[0]);
+	ft_put_image_to_image(*_img(), _menu()->bar[EMPTY][BAR_LEFT],
 		(t_vector2D){819 - OFFSET_X, 542 - OFFSET_Y});
-	ft_put_image_to_image(*_img(), _var()->menu->bar[EMPTY][BAR_MID],
+	ft_put_image_to_image(*_img(), _menu()->bar[EMPTY][BAR_MID],
 		(t_vector2D){912 - OFFSET_X, 542 - OFFSET_Y});
-	ft_put_image_to_image(*_img(), _var()->menu->bar[EMPTY]
+	ft_put_image_to_image(*_img(), _menu()->bar[EMPTY]
 	[BAR_RIGHT], (t_vector2D){1005 - OFFSET_X, 542 - OFFSET_Y});
-	ft_put_image_to_image(*_img(), _var()->menu->buttons[_var()->menu
-		->o_state[5].state][R_ARR], _var()->menu->o_state[5].hitbox[0]);
-	ft_put_image_to_image(*_img(), _var()->menu->buttons[_var()->menu
-		->o_state[6].state][QUIT], _var()->menu->o_state[6].hitbox[0]);
+	ft_put_image_to_image(*_img(), _menu()->buttons[_menu()
+		->o_state[5].state][R_ARR], _menu()->o_state[5].hitbox[0]);
+	ft_put_image_to_image(*_img(), _menu()->buttons[_menu()
+		->o_state[6].state][QUIT], _menu()->o_state[6].hitbox[0]);
 }
 
 /*
@@ -243,23 +243,23 @@ static void	menu_bot_options(void)
 */
 void	menu_option(void)
 {
-	ft_put_image_to_image(*_img(), _var()->menu->bg,
+	ft_put_image_to_image(*_img(), _menu()->bg,
 		(t_vector2D){0, 0});
-	ft_put_image_to_image(*_img(), _var()->menu->logo,
+	ft_put_image_to_image(*_img(), _menu()->logo,
 		(t_vector2D){716 - OFFSET_X - 45, 155 - OFFSET_Y + 50});
 	draw_bar_fill();
-	ft_put_image_to_image(*_img(), _var()->menu->buttons[_var()->menu
-		->o_state[0].state][_var()->menu->mute_s_state],
-		_var()->menu->o_state[0].hitbox[0]);
-	ft_put_image_to_image(*_img(), _var()->menu->buttons[_var()->menu
-		->o_state[1].state][L_ARR], _var()->menu->o_state[1].hitbox[0]);
-	ft_put_image_to_image(*_img(), _var()->menu->bar[EMPTY][BAR_LEFT],
+	ft_put_image_to_image(*_img(), _menu()->buttons[_menu()
+		->o_state[0].state][_menu()->mute_s_state],
+		_menu()->o_state[0].hitbox[0]);
+	ft_put_image_to_image(*_img(), _menu()->buttons[_menu()
+		->o_state[1].state][L_ARR], _menu()->o_state[1].hitbox[0]);
+	ft_put_image_to_image(*_img(), _menu()->bar[EMPTY][BAR_LEFT],
 		(t_vector2D){819 - OFFSET_X, 443 - OFFSET_Y});
-	ft_put_image_to_image(*_img(), _var()->menu->bar[EMPTY][BAR_MID],
+	ft_put_image_to_image(*_img(), _menu()->bar[EMPTY][BAR_MID],
 		(t_vector2D){912 - OFFSET_X, 443 - OFFSET_Y});
-	ft_put_image_to_image(*_img(), _var()->menu->bar[EMPTY]
+	ft_put_image_to_image(*_img(), _menu()->bar[EMPTY]
 	[BAR_RIGHT], (t_vector2D){1005 - OFFSET_X, 443 - OFFSET_Y});
-	ft_put_image_to_image(*_img(), _var()->menu->buttons[_var()->menu
-		->o_state[2].state][R_ARR], _var()->menu->o_state[2].hitbox[0]);
+	ft_put_image_to_image(*_img(), _menu()->buttons[_menu()
+		->o_state[2].state][R_ARR], _menu()->o_state[2].hitbox[0]);
 	menu_bot_options();
 }
