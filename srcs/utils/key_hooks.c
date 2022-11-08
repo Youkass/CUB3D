@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/02 13:46:32 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/08 17:03:30 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ int	ft_game_hook(int keycode)
 	i = 0;
 	tab[0].id = W;
 	tab[0].ft_hook_key = &ft_forward;
-	tab[1].id = S;
+	tab[1].id = S_;
 	tab[1].ft_hook_key = &ft_back;
-	tab[2].id = A;
+	tab[2].id = A_;
 	tab[2].ft_hook_key = &ft_left;
 	tab[3].id = D;
 	tab[3].ft_hook_key = &ft_right;

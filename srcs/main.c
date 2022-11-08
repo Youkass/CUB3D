@@ -6,20 +6,57 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/04 18:17:29 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/08 19:08:45 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 #include <unistd.h> 
+/*int main(int argc, char** argv)
+{
+    ma_result result;
+    ma_engine engine;
+
+    if (argc < 2) {
+        printf("No input file.");
+        return -1;
+    }
+
+    result = ma_engine_init(NULL, &engine);
+    if (result != MA_SUCCESS) {
+        printf("Failed to initialize audio engine.");
+        return -1;
+    }
+
+    ma_engine_play_sound(&engine, argv[1], NULL);
+
+    printf("Press Enter to quit...");
+    getchar();
+
+    ma_engine_uninit(&engine);
+
+    return 0;
+}
+*/
+void	ft_init_media(void)
+{
+	_media()->result = ma_engine_init(NULL, &(_media()->engine));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
+}
+
+void	ft_play_sound(char *path, int time)
+{
+	ma_engine_play_sound(&(_media()->engine), path, NULL);
+}
 
 void	get_key(int keycode)
 {
-	if (keycode == A)
+	if (keycode == A_)
 		_var()->key.a = 1;
 	if (keycode == W)
 		_var()->key.w = 1;
-	if (keycode == S)
+	if (keycode == S_)
 		_var()->key.s = 1;
 	if (keycode == D)
 		_var()->key.d = 1;
@@ -39,14 +76,14 @@ void	get_key(int keycode)
 
 int	ft_release(int keycode)
 {
-	if (keycode == A)
+	if (keycode == A_)
 		_var()->key.a = 0;
 	if (keycode == W)
 	{
 		_var()->key.w = 0;
 		_player()->is_walking = 0;
 	}
-	if (keycode == S)
+	if (keycode == S_)
 	{
 		_var()->key.s = 0;
 		_player()->is_walking = 0;

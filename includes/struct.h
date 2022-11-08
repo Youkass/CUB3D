@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/06 15:02:25 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/08 19:06:28 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ typedef struct s_obj t_obj;
 
 struct	s_server_data;
 typedef struct	s_server_data t_server_data;
+
+typedef struct	s_media
+{
+	   ma_result		result;
+	   ma_decoder		decoder;
+	   ma_device_config	deviceConfig;
+	   ma_device		device;
+	   ma_engine		engine;
+}	t_media;
 
 typedef struct s_list
 {
