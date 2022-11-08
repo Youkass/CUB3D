@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/06 13:44:47 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/08 16:57:20 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void	ft_copy_new_data(t_send_server o_player)
 	_var()->n_blue = 0;
 	_var()->n_red = 0;
 	_var()->n_neutral = 0;
+	i = 0;
 	while (i < _var()->linked_players && !_var()->started)
 	{
 		if (_var()->o_player[i].team == TEAM_BLUE)
@@ -69,7 +70,7 @@ static void	ft_copy_new_data(t_send_server o_player)
 			++_var()->n_neutral;
 		}
 		if (!(_image()->pseudo_img[i].img))
-			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo);
+			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo, WHITE);
 		i++;
 	}
 }
