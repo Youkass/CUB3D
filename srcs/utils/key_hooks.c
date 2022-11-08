@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/02 13:46:32 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	key_hook(void)
 			shoot();
 		}
 		else if (_var()->is_host == SERVER &&
-				_var()->menu->mode == MENU_LOBBY && _var()->mode != GAME && 
+				_menu()->mode == MENU_LOBBY && _var()->mode != GAME && 
 				_var()->nb_player == _var()->linked_players) // menu lobby
 		{
 			_player()->is_start = 1;

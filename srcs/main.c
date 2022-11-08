@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/04 18:17:29 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/05 20:05:47 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ void	death_clock(void)
 
 void	reload_clock(void)
 {
-	if (get_clock(_var()->clock) - _player()->start_reload > _var()->weapon[_player()->weapon_id].reload_ms)
+	if (get_clock(_var()->clock) - _player()->start_reload > _weapon()[_player()->weapon_id]->reload_ms)
 	{
 		_player()->can_shoot = 1;
 		_player()->is_shooting = 0;
@@ -235,9 +235,9 @@ int	ft_hook(int keycode)
 	//	ft_game_hook(keycode);
 	if (_var()->mode == MENU)
 		menu_hook(keycode);
-	if (_var()->mode == MENU && _var()->menu->mode == MENU_PSEUDO)
+	if (_var()->mode == MENU && _menu()->mode == MENU_PSEUDO)
 		menu_hook_pseudo(keycode);
-	if (_var()->mode == MENU && _var()->menu->mode == MENU_IP)
+	if (_var()->mode == MENU && _menu()->mode == MENU_IP)
 		menu_hook_ip(keycode);
 	return (0);
 }
@@ -276,6 +276,7 @@ int	ft_loop_hook(void)
 		ft_loop();
 	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
+
 	return (0);
 }
 
@@ -346,22 +347,23 @@ void	init_key(void)
 
 void	init_weapons(void)
 {
-	_var()->weapon[0].name = malloc(sizeof(char) * 6);
-	_var()->weapon[0].name = "Rifle\0";
-	_var()->weapon[0].id = 0;
-	_var()->weapon[0].range = 10;
-	_var()->weapon[0].power = 10;
-	_var()->weapon[0].reload_ms = 500000;
-	_var()->weapon[0].ammo = 15;
+	_weapon()[0]->name = malloc(sizeof(char) * 6);
+	_weapon()[0]->name = "Rifle\0";
+	_weapon()[0]->id = 0;
+	_weapon()[0]->range = 25;
+	_weapon()[0]->power = 25;
+	_weapon()[0]->reload_ms = 500000;
+	_weapon()[0]->ammo = 15;
+	_weapon()[0]->headshot = 50;
+	_weapon()[0]->footshot = 10;
 }
 
 void	init_var(void)
 {
 	int	i;
 
-	_var()->menu = malloc(sizeof(t_menu));
 	_var()->mode = MENU;
-	_var()->menu->mode = MENU_START;_var()->walk_n = 0;
+	_menu()->mode = MENU_START;_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
 	//_image()->bullet = generate_image("./img/bullet.xpm");
@@ -396,6 +398,44 @@ void	init_data_shot(t_obj *player)
 	}
 }
 
+//int	is_wall(char c)
+//{
+//	if (c != 0 || c != 'P')
+//		return (1);
+//	return (0);
+//}
+
+void	init_teams(void)
+{
+	int			i;
+	
+	_team()[TRED]->loose = 0;
+	_team()[TRED]->win = 0;
+	_team()[TRED]->team_spawn = posf(3, 3);
+	i = 0;
+	while (i < _var()->nb_player / 2)
+	{
+		_team()[TRED]->players[i] = _var()->red[i];
+		i++;
+	}
+	_team()[TRED]->player_spawn[0] = posf(3, 3);
+	_team()[TRED]->player_spawn[1] = posf(3, 4);
+	_team()[TRED]->player_spawn[2] = posf(3, 2);
+
+	_team()[TBLUE]->loose = 0;
+	_team()[TBLUE]->win = 0;
+	_team()[TBLUE]->team_spawn = posf(40, 9);
+	i = 0;
+	while (i < _var()->nb_player / 2)
+	{
+		_team()[TBLUE]->players[i] = _var()->blue[i];
+		i++;
+	}
+	_team()[TBLUE]->player_spawn[0] = posf(40, 9);
+	_team()[TBLUE]->player_spawn[1] = posf(40, 10);
+	_team()[TBLUE]->player_spawn[2] = posf(41, 9);
+}
+
 int main(int argc, char **argv)
 {
 	int		fd;
@@ -408,7 +448,6 @@ int main(int argc, char **argv)
 	_var()->map = resize_map(ft_split(read_file(fd), '\n'));
 	if (!_var()->map)
 		exit(139);
-	printf("%d\n", htons(30000));
 	init_weapons();
 	ft_print_tab(_var()->map);
 	ft_init_mlx();

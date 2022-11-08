@@ -115,7 +115,7 @@ void	ft_copy_data_before_pong(t_obj *player)
 // 		if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
 // 			return ;
 // 		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
-// 			_player()->health -= _var()->weapon[player.weapon_id].power;
+// 			_player()->health -= _weapon()[player.weapon_id].power;
 // 		if (player.shooted.shoot == 1 && i == _player()->id)
 // 		{
 // 			_player()->shooted.shoot = 0;
@@ -151,8 +151,12 @@ void	ft_pong_client(void)
 	while (i < _var()->linked_players)
 	{
 		if (player[i].shooted.shoot == 1 && player[i].shooted.id == _player()->id)
-			_player()->health -= _var()->weapon[player[i].weapon_id].power;
-		if (player[i].shooted.shoot == 1 && i == _player()->id)
+			_player()->health -= _weapon()[player[i].weapon_id]->power;
+		else if (player[i].shooted.shoot == 2 && player[i].shooted.id == _player()->id)
+			_player()->health -= _weapon()[player[i].weapon_id]->headshot;
+		else if (player[i].shooted.shoot == 3 && player[i].shooted.id == _player()->id)
+			_player()->health -= _weapon()[player[i].weapon_id]->footshot;
+		if (player[i].shooted.shoot > 0 && i == _player()->id)
 		{
 			_player()->shooted.shoot = 0;
 			_player()->shooted.id = -1;
@@ -160,7 +164,6 @@ void	ft_pong_client(void)
 		_var()->o_player[i] = player[i];
 		_var()->o_player[i].id = i;
 		_player()->team = player[i].team;
-		//print_data_recv(&_var()->o_player[i]);
 		++i;
 	}
 }

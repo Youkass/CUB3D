@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 23:02:02 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/07 16:55:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	restart_button(void)
 
 	i = 0;
 	while (i < 4)
-		_var()->menu->s_state[i++].state = 0;
+		_menu()->s_state[i++].state = 0;
 	i = 0;
 	while (i < 7)
-		_var()->menu->o_state[i++].state = 0;
+		_menu()->o_state[i++].state = 0;
 }
 
 /*
@@ -283,14 +283,14 @@ void	draw_bar_fill(void)
 	int	i;
 
 	i = 0;
-	while (i < (int)(_var()->menu->s_bar * BAR_INC))
+	while (i < (int)(_menu()->s_bar * BAR_INC))
 	{
 		draw_vertical_line(_img(), (t_vector2D){819 - OFFSET_X + 42
 			+ i, 443 - OFFSET_Y + 36}, 27);
 		i++;
 	}
 	i = 0;
-	while (i < (int)(_var()->menu->m_bar * BAR_INC))
+	while (i < (int)(_menu()->m_bar * BAR_INC))
 	{
 		draw_vertical_line(_img(), (t_vector2D){819 - OFFSET_X + 42
 			+ i, 542 - OFFSET_Y + 36}, 27);
