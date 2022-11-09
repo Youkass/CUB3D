@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/09 12:52:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 15:43:21 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ft_init_media(void)
 		exit (1); //TODO
 }
 
-void	ft_play_sound(long unsigned int time, int index)
+void	ft_play_music(long unsigned int time, int index)
 {
 	static long	start = 0;
 
@@ -67,12 +67,13 @@ void	ft_play_sound(long unsigned int time, int index)
 		start = get_clock(_var()->clock);
 	}
 	(void)time;
-	if (index == MENU_MUSIC && _var()->mode == GAME)
+	if (_var()->mode == GAME)
 	{
-		ma_sound_stop(&(_media()->sound[index]));
+		ma_sound_stop(&(_media()->sound[MENU_MUSIC]));
 		start = 0;
 	}
 }
+
 
 void	get_key(int keycode)
 {
