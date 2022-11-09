@@ -6,7 +6,7 @@
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/11/05 15:35:36 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 10:39:16 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,10 @@ int	circle_collide(void);
 /* -------------------------------------------------------------------------- */
 /*                      FILE = srcs/utils/singleton_2.c                       */
 /* -------------------------------------------------------------------------- */
-t_obj	*_player2();
-t_spritecasting	*_pc();
-t_image	*_image();
+t_obj	*_player2(void);
+t_spritecasting	*_pc(void);
+t_image	*_image(void);
+t_media	*_media(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */

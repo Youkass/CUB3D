@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/08 19:08:45 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 10:39:42 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,16 @@ void	ft_init_media(void)
 		exit (1); //TODO
 }
 
-void	ft_play_sound(char *path, int time)
+void	ft_play_sound(char *path, long unsigned int time)
 {
-	ma_engine_play_sound(&(_media()->engine), path, NULL);
+	static long	start = 0;
+	if (!start)
+	{
+		ma_engine_play_sound(&(_media()->engine), path, NULL);
+		start = get_clock(_var()->clock);
+	}
+	if (get_time(start) >= time)
+	{}
 }
 
 void	get_key(int keycode)
