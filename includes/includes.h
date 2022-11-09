@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/08 17:58:25 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 12:12:03 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ esc : 65307
 # define ONLINE_START 2
 # define LOBBY_WAIT 3
 # define GAME_START_ONLINE 4
+# define MENU_MUSIC 1
+# define GAME_MUSIC 2
 
 # define MENU_START 0
 # define MENU_OPTION 1

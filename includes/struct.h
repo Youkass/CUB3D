@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/08 19:06:28 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 12:53:45 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_media
 	   ma_device_config	deviceConfig;
 	   ma_device		device;
 	   ma_engine		engine;
+	   ma_sound			sound[3];
 }	t_media;
 
 typedef struct s_list

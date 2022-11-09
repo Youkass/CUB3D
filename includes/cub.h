@@ -6,7 +6,7 @@
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/11/09 10:39:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 12:47:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,7 @@ t_obj	ft_get_data(t_obj *player);
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
+void	ft_play_sound(long unsigned int time, int index);
 void	get_key(int keycode);
 int	ft_release(int keycode);
 void	generate_dsprite(void);
@@ -386,7 +387,7 @@ void	draw_void_thread();
 void	check_death(void);
 void	update_bullets(void);
 void	hud(void);
-int	ft_loop();
+int		ft_loop();
 
 
 #endif
