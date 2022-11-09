@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/09 10:39:42 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 12:52:51 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,35 @@ void	ft_init_media(void)
 	_media()->result = ma_engine_init(NULL, &(_media()->engine));
 	if (_media()->result != MA_SUCCESS)
 		exit (1); //TODO
+	_media()->result = ma_sound_init_from_file(&(_media()->engine),
+		"sound/test_sound.wav", 0, NULL, NULL, &(_media()->sound[0]));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
+	_media()->result = ma_sound_init_from_file(&(_media()->engine),
+		"sound/menu_music.wav", 0, NULL, NULL, &(_media()->sound[MENU_MUSIC]));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
+	_media()->result = ma_sound_init_from_file(&(_media()->engine),
+		"sound/game_music.wav", 0, NULL, NULL, &(_media()->sound[GAME_MUSIC]));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
 }
 
-void	ft_play_sound(char *path, long unsigned int time)
+void	ft_play_sound(long unsigned int time, int index)
 {
 	static long	start = 0;
+
 	if (!start)
 	{
-		ma_engine_play_sound(&(_media()->engine), path, NULL);
+		ma_sound_start(&(_media()->sound[index]));
 		start = get_clock(_var()->clock);
 	}
-	if (get_time(start) >= time)
-	{}
+	(void)time;
+	if (index == MENU_MUSIC && _var()->mode == GAME)
+	{
+		ma_sound_stop(&(_media()->sound[index]));
+		start = 0;
+	}
 }
 
 void	get_key(int keycode)
@@ -444,6 +461,7 @@ int main(int argc, char **argv)
 	init_weapons();
 	ft_print_tab(_var()->map);
 	ft_init_mlx();
+	ft_init_media();
 	ft_init_img();
 	_ray();
 	ft_init_player_pos();
