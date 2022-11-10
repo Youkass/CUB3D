@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   team.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:39:25 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/09 02:57:04 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 18:31:57 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_player_team()
 		}
 		i++;
 	}
+	printf("%d\n", _player()->team);
 	_player()->x = _team()[_player()->team]->player_spawn[_player()->team_id].x;
 	_player()->y = _team()[_player()->team]->player_spawn[_player()->team_id].y;
 }

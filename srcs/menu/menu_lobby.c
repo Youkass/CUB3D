@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 16:45:42 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 16:53:31 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	get_pseudos(void)
 	t_send_client	player;
 	t_send_server	o_player;
 
+	printf("salut2\n");
 	memset(&player, 0, sizeof(player));
 	ft_copy_data_before_pong(&player.player);
 	if (_player()->is_start)

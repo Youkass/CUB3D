@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/08 21:46:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 16:57:04 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ int	menu_loop(void)
 {
 	click_update();
 	ft_play_music(20000000, MENU_MUSIC);
-	if(_var()->menu->mode == MENU_LOBBY
+	if(_menu()->mode == MENU_LOBBY
 			&& (_var()->mode != GAME
 				&& _var()->mode != GAME_START_ONLINE))
 		menu_pong();
