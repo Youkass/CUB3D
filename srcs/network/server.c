@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
 /*   Updated: 2022/11/06 13:41:55 by yobougre         ###   ########.fr       */
@@ -36,9 +36,12 @@ int	ft_init_server(t_server_data *data)
 	data->server.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	data->server.sin_family = AF_INET;
 	data->server.sin_port = htons(30000);
-	if (setsockopt(data->socket, SOL_SOCKET,
-		(SO_REUSEADDR | SO_REUSEPORT), &option, sizeof(option)) < 0)
+	if (setsockopt(data->socket, SOL_SOCKET, (SO_REUSEADDR), &option, sizeof(option)) < 0)
+	{
+		perror("lol\n");
+		printf("Socket error\n");
 		exit(1);
+	}
 	if (bind(data->socket,
 		(const struct sockaddr *)&(data->server), 
 			sizeof(data->server)) < 0)

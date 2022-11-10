@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
 /*   Updated: 2022/11/09 15:53:07 by yobougre         ###   ########.fr       */
@@ -63,6 +63,13 @@ typedef struct s_vector3D
 	int	z;
 }	t_vector3D;
 
+typedef struct s_vector3F
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_vector3F;
+
 typedef struct	s_circle
 {
 	t_vector2F	pos;
@@ -110,6 +117,8 @@ typedef struct	s_weapon
 	unsigned long		reload_ms;
 	int		ammo;
 	int		range;
+	int		headshot;
+	int		footshot;
 }	t_weapon;
 
 typedef struct	s_hitbox
@@ -125,6 +134,13 @@ typedef struct	s_velo
 	t_vector2F	velo;
 	int			time_ms;
 }	t_velo;
+
+typedef struct	s_velo3
+{
+	t_vector3F	dist;
+	t_vector3F	velo;
+	int			time_ms;
+}	t_velo3;
 
 
 /*
@@ -148,6 +164,12 @@ typedef struct	s_shot
 	t_vector2F		pos;
 	t_vector2F		n_pos[SHOT_FRAME];
 	t_velo			velo;
+
+	t_velo3			velo3;
+	t_vector3F		start_pos3F;
+	t_vector3F		end_pos3F;
+	t_vector3F		pos3F;
+
 	unsigned long	start_time;
 	int				n;
 	int				weapon_type;
@@ -158,6 +180,7 @@ typedef struct	s_shot
 struct	s_obj
 {
 	int			id;
+	int			team;
 	float		x;
 	float		y;
 	float		z;
@@ -185,12 +208,17 @@ struct	s_obj
 	t_vector2F	old_plane;
 	t_hitbox	hb;
 	int			pitch;
+	int			norm_pitch;
 	t_shot		shott[MAX_BULLET];
 	int			shoot_n;
 	t_hit		shooted;
 	int			exchange;
 	int			is_shooting;
 	int				is_start;
+	int			change_team;
+	float		 scale;
+	int			money;
+	int			kevlar; // entre 0 et 2. 0 = pas de Kevlar, 1 = Kevlar, 2 = Kevlar + casque
 };
 
 typedef struct	s_network_data
@@ -302,52 +330,52 @@ typedef struct	s_rect
 	float	y;
 }	t_rect;
 
-typedef struct s_key
+typedef enum s_key
 {
-	int	mouse;
-	int	a;
-	int	b;
-	int	c;
-	int	d;
-	int e;
-	int f;
-	int g;
-	int h;
-	int i;
-	int j;
-	int k;
-	int l;
-	int m;
-	int n;
-	int o;
-	int p;
-	int q;
-	int r;
-	int s;
-	int t;
-	int u;
-	int v;
-	int w;
-	int x;
-	int	y;
-	int	z;
-	int zero;
-	int one;
-	int two;
-	int three;
-	int four;
-	int five;
-	int six;
-	int seven;
-	int eight;
-	int nine;
-	int underscore;
-	int	esc;
-	int	up;
-	int	down;
-	int	left;
-	int	right;
-	int	space;
+	mouse = 0,
+	a = 1,
+	b = 2,
+	c = 3,
+	d = 4,
+	e = 5,
+	f = 6,
+	g = 7,
+	h = 8,
+	i = 9,
+	j = 10,
+	k = 11,
+	l = 12,
+	m = 13,
+	n = 14,
+	o = 15,
+	p = 16,
+	q = 17,
+	r = 18,
+	s = 19,
+	t = 20,
+	u = 21,
+	v = 22,
+	w = 23,
+	x = 24,
+	y = 25,
+	z = 26,
+	zero = 27,
+	one = 28,
+	two = 29,
+	three = 30,
+	four = 31,
+	five = 32,
+	six = 33,
+	seven = 34,
+	eight = 35,
+	nine = 36,
+	underscore = 37,
+	esc = 38,
+	up = 39,
+	down = 40,
+	left = 41,
+	right = 42,
+	space = 43
 }	t_key;
 
 typedef struct s_var
@@ -355,7 +383,6 @@ typedef struct s_var
 	t_menu			*menu;
 	t_vector2D		m_pos;
 	int				mode;
-	t_key			key;
 	struct timeval	clock;
 	unsigned long	time;
 	unsigned long	old_time;
@@ -383,6 +410,16 @@ typedef struct s_var
 	int					scale;
 	int					half_scale;
 	int					half_scale_offset;
+	unsigned int		start_click;
+	int					click_keycode;
+	int					click;
+	int					key[44];
+	char				*red[3];
+	char				*blue[3];
+	char				*neutral[3];
+	int					n_red;
+	int					n_neutral;
+	int					n_blue;
 }	t_var;
 typedef struct	s_image
 {
@@ -396,7 +433,17 @@ typedef struct	s_image
 	t_data			death_sprite;
 	t_data			walk_sprite[8];
 	t_data			crosshair;
+	t_data			front;
 }	t_image;
+
+typedef struct	s_team
+{
+	int			win;
+	int			loose;
+	char		*players[3];
+	t_vector2F	team_spawn;
+	t_vector2F	player_spawn[3];
+}	t_team;
 
 typedef struct s_player
 {
@@ -449,6 +496,8 @@ typedef struct	s_client_thread
 	int						is_recv;
 	int						is_send;
 	int						start;
+	int						blue;
+	int						red;
 	struct s_server_data	*serv;
 }	t_client_thread;
 
@@ -466,6 +515,8 @@ struct	s_server_data
 	int						nb_players;
 	int						linked_players;
 	int						started;
+	int						nb_red;
+	int						nb_blue;
 };
 
 #endif

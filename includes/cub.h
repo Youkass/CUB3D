@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub.h                                              :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rmechety <rmechety@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -90,15 +90,19 @@ float	ft_return_radius_2(void);
 /* -------------------------------------------------------------------------- */
 int	is_allow_alpha(char c);
 char	char_up(char c);
-void	draw_text(char *text, t_vector2D pos, t_data *img);
-t_data	create_text_img(char *text);
-void	draw_rectange(t_vector2D a, t_vector2D size, t_data *img, char color[4]);
+void	draw_text(char *text, t_vector2D pos, t_data *img, char color[4]);
+t_data	ft_draw_char(t_data big, t_data lil, t_vector2D pos, char color[4]);
+t_data	ft_draw_char_scale(t_data big, t_data lil, t_vector2D p, t_vector2D scale, char color[4]);
+void	draw_text_scale(char *text, t_vector2D pos, t_data *img, t_vector2D scale, char color[4]);
+t_data	create_text_img(char *text, char color[4]);
+void	draw_rectange(t_vector2D a, t_vector2D size, char color[4]);
 
 /* -------------------------------------------------------------------------- */
 /*                            FILE = srcs/tools.c                             */
 /* -------------------------------------------------------------------------- */
 t_vector2D	pos(int x, int y);
 t_vector2F	posf(float x, float y);
+t_vector3F	pos3f(float x, float y, float z);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network/server_thread.c                     */
@@ -108,6 +112,7 @@ int	ft_init_client_thread(t_server_data *data);
 int	ft_connect_clients(t_server_data *data);
 int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
+int ft_is_send(t_client_thread *client);
 int	ft_send_all_data(t_client_thread *client);
 int	send_nb_players(t_client_thread *client);
 void	*client_routine(void *client_t);
@@ -158,10 +163,12 @@ int	circle_collide(void);
 /* -------------------------------------------------------------------------- */
 /*                      FILE = srcs/utils/singleton_2.c                       */
 /* -------------------------------------------------------------------------- */
-t_obj	*_player2(void);
-t_spritecasting	*_pc(void);
-t_image	*_image(void);
-t_media	*_media(void);
+t_obj	*_player2();
+t_spritecasting	*_pc();
+t_menu	*_menu();
+t_weapon	**_weapon(void);
+t_team	**_team(void);
+t_image	*_image();
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
@@ -184,6 +191,9 @@ int	ft_forward(void);
 int	ft_is_wall(t_vector2D pos);
 int	ft_back(void);
 int	ft_right(void);
+t_vector2F	get_90_angle(int	dir);
+int	ft_strafe_left(void);
+int	ft_strafe_right(void);
 int	ft_left(void);
 int	ft_escape(void);
 
@@ -200,8 +210,10 @@ float	max_f(float a, float b);
 float	min_f(float a, float b);
 float	min(int a, int b);
 int	normalise_between(t_vector2D r, t_vector2D t, int nb);
+float	normalise_between2F(t_vector2F r, t_vector2F t, int nb);
 int mod(int a, int b);
 float	rad_to_deg(float rad);
+float	deg_to_rad(float deg);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/math/vector/operator2F.c                    */
@@ -211,13 +223,18 @@ t_vector2F mult_2F(t_vector2F a, t_vector2F b);
 float	fdot(t_vector2F a, t_vector2F b);
 t_vector2F	sub_2f(t_vector2F a, t_vector2F b);
 t_vector2F	add_2f(t_vector2F a, t_vector2F b);
+t_vector3F	add_3f(t_vector3F a, t_vector3F b);
 
 /* -------------------------------------------------------------------------- */
 /*                      FILE = srcs/math/vector/tools.c                       */
 /* -------------------------------------------------------------------------- */
 t_vector2F	dist_2f(t_vector2F a, t_vector2F b);
+t_vector3F	dist_3f(t_vector3F a, t_vector3F b);
 t_vector2F	velocity_ms(t_vector2F dist, float time_ms);
+t_vector3F	velocity_ms3F(t_vector3F dist, float time_ms);
 t_vector2F	velocity_get_point(t_vector2F start, t_vector2F velo, int time_ms);
+t_vector3F	velocity_get_point3F(t_vector3F start, t_vector3F velo, int time_ms);
+float	one_dist2F(t_vector2F a, t_vector2F b);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/math/vector/operator2D.c                    */
@@ -263,6 +280,8 @@ void	init_key(void);
 void	init_weapons(void);
 void	init_var(void);
 void	init_data_shot(t_obj *player);
+int	is_wall(char c);
+void	init_teams(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
@@ -270,11 +289,11 @@ int main(int argc, char **argv);
 /* -------------------------------------------------------------------------- */
 t_vector2F	closest_point(t_vector2F a, t_vector2F b, t_vector2F c);
 int	is_shoot_touch(t_vector2F a, t_vector2F b, t_circle c, t_vector2F *closest);
-void	shoot_alone(void);
+void	shoot_alone3F(void);
 void	shoot(void);
 void	compute_shot(t_vector2F start, t_vector2F end);
-t_vector2F	nearest_wall();
-void	init_shot(t_vector2F start, t_vector2F end);
+int	nearest_wall3D(t_vector3F	*closest);
+void	init_shot3F(t_vector3F start, t_vector3F end);
 
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/menu/generate.c                         */
@@ -285,14 +304,12 @@ t_vector2D	*_butpl(void);
 void	gen_serv_but(void);
 void	generate_button_state(void);
 void	gen_alpha(void);
-void    gen_menu_imagess(void);
+void    gen_menu_images(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/menu_lobby.c                        */
 /* -------------------------------------------------------------------------- */
 void	get_pseudos(void);
-int		ft_recv_one(int socket, t_send_client *player, int size);
-int		ft_recv_players(t_send_server *o_player, int size);
 void	menu_pong(void);
 
 /* -------------------------------------------------------------------------- */
@@ -316,6 +333,12 @@ void	draw_bg(char color[4]);
 int	perc(int a, int b);
 void	menu_start(void);
 void	menu_player(void);
+void	draw_lobby(void);
+void	click(void);
+int	click_update(void);
+int	click_delay(void);
+void	update_key(void);
+void	draw_pseudo_box(char	*pseudo, int i, int team);
 void	menu_lobby(void);
 void	menu_pseudo(void);
 void	menu_ip(void);
@@ -336,8 +359,10 @@ void	restart_button(void);
 int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
 void	draw_pixel(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
 void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
+t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vector2D scale);
 t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
 t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos);
+t_data	ft_put_sprite_to_images_scale(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size, t_vector2D scale);
 t_data	ft_put_sprite_to_images(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size);
 void	draw_pixel_color(t_data *big, t_vector2D rel_pos, char pix[4]);
 void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
@@ -349,6 +374,20 @@ void	draw_bar_fill(void);
 void	s_bar_drag(void);
 void	m_bar_drag(void);
 void	drag_bar(void);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/menu/recv_utils.c                        */
+/* -------------------------------------------------------------------------- */
+int	ft_recv_players(t_send_server *o_player, int size);
+int	ft_recv_one(int socket, t_send_client *player, int size);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/new_raycaster.c                         */
+/* -------------------------------------------------------------------------- */
+void	ft_draw_wall2(t_obj wall, t_vector2D pos);
+void	ft_draw_floor2(t_obj wall);
+void	ft_draw_map2(void);
+void	raycast();
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/parsing/parsing.c                        */
@@ -386,9 +425,9 @@ void		draw_sky(void);
 void	draw_void_thread();
 void	check_death(void);
 void	update_bullets(void);
+void	update_bullets3F(void);
 void	hud(void);
 int		ft_loop();
 
 
 #endif
-

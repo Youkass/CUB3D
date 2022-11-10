@@ -169,3 +169,5 @@ int	wait_lobby(t_client_thread *client)
 	}
 	return (0);
 }
+
+
