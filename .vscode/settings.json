@@ -4,6 +4,16 @@
 		"complex": "c",
 		"struct.h": "c",
 		"includes.h": "c",
-		"__locale": "c"
+		"__locale": "c",
+		"__hash_table": "c",
+		"__split_buffer": "c",
+		"array": "c",
+		"bitset": "c",
+		"initializer_list": "c",
+		"unordered_map": "c",
+		"vector": "c",
+		"__tuple": "c",
+		"chrono": "c",
+		"variant": "c"
 	}
 }
