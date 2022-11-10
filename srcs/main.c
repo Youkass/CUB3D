@@ -12,14 +12,86 @@
 
 #include "../includes/cub.h"
 #include <unistd.h> 
+/*int main(int argc, char** argv)
+{
+    ma_result result;
+    ma_engine engine;
+
+    if (argc < 2) {
+        printf("No input file.");
+        return -1;
+    }
+
+    result = ma_engine_init(NULL, &engine);
+    if (result != MA_SUCCESS) {
+        printf("Failed to initialize audio engine.");
+        return -1;
+    }
+
+    ma_engine_play_sound(&engine, argv[1], NULL);
+
+    printf("Press Enter to quit...");
+    getchar();
+
+    ma_engine_uninit(&engine);
+
+    return 0;
+}
+*/
+void	ft_init_media(void)
+{
+	_media()->result = ma_engine_init(NULL, &(_media()->engine));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
+	_media()->result = ma_sound_init_from_file(&(_media()->engine),
+		"sound/test_sound.wav", 0, NULL, NULL, &(_media()->sound[0]));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
+	_media()->result = ma_sound_init_from_file(&(_media()->engine),
+		"sound/menu_music.wav", 0, NULL, NULL, &(_media()->sound[MENU_MUSIC]));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
+	_media()->result = ma_sound_init_from_file(&(_media()->engine),
+		"sound/game_music.wav", 0, NULL, NULL, &(_media()->sound[GAME_MUSIC]));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
+	_media()->result = ma_sound_init_from_file(&(_media()->engine),
+		"sound/shot.wav", 0, NULL, NULL, &(_media()->sound[SHOT_SOUND]));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
+}
+
+void	ft_play_music(long unsigned int time, int index)
+{
+	static long	start = 0;
+	
+	(void)index;
+	if (!start)
+	{
+		ma_sound_start(&(_media()->sound[index]));
+		start = get_clock(_var()->clock);
+	}
+	(void)time;
+	if (_var()->mode == GAME)
+	{
+		ma_sound_stop(&(_media()->sound[MENU_MUSIC]));
+		start = 0;
+	}
+}
+
+void	ft_play_sound(int index)
+{
+	ma_sound_start(&(_media()->sound[index]));
+}
+
 
 void	get_key(int keycode)
 {
-	if (keycode == A)
+	if (keycode == A_)
 		_var()->key[a] = 1;
 	if (keycode == W)
 		_var()->key[w] = 1;
-	if (keycode == S)
+	if (keycode == S_)
 		_var()->key[s] = 1;
 	if (keycode == D)
 		_var()->key[d] = 1;
@@ -39,14 +111,14 @@ void	get_key(int keycode)
 
 int	ft_release(int keycode)
 {
-	if (keycode == A)
+	if (keycode == A_)
 		_var()->key[a] = 0;
 	if (keycode == W)
 	{
 		_var()->key[w] = 0;
 		_player()->is_walking = 0;
 	}
-	if (keycode == S)
+	if (keycode == S_)
 	{
 		_var()->key[s] = 0;
 		_player()->is_walking = 0;
@@ -390,9 +462,15 @@ void	init_weapons(void)
 void	init_var(void)
 {
 	int	i;
-
+	
+	memset(_var(), 0, sizeof(t_var));
+	_var()->menu = malloc(sizeof(t_menu));
+	if (!_var()->menu)
+		exit(139); // TODO
+	memset(_var()->menu, 0, sizeof(t_menu));
 	_var()->mode = MENU;
-	_menu()->mode = MENU_START;_var()->walk_n = 0;
+	_menu()->mode = MENU_START;
+	_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
 	_var()->team_start = 0;
@@ -404,6 +482,9 @@ void	init_var(void)
 	while (i < MAX_PLAYER)
 		_image()->pseudo_img[i++].img = NULL;
 	_var()->started = 0;
+	_var()->start_click = 0;
+	_var()->click = 0;
+	_var()->click_keycode = 0;
 }
 
 void	init_data_shot(t_obj *player)
@@ -453,6 +534,7 @@ int main(int argc, char **argv)
 	init_weapons();
 	ft_print_tab(_var()->map);
 	ft_init_mlx();
+	ft_init_media();
 	ft_init_img();
 	_ray();
 	ft_init_player_pos();

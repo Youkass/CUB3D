@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/09 18:21:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,6 +321,9 @@ int	ft_loop()
 	reload_clock();
 	draw_rays();
 	walk_clock();
+	ft_play_music(0, GAME_MUSIC);
+	if (_player()->is_shooting > 0)
+		ft_play_sound(SHOT_SOUND);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER)  && _var()->mode == GAME)
 	{
 		ft_pong_client();

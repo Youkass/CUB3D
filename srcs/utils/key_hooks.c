@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/09 03:29:21 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ int	ft_game_hook(int keycode)
 	i = 0;
 	tab[0].id = W;
 	tab[0].ft_hook_key = &ft_forward;
-	tab[1].id = S;
+	tab[1].id = S_;
 	tab[1].ft_hook_key = &ft_back;
-	tab[2].id = A;
+	tab[2].id = A_;
 	tab[2].ft_hook_key = &ft_left;
 	tab[3].id = D;
 	tab[3].ft_hook_key = &ft_right;
@@ -216,8 +216,6 @@ int	ft_strafe_right(void)
 	if (!check_neighbor(0))
 	{
 		dir = get_90_angle(1);
-		printf("%f\n", dir.y);
-		printf("%f\n", dir.x);
 		_player()->y += (dir.y * _player()->move_speed);
 		_player()->x += (dir.x * _player()->move_speed);
 		_player()->is_walking = 1;
@@ -247,6 +245,6 @@ int	ft_left(void)
 
 int	ft_escape(void)
 {
-	exit(1);
+	ft_black_hole(0);
 	return (0);
 }

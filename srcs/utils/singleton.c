@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/01 10:20:21 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:29:52 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data	*_img(void)
 	
 	if (!img)
 	{
-		img = malloc(sizeof(t_data));
+		img = ft_malloc(sizeof(t_data));
 		memset(img, 0, sizeof(t_data));
 	}
 	if (!img)
@@ -37,10 +37,21 @@ t_mlx	*_mlx(void)
 	static t_mlx	*mlx = NULL;
 
 	if (!mlx)
-		mlx = malloc(sizeof(t_mlx));
+		mlx = ft_malloc(sizeof(t_mlx));
 	if (!mlx)
 		return (NULL);
 	return (mlx);
+}
+
+t_media	*_media(void)
+{
+	static t_media	*media = NULL;
+
+	if (!media)
+		media = ft_malloc(sizeof(t_media));
+	if (!media)
+		return (NULL);
+	return (media);
 }
 
 /*
@@ -52,7 +63,7 @@ t_obj	*_player(void)
 
 	return (&player);
 	//if (!player)
-	//	player = malloc(sizeof(t_obj));
+	//	player = ft_malloc(sizeof(t_obj));
 	//if (!player)
 	//	return (NULL);
 	//return (player);
@@ -67,9 +78,9 @@ t_raycasting	**_ray(void)
 
 	if (!ray)
 	{
-		ray = malloc(sizeof(t_raycasting *) * TH_RAY);
+		ray = ft_malloc(sizeof(t_raycasting *) * TH_RAY);
 		for (int i = 0; i < TH_RAY; i++)
-			ray[i] = malloc(sizeof(t_raycasting));
+			ray[i] = ft_malloc(sizeof(t_raycasting));
 	}
 	if (!ray)
 		return (NULL);
@@ -81,7 +92,13 @@ t_raycasting	**_ray(void)
 */
 t_var	*_var(void)
 {
-	static t_var	var;
-	
-	return (&var);
+	static t_var	*var = NULL;
+
+	if (var == NULL)
+	{
+		var = ft_malloc(sizeof(t_var));
+		if (!var)
+			printf("le ft_malloc pet\n");
+	}
+	return (var);
 }
