@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/06 13:27:59 by yobougre         ###   ########.fr        #
+#    Updated: 2022/11/09 02:03:00 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ RST			= \033[0m
 END			= \e[0m
 
 SRCS		=	srcs/main.c\
+				srcs/team.c\
 				srcs/tools.c\
 				srcs/shoot.c\
 				srcs/ft_itoa.c\
@@ -52,7 +53,8 @@ SRCS		=	srcs/main.c\
 				srcs/math/vector/operator2D.c\
 				srcs/math/vector/operator2F.c\
 				srcs/math/vector/tools.c\
-				srcs/new_raycaster.c
+				srcs/new_raycaster.c\
+				srcs/dyn_array.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/network/lobby.c\
@@ -71,8 +73,10 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/utils/collisions.c\
 					srcs/tools.c\
 					srcs/shoot.c\
+					srcs/dyn_array.c\
 					srcs/menu/recv_utils.c\
-					srcs/parsing/parsing.c
+					srcs/parsing/parsing.c\
+					srcs/team.c
 
 
 NAME		= cub3D
@@ -130,9 +134,12 @@ $(NAME_B): $(OBJECTS_PREFIXED_B) maker
 $(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
 	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) -O3 -pthread -Lincludes -lm
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
+
 all: $(NAME) $(SERVER)
 
 bonus:	$(NAME_B)
+
+server:	$(SERVER)
 
 maker:
 	@make -C mlx

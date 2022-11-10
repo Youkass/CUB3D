@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:10:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 19:54:42 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/08 20:35:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_team	**_team(void)
 
 	if (!team)
 	{
-		team = malloc(sizeof(t_team *) * 2);
-		for (int i = 0; i < 2; i++)
+		team = malloc(sizeof(t_team *) * 3);
+		for (int i = 0; i < 3; i++)
 			team[i] = malloc(sizeof(t_team));
 	}
 	if (!team)

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/05 20:05:47 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/09 21:13:23 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,31 @@ void	generate_dsprite(void)
 	_image()->rifle = generate_image("./img/soldier/rifle.xpm");
 }
 
+void	restart_player(void)
+{
+	double	dist;
+
+	_player()->pseudo[0] = 0;
+	_player()->is_shooting = 0;
+	_player()->can_shoot = 1;
+	_player()->start_reload = get_clock(_var()->clock);
+	_player()->health = 100;
+	_player()->ammo = 0;
+	_player()->shoot_n = 0;
+	_player()->z = 0;
+	_player()->dx = -1;
+	_player()->shooted.id = -1;
+	_player()->shooted.shoot = 0;
+	_player()->dy = 0;
+	_player()->is_dead = 0;
+	_player()->death_n = 0;
+	_player()->plane = (t_vector2F){0, -0.66};
+	_player()->pitch = 0;
+	_player()->norm_pitch = 0;
+	dist = hypot(_player()->dx, _player()->dy);
+	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
+	_player()->is_walking = 0;
+}
 
 void	ft_init_player_pos(void)
 {
@@ -261,7 +286,6 @@ int	ft_loop_hook(void)
 			{
 				sleep(1);
 				ft_init_client();
-				printf("je suis dans loop_hook\n");
 			}
 			else
 			{
@@ -272,6 +296,11 @@ int	ft_loop_hook(void)
 	}
 	ft_fps();
 	key_hook();
+	if (_var()->mode == GAME_START_ONLINE)
+	{
+		init_teams();
+		_var()->mode = GAME;
+	}
 	if (_var()->mode == GAME)
 		ft_loop();
 	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
@@ -366,6 +395,10 @@ void	init_var(void)
 	_menu()->mode = MENU_START;_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
+	_var()->team_start = 0;
+	_var()->team_match = 0;
+	_var()->freeze = 0;
+	init_teams();
 	//_image()->bullet = generate_image("./img/bullet.xpm");
 	i = 0;
 	while (i < MAX_PLAYER)
@@ -404,37 +437,6 @@ void	init_data_shot(t_obj *player)
 //		return (1);
 //	return (0);
 //}
-
-void	init_teams(void)
-{
-	int			i;
-	
-	_team()[TRED]->loose = 0;
-	_team()[TRED]->win = 0;
-	_team()[TRED]->team_spawn = posf(3, 3);
-	i = 0;
-	while (i < _var()->nb_player / 2)
-	{
-		_team()[TRED]->players[i] = _var()->red[i];
-		i++;
-	}
-	_team()[TRED]->player_spawn[0] = posf(3, 3);
-	_team()[TRED]->player_spawn[1] = posf(3, 4);
-	_team()[TRED]->player_spawn[2] = posf(3, 2);
-
-	_team()[TBLUE]->loose = 0;
-	_team()[TBLUE]->win = 0;
-	_team()[TBLUE]->team_spawn = posf(40, 9);
-	i = 0;
-	while (i < _var()->nb_player / 2)
-	{
-		_team()[TBLUE]->players[i] = _var()->blue[i];
-		i++;
-	}
-	_team()[TBLUE]->player_spawn[0] = posf(40, 9);
-	_team()[TBLUE]->player_spawn[1] = posf(40, 10);
-	_team()[TBLUE]->player_spawn[2] = posf(41, 9);
-}
 
 int main(int argc, char **argv)
 {

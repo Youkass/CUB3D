@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/06 13:41:55 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:27:21 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,18 @@ int	ft_init_server(t_server_data *data)
 		exit(1);
 	}
 	memset(&data->server, 0, sizeof(data->server));
+	memset(&data->round_state, 0, sizeof(data->round_state));
+	data->round_state[ROUND_PLAY] = data->nb_players;
+	init_array(&data->teams[0], data->nb_players / 2);
+	init_array(&data->teams[1], data->nb_players / 2);
+	data->clock = start_clock();
+	data->start = get_clock(data->clock);
 	data->server.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	data->server.sin_family = AF_INET;
 	data->server.sin_port = htons(30000);
+	data->clock_started = 0;
 	if (setsockopt(data->socket, SOL_SOCKET, (SO_REUSEADDR), &option, sizeof(option)) < 0)
 	{
-		perror("lol\n");
 		printf("Socket error\n");
 		exit(1);
 	}

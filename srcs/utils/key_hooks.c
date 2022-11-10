@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/09 03:29:21 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	key_hook(void)
 {
 	if (_var()->key[esc])
 		ft_escape();
-	if (_player()->is_dead)
+	if (_player()->is_dead || _var()->freeze)
 		return ;
 	if (_var()->key[a])
 		ft_strafe_left();

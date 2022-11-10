@@ -105,6 +105,15 @@ t_vector2F	posf(float x, float y);
 t_vector3F	pos3f(float x, float y, float z);
 
 /* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/dyn_array.c                           */
+/* -------------------------------------------------------------------------- */
+void	init_array(t_array *a, int size);
+int	arr_push(t_array *a, int	value);
+void	arr_pop(t_array *a, int	id);
+void	arr_destroy(t_array *a);
+void	print_tab(t_array *a);
+
+/* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network/server_thread.c                     */
 /* -------------------------------------------------------------------------- */
 void	ft_exit(int signal);
@@ -113,8 +122,14 @@ int	ft_connect_clients(t_server_data *data);
 int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
 int ft_is_send(t_client_thread *client);
+int	check_only(int nb, int r, int type);
 int	ft_send_all_data(t_client_thread *client);
 int	send_nb_players(t_client_thread *client);
+void	check_team(t_client_thread *c);
+void	update_team_array(t_client_thread *c);
+int	ft_update_team(t_client_thread *c);
+void	init_team_server(t_client_thread *c);
+void	get_team_id(t_client_thread	*c);
 void	*client_routine(void *client_t);
 
 /* -------------------------------------------------------------------------- */
@@ -130,7 +145,16 @@ int main(int ac, char **av);
 /* -------------------------------------------------------------------------- */
 int	ft_recv_first_data_lobby(t_client_thread *client, int nb);
 int	ft_send_all_data_lobby(t_client_thread *client, int nb);
+int	ft_player_team(t_client_thread *client, int id);
+int	ft_update(t_client_thread *client);
 int	wait_lobby(t_client_thread *client);
+
+/* -------------------------------------------------------------------------- */
+/*                             FILE = srcs/team.c                             */
+/* -------------------------------------------------------------------------- */
+void	init_player_team();
+int	get_id_by_pseudo(char *pseudo);
+void	init_teams(void);
 
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/utils/list.c                          */
@@ -147,6 +171,7 @@ void	ft_lst_dellast(t_list **lst);
 struct timeval	start_clock();
 unsigned long	get_clock(struct timeval start);
 unsigned long	get_time(unsigned long start);
+unsigned long	get_time_server(unsigned long start, struct timeval clock);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/collisions.c                       */
@@ -249,6 +274,7 @@ char	*ft_get_ip_input(void);
 int	ft_init_client(void);
 void	ft_copy_data_before_pong(t_obj *player);
 void	print_data_recv(t_obj	*player);
+void	restart_round(void);
 void	ft_pong_client(void);
 
 /* -------------------------------------------------------------------------- */
@@ -264,6 +290,7 @@ t_obj	ft_get_data(t_obj *player);
 void	get_key(int keycode);
 int	ft_release(int keycode);
 void	generate_dsprite(void);
+void	restart_player(void);
 void	ft_init_player_pos(void);
 void	walk_clock(void);
 void	death_clock(void);
@@ -279,8 +306,6 @@ void	init_key(void);
 void	init_weapons(void);
 void	init_var(void);
 void	init_data_shot(t_obj *player);
-int	is_wall(char c);
-void	init_teams(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */

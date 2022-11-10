@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/08 21:46:54 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	check_button_state(void)
 		{
 			if (i == 0 && _menu()->s_state[0].state == 2)
 			{
-				_var()->nb_player = 1; _var()->mode = GAME;
+				_var()->nb_player = 1;
+				_var()->mode = GAME;
 			}
 			if (i == 1 && _menu()->s_state[1].state == 2)
 				_menu()->mode = MENU_PLAYER;
@@ -190,13 +191,9 @@ void	planet_clock(void)
 */
 int	menu_loop(void)
 {
-	printf("lol\n");
 	click_update();
 	if(_menu()->mode == MENU_LOBBY && (_var()->mode != GAME && _var()->mode != GAME_START_ONLINE))
-	{
-		printf("ici\n");
 		menu_pong();
-	}
 	drag_bar();
 	if (_menu()->mode == MENU_START)
 		check_button_state();
@@ -320,7 +317,6 @@ int	menu_hook_ip(int keycode)
 	}
 	if (keycode == SPACE && n + 1 < 16)
 	{
-		printf("lol\n");
 		_var()->ip[n++] = '.';
 		_var()->ip[n] = 0;
 	}

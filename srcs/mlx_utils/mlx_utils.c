@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/09 18:21:54 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,10 +330,14 @@ int	ft_loop()
 	update_bullets3F();
 	bullet_casting();
 	hud();
+	if (_var()->round_state == ROUND_END_WAIT)
+	{
+		if (_var()->last_round_winner == TRED)
+			draw_text_scale("RED WIN THE ROUND", pos(WIN_W / 2 - (17 * (42)) / 2, 300), _img(), pos(1, 1), RED);
+		else
+			draw_text_scale("BLUE WIN THE ROUND", pos(WIN_W / 2 - (18 * (42)) / 2, 300), _img(), pos(1, 1), BLUE);
+	}
 	ft_draw_map();
-	ft_put_image_to_image_scale(*_img(), _menu()->planets[0], pos(100, 100), pos(2, 2));
-	//raycast();
-
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);
