@@ -31,33 +31,37 @@ typedef struct s_enum_key
 
 void	key_hook(void)
 {
-	if (_var()->key.esc)
+	if (_var()->key[esc])
 		ft_escape();
 	if (_player()->is_dead)
 		return ;
-	if (_var()->key.a)
-		ft_left();
-	if (_var()->key.w)
+	if (_var()->key[a])
+		ft_strafe_left();
+	if (_var()->key[w])
 		ft_forward();
-	if (_var()->key.s)
+	if (_var()->key[s])
 		ft_back();
-	if (_var()->key.d)
+	if (_var()->key[d])
+		ft_strafe_right();
+	if (_var()->key[left])
+		ft_left();
+	if (_var()->key[right])
 		ft_right();
-	if (_var()->key.up)
+	if (_var()->key[up])
 		ft_up_head();
-	if (_var()->key.down)
+	if (_var()->key[down])
 		ft_down_head();
-	if (_var()->key.space)
+	if (_var()->key[space])
 	{
 		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET)
 		{
 			_player()->can_shoot = 0;
-			_player()->start_reload = get_clock(_var()->clock);
 			_player()->is_shooting = 1;
+			_player()->start_reload = get_clock(_var()->clock);
 			shoot();
 		}
 		else if (_var()->is_host == SERVER &&
-				_var()->menu->mode == MENU_LOBBY && _var()->mode != GAME && 
+				_menu()->mode == MENU_LOBBY && _var()->mode != GAME && 
 				_var()->nb_player == _var()->linked_players) // menu lobby
 		{
 			_player()->is_start = 1;
@@ -101,6 +105,9 @@ int	ft_up_head(void)
 	_player()->pitch += 200 * _player()->move_speed;
 	if(_player()->pitch > 400)
 		_player()->pitch = 400;
+	_player()->norm_pitch = normalise_between2F(posf(-1000, 1000),
+		posf(-1, 1), _player()->pitch);
+	//printf("==> %f\n", sin(_player()->pitch));
 	return (0);
 }
 
@@ -109,6 +116,8 @@ int	ft_down_head(void)
 	_player()->pitch -= 200 * _player()->move_speed;
 	if(_player()->pitch < -400)
 		_player()->pitch = -400;
+	_player()->norm_pitch = normalise_between2F(posf(-1000, 1000),
+		posf(-1, 1), _player()->pitch);
 	return (0);
 }
 
@@ -167,6 +176,52 @@ int	ft_right(void)
 		_player()->angle = acos(_player()->dx / dist) * 180 / M_PI;
 	else
 		_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
+	return (0);
+}
+
+t_vector2F	get_90_angle(int	dir)
+{
+	double		deg;
+	double		rad;
+	t_vector2F	v;
+
+	deg = rad_to_deg(atan2(_player()->dy, _player()->dx)) + (90 * dir);
+	rad = deg_to_rad(deg);
+	v.x = (cos(rad));
+	v.y = (sin(rad));
+	v.x+=_player()->dx;
+	v.y+=_player()->dy;
+	deg = (atan2(v.y - _player()->dy, v.x - _player()->dx));  
+	return (posf(cos(deg), sin(deg)));
+}
+
+int	ft_strafe_left(void)
+{
+	t_vector2F	dir;
+
+	if (!check_neighbor(0))
+	{
+		dir = get_90_angle(-1);
+		_player()->y += (dir.y * _player()->move_speed);
+		_player()->x += (dir.x * _player()->move_speed);
+		_player()->is_walking = 1;
+	}
+	return (0);
+}
+
+int	ft_strafe_right(void)
+{
+	t_vector2F	dir;
+
+	if (!check_neighbor(0))
+	{
+		dir = get_90_angle(1);
+		printf("%f\n", dir.y);
+		printf("%f\n", dir.x);
+		_player()->y += (dir.y * _player()->move_speed);
+		_player()->x += (dir.x * _player()->move_speed);
+		_player()->is_walking = 1;
+	}
 	return (0);
 }
 

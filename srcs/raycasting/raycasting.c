@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 16:53:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,13 +166,13 @@ void	draw_wall(t_raycasting *r)
 	{
 		r->tex.y = (int)r->tex_pos & (128 - 1);
         r->tex_pos += r->tex_step;
-		r->color = (int)_var()->menu->wall.addr[(r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)];
+		r->color = (int)_menu()->wall.addr[(r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)];
 		if(r->side == 1)
 			r->color = (r->color >> 1) & 8355711;
-		_img()->addr[r->y * _img()->line_length + r->x * 4] = _var()->menu->wall.addr[(r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)];
-		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 1] = _var()->menu->wall.addr[((r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)) + 1];
-		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 2] = _var()->menu->wall.addr[((r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)) + 2];
-		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 3] = _var()->menu->wall.addr[((r->tex.y * _var()->menu->wall.line_length)  + (r->tex.x * 4)) + 3];
+		_img()->addr[r->y * _img()->line_length + r->x * 4] = _menu()->wall.addr[(r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)];
+		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 1] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 1];
+		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 2] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 2];
+		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 3] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 3];
 		r->y++;
 	}
 }

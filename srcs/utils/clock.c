@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 09:20:27 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/01 23:48:11 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ struct timeval	start_clock()
 	gettimeofday(&start, NULL);
 	return (start);
 }
+
 
 unsigned long	get_clock(struct timeval start)
 {

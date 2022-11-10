@@ -52,6 +52,8 @@ SRCS		=	srcs/main.c\
 				srcs/math/vector/operator2D.c\
 				srcs/math/vector/operator2F.c\
 				srcs/math/vector/tools.c\
+				srcs/new_raycaster.c
+				srcs/math/vector/tools.c\
 				miniaudio/extras/miniaudio_split/miniaudio.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
