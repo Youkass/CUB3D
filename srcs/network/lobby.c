@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/06 13:35:43 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 01:48:04 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 	if (player.start)
 		client->serv->started = 1;
 	pthread_mutex_unlock(client->mutex);
+	client->player_data = player.player;
 	while (ft_has_recv(client, nb))
 	{}
 	return (0);
@@ -109,6 +110,52 @@ int	ft_send_all_data_lobby(t_client_thread *client, int nb)
 	return (0);
 }
 
+int	ft_player_team(t_client_thread *client, int id)
+{
+	int	i;
+
+	i = 0;
+	while (i < client->serv->nb_blue)
+	{
+		if (id == client->serv->teams[1].array[i++])
+			return (2);
+	}
+	i = 0;
+	while (i < client->serv->nb_red)
+	{
+		if (id == client->serv->teams[0].array[i++])
+			return (0);
+	}
+	return (1);
+}
+
+int	ft_update(t_client_thread *client)
+{
+	pthread_mutex_lock(client->mutex);
+	if (client->player_data.team == TEAM_RED && client->serv->player_data[client->id].change_team == 1)
+	{
+		arr_pop(&client->serv->teams[1], client->id);
+		if (!arr_push(&client->serv->teams[0], client->id))
+			client->serv->player_data[client->id].team = TEAM_VOID;
+		client->serv->player_data[client->id].change_team = 0;
+	}
+	else if (client->player_data.team == TEAM_BLUE && client->serv->player_data[client->id].change_team == 1)
+	{
+		arr_pop(&client->serv->teams[0], client->id);
+		if (!arr_push(&client->serv->teams[1], client->id))
+			client->serv->player_data[client->id].team = TEAM_VOID;
+		client->serv->player_data[client->id].change_team = 0;
+	}
+	else if (client->serv->player_data[client->id].change_team == 1)
+	{
+		arr_pop(&client->serv->teams[0], client->id);
+		arr_pop(&client->serv->teams[1], client->id);
+		client->serv->player_data[client->id].change_team = 0;
+	}
+	pthread_mutex_unlock(client->mutex);
+	return (0);
+}
+
 int	wait_lobby(t_client_thread *client)
 {
 	int	nb;
@@ -119,6 +166,8 @@ int	wait_lobby(t_client_thread *client)
 		nb = client->serv->linked_players;
 		pthread_mutex_unlock(client->mutex);
 		if (ft_recv_first_data_lobby(client, nb))
+			return (1);
+		if (ft_update(client))
 			return (1);
 		if (ft_send_all_data_lobby(client, nb))
 			return (1);

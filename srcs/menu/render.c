@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/09 01:44:11 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,16 @@ void	update_key(void)
 	if (_var()->key[left] == 1 && _player()->team > 0 && !click_delay())
 	{
 		click();
+		printf("click left\n");
 		_player()->team--;
+		_player()->change_team = 1;
 	}
 	if (_var()->key[right] == 1 && _player()->team < 2 && !click_delay())
 	{
 		click();
 		_player()->team++;
+		printf("click reight\n");
+		_player()->change_team = 1;
 	}
 }
 

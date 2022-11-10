@@ -58,6 +58,7 @@ void	ft_copy_data_before_pong(t_obj *player)
 	j = 0;
 	i = 0;
 	player->team = _player()->team;
+	player->change_team = _player()->change_team;
 	player->id = _player()->id;
 	player->x = _player()->x;
 	player->y = _player()->y;
@@ -134,36 +135,66 @@ void	print_data_recv(t_obj	*player)
 	player->x, player->y, player->health, player->angle, player->dx, player->dy, player->shoot_n, player->exchange);
 }
 
+void	restart_round(void)
+{
+	init_player_team();
+}
+
 void	ft_pong_client(void)
 {
-	t_obj	player[MAX_PLAYER];
-	t_obj	my_player;	
-	int		i;
+	t_send_server_game	serv;
+	t_obj				my_player;	
+	int					i;
 	
 	i = 0;
 	memset(&my_player, 0, sizeof(my_player));
 	ft_copy_data_before_pong(&my_player);
 	if (send(_var()->socket, &my_player, sizeof(my_player), 0) < 0)
 		return ;
-	memset(&player, 0, sizeof(player));
-	if (recv(_var()->socket, &player, sizeof(player), MSG_WAITALL) < 0)
+	memset(&serv, 0, sizeof(serv));
+	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) < 0)
 		return ;
 	while (i < _var()->linked_players)
 	{
-		if (player[i].shooted.shoot == 1 && player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[player[i].weapon_id]->power;
-		else if (player[i].shooted.shoot == 2 && player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[player[i].weapon_id]->headshot;
-		else if (player[i].shooted.shoot == 3 && player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[player[i].weapon_id]->footshot;
-		if (player[i].shooted.shoot > 0 && i == _player()->id)
+		if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
+			_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
+		else if (serv.player[i].shooted.shoot == 2 && serv.player[i].shooted.id == _player()->id)
+			_player()->health -= _weapon()[serv.player[i].weapon_id]->headshot;
+		else if (serv.player[i].shooted.shoot == 3 && serv.player[i].shooted.id == _player()->id)
+			_player()->health -= _weapon()[serv.player[i].weapon_id]->footshot;
+		if (serv.player[i].shooted.shoot > 0 && i == _player()->id)
 		{
 			_player()->shooted.shoot = 0;
 			_player()->shooted.id = -1;
 		}
-		_var()->o_player[i] = player[i];
+		_var()->o_player[i] = serv.player[i];
 		_var()->o_player[i].id = i;
-		_player()->team = player[i].team;
+		_player()->team = serv.player[i].team;
 		++i;
+	}
+	_var()->round_state = serv.round_state;
+	if (_var()->round_state == ROUND_END)
+	{
+		printf("%d WIN THE ROUND\n", serv.round_winner);
+		if (serv.round_winner == TRED)
+		{
+			_var()->last_round_winner = TRED;
+			++_team()[TEAM_RED]->win;
+			++_team()[TEAM_BLUE]->loose;
+		}
+		else
+		{
+			_var()->last_round_winner = TBLUE;
+			++_team()[TEAM_BLUE]->win;
+			++_team()[TEAM_RED]->loose;
+		}
+		_var()->freeze = 1;
+	}
+	else if (_var()->round_state == ROUND_END_WAIT)
+		_var()->freeze = 1;
+	if (_var()->round_state == ROUND_WAIT_START)
+	{
+		restart_player();
+		init_player_team();
 	}
 }

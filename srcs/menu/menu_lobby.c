@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/08 16:57:20 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/09 01:44:23 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,16 @@ static void	ft_copy_new_data(t_send_server o_player)
 	ft_cpy_tab(o_player);
 	if (o_player.start)
 	{
-		printf("start : %d\n", o_player.start);
-		_var()->mode = GAME;
+		_var()->mode = GAME_START_ONLINE;
 		_var()->started = 1;
 	}
 	_var()->n_blue = 0;
 	_var()->n_red = 0;
 	_var()->n_neutral = 0;
 	i = 0;
-	while (i < _var()->linked_players && !_var()->started)
+	_player()->team = _var()->o_player[_player()->id].team;
+	_player()->change_team = _var()->o_player[_player()->id].change_team;
+	while (i < _var()->linked_players)
 	{
 		if (_var()->o_player[i].team == TEAM_BLUE)
 		{

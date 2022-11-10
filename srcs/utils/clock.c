@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 23:48:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/09 19:35:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,9 @@ unsigned long	get_clock(struct timeval start)
 unsigned long	get_time(unsigned long start)
 {
 	return (get_clock(_var()->clock) - start);
+}
+
+unsigned long	get_time_server(unsigned long start, struct timeval clock)
+{
+	return (get_clock(clock) - start);
 }

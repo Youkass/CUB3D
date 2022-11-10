@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/06 15:02:25 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/09 19:27:16 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ typedef struct	s_shot
 struct	s_obj
 {
 	int			id;
+	int			team_id;
 	int			team;
 	float		x;
 	float		y;
@@ -406,10 +407,15 @@ typedef struct s_var
 	int					key[44];
 	char				*red[3];
 	char				*blue[3];
-	char				*neutral[3];
+	char				*neutral[6];
 	int					n_red;
 	int					n_neutral;
 	int					n_blue;
+	int					team_start;
+	int					team_match;
+	int					freeze;
+	int					round_state;
+	int					last_round_winner;
 }	t_var;
 typedef struct	s_image
 {
@@ -426,14 +432,40 @@ typedef struct	s_image
 	t_data			front;
 }	t_image;
 
+typedef struct	s_array
+{
+	int		*array;
+	size_t	n;
+	size_t	size;
+} t_array;
+
 typedef struct	s_team
 {
 	int			win;
 	int			loose;
-	char		*players[3];
+	int			players[3];
+	int			deaths;
 	t_vector2F	team_spawn;
 	t_vector2F	player_spawn[3];
 }	t_team;
+
+typedef struct	s_player_stat
+{
+	int	dead;
+	int	kills;
+	int	deaths;
+	int	id;
+}	t_player_stat;
+
+/*
+Round_state : 0 : Rien. 1 = Gagne. 2 : Perd*/
+typedef struct	s_team_serv
+{
+	int				wins;
+	int				looses;
+	int				round_state;
+	t_player_stat	players[3];
+}	t_team_serv;
 
 typedef struct s_player
 {
@@ -471,6 +503,13 @@ typedef struct	s_send_server
 	int			linked_pl;
 }	t_send_server;
 
+typedef struct	s_send_server_game
+{
+	t_obj		player[MAX_PLAYER];
+	int			round_winner;
+	int			round_state;
+}	t_send_server_game;
+
 typedef struct	s_client_thread
 {
 	pthread_mutex_t			*mutex;
@@ -489,12 +528,16 @@ typedef struct	s_client_thread
 	int						blue;
 	int						red;
 	struct s_server_data	*serv;
+	int						team_id;
+	int						team;
+	int						round_state_send[N_RSTATE];
 }	t_client_thread;
 
 struct	s_server_data
 {
 	struct sockaddr_in		server;
 	t_client_thread			clients[MAX_PLAYER];
+	t_array					teams[2];
 	pthread_mutex_t			mutex;
 	pthread_mutex_t			mutex_start;
 	pthread_mutex_t			mutex_linked;
@@ -507,6 +550,11 @@ struct	s_server_data
 	int						started;
 	int						nb_red;
 	int						nb_blue;
+	t_team_serv				team_data[2];
+	struct timeval			clock;
+	unsigned long			start;
+	int						round_state[N_RSTATE];
+	int						clock_started;
 };
 
 #endif

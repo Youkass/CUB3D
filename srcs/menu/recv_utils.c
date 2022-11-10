@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recv_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:50:49 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/05 14:14:05 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/08 21:46:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_recv_one(int socket, t_send_client *player, int size)
 	{
 		i = recv(socket, player + ret, size, MSG_WAITALL);
 		ret += i;
-		printf("socket : %d ret : %d\n", socket, ret);
+		//printf("socket : %d ret : %d\n", socket, ret);
 		if (ret == size || !i)
 			return (0);
 		if (ret < 0 || i < 0)

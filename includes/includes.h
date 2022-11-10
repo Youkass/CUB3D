@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/07 16:59:22 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/09 18:16:51 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,18 @@ esc : 65307
 # define WHITE colo(238, 238, 238)
 # define DARK_GREY colo(71, 71, 71)
 # define LIGTH_GREY colo(100, 100, 100)
+
+# define MATCH 0
+# define WIN 1
+# define LOOSE 2
+
+# define N_RSTATE 6
+# define ROUND_PLAY 0
+# define ROUND_END 1
+# define ROUND_END_WAIT 2
+# define ROUND_WAIT_START 3
+# define ROUND_WAIT 4
+# define ROUND_START 5
 
 # define TRED 0
 # define TBLUE 1
