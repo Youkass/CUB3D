@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/06 13:35:43 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/10 15:44:11 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 				sizeof(t_send_client)))
 		return (1);
 	pthread_mutex_lock(client->mutex);
+	printf("PSEUDO : %s\n", player.player.pseudo);
 	if (player.flag || player.player.pseudo[0])
 		client->serv->player_data[client->id] = player.player;
 	client->is_send = 0;
