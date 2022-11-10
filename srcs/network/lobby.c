@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lobby.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-<<<<<<<<< Temporary merge branch 1
-/*   Updated: 2022/11/06 13:35:43 by yobougre         ###   ########.fr       */
-=========
-/*   Updated: 2022/11/05 16:57:03 by denissereno      ###   ########.fr       */
->>>>>>>>> Temporary merge branch 2
+/*   Updated: 2022/11/10 16:52:54 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +57,7 @@ int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 {
 	t_send_client	player;
 	
+	printf("salut\n");
 	memset(&player, 0, sizeof(player));
 	if (ft_recv_one(client->socket, &player, 
 				sizeof(t_send_client)))

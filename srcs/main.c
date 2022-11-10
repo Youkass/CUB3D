@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/09 21:13:23 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 18:32:19 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,6 +366,7 @@ int	ft_loop_hook(void)
 			}
 		_var()->mode = LOBBY_WAIT;
 	}
+	printf("%d\n", _var()->mode);
 	ft_fps();
 	key_hook();
 	if (_var()->mode == GAME_START_ONLINE)
@@ -464,10 +465,6 @@ void	init_var(void)
 	int	i;
 	
 	memset(_var(), 0, sizeof(t_var));
-	_var()->menu = malloc(sizeof(t_menu));
-	if (!_var()->menu)
-		exit(139); // TODO
-	memset(_var()->menu, 0, sizeof(t_menu));
 	_var()->mode = MENU;
 	_menu()->mode = MENU_START;
 	_var()->walk_n = 0;
