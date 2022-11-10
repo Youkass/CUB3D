@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/09 15:14:53 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/10 09:08:50 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,9 @@ int	menu_loop(void)
 {
 	click_update();
 	ft_play_music(20000000, MENU_MUSIC);
-	if(_var()->menu->mode == MENU_LOBBY && (_var()->mode != GAME && _var()->mode != GAME_START_ONLINE))
+	if(_var()->menu->mode == MENU_LOBBY
+			&& (_var()->mode != GAME
+				&& _var()->mode != GAME_START_ONLINE))
 		menu_pong();
 	drag_bar();
 	if (_menu()->mode == MENU_START)

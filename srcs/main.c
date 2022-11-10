@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/09 15:53:06 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/10 12:49:07 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,17 @@ void	ft_init_media(void)
 		"sound/game_music.wav", 0, NULL, NULL, &(_media()->sound[GAME_MUSIC]));
 	if (_media()->result != MA_SUCCESS)
 		exit (1); //TODO
+	_media()->result = ma_sound_init_from_file(&(_media()->engine),
+		"sound/shot.wav", 0, NULL, NULL, &(_media()->sound[SHOT_SOUND]));
+	if (_media()->result != MA_SUCCESS)
+		exit (1); //TODO
 }
 
 void	ft_play_music(long unsigned int time, int index)
 {
 	static long	start = 0;
-
+	
+	(void)index;
 	if (!start)
 	{
 		ma_sound_start(&(_media()->sound[index]));
@@ -74,15 +79,20 @@ void	ft_play_music(long unsigned int time, int index)
 	}
 }
 
+void	ft_play_sound(int index)
+{
+	ma_sound_start(&(_media()->sound[index]));
+}
+
 
 void	get_key(int keycode)
 {
 	if (keycode == A_)
-		_var()->key.a = 1;
+		_var()->key[a] = 1;
 	if (keycode == W)
-		_var()->key.w = 1;
+		_var()->key[w] = 1;
 	if (keycode == S_)
-		_var()->key.s = 1;
+		_var()->key[s] = 1;
 	if (keycode == D)
 		_var()->key[d] = 1;
 	if (keycode == ESC)
@@ -102,7 +112,7 @@ void	get_key(int keycode)
 int	ft_release(int keycode)
 {
 	if (keycode == A_)
-		_var()->key.a = 0;
+		_var()->key[a] = 0;
 	if (keycode == W)
 	{
 		_var()->key[w] = 0;
@@ -423,9 +433,15 @@ void	init_weapons(void)
 void	init_var(void)
 {
 	int	i;
-
+	
+	memset(_var(), 0, sizeof(t_var));
+	_var()->menu = malloc(sizeof(t_menu));
+	if (!_var()->menu)
+		exit(139); // TODO
+	memset(_var()->menu, 0, sizeof(t_menu));
 	_var()->mode = MENU;
-	_menu()->mode = MENU_START;_var()->walk_n = 0;
+	_menu()->mode = MENU_START;
+	_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);
 	//_image()->bullet = generate_image("./img/bullet.xpm");
@@ -433,6 +449,9 @@ void	init_var(void)
 	while (i < MAX_PLAYER)
 		_image()->pseudo_img[i++].img = NULL;
 	_var()->started = 0;
+	_var()->start_click = 0;
+	_var()->click = 0;
+	_var()->click_keycode = 0;
 }
 
 void	init_data_shot(t_obj *player)

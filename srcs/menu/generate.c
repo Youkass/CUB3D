@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 15:28:36 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,10 +124,10 @@ static void	gen_menu_buttons(void)
 	t_vector2D	it;
 
 	it = (t_vector2D){0, 0};
-	_menu()->buttons = malloc(sizeof(t_data *) * 3);
+	_menu()->buttons = ft_malloc(sizeof(t_data *) * 3);
 	while (it.y < 3)
 	{
-		_menu()->buttons[it.y] = malloc(sizeof(t_data) * 12);
+		_menu()->buttons[it.y] = ft_malloc(sizeof(t_data) * 12);
 		it.x = 0;
 		while (it.x < 12)
 		{
@@ -138,7 +138,8 @@ static void	gen_menu_buttons(void)
 				printf("error image\n");
 				return ;
 			}
-			free(tmp);
+			//free(tmp);
+			//tmp = NULL;
 			it.x++;
 		}
 		it.y++;

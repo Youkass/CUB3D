@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 19:29:59 by darian            #+#    #+#             */
-/*   Updated: 2022/09/13 11:53:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 14:17:09 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_alloc
 }	t_alloc;
 
 void		ft_malloc_clear(t_alloc **lst);
-void		*ft_malloc(int size, t_alloc	**lst);
 void		*ft_realloc(void *buf, int old_size, int new_size, t_alloc	**lst);
 int			ft_body_2(t_vector4D *it, char **split, char const *s,
 				t_alloc *alloc);

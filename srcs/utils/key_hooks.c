@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/08 17:03:30 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:41:00 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,8 +216,6 @@ int	ft_strafe_right(void)
 	if (!check_neighbor(0))
 	{
 		dir = get_90_angle(1);
-		printf("%f\n", dir.y);
-		printf("%f\n", dir.x);
 		_player()->y += (dir.y * _player()->move_speed);
 		_player()->x += (dir.x * _player()->move_speed);
 		_player()->is_walking = 1;
@@ -247,6 +245,6 @@ int	ft_left(void)
 
 int	ft_escape(void)
 {
-	exit(1);
+	ft_black_hole(0);
 	return (0);
 }
