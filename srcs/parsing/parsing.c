@@ -111,9 +111,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	char	*str;
 
 	i = 0;
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	str = ft_malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
-		return (NULL);
+		return (ft_black_hole(139), NULL);
 	while (s1 && *s1)
 	{
 		str[i++] = *s1;

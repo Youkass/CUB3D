@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 18:39:44 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 10:55:30 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	init_cast(int i, t_obj *player)
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
 	_pc()->move_screen = (int)((int)player->shott[i].pos3F.z / _pc()->trans.y) + _player()->pitch + _player()->z / _pc()->trans.y;
-	printf("===> %d\n", ((int)player->shott[i].pos3F.z / 100));
 }
+
 static void	compute_draw(void)
 {
 	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 5;

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/09 12:12:03 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/10 14:43:54 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ esc : 65307
 # define GAME_START_ONLINE 4
 # define MENU_MUSIC 1
 # define GAME_MUSIC 2
+# define SHOT_SOUND 3
 
 # define MENU_START 0
 # define MENU_OPTION 1
