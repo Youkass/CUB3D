@@ -192,7 +192,10 @@ void	planet_clock(void)
 int	menu_loop(void)
 {
 	click_update();
-	if(_menu()->mode == MENU_LOBBY && (_var()->mode != GAME && _var()->mode != GAME_START_ONLINE))
+	ft_play_music(20000000, MENU_MUSIC);
+	if(_var()->menu->mode == MENU_LOBBY
+			&& (_var()->mode != GAME
+				&& _var()->mode != GAME_START_ONLINE))
 		menu_pong();
 	drag_bar();
 	if (_menu()->mode == MENU_START)
@@ -233,7 +236,7 @@ int	menu_hook_pseudo(int keycode)
 {
 	static int	n = 0;
 
-	if (keycode >= A && keycode <= Z && n + 1 < 17)
+	if (keycode >= A_ && keycode <= Z && n + 1 < 17)
 	{
 		_player()->pseudo[n++] = keycode - 32;
 		_player()->pseudo[n] = 0;
