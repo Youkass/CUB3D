@@ -6,11 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-<<<<<<<<< Temporary merge branch 1
-/*   Updated: 2022/11/06 15:02:25 by yobougre         ###   ########.fr       */
-=========
-/*   Updated: 2022/11/05 19:53:45 by denissereno      ###   ########.fr       */
->>>>>>>>> Temporary merge branch 2
+/*   Updated: 2022/11/10 16:45:21 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

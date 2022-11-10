@@ -1,4 +1,4 @@
-INC=/usr/include
+INC=/usr/X11/include
 ##
 ## Makefile for MiniLibX in /home/boulon/work/c/raytraceur/minilibx
 ## 
