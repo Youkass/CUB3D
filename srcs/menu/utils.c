@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/07 16:55:57 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 18:13:31 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_po
 		+ it.y * lil.line_length + 3];
 }
 
-t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vector2D scale)
+t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vector2F scale)
 {
 	t_vector2D	rel_pos[2];
 	t_vector2D	it;

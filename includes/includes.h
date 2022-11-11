@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 21:26:09 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 17:59:56 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ esc : 65307
 # define TEAM_VOID 1
 # define TEAM_BLUE 2
 
-# define NB_WEAPONS 1
+# define NB_WEAPONS 2
 
 # define TH_RAY 5
 

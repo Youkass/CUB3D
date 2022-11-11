@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:20:26 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/01 22:17:40 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 18:17:05 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 int	is_allow_alpha(char c)
 {
 	if ((c < '0' || c > '9') && (c < 'A' && c > 'Z') && c != '_' && c != ' '
-	&& c != '(' && c != ')' && c != ':' && c != '.' && c != '\'')
+	&& c != '(' && c != ')' && c != ':' && c != '.' && c != '\'' && c != '-')
 		return (0);
 	return (1);
 }
@@ -33,7 +33,7 @@ char	char_up(char c)
 	return (c);
 }
 
-void	draw_text(char *text, t_vector2D pos, t_data *img, char color[4])
+void	draw_text(char *text, t_vector2D pos, char color[4])
 {
 	t_vector2D	tmp;
 	int			i;
@@ -45,7 +45,7 @@ void	draw_text(char *text, t_vector2D pos, t_data *img, char color[4])
 	while (i < len)
 	{
 		if (is_allow_alpha(text[i]))
-			ft_draw_char(*img, _image()->alpha[(int)char_up(text[i])], tmp, color);
+			ft_draw_char(*_img(), _image()->alpha[(int)char_up(text[i])], tmp, color);
 		tmp.x += 42;
 		if (tmp.x + 42 >= WIN_W)
 		{
@@ -121,7 +121,7 @@ t_data	ft_draw_char_scale(t_data big, t_data lil, t_vector2D p, t_vector2D scale
 	return (big);
 }
 
-void	draw_text_scale(char *text, t_vector2D pos, t_data *img, t_vector2D scale, char color[4])
+void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char color[4])
 {
 	t_vector2D	tmp;
 	int			i;
@@ -133,7 +133,7 @@ void	draw_text_scale(char *text, t_vector2D pos, t_data *img, t_vector2D scale, 
 	while (i < len)
 	{
 		if (is_allow_alpha(text[i]))
-			ft_draw_char_scale(*img, _image()->alpha[(int)char_up(text[i])],
+			ft_draw_char_scale(*_img(), _image()->alpha[(int)char_up(text[i])],
 				tmp, scale, color);
 		tmp.x += 42 / scale.x;
 		if (tmp.x + 42 / scale.x >= WIN_W)

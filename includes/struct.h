@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 21:26:06 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 18:26:47 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct	s_weapon
 	char	*name;
 	int		power;
 	unsigned long		reload_ms;
+	int		full_ammo;
 	int		ammo;
 	int		range;
 	int		headshot;
@@ -204,6 +205,7 @@ struct	s_obj
 	int			weapon_id;
 	int			health;
 	int			ammo;
+	int			full_ammo;
 	char		pseudo[16];
 	t_vector2F	plane;
 	t_vector2F	old_plane;
@@ -442,6 +444,7 @@ typedef struct	s_image
 	t_data			walk_sprite[8];
 	t_data			crosshair;
 	t_data			front;
+	t_data			ammo;
 }	t_image;
 
 typedef struct	s_array
