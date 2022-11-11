@@ -147,16 +147,14 @@ void	ft_pong_client(void)
 	int					i;
 	
 	i = 0;
+
 	memset(&my_player, 0, sizeof(my_player));
 	ft_copy_data_before_pong(&my_player);
-	printf("cli 1\n");
 	if (send(_var()->socket, &my_player, sizeof(my_player), 0) < 0)
 		return ;
-	printf("cli 2\n");
 	memset(&serv, 0, sizeof(serv));
 	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) < 0)
 		return ;
-	printf("cli 3\n");
 	while (i < _var()->linked_players)
 	{
 		if (serv.player[i].shooted.shoot > 0)
@@ -174,11 +172,10 @@ void	ft_pong_client(void)
 		}
 		_var()->o_player[i] = serv.player[i];
 		_var()->o_player[i].id = i;
-		_player()->team = serv.player[i].team;
+		//_player()->team = serv.player[i].team;
 		++i;
 	}
 	_var()->round_state = serv.round_state;
-	printf("cli 4\n");
 	if (_var()->round_state == ROUND_END)
 	{
 		printf("%d WIN THE ROUND\n", serv.round_winner);
@@ -188,7 +185,7 @@ void	ft_pong_client(void)
 			++_team()[TEAM_RED]->win;
 			++_team()[TEAM_BLUE]->loose;
 		}
-		else
+		else if (serv.round_winner == TBLUE)
 		{
 			_var()->last_round_winner = TBLUE;
 			++_team()[TEAM_BLUE]->win;
@@ -205,5 +202,4 @@ void	ft_pong_client(void)
 	}
 	if (_var()->round_state == ROUND_START)
 		_var()->freeze = 0;
-	printf("cli 5\n");
 }

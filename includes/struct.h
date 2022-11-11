@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 16:45:21 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 21:26:06 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,8 @@ struct	s_obj
 	int			change_team;
 	float		 scale;
 	int			money;
+	int			spectate;
+	int			spec_id;
 	int			kevlar; // entre 0 et 2. 0 = pas de Kevlar, 1 = Kevlar, 2 = Kevlar + casque
 };
 

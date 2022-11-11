@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/10 18:32:19 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/10 21:31:07 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,6 @@ void	restart_player(void)
 {
 	double	dist;
 
-	_player()->pseudo[0] = 0;
 	_player()->is_shooting = 0;
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
@@ -208,6 +207,8 @@ void	ft_init_player_pos(void)
 	memset(_var()->red, 0, sizeof(_var()->red));
 	memset(_var()->neutral, 0, sizeof(_var()->neutral));
 	_var()->n_blue = 0;
+	_player()->spectate = 0;
+	_player()->spec_id = -1;
 	_var()->n_red = 0;
 	_var()->n_neutral = 0;
 	_player()->pseudo[0] = 0;
@@ -474,6 +475,7 @@ void	init_var(void)
 	_var()->team_match = 0;
 	_var()->freeze = 0;
 	init_teams();
+	_var()->last_round_winner = -1;
 	//_image()->bullet = generate_image("./img/bullet.xpm");
 	i = 0;
 	while (i < MAX_PLAYER)
