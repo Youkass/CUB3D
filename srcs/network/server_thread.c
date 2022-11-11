@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/10 21:20:46 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 16:03:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ int	ft_send_all_data(t_client_thread *client)
 {
 	int					i;
 	t_send_server_game	data;
-	__thread static int	round = 0;
+	static __thread int	round = 0;
 
 	i = 0;
 	pthread_mutex_lock(client->mutex);
