@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/10 18:02:14 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/10 20:56:39 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,8 +337,10 @@ int	ft_loop()
 	{
 		if (_var()->last_round_winner == TRED)
 			draw_text_scale("RED WIN THE ROUND", pos(WIN_W / 2 - (17 * (42)) / 2, 300), _img(), pos(1, 1), RED);
-		else
+		else if (_var()->last_round_winner == TBLUE)
 			draw_text_scale("BLUE WIN THE ROUND", pos(WIN_W / 2 - (18 * (42)) / 2, 300), _img(), pos(1, 1), BLUE);
+		else
+			draw_text_scale(ft_itoa(_var()->last_round_winner), pos(WIN_W / 2 - (1 * (42)) / 2, 300), _img(), pos(1, 1), BLUE);
 	}
 	ft_draw_map();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
