@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 19:47:21 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ void	key_hook(void)
 		ft_down_head();
 	if (_var()->key[space])
 	{
-		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET)
+		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET
+		&& _player()->ammo > 0)
 		{
 			_player()->can_shoot = 0;
 			_player()->is_shooting = 1;
+			--_player()->ammo;
 			_player()->start_reload = get_clock(_var()->clock);
 			shoot();
 		}
@@ -66,6 +68,19 @@ void	key_hook(void)
 		{
 			_player()->is_start = 1;
 			printf("j'ai appuyé sur space\n");
+		}
+	}
+	if (_var()->key[r])
+	{
+		if (_var()->mode == GAME && _player()->full_ammo > 0 && _player()->ammo < 15)
+		{
+			int	needed;
+
+			needed = abs(_player()->ammo - 15);
+			if (_player()->full_ammo <= needed)
+				needed = _player()->full_ammo;
+			_player()->full_ammo -= needed;
+			_player()->ammo += needed;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/09 01:44:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 18:17:26 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,11 +159,11 @@ void	draw_pseudo_box(char	*pseudo, int i, int team)
 
 	size = ft_strlen(pseudo) * 21;
 	if (team == TEAM_VOID)
-		draw_text_scale(pseudo, pos(WIN_W / 2 - size / 2, WIN_H / 3 + 64 + i * 60), _img(), pos(2, 2), colo(12, 12, 12));
+		draw_text_scale(pseudo, pos(WIN_W / 2 - size / 2, WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
 	if (team == TEAM_RED)
-		draw_text_scale(pseudo, pos((WIN_W / 3) / 2 - size / 2, WIN_H / 3 + 64 + i * 60), _img(), pos(2, 2), colo(12, 12, 12));
+		draw_text_scale(pseudo, pos((WIN_W / 3) / 2 - size / 2, WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
 	if (team == TEAM_BLUE)
-		draw_text_scale(pseudo, pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2, WIN_H / 3 + 64 + i * 60), _img(), pos(2, 2), colo(12, 12, 12));
+		draw_text_scale(pseudo, pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2, WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
 }
 
 void	menu_lobby(void)
@@ -193,30 +193,30 @@ void	menu_lobby(void)
 		i++;
 	}
 	if (_var()->is_host == SERVER)
-		draw_text_scale(ft_strjoin("ip ", ft_get_host_ip()), (t_vector2D){200, 10},
-		 _img(), pos(2, 2), colo(100, 86, 68));
+		draw_text_scale(ft_strjoin("ip ", ft_get_host_ip()), (t_vector2D){200, 10}
+		, pos(2, 2), colo(100, 86, 68));
 	else
-		draw_text(_var()->ip, (t_vector2D){200, 10}, _img(), colo(100, 86, 68));
+		draw_text(_var()->ip, (t_vector2D){200, 10}, colo(100, 86, 68));
 	if (_var()->is_host == SERVER && _var()->linked_players >= _var()->nb_player)
-		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, _img(), colo(100, 86, 68));
+		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, colo(100, 86, 68));
 }
 
 void	menu_pseudo(void)
 {
 	draw_bg((char [4]){250, 200, 0, 0});
 	ft_put_image_to_image(*_img(), _image()->alpha['D'], (t_vector2D){300, 300});
-	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, _img(), GREEN);
+	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, GREEN);
 	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
-	draw_text(_player()->pseudo, (t_vector2D){350, 350}, _img(), colo(100, 86, 68));
+	draw_text(_player()->pseudo, (t_vector2D){350, 350}, colo(100, 86, 68));
 }
 
 void	menu_ip(void)
 {
 
 	draw_bg((char [4]){250, 200, 0, 0});
-	draw_text("Enter your ip (max 15)('space for '.')", (t_vector2D){100, 100}, _img(), colo(100, 86, 68));
+	draw_text("Enter your ip (max 15)('space for '.')", (t_vector2D){100, 100}, colo(100, 86, 68));
 	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
-	draw_text(_var()->ip, (t_vector2D){350, 350}, _img(), colo(100, 86, 68));
+	draw_text(_var()->ip, (t_vector2D){350, 350}, colo(100, 86, 68));
 }
 
 

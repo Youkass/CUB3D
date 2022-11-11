@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/10 21:31:07 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 19:47:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	get_key(int keycode)
 		_var()->key[right] = 1;
 	if (keycode == SPACE)
 		_var()->key[space] = 1;
+	if (keycode == R)
+		_var()->key[r] = 1;
 }
 
 int	ft_release(int keycode)
@@ -137,6 +139,8 @@ int	ft_release(int keycode)
 		_var()->key[right] = 0;
 	if (keycode == SPACE)
 		_var()->key[space] = 0;
+	if (keycode == R)
+		_var()->key[r] = 0;
 	return (0);
 }
 
@@ -181,7 +185,8 @@ void	restart_player(void)
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
 	_player()->health = 100;
-	_player()->ammo = 0;
+	_player()->ammo = _weapon()[0]->ammo;
+	_player()->full_ammo = _weapon()[0]->full_ammo;
 	_player()->shoot_n = 0;
 	_player()->z = 0;
 	_player()->dx = -1;
@@ -218,7 +223,8 @@ void	ft_init_player_pos(void)
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
 	_player()->health = 100;
-	_player()->ammo = 0;
+	_player()->ammo = _weapon()[0]->ammo;
+	_player()->full_ammo = _weapon()[0]->full_ammo;
 	_player()->shoot_n = 0;
 	_player()->x = 5;
 	_player()->y = 3;
@@ -367,7 +373,6 @@ int	ft_loop_hook(void)
 			}
 		_var()->mode = LOBBY_WAIT;
 	}
-	printf("%d\n", _var()->mode);
 	ft_fps();
 	key_hook();
 	if (_var()->mode == GAME_START_ONLINE)
@@ -457,8 +462,19 @@ void	init_weapons(void)
 	_weapon()[0]->power = 25;
 	_weapon()[0]->reload_ms = 500000;
 	_weapon()[0]->ammo = 15;
+	_weapon()[0]->full_ammo = 45;
 	_weapon()[0]->headshot = 50;
 	_weapon()[0]->footshot = 10;
+	_weapon()[1]->name = malloc(sizeof(char) * 6);
+	_weapon()[1]->name = "Couteau\0";
+	_weapon()[1]->id = 0;
+	_weapon()[1]->range = 2;
+	_weapon()[1]->power = 100;
+	_weapon()[1]->reload_ms = 500000;
+	_weapon()[1]->ammo = 9999;
+	_weapon()[1]->full_ammo = 45;
+	_weapon()[1]->headshot = 200;
+	_weapon()[1]->footshot = 100;
 }
 
 void	init_var(void)
@@ -542,6 +558,7 @@ int main(int argc, char **argv)
 	init_key();
 	gen_menu_images();
 	_image()->bullet = generate_image("./img/bullet.xpm");
+	_image()->ammo = generate_image("./img/ammo.xpm");
 	_image()->crosshair = generate_image("./img/crosshair.xpm");
 	_image()->front = generate_image("./img/soldier/front.xpm");
 	if(WIN_W == 1440)

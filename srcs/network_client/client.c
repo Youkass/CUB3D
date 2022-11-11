@@ -145,6 +145,7 @@ void	ft_pong_client(void)
 	t_send_server_game	serv;
 	t_obj				my_player;	
 	int					i;
+	static int			incremented = 0;
 	
 	i = 0;
 
@@ -179,22 +180,27 @@ void	ft_pong_client(void)
 	if (_var()->round_state == ROUND_END)
 	{
 		printf("%d WIN THE ROUND\n", serv.round_winner);
-		if (serv.round_winner == TRED)
+		if (serv.round_winner == TRED && incremented == 0)
 		{
 			_var()->last_round_winner = TRED;
 			++_team()[TEAM_RED]->win;
 			++_team()[TEAM_BLUE]->loose;
+			incremented += 1;
 		}
-		else if (serv.round_winner == TBLUE)
+		else if (serv.round_winner == TBLUE && incremented == 0)
 		{
 			_var()->last_round_winner = TBLUE;
 			++_team()[TEAM_BLUE]->win;
 			++_team()[TEAM_RED]->loose;
+			incremented += 1;
 		}
 		_var()->freeze = 1;
 	}
 	else if (_var()->round_state == ROUND_END_WAIT)
+	{
+		incremented = 0;
 		_var()->freeze = 1;
+	}
 	if (_var()->round_state == ROUND_WAIT_START)
 	{
 		restart_player();
