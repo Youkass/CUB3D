@@ -66,12 +66,12 @@ void	ft_play_music(long unsigned int time, int index)
 	static long	start = 0;
 	
 	(void)index;
+	(void)time;
 	if (!start)
 	{
 		ma_sound_start(&(_media()->sound[index]));
 		start = get_clock(_var()->clock);
 	}
-	(void)time;
 	if (_var()->mode == GAME)
 	{
 		ma_sound_stop(&(_media()->sound[MENU_MUSIC]));
