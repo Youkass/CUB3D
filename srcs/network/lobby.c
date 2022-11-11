@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 16:52:54 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/11 20:43:58 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,11 @@ int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 {
 	t_send_client	player;
 	
-	printf("salut\n");
 	memset(&player, 0, sizeof(player));
 	if (ft_recv_one(client->socket, &player, 
 				sizeof(t_send_client)))
 		return (1);
 	pthread_mutex_lock(client->mutex);
-	printf("PSEUDO : %s\n", player.player.pseudo);
 	if (player.flag || player.player.pseudo[0])
 		client->serv->player_data[client->id] = player.player;
 	client->is_send = 0;
