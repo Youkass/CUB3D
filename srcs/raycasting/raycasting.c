@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/10 21:27:48 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,11 @@ void	*ray_draw(void *t)
 
 	r = *(t_ray_th *)t;
 	_ray()[r.i]->x = r.start_end.x;
-	_ray()[r.i]->pl = r.pl;
+	if (_player()->spectate && _player()->spec_id >= 0
+		&& _player()->spec_id <= _var()->nb_player)
+		_ray()[r.i]->pl = _var()->o_player[_player()->spec_id];
+	else
+		_ray()[r.i]->pl = r.pl;
 	while (_ray()[r.i]->x < r.start_end.y)
 	{
 		init_ray(_ray()[r.i]);
