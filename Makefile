@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/12 11:23:21 by denissereno      ###   ########.fr        #
+#    Updated: 2022/11/12 12:36:44 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -95,8 +95,8 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
-CC_FLAGS	= -Wall -Werror -Wextra
-MLB_FLAGS	= -g -fsanitize=address -O3 -L /usr/X11/lib -Lincludes -L./miniaudio -lminiaudio -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -lpthread -ldl
+CC_FLAGS	= -Wall -Werror -Wextra -lpthread -ldl 
+MLB_FLAGS	= -g -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
 
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
@@ -138,7 +138,7 @@ $(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
 	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) -O3 -pthread -Lincludes -lm
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
 
-all: $(NAME) $(SERVER)
+all: $(NAME) server
 
 server: $(SERVER)
 
@@ -156,6 +156,7 @@ clean:
 
 fclean: clean
 	@make clean -C mlx
+	@make clean -C miniaudio 
 	@rm -f $(NAME)
 	@rm -f $(NAME_B)
 	@rm -f $(SERVER)
