@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/09 19:27:21 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 07:12:17 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ int	ft_init_server(t_server_data *data)
 	init_array(&data->teams[0], data->nb_players / 2);
 	init_array(&data->teams[1], data->nb_players / 2);
 	data->clock = start_clock();
+	data->player_alive = data->nb_players;
+	data->blue_alive = data->nb_players / 2;
+	data->red_alive = data->nb_players / 2;
 	data->start = get_clock(data->clock);
 	data->server.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	data->server.sin_family = AF_INET;
@@ -75,6 +78,7 @@ int main(int ac, char **av)
 	(void)ac;
 	data.nb_players = atoi(av[1]);
 	data.started = 0;
+	init_weapons();
 	if (ft_init_server(&data) == EXIT_FAILURE)
 		exit(EXIT_FAILURE);
 	if (ft_init_client_thread(&data))

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/11 17:59:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 07:38:33 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,19 @@ esc : 65307
 # define WIN 1
 # define LOOSE 2
 
-# define N_RSTATE 6
+# define N_RSTATE 7
 # define ROUND_PLAY 0
 # define ROUND_END 1
 # define ROUND_END_WAIT 2
 # define ROUND_WAIT_START 3
 # define ROUND_WAIT 4
 # define ROUND_START 5
+# define ROUND_LEADERBOARD 6
 
 # define TRED 0
 # define TBLUE 1
+
+# define NB_ROUNDS 1
 
 # define GAME 0
 # define MENU 1
@@ -87,6 +90,7 @@ esc : 65307
 # define MENU_PSEUDO 4
 # define MENU_LOBBY 5
 # define MENU_IP 6
+# define MENU_LEADERBOARD 7
 
 # define TEAM_RED 0
 # define TEAM_VOID 1

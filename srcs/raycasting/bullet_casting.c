@@ -6,25 +6,25 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 10:55:30 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/12 04:43:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-static void	init_cast(int i, t_obj *player)
+static void	init_cast(int i, t_obj *player, t_obj *my_player)
 {
-	_pc()->pos.x = player->shott[i].pos3F.x - _player()->x;
-	_pc()->pos.y = player->shott[i].pos3F.y -_player()->y;
-	_pc()->inv_det = 1.0 / (_player()->plane.x * _player()->dy -
-			_player()->dx * _player()->plane.y);
-	_pc()->trans.x = _pc()->inv_det * (_player()->dy *
-			_pc()->pos.x - _player()->dx * _pc()->pos.y);
-	_pc()->trans.y = _pc()->inv_det * (-_player()->plane.y *
-			_pc()->pos.x + _player()->plane.x * _pc()->pos.y);
+	_pc()->pos.x = player->shott[i].pos3F.x - my_player->x;
+	_pc()->pos.y = player->shott[i].pos3F.y -my_player->y;
+	_pc()->inv_det = 1.0 / (my_player->plane.x * my_player->dy -
+			my_player->dx * my_player->plane.y);
+	_pc()->trans.x = _pc()->inv_det * (my_player->dy *
+			_pc()->pos.x - my_player->dx * _pc()->pos.y);
+	_pc()->trans.y = _pc()->inv_det * (-my_player->plane.y *
+			_pc()->pos.x + my_player->plane.x * _pc()->pos.y);
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
-	_pc()->move_screen = (int)((int)player->shott[i].pos3F.z / _pc()->trans.y) + _player()->pitch + _player()->z / _pc()->trans.y;
+	_pc()->move_screen = (int)((int)player->shott[i].pos3F.z / _pc()->trans.y) + my_player->pitch + my_player->z / _pc()->trans.y;
 }
 
 static void	compute_draw(void)
@@ -72,20 +72,26 @@ static void	draw()
 
 void	bullet_casting(void)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_obj	player;
 
 	j = 0;
 	i = 0;
+	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id < 
+	_var()->linked_players)
+		player = _var()->o_player[_player()->spec_id];
+	else
+		player = *_player();
 	while (i < _var()->nb_player)
 	{
 		j = 0;
-		if (i == _player()->id)
+		if (i == player.id)
 		{
 			j = 0;
-			while (j < _player()->shoot_n)
+			while (j < player.shoot_n)
 			{
-				init_cast(j, _player());
+				init_cast(j, &player, &player);
 				draw();
 				j++;
 			}	
@@ -94,9 +100,9 @@ void	bullet_casting(void)
 		while (j < _var()->o_player[i].shoot_n)
 		{
 			if (i == 0)
-				init_cast(j, _player());
+				init_cast(j, &player, &player);
 			else
-				init_cast(j, &_var()->o_player[i]);
+				init_cast(j, &_var()->o_player[i], &player);
 			draw();
 			j++;
 		}

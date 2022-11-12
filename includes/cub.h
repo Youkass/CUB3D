@@ -57,7 +57,7 @@ void	ft_put_pixel_color(t_data *a, char color[4], int x, int y);
 /*                  FILE = srcs/raycasting/player_casting.c                   */
 /* -------------------------------------------------------------------------- */
 int	compute_distance(t_vector2F a, t_vector2F b);
-void	sort_by_distance(void);
+void	sort_by_distance(t_obj *player);
 void	player_casting(void);
 
 /* -------------------------------------------------------------------------- */
@@ -70,6 +70,7 @@ int	ft_malloc_map(void);
 void	ft_draw_wall(t_obj wall, t_vector2D pos);
 void	ft_draw_floor(t_obj wall);
 void DrawCircle(int xp, int yp, float radius, int color);
+void	draw_player_map(void);
 void	ft_draw_map(void);
 
 /* -------------------------------------------------------------------------- */
@@ -78,9 +79,9 @@ void	ft_draw_map(void);
 void plot_line (t_vector2D a, t_vector2D b, int color);
 t_vector2D	ft_first_vector(void);
 t_vector2D	ft_scnd_vector(void);
-int	ft_return_xp(void);
-int	ft_return_yp(void);
-float	ft_return_radius(void);
+int	ft_return_xp(t_obj *player, t_obj *my_player);
+int	ft_return_yp(t_obj *player);
+float	ft_return_radius(t_obj *player);
 int	ft_return_xp_2(void);
 int	ft_return_yp_2(void);
 float	ft_return_radius_2(void);
@@ -103,6 +104,11 @@ void	draw_rectange(t_vector2D a, t_vector2D size, char color[4]);
 t_vector2D	pos(int x, int y);
 t_vector2F	posf(float x, float y);
 t_vector3F	pos3f(float x, float y, float z);
+
+/* -------------------------------------------------------------------------- */
+/*                             FILE = srcs/init.c                             */
+/* -------------------------------------------------------------------------- */
+void	init_weapons(void);
 
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/dyn_array.c                           */
@@ -128,6 +134,7 @@ int	round_end(t_send_server_game *data, t_client_thread *client);
 int	round_end_wait(t_send_server_game *data, t_client_thread *client);
 int	round_wait_start(t_send_server_game *data, t_client_thread *client);
 int	round_start(int *round, t_send_server_game *data, t_client_thread *client);
+void	round_leaderboard(t_send_server_game *data, t_client_thread *client);
 int	ft_send_all_data(t_client_thread *client);
 int	send_nb_players(t_client_thread *client);
 void	check_team(t_client_thread *c);
@@ -320,9 +327,11 @@ int	ft_hook(int keycode);
 int	ft_mouse_hook(int keycode);
 int	ft_loop_hook(void);
 int	ft_mouse_release(int keycode);
+int	ft_expose(void);
+int	ft_rotate(double rot_speed);
+int	mouse_rotate(void);
 int	ft_game(void);
 void	init_key(void);
-void	init_weapons(void);
 void	init_var(void);
 void	init_data_shot(t_obj *player);
 int main(int argc, char **argv);
@@ -377,12 +386,17 @@ int	perc(int a, int b);
 void	menu_start(void);
 void	menu_player(void);
 void	draw_lobby(void);
+void	draw_leaderboard(void);
 void	click(void);
 int	click_update(void);
 int	click_delay(void);
 void	update_key(void);
 void	draw_pseudo_box(char	*pseudo, int i, int team);
+void	draw_pseudo_box_leader(char	*pseudo, int id, int i, int team);
+int	get_ratio(int kills, int deaths);
+void	sort_team(void);
 void	menu_lobby(void);
+void	menu_leaderboard(void);
 void	menu_pseudo(void);
 void	menu_ip(void);
 void	menu_option(void);
@@ -427,10 +441,6 @@ int	ft_recv_one(int socket, t_send_client *player, int size);
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/new_raycaster.c                         */
 /* -------------------------------------------------------------------------- */
-void	ft_draw_wall2(t_obj wall, t_vector2D pos);
-void	ft_draw_floor2(t_obj wall);
-void	ft_draw_map2(void);
-void	raycast();
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/parsing/parsing.c                        */
@@ -470,6 +480,7 @@ void	check_death(void);
 void	update_bullets(void);
 void	update_bullets3F(void);
 void	hud(void);
+void	set_spectate(void);
 int	ft_loop();
 
 

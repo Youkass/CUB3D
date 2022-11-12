@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/11 18:26:47 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 10:05:10 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,8 @@ struct	s_obj
 	int			money;
 	int			spectate;
 	int			spec_id;
+	int			kills;
+	int			deaths;
 	int			kevlar; // entre 0 et 2. 0 = pas de Kevlar, 1 = Kevlar, 2 = Kevlar + casque
 };
 
@@ -419,9 +421,9 @@ typedef struct s_var
 	int					click_keycode;
 	int					click;
 	int					key[44];
-	char				*red[3];
-	char				*blue[3];
-	char				*neutral[6];
+	int					red[3];
+	int					blue[3];
+	int					neutral[6];
 	int					n_red;
 	int					n_neutral;
 	int					n_blue;
@@ -430,6 +432,10 @@ typedef struct s_var
 	int					freeze;
 	int					round_state;
 	int					last_round_winner;
+	int					match_finished;
+	int					player_alive;
+	int					red_alive;
+	int					blue_alive;
 }	t_var;
 typedef struct	s_image
 {
@@ -521,8 +527,12 @@ typedef struct	s_send_server
 typedef struct	s_send_server_game
 {
 	t_obj		player[MAX_PLAYER];
+	int			match_finished;
 	int			round_winner;
 	int			round_state;
+	int			player_alive;
+	int			red_alive;
+	int			blue_alive;
 }	t_send_server_game;
 
 typedef struct	s_client_thread
@@ -570,6 +580,10 @@ struct	s_server_data
 	unsigned long			start;
 	int						round_state[N_RSTATE];
 	int						clock_started;
+	int						match_finished;
+	int						player_alive;
+	int						red_alive;
+	int						blue_alive;
 };
 
 #endif

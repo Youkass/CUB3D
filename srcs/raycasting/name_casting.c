@@ -6,25 +6,25 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 18:46:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/31 22:49:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 04:39:14 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-static void	init_cast(t_obj *player)
+static void	init_cast(t_obj *player, t_obj *my_player)
 {
-	_pc()->pos.x = player->x - _player()->x;
-	_pc()->pos.y = player->y -_player()->y;
-	_pc()->inv_det = 1.0 / (_player()->plane.x * _player()->dy -
-			_player()->dx * _player()->plane.y);
-	_pc()->trans.x = _pc()->inv_det * (_player()->dy *
-			_pc()->pos.x - _player()->dx * _pc()->pos.y);
-	_pc()->trans.y = _pc()->inv_det * (-_player()->plane.y *
-			_pc()->pos.x + _player()->plane.x * _pc()->pos.y);
+	_pc()->pos.x = player->x - my_player->x;
+	_pc()->pos.y = player->y -my_player->y;
+	_pc()->inv_det = 1.0 / (my_player->plane.x * my_player->dy -
+			my_player->dx * my_player->plane.y);
+	_pc()->trans.x = _pc()->inv_det * (my_player->dy *
+			_pc()->pos.x - my_player->dx * _pc()->pos.y);
+	_pc()->trans.y = _pc()->inv_det * (-my_player->plane.y *
+			_pc()->pos.x + my_player->plane.x * _pc()->pos.y);
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
-	_pc()->move_screen = (int)(-300 / _pc()->trans.y) + _player()->pitch + player->x / _pc()->trans.y;
+	_pc()->move_screen = (int)(-300 / _pc()->trans.y) + my_player->pitch + player->x / _pc()->trans.y;
 }
 static void	compute_draw(void)
 {
@@ -71,15 +71,21 @@ static void	draw(t_obj *player)
 
 void	name_casting(void)
 {
-	int	i;
+	int		i;
+	t_obj	player;
 
 	i = 0;
-	sort_by_distance();
+	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id < 
+	_var()->linked_players)
+		player = _var()->o_player[_player()->spec_id];
+	else
+		player = *_player();
+	sort_by_distance(&player);
 	while (i < _var()->nb_player)
 	{
-		if (_var()->sort_player[i].id != _player()->id)
+		if (_var()->sort_player[i].id != player.id)
 		{
-			init_cast(&(_var()->sort_player[i]));
+			init_cast(&(_var()->sort_player[i]), &player);
 			draw(&(_var()->sort_player[i]));
 		}
 		++i;

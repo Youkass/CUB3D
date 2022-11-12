@@ -43,6 +43,11 @@ int	ft_init_client(void)
 	printf("je suis connecté\n");
 	if (recv(_var()->socket, &(_player()->id), sizeof(int), 0) < 0)
 		return (EXIT_FAILURE);
+	//if (_player()->id == 1)
+	//{
+	//	_player()->spectate = 1;
+	//	_player()->spec_id = 0;
+	//}
 	printf("je reçois mon id : %d\n", _player()->id);
 	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int), 0) < 0)
 		return (EXIT_FAILURE);
@@ -59,12 +64,17 @@ void	ft_copy_data_before_pong(t_obj *player)
 	i = 0;
 	player->team = _player()->team;
 	player->change_team = _player()->change_team;
+	player->plane = _player()->plane;
+	player->pitch = _player()->pitch;
+	player->norm_pitch = _player()->norm_pitch;
 	player->id = _player()->id;
 	player->x = _player()->x;
 	player->y = _player()->y;
 	player->z = _player()->z;
 	player->c = _player()->c;
 	player->dx = _player()->dx;
+	player->kills = _player()->kills;
+	player->deaths = _player()->deaths;
 	player->dy = _player()->dy;
 	player->da = _player()->da;
 	player->old_dx = _player()->old_dx;
@@ -171,15 +181,23 @@ void	ft_pong_client(void)
 			_player()->shooted.shoot = 0;
 			_player()->shooted.id = -1;
 		}
+		if (i == _player()->id)
+		{
+			_player()->kills = serv.player[i].kills;
+			_player()->deaths = serv.player[i].deaths;
+		}
 		_var()->o_player[i] = serv.player[i];
+		_var()->o_player[i].kills = serv.player[i].kills;
+		_var()->o_player[i].deaths = serv.player[i].deaths;
 		_var()->o_player[i].id = i;
-		//_player()->team = serv.player[i].team;
 		++i;
 	}
 	_var()->round_state = serv.round_state;
+	_var()->player_alive = serv.player_alive;
+	_var()->red_alive = serv.red_alive;
+	_var()->blue_alive = serv.blue_alive;
 	if (_var()->round_state == ROUND_END)
 	{
-		printf("%d WIN THE ROUND\n", serv.round_winner);
 		if (serv.round_winner == TRED && incremented == 0)
 		{
 			_var()->last_round_winner = TRED;
@@ -196,6 +214,8 @@ void	ft_pong_client(void)
 		}
 		_var()->freeze = 1;
 	}
+	if (serv.round_state == ROUND_LEADERBOARD && serv.match_finished == 1)
+		_var()->match_finished = 1;
 	else if (_var()->round_state == ROUND_END_WAIT)
 	{
 		incremented = 0;
@@ -208,4 +228,9 @@ void	ft_pong_client(void)
 	}
 	if (_var()->round_state == ROUND_START)
 		_var()->freeze = 0;
+	if (_var()->match_finished)
+	{
+		_var()->mode = MENU;
+		_menu()->mode = MENU_LEADERBOARD;
+	}
 }

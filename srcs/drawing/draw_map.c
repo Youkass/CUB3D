@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/05 19:36:34 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 10:06:11 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_find_wall_scale(void)
 	_var()->scale = MINIMAP_SIZE / ft_strlen(_var()->map[0]);
 	//_var()->scale = WIN_W / (ft_strlen(_var()->map[0]));
 	_var()->half_scale = _var()->scale / 2;
-	_var()->half_scale_offset = _var()->half_scale + MINIMAP_OFFSET;
+	_var()->half_scale_offset = _var()->half_scale + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350;
 	//_var()->half_scale_offset = _var()->half_scale;
 }
 
@@ -132,12 +132,12 @@ void	ft_draw_wall(t_obj wall, t_vector2D pos)
 		while (var.j < _var()->scale)
 		{
 			if (is_neighbor(pos))
-				ft_put_pixel_color(_img(), (char [4]){0, 89, 22, 0}, (int)wall.x + var.i + MINIMAP_OFFSET,  (int)wall.y + var.j);
+				ft_put_pixel_color(_img(), (char [4]){0, 89, 22, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
 			else
-				ft_put_pixel_color(_img(), (char [4]){0, 15, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET,  (int)wall.y + var.j);
+				ft_put_pixel_color(_img(), (char [4]){0, 15, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, wall.x + var.i + MINIMAP_OFFSET,  wall.y + var.j);
+				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  wall.y + var.j + 50);
 			var.j++;
 		}
 		var.i++;
@@ -154,10 +154,10 @@ void	ft_draw_floor(t_obj wall)
 		var.j = 0;
 		while (var.j < _var()->scale)
 		{
-			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET, (int)wall.y + var.j);
+			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350, (int)wall.y + var.j + 50);
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)wall.x + var.i + MINIMAP_OFFSET, (int)wall.y + var.j);
+				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350, (int)wall.y + var.j + 50);
 			var.j++;
 		}
 		var.i++;
@@ -178,17 +178,70 @@ void DrawCircle(int xp, int yp, float radius, int color)
 	int		x;
 	int		y;
 
-	i = 0.0;
+	//i = 0.0;
 	x = 0;
 	y = 0;
-	while (i < 360.0)
+	while (radius > 0)
 	{
-		angle = i *  PI / 180;
-		x = (int)(radius * cos(angle));
-		y = (int)(radius * sin(angle));
-		ft_pixel_put(x + xp, y + yp, color);
-		i += 0.1;
+		i = 0;
+		while (i < 360.0)
+		{
+			angle = i *  PI / 180;
+			x = (int)(radius * cos(angle));
+			y = (int)(radius * sin(angle));
+			ft_pixel_put(x + xp, y + yp, color);
+			i += 0.1;
+		}
+		radius -= 0.1;
 	}
+}
+
+void	draw_player_map(void)
+{
+	int	i;
+	t_obj	player;
+	t_obj	my_player;
+
+	i = 0;
+	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER)
+		&& _player()->team == TEAM_RED)
+	{
+		while (i < _var()->nb_player / 2)
+		{
+			player = _var()->o_player[_var()->red[i]];
+			if (_player()->spectate && _player()->spec_id >= 0
+				&& _player()->spec_id < _var()->linked_players)
+				my_player = _var()->o_player[_player()->spec_id];
+			else
+				my_player = *_player();
+			if (player.x >= my_player.x - 8 && player.x <= my_player.x + 8
+			&& player.y >= my_player.y - 8 && player.y <= my_player.x + 8)
+				DrawCircle(ft_return_xp(&player, &my_player), ft_return_yp(&player),
+					ft_return_radius(&player), 0xD2042D);
+			i++;
+		}
+	}
+	else if ((_var()->is_host == CLIENT || _var()->is_host == SERVER)
+		&& _player()->team == TEAM_BLUE)
+	{
+		while (i < _var()->nb_player / 2)
+		{
+			player = _var()->o_player[_var()->blue[i]];
+			if (_player()->spectate && _player()->spec_id >= 0
+				&& _player()->spec_id < _var()->linked_players)
+				my_player = _var()->o_player[_player()->spec_id];
+			else
+				my_player = *_player();
+			if (player.x >= my_player.x - 8 && player.x <= my_player.x + 8
+			&& player.y >= my_player.y - 8 && player.y <= my_player.x + 8)
+				DrawCircle(ft_return_xp(&player, &my_player), ft_return_yp(&player),
+					ft_return_radius(&player), 0x005b96);
+			i++;
+		}
+	}
+	else
+		DrawCircle(ft_return_xp(_player(), _player()), ft_return_yp(_player()), ft_return_radius(_player()), 
+			0xD2042D);
 }
 
 
@@ -197,11 +250,15 @@ void	ft_draw_map(void)
 	t_int		var;
 	t_vector2D	p_pos;
 
-	var.i = 0;
-	while (var.i < _var()->map_height)
+	var.i = _player()->y - 8;
+	if (var.i < 0)
+		var.i = 0;
+	while (var.i < _var()->map_height && var.i < _player()->y + 8)
 	{
-		var.j = 0;
-		while (var.j < _var()->map_width)
+		var.j = _player()->x - 8;
+		if (var.j < 0)
+			var.j = 0;
+		while (var.j < _var()->map_width && var.j < _player()->x + 8)
 		{
 			if (_var()->coord_map[var.i][var.j].id == WALL)
 				ft_draw_wall(_var()->coord_map[var.i][var.j], (t_vector2D){var.j, var.i});
@@ -216,8 +273,6 @@ void	ft_draw_map(void)
 		}
 		var.i++;
 	}
-	DrawCircle(ft_return_xp(), ft_return_yp(), ft_return_radius(), 0xFFFF0000);
-	plot_line(ft_first_vector(), ft_scnd_vector(), 0xcf34eb);
-	//DrawCircle(ft_return_xp_2(), ft_return_yp_2(), ft_return_radius_2(), 0xFFFF0000);
+	draw_player_map();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }

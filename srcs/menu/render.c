@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/11 18:17:26 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 10:21:39 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,22 @@ void	draw_lobby(void)
 	}
 }
 
+void	draw_leaderboard(void)
+{
+	// Couleur rouge blanc et bleu
+	draw_rectange(pos(0, 0), pos(WIN_W / 3, WIN_H), RED);
+	draw_rectange(pos(WIN_W / 3, 0), pos(WIN_W / 3, WIN_H), LIGTH_GREY);
+	draw_rectange(pos((WIN_W / 3) * 2, 0), pos(WIN_W / 3, WIN_H), BLUE);
+	//bandeau gris en haut
+	draw_rectange(pos(0, 0), pos(WIN_W, WIN_H / 3), LIGTH_GREY);
+	// bande grise
+	draw_rectange(pos(0, WIN_H / 3 - 8), pos(WIN_W, 16), DARK_GREY);
+	draw_rectange(pos(WIN_W / 3 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
+	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
+	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
+	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
+}
+
 void	click(void)
 {
 	_var()->start_click = get_clock(_var()->clock);
@@ -140,7 +156,6 @@ void	update_key(void)
 	if (_var()->key[left] == 1 && _player()->team > 0 && !click_delay())
 	{
 		click();
-		printf("click left\n");
 		_player()->team--;
 		_player()->change_team = 1;
 	}
@@ -148,7 +163,6 @@ void	update_key(void)
 	{
 		click();
 		_player()->team++;
-		printf("click reight\n");
 		_player()->change_team = 1;
 	}
 }
@@ -166,6 +180,81 @@ void	draw_pseudo_box(char	*pseudo, int i, int team)
 		draw_text_scale(pseudo, pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2, WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
 }
 
+void	draw_pseudo_box_leader(char	*pseudo, int id, int i, int team)
+{
+	int		size;
+	t_vector2D	posp;
+
+	pseudo = ft_strjoin(pseudo,
+	ft_strjoin(": ",
+	ft_strjoin(ft_itoa(_var()->o_player[id].kills),
+	ft_strjoin(" / ", ft_itoa(_var()->o_player[id].deaths)))));
+	size = ft_strlen(pseudo) * 21;
+	if (team == TEAM_RED)
+		posp = pos((WIN_W / 3) / 2 - size / 2, WIN_H / 3 + 64 + i * 60);
+	if (team == TEAM_BLUE)
+		posp = pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2, WIN_H / 3 + 64 + i * 60);
+	draw_text_scale(pseudo, posp, pos(2, 2), colo(12, 12, 12));
+}
+
+int	get_ratio(int kills, int deaths)
+{
+	if (deaths == 0)
+		return (kills);
+	else
+		return (kills / deaths);
+}
+
+
+void	sort_team(void)
+{
+	int	i;
+	int	j;
+	t_vector2D	id;
+	int tmp;
+
+	i = 0;
+	while (i < _var()->n_red - 1)
+	{
+		j = 0;
+		while (j < _var()->n_red - 1 - i)
+		{
+			id.x = _var()->red[j];
+			id.y = _var()->red[j + 1];
+			if (get_ratio(_var()->o_player[id.x].kills,
+				_var()->o_player[id.x].deaths) > get_ratio(_var()->o_player
+				[id.y].kills, _var()->o_player[id.y].deaths))
+			{
+				tmp = _var()->red[j];
+				_var()->red[j] = _var()->red[j + 1];
+				_var()->red[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < _var()->n_blue)
+	{
+		j = 0;
+		while (j < _var()->n_blue - 1 - i)
+		{
+			id.x = _var()->blue[j];
+			id.y = _var()->blue[j + 1];
+			if (get_ratio(_var()->o_player[id.x].kills,
+				_var()->o_player[id.x].deaths) > get_ratio(_var()->o_player
+				[id.y].kills, _var()->o_player[id.y].deaths))
+			{
+				tmp = _var()->blue[j];
+				_var()->blue[j] = _var()->blue[j + 1];
+				_var()->blue[j + 1] = tmp;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
 void	menu_lobby(void)
 {
 	int	i;
@@ -177,19 +266,19 @@ void	menu_lobby(void)
 	i = 0;
 	while (i < _var()->n_red)
 	{
-		draw_pseudo_box(_var()->red[i], i, TEAM_RED);
+		draw_pseudo_box(_var()->o_player[_var()->red[i]].pseudo, i, TEAM_RED);
 		i++;
 	}
 	i = 0;
 	while (i < _var()->n_blue)
 	{
-		draw_pseudo_box(_var()->blue[i], i, TEAM_BLUE);
+		draw_pseudo_box(_var()->o_player[_var()->blue[i]].pseudo, i, TEAM_BLUE);
 		i++;
 	}
 	i = 0;
 	while (i < _var()->n_neutral)
 	{
-		draw_pseudo_box(_var()->neutral[i], i, TEAM_VOID);
+		draw_pseudo_box(_var()->o_player[_var()->neutral[i]].pseudo, i, TEAM_VOID);
 		i++;
 	}
 	if (_var()->is_host == SERVER)
@@ -199,6 +288,26 @@ void	menu_lobby(void)
 		draw_text(_var()->ip, (t_vector2D){200, 10}, colo(100, 86, 68));
 	if (_var()->is_host == SERVER && _var()->linked_players >= _var()->nb_player)
 		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, colo(100, 86, 68));
+}
+
+void	menu_leaderboard(void)
+{
+	int	i;
+
+	draw_leaderboard();
+	sort_team();
+	i = 0;
+	while (i < _var()->n_red)
+	{
+		draw_pseudo_box_leader(_var()->o_player[_var()->red[i]].pseudo, _var()->red[i], i, TEAM_RED);
+		i++;
+	}
+	i = 0;
+	while (i < _var()->n_blue)
+	{
+		draw_pseudo_box_leader(_var()->o_player[_var()->blue[i]].pseudo, _var()->blue[i], i, TEAM_BLUE);
+		i++;
+	}
 }
 
 void	menu_pseudo(void)
