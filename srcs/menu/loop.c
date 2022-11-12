@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 11:01:03 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 12:35:42 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void	planet_clock(void)
 int	menu_loop(void)
 {
 	click_update();
-	ft_play_music(20000000, MENU_MUSIC);
+	//ft_play_music(20000000, MENU_MUSIC);
 	if (_menu()->mode == MENU_LEADERBOARD)
 		ft_pong_client();
 	else if(_menu()->mode == MENU_LOBBY
