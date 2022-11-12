@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/12 12:44:14 by denissereno      ###   ########.fr        #
+#    Updated: 2022/11/12 14:47:26 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS		=	srcs/main.c\
 				srcs/utils/garbage.c\
 				srcs/utils/list.c\
 				srcs/utils/collisions.c\
+				srcs/utils/sound.c\
 				srcs/drawing/draw_player.c\
 				srcs/drawing/draw_map.c\
 				srcs/drawing/draw_text.c\
@@ -55,6 +56,7 @@ SRCS		=	srcs/main.c\
 				srcs/math/vector/operator2F.c\
 				srcs/math/vector/tools.c\
 				srcs/init.c\
+				miniaudio/extras/miniaudio_split/miniaudio.c\
 				srcs/new_raycaster.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
@@ -95,7 +97,7 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
-CC_FLAGS	= -Wall -Werror -Wextra
+CC_FLAGS	= -Wall -Werror -Wextra -ldl -lpthread
 MLB_FLAGS	= -g -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
 
 
@@ -110,6 +112,7 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/math
 	@mkdir -p $(OBJS_DIR)srcs/math/vector
 	@mkdir -p $(OBJS_DIR)srcs/network_client
+	@mkdir -p $(OBJS_DIR)miniaudio/extras/miniaudio_split/
 	@mkdir -p $(OBJS_DIR)srcs
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
@@ -146,7 +149,6 @@ bonus:	$(NAME_B)
 
 maker:
 	@make -C mlx
-	@make -C miniaudio
 
 clean:
 	@rm -rf $(OBJS_DIR)
