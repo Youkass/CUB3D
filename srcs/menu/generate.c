@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/11 18:24:53 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 02:28:53 by yuro4ka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static void	gen_menu_bars(void)
 	t_vector2D	it;
 
 	it = (t_vector2D){0, 0};
-	_menu()->bar = malloc(sizeof(t_data *) * 2);
-	_menu()->bar[0] = malloc(sizeof(t_data) * 3);
+	_menu()->bar = ft_malloc(sizeof(t_data *) * 2);
+	_menu()->bar[0] = ft_malloc(sizeof(t_data) * 3);
 	_menu()->bar[0][0] = generate_image("./img/menu/bar/left_empty.xpm");
 	_menu()->bar[0][1] = generate_image("./img/menu/bar/mid_empty.xpm");
 	_menu()->bar[0][2] = generate_image("./img/menu/bar/right_empty.xpm");
-	_menu()->bar[1] = malloc(sizeof(t_data) * 3);
+	_menu()->bar[1] = ft_malloc(sizeof(t_data) * 3);
 	_menu()->bar[1][0] = generate_image("./img/menu/bar/left_fill.xpm");
 	_menu()->bar[1][1] = generate_image("./img/menu/bar/mid_fill.xpm");
 	_menu()->bar[1][2] = generate_image("./img/menu/bar/right_fill.xpm");	
@@ -74,7 +74,7 @@ t_vector2D	*_butp(void)
 
 	if (!butp)
 	{
-		butp = malloc(sizeof(t_vector2D) * 4);
+		butp = ft_malloc(sizeof(t_vector2D) * 4);
 		but = perc(WIN_H, 40) - (_menu()->buttons[PLAY]->h / 2);
 		butp[0] = (t_vector2D){(WIN_W / 2) - (_menu()->buttons[PLAY]->w / 2), but};
 		but += _menu()->buttons[PLAY]->h + perc(WIN_H, 3);
@@ -98,7 +98,7 @@ t_vector2D	*_butpl(void)
 	j = 0;
 	if (!butp)
 	{
-		butp = malloc(sizeof(t_vector2D) * 4);
+		butp = ft_malloc(sizeof(t_vector2D) * 4);
 		while (i)
 		{
 			butp[j] = (t_vector2D){(WIN_W / 2) - (i * 84) + 128, 350};
@@ -168,7 +168,7 @@ void	generate_button_state(void)
 
 	width = _menu()->buttons[PLAY]->w;
 	height =  _menu()->buttons[PLAY]->h;
-	_menu()->s_state = malloc(sizeof(t_button) * 4);
+	_menu()->s_state = ft_malloc(sizeof(t_button) * 4);
 	i = 0;
 	while (i < 4)
 	{
@@ -179,7 +179,7 @@ void	generate_button_state(void)
 		_menu()->s_state[i].hitbox[3] =(t_vector2D){_butp()[i].x + width, _butp()[i].y + height};
 		i++;
 	}
-	_menu()->o_state = malloc(sizeof(t_button) * 7);
+	_menu()->o_state = ft_malloc(sizeof(t_button) * 7);
 	i = 0;
 	while (i < 7)
 	{
@@ -196,7 +196,7 @@ void	generate_button_state(void)
 			+ _menu()->buttons[NORMAL][MUTE_S].h};
 		i++;
 	}
-	_menu()->p_state = malloc(sizeof(t_button) * 4);
+	_menu()->p_state = ft_malloc(sizeof(t_button) * 4);
 	i = 0;
 	width = 64;
 	height =  64;
