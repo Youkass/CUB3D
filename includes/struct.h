@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 10:05:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 12:07:59 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_media
 	ma_device_config	device_config;
 	ma_device			device;
 	ma_engine			engine;
-	ma_sound			sound[NB_SOUND];
+	ma_sound			sound[NB_SOUND][2];
 	ma_sound			shot_sound[MAX_SHOT_SOUND];
 	ma_sound_config		sound_config[NB_SOUND];
 }	t_media;

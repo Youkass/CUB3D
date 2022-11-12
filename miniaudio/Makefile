@@ -24,7 +24,7 @@ $(NAME): $(OBJ)
 		ranlib $(NAME)
 
 %.o: %.c
-		$(CC) -c $< -o ${<:.c=.o}
+		$(CC) -lpthread -ldl -c $< -o ${<:.c=.o}
 
 all: $(NAME)
 

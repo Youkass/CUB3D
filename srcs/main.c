@@ -6,123 +6,11 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 11:56:22 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 12:36:02 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../includes/cub.h"
 #include <unistd.h> 
-/*int main(int argc, char** argv)
-{
-    ma_result result;
-    ma_engine engine;
-
-    if (argc < 2) {
-        printf("No input file.");
-        return -1;
-    }
-
-    result = ma_engine_init(NULL, &engine);
-    if (result != MA_SUCCESS) {
-        printf("Failed to initialize audio engine.");
-        return -1;
-    }
-
-    ma_engine_play_sound(&engine, argv[1], NULL);
-
-    printf("Press Enter to quit...");
-    getchar();
-
-    ma_engine_uninit(&engine);
-
-    return 0;
-}
-
-void	ft_init_sound_conf(void)
-{
-	int	i;
-
-	i = 0;
-	while (i < NB_SOUND)
-	{
-		_media()->sound_config[i] = ma_sound_config_init();
-		_media()->soundConfig[i].pFilePath   = NULL;
-		_media()->soundConfig[i].pDataSource = NULL;
-		_media()->soundConfig[i].pInitialAttachment = NULL;
-		_media()->soundConfig[i].initialAttachmentInputBusIndex = 0;
-		_media()->soundConfig[i].channelsIn  = 1;
-		_media()->soundConfig[i].channelsOut = 0;
-		_media()->result = ma_sound_init_ex(&(_media()->soundConfig[i]),
-			&(_media()->sound[i]);
-		++i;
-	}
-}*/
-
-void	ft_init_media(void)
-{
-	int	i;
-
-	i = 0;
-	_media()->result = ma_engine_init(NULL, &(_media()->engine));
-	if (_media()->result != MA_SUCCESS)
-		exit (1); //TODO
-	_media()->result = ma_sound_init_from_file(&(_media()->engine),
-		"sound/test_sound.wav", 0, NULL, NULL, &(_media()->sound[0]));
-	if (_media()->result != MA_SUCCESS)
-		exit (1); //TODO
-	_media()->result = ma_sound_init_from_file(&(_media()->engine),
-		"sound/menu_music.wav", 0, NULL, NULL, &(_media()->sound[MENU_MUSIC]));
-	if (_media()->result != MA_SUCCESS)
-		exit (1); //TODO
-	_media()->result = ma_sound_init_from_file(&(_media()->engine),
-		"sound/game_music.wav", 0, NULL, NULL, &(_media()->sound[GAME_MUSIC]));
-	if (_media()->result != MA_SUCCESS)
-		exit (1); //TODO
-	while (i < MAX_SHOT_SOUND)
-	{
-		_media()->result = ma_sound_init_from_file(&(_media()->engine),
-				"sound/shot.wav", 0, NULL, NULL,
-					&(_media()->shot_sound[i]));
-		if (_media()->result != MA_SUCCESS)
-			exit (1); //TODO
-		++i;
-	}
-}
-
-void	ft_play_music(long unsigned int time, int index)
-{
-	static long	start = 0;
-	
-	(void)index;
-	(void)time;
-	(void)start;
-	if (_var()->mode == MENU)
-	{
-		ma_sound_start(&(_media()->sound[MENU_MUSIC]));
-//		ma_sound_set_loop()
-		start = get_clock(_var()->clock);
-	}
-	if (_var()->mode == GAME)
-	{
-		ma_sound_stop(&(_media()->sound[MENU_MUSIC]));
-		start = 0;
-	}
-}
-
-void	ft_play_sound(int index)
-{
-	int	i;
-
-	i = index;
-	if (!index)
-		i = index + 1;
-	if (index == _player()->id)
-		return ;
-	if (ma_sound_at_end(&(_media()->shot_sound[i])))
-		ma_sound_start(&(_media()->shot_sound[i]));
-	else
-		ma_sound_start(&(_media()->shot_sound[i * 2]));
-}
 
 
 void	get_key(int keycode)
@@ -631,7 +519,7 @@ int main(int argc, char **argv)
 	init_weapons();
 	ft_print_tab(_var()->map);
 	ft_init_mlx();
-	ft_init_media();
+//	ft_init_media();
 	ft_init_img();
 	_ray();
 	ft_init_player_pos();

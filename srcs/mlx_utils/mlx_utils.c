@@ -1,12 +1,10 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
+/*                                                        :::      ::::::::   */ /*   mlx_utils.c                                        :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 12:10:50 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 12:34:41 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,10 +359,11 @@ int	ft_loop()
 	reload_clock();
 	draw_rays();
 	walk_clock();
-	ft_play_music(0, GAME_MUSIC);
+//	ft_play_music(0, GAME_MUSIC);
 	set_spectate();
-	if (_player()->is_shooting > 0)
-		ft_play_sound(SHOT_SOUND);
+//	if (_player()->is_shooting > 0)
+//		ft_play_sound(_player()->id);
+	printf("%d, %d\n", _var()->mode, _menu()->mode);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 	{
 		ft_pong_client();
