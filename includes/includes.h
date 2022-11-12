@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/11 23:07:33 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/12 11:51:25 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ esc : 65307
 # define X 120
 # define Y 121
 # define Z 122
+
+# define SENSIBILITY 0.30
 
 # if __APPLE__
 #  define ZERO 224

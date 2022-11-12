@@ -280,9 +280,11 @@ t_vector2F	dist_2f(t_vector2F a, t_vector2F b);
 t_vector3F	dist_3f(t_vector3F a, t_vector3F b);
 t_vector2F	velocity_ms(t_vector2F dist, float time_ms);
 t_vector3F	velocity_ms3F(t_vector3F dist, float time_ms);
+float	get_time_velo3F(float dist, float time_ms_per_unit);
 t_vector2F	velocity_get_point(t_vector2F start, t_vector2F velo, int time_ms);
 t_vector3F	velocity_get_point3F(t_vector3F start, t_vector3F velo, int time_ms);
 float	one_dist2F(t_vector2F a, t_vector2F b);
+float	one_dist3F(t_vector3F a, t_vector3F b);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/math/vector/operator2D.c                    */
@@ -310,6 +312,7 @@ t_obj	ft_get_data(t_obj *player);
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
+void	ft_init_sound_conf(void);
 void	ft_init_media(void);
 void	ft_play_music(long unsigned int time, int index);
 void	ft_play_sound(int index);
@@ -327,7 +330,7 @@ int	ft_hook(int keycode);
 int	ft_mouse_hook(int keycode);
 int	ft_loop_hook(void);
 int	ft_mouse_release(int keycode);
-int	ft_expose(void);
+int	ft_expose(void *data);
 int	ft_rotate(double rot_speed);
 int	mouse_rotate(void);
 int	ft_game(void);
@@ -357,6 +360,10 @@ void	gen_serv_but(void);
 void	generate_button_state(void);
 void	gen_alpha(void);
 void    gen_menu_images(void);
+
+/* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/menu/intro.c                          */
+/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/menu_lobby.c                        */

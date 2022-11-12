@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 09:30:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 12:10:50 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,6 +278,15 @@ void	update_bullets(void)
 	_player()->shoot_n = new_shoot_n;
 }
 
+void	recompute_array_shot(int index)
+{
+	while (index + 1 < _player()->shoot_n)
+	{
+		_player()->shott[index] = _player()->shott[index + 1];
+		index++;
+	}
+}
+
 void	update_bullets3F(void)
 {
 	int	i;
@@ -288,12 +297,15 @@ void	update_bullets3F(void)
 	i = 0;
 	while (i < _player()->shoot_n)
 	{
-		if (_player()->shott[i].n == 0)
-			_player()->shott[i].start_time = get_clock(_var()->clock);
+		//if (_player()->shott[i].n == 0)
+			//_player()->shott[i].start_time = get_clock(_var()->clock);
 		_player()->shott[i].n++;
 		velo = velocity_get_point3F(_player()->shott[i].start_pos3F, _player()->shott[i].velo3.velo, get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time) >= (float)_player()->shott[i].velo3.time_ms)
+		{
 			new_shoot_n--;
+			recompute_array_shot(i);
+		}
 		else
 			_player()->shott[i].pos3F = velo;
 		i++;
@@ -353,7 +365,6 @@ int	ft_loop()
 	set_spectate();
 	if (_player()->is_shooting > 0)
 		ft_play_sound(SHOT_SOUND);
-	printf("%d, %d\n", _var()->mode, _menu()->mode);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 	{
 		ft_pong_client();

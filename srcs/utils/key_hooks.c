@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/11 19:47:21 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 11:57:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	key_hook(void)
 		ft_up_head();
 	if (_var()->key[down])
 		ft_down_head();
-	if (_var()->key[space])
+	if (_var()->key[mouse])
 	{
 		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET
 		&& _player()->ammo > 0)
