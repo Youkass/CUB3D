@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 12:36:02 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/12 15:06:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub.h"
@@ -519,7 +519,7 @@ int main(int argc, char **argv)
 	init_weapons();
 	ft_print_tab(_var()->map);
 	ft_init_mlx();
-//	ft_init_media();
+	ft_init_media();
 	ft_init_img();
 	_ray();
 	ft_init_player_pos();
