@@ -171,21 +171,25 @@ void	ft_pong_client(void)
 	{
 //		if (serv.player[i].is_shooting > 0 && i != _player()->id)
 //			ft_play_sound(i);
-		if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
-		else if (serv.player[i].shooted.shoot == 2 && serv.player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[serv.player[i].weapon_id]->headshot;
-		else if (serv.player[i].shooted.shoot == 3 && serv.player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[serv.player[i].weapon_id]->footshot;
-		if (serv.player[i].shooted.shoot > 0 && i == _player()->id)
-		{
-			_player()->shooted.shoot = 0;
-			_player()->shooted.id = -1;
-		}
+		// if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
+		// 	_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
+		// else if (serv.player[i].shooted.shoot == 2 && serv.player[i].shooted.id == _player()->id)
+		// 	_player()->health -= _weapon()[serv.player[i].weapon_id]->headshot;
+		// else if (serv.player[i].shooted.shoot == 3 && serv.player[i].shooted.id == _player()->id)
+		// 	_player()->health -= _weapon()[serv.player[i].weapon_id]->footshot;
+		// if (serv.player[i].shooted.shoot > 0 && i == _player()->id)
+		// {
+		// 	_player()->shooted.shoot = 0;
+		// 	_player()->shooted.id = -1;
+		// }
 		if (i == _player()->id)
 		{
 			_player()->kills = serv.player[i].kills;
 			_player()->deaths = serv.player[i].deaths;
+			_player()->health = serv.player[i].health;
+			_player()->shooted.shoot = serv.player[i].shooted.shoot;
+			_player()->is_dead = serv.player[i].is_dead;
+			_player()->shooted.id = serv.player[i].shooted.id;
 		}
 		_var()->o_player[i] = serv.player[i];
 		_var()->o_player[i].kills = serv.player[i].kills;

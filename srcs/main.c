@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 12:36:02 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/12 13:46:39 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/cub.h"
-#include <unistd.h> 
 
+#include <unistd.h> 
+# include "../includes/cub.h"
 
 void	get_key(int keycode)
 {
@@ -120,6 +120,8 @@ void	restart_player(void)
 	_player()->dx = -1;
 	_player()->shooted.id = -1;
 	_player()->shooted.shoot = 0;
+	_player()->spec_id = -1;
+	_player()->spectate = 0;
 	_player()->dy = 0;
 	_player()->is_dead = 0;
 	_player()->death_n = 0;
@@ -377,9 +379,9 @@ int	mouse_rotate(void)
 
 	mlx_mouse_get_pos(_mlx()->mlx, _mlx()->mlx_win, &pos.x, &pos.y);
 	delta.x = pos.x - WIN_W / 2;
-	delta.y = (pos.y - WIN_H / 2) * 25;
+	delta.y = (pos.y - WIN_H / 2) * 200;
 	ft_rotate(delta.x * _var()->frame_time * SENSIBILITY);
-	_player()->pitch -= delta.y * _player()->move_speed;
+	_player()->pitch -= delta.y * _var()->frame_time * SENSIBILITY;
 	if(_player()->pitch > 500)
 		_player()->pitch = 500;
 	_player()->norm_pitch = normalise_between2F(posf(-1000, 1000),

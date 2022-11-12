@@ -363,7 +363,6 @@ int	ft_loop()
 	set_spectate();
 //	if (_player()->is_shooting > 0)
 //		ft_play_sound(_player()->id);
-	printf("%d, %d\n", _var()->mode, _menu()->mode);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 	{
 		ft_pong_client();

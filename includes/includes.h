@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 12:45:00 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 13:43:05 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ esc : 65307
 # define TRED 0
 # define TBLUE 1
 
-# define NB_ROUNDS 5
+# define NB_ROUNDS 50
 
 # define GAME 0
 # define MENU 1
@@ -126,7 +126,7 @@ esc : 65307
 # define Y 121
 # define Z 122
 
-# define SENSIBILITY 0.30
+# define SENSIBILITY 0.15
 
 # if __APPLE__
 #  define ZERO 224

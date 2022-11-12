@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_thread.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/12 10:21:02 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 14:12:42 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,6 +330,7 @@ int	ft_send_all_data(t_client_thread *client)
 	}
 	data.round_state = -1;
 	data.round_winner = -1;
+	client->serv->updated = 0;
 	data.blue_alive = client->serv->blue_alive;
 	data.red_alive = client->serv->red_alive;
 	data.player_alive = client->serv->player_alive;
@@ -415,10 +416,26 @@ void	check_team(t_client_thread *c)
 	}
 }
 
+int	ft_has_update(t_client_thread *client)
+{
+	pthread_mutex_lock(client->mutex);
+	if (client->serv->updated)
+	{
+		pthread_mutex_unlock(client->mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(client->mutex);
+	return (0);
+}
+
 void	update_team_array(t_client_thread *c)
 {
 	if (c->id != 0)
+	{
+		while (!ft_has_update(c))
+			usleep(500);
 		return ;
+	}
 	pthread_mutex_lock(c->mutex);
 	check_team(c);
 	int	i;
@@ -427,6 +444,7 @@ void	update_team_array(t_client_thread *c)
 	c->serv->red_alive = c->nb_players / 2;
 	c->serv->blue_alive = c->nb_players / 2;
 	i = 0;
+	(void)team;
 	while (i < c->nb_players)
 	{
 		if (c->serv->player_data[i].is_dead == 1)
@@ -457,9 +475,34 @@ void	update_team_array(t_client_thread *c)
 			if (team == 2)
 				--team;
 			++c->serv->player_data[c->serv->player_data[i].shooted.id].deaths;
+			c->serv->player_data[c->serv->player_data[i].shooted.id].is_dead = 1;
+			c->serv->player_data[i].shooted.shoot = 0;
+			c->serv->player_data[i].shooted.id = -1;
+		}
+		if (c->serv->player_data[i].shooted.id != -1
+		&& c->serv->player_data[i].shooted.id < c->nb_players
+		&& c->serv->player_data[i].shooted.shoot == 1)
+		{
+			printf("touche normal\n");
+			c->serv->player_data[c->serv->player_data[i].shooted.id].health -= _weapon()[c->serv->player_data[i].weapon_id]->power;
+		}
+		if (c->serv->player_data[i].shooted.id != -1
+		&& c->serv->player_data[i].shooted.id < c->nb_players
+		&& c->serv->player_data[i].shooted.shoot == 2)
+		{
+			printf("touche heqdshot\n");
+			c->serv->player_data[c->serv->player_data[i].shooted.id].health -= _weapon()[c->serv->player_data[i].weapon_id]->headshot;
+		}
+		if (c->serv->player_data[i].shooted.id != -1
+		&& c->serv->player_data[i].shooted.id < c->nb_players
+		&& c->serv->player_data[i].shooted.shoot == 3)
+		{
+			printf("touche footshot\n");
+			c->serv->player_data[c->serv->player_data[i].shooted.id].health -= _weapon()[c->serv->player_data[i].weapon_id]->footshot;
 		}
 		i++;
 	}
+	c->serv->updated = 1;
 	pthread_mutex_unlock(c->mutex);
 }
 
