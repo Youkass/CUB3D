@@ -37,9 +37,32 @@
 
     return 0;
 }
-*/
+
+void	ft_init_sound_conf(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < NB_SOUND)
+	{
+		_media()->sound_config[i] = ma_sound_config_init();
+		_media()->soundConfig[i].pFilePath   = NULL;
+		_media()->soundConfig[i].pDataSource = NULL;
+		_media()->soundConfig[i].pInitialAttachment = NULL;
+		_media()->soundConfig[i].initialAttachmentInputBusIndex = 0;
+		_media()->soundConfig[i].channelsIn  = 1;
+		_media()->soundConfig[i].channelsOut = 0;
+		_media()->result = ma_sound_init_ex(&(_media()->soundConfig[i]),
+			&(_media()->sound[i]);
+		++i;
+	}
+}*/
+
 void	ft_init_media(void)
 {
+	int	i;
+
+	i = 0;
 	_media()->result = ma_engine_init(NULL, &(_media()->engine));
 	if (_media()->result != MA_SUCCESS)
 		exit (1); //TODO
@@ -55,10 +78,15 @@ void	ft_init_media(void)
 		"sound/game_music.wav", 0, NULL, NULL, &(_media()->sound[GAME_MUSIC]));
 	if (_media()->result != MA_SUCCESS)
 		exit (1); //TODO
-	_media()->result = ma_sound_init_from_file(&(_media()->engine),
-		"sound/shot.wav", 0, NULL, NULL, &(_media()->sound[SHOT_SOUND]));
-	if (_media()->result != MA_SUCCESS)
-		exit (1); //TODO
+	while (i < MAX_SHOT_SOUND)
+	{
+		_media()->result = ma_sound_init_from_file(&(_media()->engine),
+				"sound/shot.wav", 0, NULL, NULL,
+					&(_media()->shot_sound[i]));
+		if (_media()->result != MA_SUCCESS)
+			exit (1); //TODO
+		++i;
+	}
 }
 
 void	ft_play_music(long unsigned int time, int index)
@@ -67,9 +95,10 @@ void	ft_play_music(long unsigned int time, int index)
 	
 	(void)index;
 	(void)time;
-	if (!start)
+	if (_var()->mode == MENU)
 	{
-		ma_sound_start(&(_media()->sound[index]));
+		ma_sound_start(&(_media()->sound[MENU_MUSIC]));
+//		ma_sound_set_loop()
 		start = get_clock(_var()->clock);
 	}
 	if (_var()->mode == GAME)
@@ -81,7 +110,17 @@ void	ft_play_music(long unsigned int time, int index)
 
 void	ft_play_sound(int index)
 {
-	ma_sound_start(&(_media()->sound[index]));
+	int	i;
+
+	i = index;
+	if (!index)
+		i = index + 1;
+	if (index == _player()->id)
+		return ;
+	if (ma_sound_at_end(&(_media()->shot_sound[i])))
+		ma_sound_start(&(_media()->shot_sound[i]));
+	else
+		ma_sound_start(&(_media()->shot_sound[i * 2]));
 }
 
 

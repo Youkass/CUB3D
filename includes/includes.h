@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 07:38:33 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/11 23:07:33 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ esc : 65307
 # define LOOSE 2
 
 # define N_RSTATE 7
+# define NB_SOUND 4
 # define ROUND_PLAY 0
 # define ROUND_END 1
 # define ROUND_END_WAIT 2
@@ -177,24 +178,15 @@ esc : 65307
 # define VOID 3
 # define MAP 4
 
-# define res 1
-# define SW WIN_W*res
-# define SH WIN_H*res
-# define SW2 (SW / 2)
-# define SH2 (SW/2)
-# define pixelscale 4/res
-# define GLSW (SW / pixelscale)
-# define GLSH (SH / pixelscale)
-
 # define SHOT_FRAME 30
 # define MAX_BULLET 16
 
 # define MINIMAP_SIZE 512
 # define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)
 
-#define uDiv 1
-#define vDiv 1
-#define vMove 0.0
+# define uDiv 1
+# define vDiv 1
+# define vMove 0.0
 # define PLAY 0
 # define OPTIONS 1
 # define CREDITS 2
@@ -239,6 +231,7 @@ esc : 65307
 //# define CMD_PRINT_IP "127.0.0.1"
 //# define CMD_PRINT_IP "ipconfig getifaddr en0"
 # define MAX_PLAYER 6
+# define MAX_SHOT_SOUND 13
 # define HOST 1
 # define BUFFER_SIZE 30
 #endif
