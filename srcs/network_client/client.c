@@ -97,6 +97,7 @@ void	ft_copy_data_before_pong(t_obj *player)
 	player->shoot_n = _player()->shoot_n;
 	player->exchange = _player()->exchange;
 	player->is_start = _player()->is_start;
+	player->is_shooting = _player()->is_shooting;
 	while (i < _player()->shoot_n)
 	{
 		player->shott[i] = _player()->shott[i];
@@ -168,7 +169,7 @@ void	ft_pong_client(void)
 		return ;
 	while (i < _var()->linked_players)
 	{
-		if (serv.player[i].is_shooting > 0)
+		if (serv.player[i].is_shooting > 0 && i != _player()->id)
 			ft_play_sound(i);
 		if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
 			_player()->health -= _weapon()[serv.player[i].weapon_id]->power;

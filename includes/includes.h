@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/11 23:07:33 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/12 12:04:30 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,7 +231,7 @@ esc : 65307
 //# define CMD_PRINT_IP "127.0.0.1"
 //# define CMD_PRINT_IP "ipconfig getifaddr en0"
 # define MAX_PLAYER 6
-# define MAX_SHOT_SOUND 13
+# define MAX_SHOT_SOUND 12
 # define HOST 1
 # define BUFFER_SIZE 30
 #endif

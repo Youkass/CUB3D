@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 09:30:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 12:18:49 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,7 +352,7 @@ int	ft_loop()
 	ft_play_music(0, GAME_MUSIC);
 	set_spectate();
 	if (_player()->is_shooting > 0)
-		ft_play_sound(SHOT_SOUND);
+		ft_play_sound(_player()->id);
 	printf("%d, %d\n", _var()->mode, _menu()->mode);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 	{
