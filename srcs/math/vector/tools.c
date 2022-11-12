@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 23:11:29 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/04 21:41:16 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 12:02:11 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ t_vector3F	velocity_ms3F(t_vector3F dist, float time_ms)
 	return (pos3f(dist.x / time_ms, dist.y / time_ms, dist.z / time_ms));
 }
 
+float	get_time_velo3F(float dist, float time_ms_per_unit)
+{
+	return (dist * time_ms_per_unit);
+}
+
 t_vector2F	velocity_get_point(t_vector2F start, t_vector2F velo, int time_ms)
 {
 	return (add_2f(start, posf(velo.x * time_ms, velo.y * time_ms)));
@@ -45,4 +50,9 @@ t_vector3F	velocity_get_point3F(t_vector3F start, t_vector3F velo, int time_ms)
 float	one_dist2F(t_vector2F a, t_vector2F b)
 {
 	return (sqrtf( powf(a.x - b.x, 2) + powf(a.y - b.y, 2)));
+}
+
+float	one_dist3F(t_vector3F a, t_vector3F b)
+{
+	return (sqrtf(powf(a.x - b.x, 2) + powf(a.y - b.y, 2) + powf(a.z - b.z, 2)));
 }

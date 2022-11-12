@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 12:44:56 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/12 12:08:36 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,11 +283,9 @@ void	init_shot3F(t_vector3F start, t_vector3F end)
 	_player()->shott[n].pos = _player()->shott[n].n_pos[0];
 	_player()->shott[n].shot = 1;
 	_player()->shott[n].velo3.dist = dist_3f(start, end);
-	_player()->shott[n].velo3.time_ms = 500000;
+	_player()->shott[n].velo3.time_ms = (int)get_time_velo3F(one_dist2F(posf(start.x, start.y), posf(end.x, end.y)), 30000);
 	_player()->shott[n].velo3.velo = velocity_ms3F(_player()->shott[n].velo3.dist,
-		500000);
-	/*
-	Calculer le temps du shoot en fonction de la longueur.
-	*/
+		_player()->shott[n].velo3.time_ms);
+	_player()->shott[n].start_time = get_clock(_var()->clock);
 	_player()->shoot_n++;
 }

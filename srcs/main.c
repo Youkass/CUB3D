@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 11:26:32 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 11:56:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	ft_play_music(long unsigned int time, int index)
 	
 	(void)index;
 	(void)time;
+	(void)start;
 	if (_var()->mode == MENU)
 	{
 		ma_sound_start(&(_media()->sound[MENU_MUSIC]));
@@ -422,7 +423,8 @@ int	ft_loop_hook(void)
 	if (_var()->mode == GAME)
 	{
 		ft_loop();
-		//mouse_rotate();
+		mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+		mouse_rotate();
 	}
 	if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
@@ -437,13 +439,16 @@ int	ft_mouse_release(int keycode)
 	return (0);
 }
 
-int	ft_expose(void)
+int	ft_expose(void *data)
 {
-	//if (_var()->mode == GAME)
-	//{
-	mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
-	mlx_mouse_move(_mlx()->mlx, _mlx()->mlx_win, WIN_W / 2, WIN_H / 2);
-	//}
+	int	*mode;
+
+	mode = (int *)data;
+	if (*mode == GAME)
+	{
+		mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+		mlx_mouse_move(_mlx()->mlx, _mlx()->mlx_win, WIN_W / 2, WIN_H / 2);
+	}
 	return (0);
 }
 
@@ -469,6 +474,14 @@ int	ft_rotate(double rot_speed)
 	return (0);
 }
 
+/*
+	_player()->pitch += 200 * _player()->move_speed;
+	if(_player()->pitch > 400)
+		_player()->pitch = 400;
+	_player()->norm_pitch = normalise_between2F(posf(-1000, 1000),
+		posf(-1, 1), _player()->pitch);
+*/
+
 int	mouse_rotate(void)
 {
 	t_vector2D	pos;
@@ -476,7 +489,13 @@ int	mouse_rotate(void)
 
 	mlx_mouse_get_pos(_mlx()->mlx, _mlx()->mlx_win, &pos.x, &pos.y);
 	delta.x = pos.x - WIN_W / 2;
-	ft_rotate(delta.x * _var()->frame_time * 0.025);
+	delta.y = (pos.y - WIN_H / 2) * 25;
+	ft_rotate(delta.x * _var()->frame_time * SENSIBILITY);
+	_player()->pitch -= delta.y * _player()->move_speed;
+	if(_player()->pitch > 500)
+		_player()->pitch = 500;
+	_player()->norm_pitch = normalise_between2F(posf(-1000, 1000),
+		posf(-1, 1), _player()->pitch);
 	mlx_mouse_move(_mlx()->mlx, _mlx()->mlx_win, WIN_W / 2, WIN_H / 2);
 	return (0);
 }
@@ -488,7 +507,7 @@ int	ft_game(void)
 	mlx_loop_hook(_mlx()->mlx, &ft_loop_hook, NULL);
 	mlx_hook(_mlx()->mlx_win, 5, 1L << 3, &ft_mouse_release, NULL);
 	mlx_mouse_hook(_mlx()->mlx_win, &menu_mouse_hook, NULL);
-	//mlx_expose_hook(_mlx()->mlx_win, ft_expose, NULL);
+	mlx_expose_hook(_mlx()->mlx_win, ft_expose, &_var()->mode);
 	return (0);
 }
 
