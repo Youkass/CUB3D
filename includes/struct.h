@@ -25,12 +25,14 @@ typedef struct	s_server_data t_server_data;
 
 typedef struct	s_media
 {
-	   ma_result		result;
-	   ma_decoder		decoder;
-	   ma_device_config	deviceConfig;
-	   ma_device		device;
-	   ma_engine		engine;
-	   ma_sound			sound[4];
+	ma_result			result;
+	ma_decoder			decoder;
+	ma_device_config	device_config;
+	ma_device			device;
+	ma_engine			engine;
+	ma_sound			sound[NB_SOUND];
+	ma_sound			shot_sound[MAX_SHOT_SOUND];
+	ma_sound_config		sound_config[NB_SOUND];
 }	t_media;
 
 typedef struct s_list
@@ -39,7 +41,8 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-typedef struct s_vector2F {
+typedef struct s_vector2F
+{
 	float	x;
 	float	y;
 }	t_vector2F;
