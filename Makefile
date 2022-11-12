@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/10 19:22:04 by denissereno      ###   ########.fr        #
+#    Updated: 2022/11/12 11:23:21 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRCS		=	srcs/main.c\
 				srcs/math/vector/operator2D.c\
 				srcs/math/vector/operator2F.c\
 				srcs/math/vector/tools.c\
-				miniaudio/extras/miniaudio_split/miniaudio.c\
+				srcs/init.c\
 				srcs/new_raycaster.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
@@ -76,6 +76,7 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/tools.c\
 					srcs/shoot.c\
 					srcs/dyn_array.c\
+					srcs/init.c\
 					srcs/menu/recv_utils.c\
 					srcs/parsing/parsing.c\
 					srcs/team.c
@@ -94,8 +95,8 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
-CC_FLAGS	= 
-MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -lpthread -ldl
+CC_FLAGS	= -Wall -Werror -Wextra
+MLB_FLAGS	= -g -fsanitize=address -O3 -L /usr/X11/lib -Lincludes -L./miniaudio -lminiaudio -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -lpthread -ldl
 
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
@@ -110,7 +111,6 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/math/vector
 	@mkdir -p $(OBJS_DIR)srcs/network_client
 	@mkdir -p $(OBJS_DIR)srcs
-	@mkdir -p $(OBJS_DIR)miniaudio/extras/miniaudio_split
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 
@@ -140,12 +140,13 @@ $(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
 
 all: $(NAME) $(SERVER)
 
-bonus:	$(NAME_B)
+server: $(SERVER)
 
-server:	$(SERVER)
+bonus:	$(NAME_B)
 
 maker:
 	@make -C mlx
+	@make -C miniaudio
 
 clean:
 	@rm -rf $(OBJS_DIR)

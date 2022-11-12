@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 21:27:48 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 04:29:52 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,10 +139,10 @@ void	compute_drawing_data(t_raycasting *r)
 	else
 		r->perp_wall_dist = (r->side_dist.y - r->delta.y);
 	r->line_h = (int)(WIN_H / r->perp_wall_dist);
-	r->draw_start = (-r->line_h / 2 + WIN_H / 2) + _player()->pitch + (_player()->z / r->perp_wall_dist);
+	r->draw_start = (-r->line_h / 2 + WIN_H / 2) + r->pl.pitch + (r->pl.z / r->perp_wall_dist);
 	if (r->draw_start < 0)
 		r->draw_start = 0;
-	r->draw_end = (r->line_h / 2 + WIN_H / 2) + _player()->pitch  + (_player()->z / r->perp_wall_dist);
+	r->draw_end = (r->line_h / 2 + WIN_H / 2) + r->pl.pitch  + (r->pl.z / r->perp_wall_dist);
 	if (r->draw_end > WIN_H)
 		r->draw_end = WIN_H - 1;
 	if (r->side == 0)
@@ -160,7 +160,7 @@ void	draw_wall(t_raycasting *r)
 	else if (r->side == 1 && r->dir.y < 0)
 		r->tex.x = 64 - r->tex.x - 1;
 	r->tex_step = 1.0 * 64 / r->line_h;
-	r->tex_pos = (r->draw_start - _player()->pitch - (_player()->z / r->perp_wall_dist) - WIN_H / 2 + r->line_h / 2) * r->tex_step;
+	r->tex_pos = (r->draw_start - r->pl.pitch - (r->pl.z / r->perp_wall_dist) - WIN_H / 2 + r->line_h / 2) * r->tex_step;
 	r->y = r->draw_start;
 	while(r->y < r->draw_end)
 	{

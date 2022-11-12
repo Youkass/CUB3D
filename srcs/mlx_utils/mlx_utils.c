@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/11 18:27:47 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 09:30:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,16 +176,28 @@ void		draw_sky(void)
 	int			offset;
 	t_vector2D	tex;
 	t_vector2D	pt;
+	int			pitch;
 	static t_vector2D	pl_coord[2] = (t_vector2D [2]){{2000, 500}, {1050, 500}};
 	_menu()->draw_pl[0] = pos(-1, -1);
 	_menu()->draw_pl[1] = pos(-1, -1);
 
-	angle = atan2(_player()->dy, _player()->dx);
+	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id <= 
+	_var()->linked_players)
+	{
+		angle = atan2(_var()->o_player[_player()->spec_id].dy,
+			_var()->o_player[_player()->spec_id].dx);
+		pitch = _var()->o_player[_player()->spec_id].pitch;
+	}
+	else
+	{
+		angle = atan2(_player()->dy, _player()->dx);
+		pitch = _player()->pitch;
+	}
 	offset = (int)(angle * WIN_W* 2 / (M_PI * 2)) + (WIN_W / 2) * 2;
 	pt.y = 0;
-	while (pt.y < WIN_H / 2 + _player()->pitch)
+	while (pt.y < WIN_H / 2 + pitch)
 	{
-		tex.y =( ((pt.y * 2 * WIN_W / (WIN_H)) / 4 )- (_player()->pitch * 0.8)) + WIN_H / 2;
+		tex.y =( ((pt.y * 2 * WIN_W / (WIN_H)) / 4 )- (pitch * 0.8)) + WIN_H / 2;
 		pt.x = 0;
 		while (pt.x < WIN_W)
 		{
@@ -208,8 +220,6 @@ void		draw_sky(void)
 		}
 		pt.y++;
 	}
-	//printf("planet = %d, %d\n", pl_coord[0].x, pl_coord[0].y);
-	//printf("view = [%d, %d] - [%d, %d]\n       [%d, %d] - [%d, %d]\n", offset, _player()->pitch,  WIN_W + offset);
 	if ( _menu()->draw_pl[0].x != -1 &&  _menu()->draw_pl[0].y != -1)
 		ft_put_sprite_to_images(*_img(), _menu()->planets[0], _menu()->draw_pl[0], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
 }
@@ -308,8 +318,26 @@ void	hud(void)
 		ft_put_sprite_to_images(*_img(), _image()->rifle,
 			pos(WIN_W / 2 - (_image()->rifle.w / 4), WIN_H - _image()->rifle.h),
 			pos(0, 0), pos(_image()->rifle.w / 2, _image()->rifle.h));
+	}	
+}
+
+void	set_spectate(void)
+{
+	int	i;
+
+	i = 0;
+	if (_player()->is_dead && _var()->red_alive > 0 && _var()->blue_alive > 0)
+	{
+		_player()->spectate = 1;
+		_player()->spec_id = - 1;
+		while (i < _var()->nb_player)
+		{
+			if (_var()->o_player[i].team == _player()->team
+				&& _var()->o_player[i].is_dead == 0)
+				_player()->spec_id = i;
+			i++;
+		}
 	}
-	
 }
 
 int	ft_loop()
@@ -322,9 +350,11 @@ int	ft_loop()
 	draw_rays();
 	walk_clock();
 	ft_play_music(0, GAME_MUSIC);
+	set_spectate();
 	if (_player()->is_shooting > 0)
 		ft_play_sound(SHOT_SOUND);
-	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER)  && _var()->mode == GAME)
+	printf("%d, %d\n", _var()->mode, _menu()->mode);
+	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 	{
 		ft_pong_client();
 		player_casting();

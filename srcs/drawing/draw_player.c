@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/30 16:55:24 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 06:57:51 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,22 @@ fonction a ajouter dans un fichier utils_draw_circle.c //TODO
 ===============================================================================
 */
 
-int	ft_return_xp(void)
+int	ft_return_xp(t_obj *player, t_obj *my_player)
 {
-	_player()->hb.hit.pos.x = _player()->x;
-	return ((int)(_player()->hb.hit.pos.x
-		* _var()->scale) + _var()->half_scale_offset);
+	player->hb.hit.pos.x = player->x;
+	return ((int)(player->hb.hit.pos.x
+		* _var()->scale) + _var()->half_scale_offset + _var()->map_width * _var()->scale - my_player->x * _var()->scale - 420);
 }
 
-int	ft_return_yp(void)
+int	ft_return_yp(t_obj *player)
 {
-	_player()->hb.hit.pos.y = _player()->y;
-	return ((int)(_player()->hb.hit.pos.y * _var()->scale) + _var()->half_scale);
+	player->hb.hit.pos.y = player->y;
+	return ((int)(player->hb.hit.pos.y * _var()->scale) + _var()->half_scale + 50);
 }
 
-float	ft_return_radius(void)
+float	ft_return_radius(t_obj *player)
 {
-	return ((_player()->hb.hit.r) * _var()->scale);
+	return ((player->hb.hit.r) * _var()->scale);
 }
 
 int	ft_return_xp_2(void)

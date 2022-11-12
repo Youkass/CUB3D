@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lobby.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 16:52:54 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/12 05:53:37 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int	wait_lobby(t_client_thread *client)
 
 	while (1)
 	{
+		printf("lol\n");
 		pthread_mutex_lock(client->mutex);
 		nb = client->serv->linked_players;
 		pthread_mutex_unlock(client->mutex);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 16:53:31 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/12 10:02:10 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ static void	ft_copy_new_data(t_send_server o_player)
 	{
 		if (_var()->o_player[i].team == TEAM_BLUE)
 		{
-			_var()->blue[_var()->n_blue] = _var()->o_player[i].pseudo;
+			_var()->blue[_var()->n_blue] = _var()->o_player[i].id;
 			++_var()->n_blue;
 		}
 		else if (_var()->o_player[i].team == TEAM_RED)
 		{
-			_var()->red[_var()->n_red] = _var()->o_player[i].pseudo;
+			_var()->red[_var()->n_red] = _var()->o_player[i].id;
 			++_var()->n_red;
 		}
 		else
 		{
-			_var()->neutral[_var()->n_neutral] = _var()->o_player[i].pseudo;
+			_var()->neutral[_var()->n_neutral] = _var()->o_player[i].id;
 			++_var()->n_neutral;
 		}
 		if (!(_image()->pseudo_img[i].img))
@@ -81,7 +81,6 @@ void	get_pseudos(void)
 	t_send_client	player;
 	t_send_server	o_player;
 
-	printf("salut2\n");
 	memset(&player, 0, sizeof(player));
 	ft_copy_data_before_pong(&player.player);
 	if (_player()->is_start)

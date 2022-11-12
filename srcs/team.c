@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:39:25 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 20:00:51 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 10:05:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	init_teams(void)
 	i = 0;
 	while (i < _var()->nb_player / 2)
 	{
-		_team()[TEAM_RED]->players[i] = get_id_by_pseudo(_var()->red[i]);
+		_team()[TEAM_RED]->players[i] = _var()->red[i];
 		i++;
 	}
 	_team()[TEAM_RED]->player_spawn[0] = posf(3, 3);
@@ -67,7 +67,7 @@ void	init_teams(void)
 	i = 0;
 	while (i < _var()->nb_player / 2)
 	{
-		_team()[TEAM_BLUE]->players[i] = get_id_by_pseudo(_var()->blue[i]);
+		_team()[TEAM_BLUE]->players[i] = _var()->blue[i];
 		i++;
 	}
 	_team()[TEAM_BLUE]->player_spawn[0] = posf(40, 9);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/10 16:57:04 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/12 11:01:03 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,9 @@ int	menu_loop(void)
 {
 	click_update();
 	ft_play_music(20000000, MENU_MUSIC);
-	if(_menu()->mode == MENU_LOBBY
+	if (_menu()->mode == MENU_LEADERBOARD)
+		ft_pong_client();
+	else if(_menu()->mode == MENU_LOBBY
 			&& (_var()->mode != GAME
 				&& _var()->mode != GAME_START_ONLINE))
 		menu_pong();
@@ -218,6 +220,8 @@ int	menu_loop(void)
 		menu_lobby();
 	else if (_menu()->mode == MENU_OPTION)
 		menu_option();
+	else if (_menu()->mode == MENU_LEADERBOARD)
+		menu_leaderboard();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win,
 		_img()->img, 0, 0);
 	return (0);
@@ -232,13 +236,49 @@ int	menu_hook(int keycode)
 	return (0);
 }
 
+static int	is_nb_keycode(int k)
+{
+	if (k == ZERO || k == ONE || k == TWO || k == THREE || k == FOUR
+		|| k == FIVE || k == SIX || k == SEVEN || k == EIGHT || k == NINE)
+		return (1);
+	return (0);
+}
+
+static int	get_nb_keycode(int k)
+{
+	if (k == ZERO)
+		return ('0');
+	if (k == ONE)
+		return ('1');
+	if (k == TWO)
+		return ('2');
+	if (k == THREE)
+		return ('3');
+	if (k == FOUR)
+		return ('4');
+	if (k == FIVE)
+		return ('5');
+	if (k == SIX)
+		return ('6');
+	if (k == SEVEN)
+		return ('7');
+	if (k == EIGHT)
+		return ('8');
+	if (k == NINE)
+		return ('9');
+	return ('0');
+}
+
 int	menu_hook_pseudo(int keycode)
 {
 	static int	n = 0;
 
-	if (keycode >= A_ && keycode <= Z && n + 1 < 17)
+	if (((keycode >= A_ && keycode <= Z) || is_nb_keycode(keycode)) && n + 1 < 17)
 	{
-		_player()->pseudo[n++] = keycode - 32;
+		if (is_nb_keycode(keycode))
+			_player()->pseudo[n++] = get_nb_keycode(keycode);
+		else
+			_player()->pseudo[n++] = keycode - 32;
 		_player()->pseudo[n] = 0;
 	}
 	if (keycode == ERASE && n > 0)
@@ -248,13 +288,11 @@ int	menu_hook_pseudo(int keycode)
 	}
 	if (keycode == ENTER && n > 3 && _var()->is_host == SERVER)
 	{
-		//_player()->pseudo_img = create_text_img(_player()->pseudo);
 		_menu()->mode = MENU_LOBBY;
 		_var()->mode = ONLINE_START;
 	}
 	if (keycode == ENTER && n > 3 && _var()->is_host == CLIENT)
 	{
-		//_player()->pseudo_img = create_text_img(_player()->pseudo);
 		if (ft_init_client() == EXIT_FAILURE)
 			exit(1); //TODO
 		printf("je passe en mode lobby\n");

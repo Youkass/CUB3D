@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/11 19:47:41 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/12 11:26:32 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,8 +381,11 @@ int	ft_loop_hook(void)
 		_var()->mode = GAME;
 	}
 	if (_var()->mode == GAME)
+	{
 		ft_loop();
-	else if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
+		//mouse_rotate();
+	}
+	if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
 
 	return (0);
@@ -395,6 +398,50 @@ int	ft_mouse_release(int keycode)
 	return (0);
 }
 
+int	ft_expose(void)
+{
+	//if (_var()->mode == GAME)
+	//{
+	mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+	mlx_mouse_move(_mlx()->mlx, _mlx()->mlx_win, WIN_W / 2, WIN_H / 2);
+	//}
+	return (0);
+}
+
+int	ft_rotate(double rot_speed)
+{
+	double	dist;
+
+	_player()->old_dx = _player()->dx;
+	_player()->dx = _player()->dx * cos(rot_speed)
+	- _player()->dy * sin(rot_speed);
+	_player()->dy = _player()->old_dx * sin(rot_speed)
+	+ _player()->dy * cos(rot_speed);
+	_player()->old_plane.x = _player()->plane.x;
+	_player()->plane.x = _player()->plane.x * cos(rot_speed)
+	- _player()->plane.y * sin(rot_speed);
+	_player()->plane.y = _player()->old_plane.x * sin(rot_speed)
+	+ _player()->plane.y * cos(rot_speed);
+	dist = hypot(_player()->dx, _player()->dy);
+	if (_player()->dy <= 0)
+		_player()->angle = acos(_player()->dx / dist) * 180 / M_PI;
+	else
+		_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
+	return (0);
+}
+
+int	mouse_rotate(void)
+{
+	t_vector2D	pos;
+	t_vector2D	delta;
+
+	mlx_mouse_get_pos(_mlx()->mlx, _mlx()->mlx_win, &pos.x, &pos.y);
+	delta.x = pos.x - WIN_W / 2;
+	ft_rotate(delta.x * _var()->frame_time * 0.025);
+	mlx_mouse_move(_mlx()->mlx, _mlx()->mlx_win, WIN_W / 2, WIN_H / 2);
+	return (0);
+}
+
 int	ft_game(void)
 {
 	mlx_hook(_mlx()->mlx_win, 2, 1L << 0, &ft_hook, NULL);
@@ -402,6 +449,7 @@ int	ft_game(void)
 	mlx_loop_hook(_mlx()->mlx, &ft_loop_hook, NULL);
 	mlx_hook(_mlx()->mlx_win, 5, 1L << 3, &ft_mouse_release, NULL);
 	mlx_mouse_hook(_mlx()->mlx_win, &menu_mouse_hook, NULL);
+	//mlx_expose_hook(_mlx()->mlx_win, ft_expose, NULL);
 	return (0);
 }
 
@@ -451,30 +499,6 @@ void	init_key(void)
 	_var()->key[left] = 0;
 	_var()->key[right] = 0;
 	_var()->key[space] = 0;
-}
-
-void	init_weapons(void)
-{
-	_weapon()[0]->name = malloc(sizeof(char) * 6);
-	_weapon()[0]->name = "Rifle\0";
-	_weapon()[0]->id = 0;
-	_weapon()[0]->range = 25;
-	_weapon()[0]->power = 25;
-	_weapon()[0]->reload_ms = 500000;
-	_weapon()[0]->ammo = 15;
-	_weapon()[0]->full_ammo = 45;
-	_weapon()[0]->headshot = 50;
-	_weapon()[0]->footshot = 10;
-	_weapon()[1]->name = malloc(sizeof(char) * 6);
-	_weapon()[1]->name = "Couteau\0";
-	_weapon()[1]->id = 0;
-	_weapon()[1]->range = 2;
-	_weapon()[1]->power = 100;
-	_weapon()[1]->reload_ms = 500000;
-	_weapon()[1]->ammo = 9999;
-	_weapon()[1]->full_ammo = 45;
-	_weapon()[1]->headshot = 200;
-	_weapon()[1]->footshot = 100;
 }
 
 void	init_var(void)
