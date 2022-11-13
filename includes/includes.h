@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 14:47:43 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:25:38 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ esc : 65307
 # define LOOSE 2
 
 # define N_RSTATE 7
-# define NB_SOUND 4
+# define NB_SOUND 10
 # define ROUND_PLAY 0
 # define ROUND_END 1
 # define ROUND_END_WAIT 2
@@ -126,7 +126,7 @@ esc : 65307
 # define Y 121
 # define Z 122
 
-# define SENSIBILITY 0.30
+# define SENSIBILITY 0.15
 
 # if __APPLE__
 #  define ZERO 224

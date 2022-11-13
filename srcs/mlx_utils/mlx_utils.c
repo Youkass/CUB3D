@@ -374,7 +374,7 @@ int	ft_loop()
 		draw_text_scale(str, pos(WIN_W / 2 - (ft_strlen(str) * (42)) / 2, 100), pos(1, 1), WHITE);
 	}
 	if (_player()->is_shooting > 0)
-		ft_play_shot_sound(_player()->id);
+		ft_play_own_shot();
 	update_bullets3F();
 	bullet_casting();
 	hud();
