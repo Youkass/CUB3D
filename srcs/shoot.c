@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 12:08:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 16:08:32 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,30 +121,21 @@ void	shoot(void)
 				posf(_player()->x, _player()->y), closest) *
 				-sin(normalise_between2F(posf(-960, 960), posf(-1, 1),
 				_player()->pitch)) * 1000);
-			printf("Shot touched at : {%f, %f, %f}\n",
-				closest3F.x,closest3F.y, closest3F.z);
 			if (closest3F.z < 450 && closest3F.z > -250)
 			{
-				printf("player touched = %f\n", closest3F.z);
 				_player()->shooted.id = _var()->o_player[i].id;
 				_player()->shooted.shoot = 1;
 				if (closest3F.z < -33) // HEADSHOT WHEN NOT CROUCH
 				{
-					printf("HEADSHOT\n");
 					_player()->shooted.shoot = 2;
 				}
 				else if (closest3F.z > 220) // FOOTSHOT WHEN NOT CROUCH
 				{
-					printf("shoot in the leg..\n");
 					_player()->shooted.shoot = 3;
 				}
-				else
-					printf("touched \n");
 				touched = 1;
 				init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
 			}
-			else
-				printf("pas touchew\n");
 			break ;
 		}
 		i++;
