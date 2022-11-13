@@ -103,7 +103,8 @@ void	ft_init_music(void);
 void	ft_init_sound(void);
 void	ft_init_media(void);
 void	ft_play_music(long unsigned int time, int index);
-void	ft_play_shot_sound(int index);
+void	ft_play_shot_sound(t_obj player);
+void	ft_play_own_shot(void);
 
 /* -------------------------------------------------------------------------- */
 /*                        FILE = ./srcs/utils/clock.c                         */

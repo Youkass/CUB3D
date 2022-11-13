@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/13 17:39:36 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:45:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub.h"
@@ -129,6 +129,8 @@ void	restart_player(void)
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
 	_player()->is_walking = 0;
+	_player()->spectate = 0;
+	_player()->spec_id = -1;
 }
 
 void	ft_init_player_pos(void)
