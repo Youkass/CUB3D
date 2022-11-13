@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 15:41:08 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:35:07 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,24 @@ void	ft_play_music(long unsigned int time, int index)
 	(void)time;
 	if (_var()->mode == MENU)
 	{
-		//ma_sound_start(&(_media()->sound[MENU_MUSIC][0]));
+		if (!ma_sound_is_playing(&(_media()->sound[MENU_MUSIC][0])))
+		{
+			printf("je lance menu music\n");
+			ma_sound_start(&(_media()->sound[MENU_MUSIC][0]));
+		}
 	}
 	if (_var()->mode == GAME)
 	{
-		//ma_sound_stop(&(_media()->sound[MENU_MUSIC][0]));
-		//ma_sound_start(&(_media()->sound[GAME_MUSIC][0]));
+		if (ma_sound_is_playing(&(_media()->sound[MENU_MUSIC][0])))
+		{
+			printf("je coupe menu music\n");
+			ma_sound_stop(&(_media()->sound[MENU_MUSIC][0]));
+		}
+		if (!ma_sound_is_playing(&(_media()->sound[GAME_MUSIC][0])))
+		{
+			printf("je lance game music\n");
+			ma_sound_start(&(_media()->sound[GAME_MUSIC][0]));
+		}
 	}
 }
 

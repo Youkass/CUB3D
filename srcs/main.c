@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 15:06:15 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 17:39:36 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/cub.h"
@@ -291,13 +291,13 @@ int	ft_loop_hook(void)
 			pid = fork();
 			if (pid == 0)
 			{
-				sleep(1);
-				ft_init_client();
+				system(ft_strjoin("./server ", ft_itoa(_var()->nb_player)));
+				exit(1);
 			}
 			else
 			{
-				system(ft_strjoin("./server ", ft_itoa(_var()->nb_player)));
-				exit(1);
+				sleep(1);
+				ft_init_client();
 			}
 		_var()->mode = LOBBY_WAIT;
 	}
