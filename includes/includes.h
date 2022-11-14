@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 21:43:13 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 19:25:38 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ esc : 65307
 # define LOOSE 2
 
 # define N_RSTATE 7
-# define NB_SOUND 4
+# define NB_SOUND 10
 # define ROUND_PLAY 0
 # define ROUND_END 1
 # define ROUND_END_WAIT 2
@@ -128,7 +128,7 @@ esc : 65307
 # define CTRL 65507
 # define MAJ 65505
 
-# define SENSIBILITY 0.30
+# define SENSIBILITY 0.15
 
 # if __APPLE__
 #  define ZERO 224
@@ -235,7 +235,7 @@ esc : 65307
 //# define CMD_PRINT_IP "127.0.0.1"
 //# define CMD_PRINT_IP "ipconfig getifaddr en0"
 # define MAX_PLAYER 6
-# define MAX_SHOT_SOUND 12
+# define MAX_SHOT_SOUND 100
 # define HOST 1
 # define BUFFER_SIZE 30
 #endif
