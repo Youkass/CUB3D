@@ -392,9 +392,10 @@ int	ft_loop()
 			draw_text_scale(ft_itoa(_var()->last_round_winner), pos(WIN_W / 2 - (1 * (42)) / 2, 300), pos(1, 1), BLUE);
 	}
 	ft_draw_map();
-	draw_text_scale(ft_strjoin(ft_itoa(_player()->full_ammo), "/"), pos(WIN_W - _image()->ammo.w - 90, WIN_H - _image()->ammo.h - 10), pos(3, 3), WHITE);
-	draw_text_scale(ft_itoa(_player()->ammo), pos(WIN_W - _image()->ammo.w - 90 + ft_strlen("45/") * 14, WIN_H - _image()->ammo.h - 8), pos(3, 3), WHITE);
-	ft_put_image_to_image_scale(*_img(), _image()->ammo, pos(WIN_W - _image()->ammo.w - 20, WIN_H - _image()->ammo.h - 10), posf(4, 4));//
+	render_health(pos(50, 250));
+	draw_text_scale(ft_strjoin(ft_itoa(_player()->full_ammo), "/"), pos(55, 220 + _image()->ammo.h - 10), pos(3, 3), WHITE);
+	draw_text_scale(ft_itoa(_player()->ammo), pos(55 + ft_strlen("45/") * 14, 220 + _image()->ammo.h - 8), pos(3, 3), WHITE);
+	ft_put_image_to_image_scale(*_img(), _image()->ammo, pos(125, 220 + _image()->ammo.h - 10), posf(4, 4));//
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);

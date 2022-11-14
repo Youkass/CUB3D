@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 06:57:51 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 18:22:22 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ int	ft_return_xp(t_obj *player, t_obj *my_player)
 		* _var()->scale) + _var()->half_scale_offset + _var()->map_width * _var()->scale - my_player->x * _var()->scale - 420);
 }
 
-int	ft_return_yp(t_obj *player)
+int	ft_return_yp(t_obj *player, t_obj *my_player)
 {
 	player->hb.hit.pos.y = player->y;
-	return ((int)(player->hb.hit.pos.y * _var()->scale) + _var()->half_scale + 50);
+	return ((int)(player->hb.hit.pos.y * _var()->scale) + _var()->half_scale + _var()->map_height * _var()->scale - my_player->y * _var()->scale - 150);
 }
 
 float	ft_return_radius(t_obj *player)
