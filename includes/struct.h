@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 14:11:25 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/14 19:54:47 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -470,6 +470,7 @@ typedef struct s_var
 	int					ran_i;
 	int					alive[2];
 	t_log				*log;
+	int					restart;
 }	t_var;
 typedef struct	s_image
 {
@@ -552,6 +553,7 @@ typedef struct	s_send_client_game
 	int			red_wins;
 	int			blue_wins;
 	int			round_end;
+	int			restart;
 }	t_send_client_game;
 
 typedef struct	s_send_server
@@ -572,6 +574,7 @@ typedef struct	s_send_server_game
 	int			player_alive;
 	int			red_alive;
 	int			blue_alive;
+	int			restart;
 }	t_send_server_game;
 
 typedef struct	s_client_thread
@@ -594,6 +597,7 @@ typedef struct	s_client_thread
 	struct s_server_data	*serv;
 	int						team_id;
 	int						team;
+	int						restart;
 	int						round_state_send[N_RSTATE];
 }	t_client_thread;
 
@@ -624,7 +628,7 @@ struct	s_server_data
 	int						red_alive;
 	int						blue_alive;
 	int						round_end;
-	int						test;
+	int						restart;
 };
 
 #endif

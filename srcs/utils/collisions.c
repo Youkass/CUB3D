@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collisions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 16:32:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,29 @@ int	is_neighbor(t_vector2D pos)
 t_vector2F	init_potential_dist(int up)
 {
 	t_vector2F	potential;
+	t_vector2F	dir;
 
-	if (up)
+	if (up == 1)
 	{
 		potential.x = _player()->x + (_player()->dx * _player()->move_speed);
 		potential.y = _player()->y + (_player()->dy * _player()->move_speed);
 	}
-	else
+	else if (!up)
 	{
 		potential.x = _player()->x - (_player()->dx * _player()->move_speed);
 		potential.y = _player()->y - (_player()->dy * _player()->move_speed);
+	}
+	else if (up == 2)
+	{
+		dir = get_90_angle(-1);
+		potential.y = _player()->y + (dir.y * _player()->move_speed);
+		potential.x = _player()->x + (dir.x * _player()->move_speed);
+	}
+	else
+	{
+		dir = get_90_angle(1);
+		potential.y = _player()->y + (dir.y * _player()->move_speed);
+		potential.x = _player()->x + (dir.x * _player()->move_speed);	
 	}
 	return (potential);
 }
@@ -122,6 +135,7 @@ void	*compute_nb(int i)
 			_player()->x = _nb()->potential.x;
 			_player()->y = _nb()->potential.y;
 			_nb()->ret = 1;
+			printf("queblo\n");
 		}
 	}
 	return (NULL);
