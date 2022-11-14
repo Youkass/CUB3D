@@ -182,6 +182,8 @@ void	restart_player(void)
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
 	_player()->is_walking = 0;
+	_player()->spectate = 0;
+	_player()->spec_id = -1;
 }
 
 void	ft_init_player_pos(void)
@@ -578,7 +580,7 @@ int main(int argc, char **argv)
 	init_weapons();
 	ft_print_tab(_var()->map);
 	ft_init_mlx();
-//	ft_init_media();
+	ft_init_media();
 	ft_init_img();
 	_ray();
 	ft_init_player_pos();

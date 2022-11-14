@@ -362,10 +362,8 @@ int	ft_loop()
 	reload_clock();
 	draw_rays();
 	walk_clock();
-//	ft_play_music(0, GAME_MUSIC);
+	ft_play_music(0, GAME_MUSIC);
 	set_spectate();
-//	if (_player()->is_shooting > 0)
-//		ft_play_sound(_player()->id);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 	{
 		ft_pong_client();
@@ -378,6 +376,8 @@ int	ft_loop()
 			str = ft_strjoin(ft_itoa(_team()[TEAM_BLUE]->win), ft_strjoin(" - ", ft_itoa(_team()[TEAM_RED]->win)));
 		draw_text_scale(str, pos(WIN_W / 2 - (ft_strlen(str) * (42)) / 2, 100), pos(1, 1), WHITE);
 	}
+	if (_player()->is_shooting > 0)
+		ft_play_own_shot();
 	update_bullets3F();
 	bullet_casting();
 	hud();

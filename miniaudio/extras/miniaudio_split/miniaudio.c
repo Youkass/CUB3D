@@ -62391,6 +62391,7 @@ MA_API ma_data_source* ma_sound_get_data_source(const ma_sound* pSound)
 MA_API ma_result ma_sound_start(ma_sound* pSound)
 {
     if (pSound == NULL) {
+		printf("in lib pSound == NULL\n");
         return MA_INVALID_ARGS;
     }
 
@@ -62419,6 +62420,7 @@ MA_API ma_result ma_sound_start(ma_sound* pSound)
 MA_API ma_result ma_sound_stop(ma_sound* pSound)
 {
     if (pSound == NULL) {
+		printf("in lib pSound == NULL\n");
         return MA_INVALID_ARGS;
     }
 

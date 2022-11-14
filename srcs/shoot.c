@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 12:02:56 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 16:08:32 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ void	shoot(void)
 			|| (_var()->o_player[i].is_crouching && closest3F.z > 37 && closest3F.z < 432))
 			&& _var()->o_player[i].health > 0)
 			{
-				printf("player touched = %f\n", closest3F.z);
 				_player()->shooted.id = _var()->o_player[i].id;
 				_player()->shooted.shoot = 1;
 				if ((!_var()->o_player[i].is_crouching && closest3F.z < 40)
@@ -171,8 +170,6 @@ void	shoot(void)
 				touched = 1;
 				init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
 			}
-			else
-				printf("pas touchew\n");
 			break ;
 		}
 		i++;

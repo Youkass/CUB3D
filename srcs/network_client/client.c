@@ -209,6 +209,8 @@ void	ft_pong_client(void)
 	_var()->linked_players = serv.linked_players;
 	while (i < _var()->linked_players)
 	{
+		if (serv.player[i].is_shooting > 0 && i != _player()->id)
+			ft_play_shot_sound(serv.player[i]);
 		if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
 			_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
 		else if (serv.player[i].shooted.shoot == 2 && serv.player[i].shooted.id == _player()->id)
