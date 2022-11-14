@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 15:46:39 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/14 20:55:31 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,11 +154,17 @@ void	restart_player(void)
 {
 	double	dist;
 
+	_player()->is_start = 0;
 	_log()->log = NULL;
 	_var()->alive[TRED] = _var()->nb_player / 2;
 	_var()->alive[TBLUE] = _var()->nb_player / 2;
 	memset(&_player()->kill_match, 0, sizeof(_player()->kill_match));
 	memset(&_player()->kill_round, 0, sizeof(_player()->kill_round));
+	_player()->nr = 0;
+	_var()->match_finished = 0;
+	_player()->kills = 0;
+	_player()->deaths = 0;
+	memset(_player()->kill_round, 0, sizeof(_player()->kill_round));
 	_player()->nr = 0;
 	_player()->nm = 0;
 	_player()->is_shooting = 0;

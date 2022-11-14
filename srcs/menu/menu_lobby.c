@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   menu_lobby.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 21:20:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 20:18:42 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

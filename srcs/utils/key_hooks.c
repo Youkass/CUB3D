@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 15:01:54 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/14 20:07:18 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ void	key_hook(void)
 			_player()->start_reload = get_clock(_var()->clock);
 			shoot();
 		}
+	}
+	if (_player()->id == 0 &&_var()->key[maj])
+	{
+		printf("click\n");
+		_var()->restart = 1;
 	}
 	if (_var()->key[space])
 	{
@@ -237,7 +242,7 @@ int	ft_strafe_left(void)
 {
 	t_vector2F	dir;
 
-	if (!check_neighbor(0))
+	if (!check_neighbor(2))
 	{
 		dir = get_90_angle(-1);
 		_player()->y += (dir.y * _player()->move_speed);
@@ -251,7 +256,7 @@ int	ft_strafe_right(void)
 {
 	t_vector2F	dir;
 
-	if (!check_neighbor(0))
+	if (!check_neighbor(3))
 	{
 		dir = get_90_angle(1);
 		_player()->y += (dir.y * _player()->move_speed);

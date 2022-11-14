@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_thread.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/14 14:31:12 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 20:46:56 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	ft_connect_clients(t_server_data *data)
 	{
 		data->clients[i].csize = sizeof(data->clients[i].sockclient);
 		data->clients[i].serv = data;
+		data->clients[i].restart = 0;
 		data->clients[i].is_recv = 0;
 		data->clients[i].socket = accept(data->socket,
 			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
@@ -93,6 +94,8 @@ int	ft_recv_first_data(t_client_thread *client)
 		pthread_mutex_unlock(client->mutex);
 		return (1);
 	}
+	if (data.restart == 1)
+		client->serv->restart = 1;
 	client->player_data = data.player;
 	if (client->id == 0)
 	{
@@ -182,6 +185,7 @@ int	round_play(int round, t_send_server_game *data, t_client_thread *client, int
 {
 	if (client->serv->round_state[ROUND_PLAY] >= client->serv->linked_players)
 	{
+		printf("PLAY\n");
 		if (round > 0 && client->round_state_send[ROUND_START] != -1)
 		{
 			client->serv->round_state[ROUND_START]--;
@@ -202,6 +206,7 @@ int	round_end(t_send_server_game *data, t_client_thread *client)
 {
 	if (client->serv->round_state[ROUND_END] >= client->serv->linked_players) // SI TOUT LES THREADS SONT ROUND_END ON ENVOIE NOS DATA
 	{
+		printf("END\n");
 		data->round_state = ROUND_END;
 		if ((client->serv->team_data[TRED].round_state == LOOSE
 			|| client->serv->team_data[TBLUE].round_state == WIN))
@@ -238,6 +243,7 @@ int	round_end_wait(t_send_server_game *data, t_client_thread *client)
 {
 	if (client->serv->round_state[ROUND_END_WAIT] >= client->serv->linked_players)
 	{
+		printf("END WAIT\n");
 		if (client->round_state_send[ROUND_END] != -1)
 		{
 			--client->serv->round_state[ROUND_END];
@@ -280,6 +286,7 @@ int	round_wait_start(t_send_server_game *data, t_client_thread *client)
 {
 	if (client->serv->round_state[ROUND_WAIT_START] >= client->serv->linked_players)
 	{
+		printf("WAIT START\n");
 		if (client->round_state_send[ROUND_END_WAIT] != -1)
 		{
 			--client->serv->round_state[ROUND_END_WAIT];
@@ -307,6 +314,7 @@ int	round_start(int *round, t_send_server_game *data, t_client_thread *client)
 {
 	if (client->serv->round_state[ROUND_START] >= client->serv->linked_players)
 	{
+		printf("START\n");
 		if (client->round_state_send[ROUND_WAIT_START] != -1)
 			client->serv->round_state[ROUND_WAIT_START]--;
 		if (client->round_state_send[ROUND_PLAY] == 0)
@@ -329,6 +337,7 @@ void	round_leaderboard(t_send_server_game *data, t_client_thread *client)
 {
 	if (client->serv->round_state[ROUND_LEADERBOARD] >= client->serv->linked_players)
 	{
+		printf("LEADERBOARD\n");
 		if (client->round_state_send[ROUND_END_WAIT] != -1)
 		{
 			--client->serv->round_state[ROUND_END_WAIT];
@@ -352,6 +361,11 @@ int	ft_send_all_data(t_client_thread *client)
 	{
 		data.player[i] = client->serv->player_data[i];
 		++i;
+	}
+	if (client->serv->restart)
+	{
+		client->restart = 1;
+		data.restart = 1;
 	}
 	data.round_state = -1;
 	data.linked_players = client->serv->linked_players;
@@ -533,22 +547,36 @@ void	*client_routine(void *client_t)
 		return (NULL);
 	if (send_nb_players(client))
 		return (NULL);
-	if (wait_lobby(client))
-		return (NULL);
-	pthread_mutex_lock(client->mutex);
-	client->is_recv = 0;
-	client->is_send = 0;
-	init_team_server(client);
-	get_team_id(client);
-	pthread_mutex_unlock(client->mutex);
 	while (1)
 	{
-		if (ft_recv_first_data(client))
+		if (wait_lobby(client))
 			return (NULL);
-		if (ft_update_team(client))
-			return (NULL);
-		if (ft_send_all_data(client))
-			return (NULL);
+		pthread_mutex_lock(client->mutex);
+		client->restart = 0;
+		client->serv->restart = 0;
+		client->is_recv = 0;
+		client->is_send = 0;
+		client->serv->started = 0;
+		client->serv->round_end = 0;
+		restart_state(client);
+		client->serv->round_state[ROUND_PLAY] = client->nb_players;
+		init_team_server(client);
+		get_team_id(client);
+		pthread_mutex_unlock(client->mutex);
+		while (1)
+		{
+			if (ft_recv_first_data(client))
+				return (NULL);
+			if (ft_update_team(client))
+				return (NULL);
+			if (ft_send_all_data(client))
+				return (NULL);
+			if (client->restart)
+			{
+				printf("lol\n");
+				break ;
+			}
+		}
 	}
 	return (NULL);
 }

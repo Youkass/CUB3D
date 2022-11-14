@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 18:45:52 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,18 +126,19 @@ void	ft_draw_wall(t_obj wall, t_vector2D pos)
 	t_int	var;
 
 	var.i = 0;
+	(void)pos;
 	while (var.i < _var()->scale) 
 	{
 		var.j = 0;
 		while (var.j < _var()->scale)
 		{
-			if (is_neighbor(pos))
-				ft_put_pixel_color(_img(), (char [4]){0, 89, 22, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
-			else
-				ft_put_pixel_color(_img(), (char [4]){0, 15, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
+			// if (is_neighbor(pos))
+			// 	ft_put_pixel_color(_img(), (char [4]){0, 89, 22, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
+			// else
+			// 	ft_put_pixel_color(_img(), (char [4]){0, 15, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  wall.y + var.j + 50);
+				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  wall.y + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  200);
 			var.j++;
 		}
 		var.i++;
@@ -154,10 +155,10 @@ void	ft_draw_floor(t_obj wall)
 		var.j = 0;
 		while (var.j < _var()->scale)
 		{
-			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350, (int)wall.y + var.j + 50);
+			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350, (int)wall.y + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  200);
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350, (int)wall.y + var.j + 50);
+				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350, (int)wall.y + var.j  + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  200);
 			var.j++;
 		}
 		var.i++;
@@ -216,7 +217,7 @@ void	draw_player_map(void)
 				my_player = *_player();
 			if (player.x >= my_player.x - 8 && player.x <= my_player.x + 8
 			&& player.y >= my_player.y - 8 && player.y <= my_player.x + 8)
-				DrawCircle(ft_return_xp(&player, &my_player), ft_return_yp(&player),
+				DrawCircle(ft_return_xp(&player, &my_player), ft_return_yp(&player, &my_player),
 					ft_return_radius(&player), 0xD2042D);
 			i++;
 		}
@@ -234,13 +235,13 @@ void	draw_player_map(void)
 				my_player = *_player();
 			if (player.x >= my_player.x - 8 && player.x <= my_player.x + 8
 			&& player.y >= my_player.y - 8 && player.y <= my_player.x + 8)
-				DrawCircle(ft_return_xp(&player, &my_player), ft_return_yp(&player),
+				DrawCircle(ft_return_xp(&player, &my_player), ft_return_yp(&player, &my_player),
 					ft_return_radius(&player), 0x005b96);
 			i++;
 		}
 	}
 	else
-		DrawCircle(ft_return_xp(_player(), _player()), ft_return_yp(_player()), ft_return_radius(_player()), 
+		DrawCircle(ft_return_xp(_player(), _player()), ft_return_yp(_player(), _player()), ft_return_radius(_player()), 
 			0xD2042D);
 }
 
