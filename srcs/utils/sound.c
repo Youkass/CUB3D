@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 15:55:07 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/14 19:12:30 by yuro4ka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,18 @@ int	ft_play_end_game(void)
 			ft_play_end_sound(&(_media()->sound[ROUND_MUSIC][GAME_WIN]));
 		else
 			ft_play_end_sound(&(_media()->sound[ROUND_MUSIC][GAME_LOST]));
+		ft_init_ran();
 		return (1);
 	}
 	return (0);
+}
+
+int	ft_check_my_team(void)
+{
+	if (_player()->team == TRED)
+		return (TBLUE);
+	else
+		return (TRED);
 }
 
 void	ft_play_music(int index)
@@ -181,6 +190,18 @@ void	ft_play_music(int index)
 	{
 		if (ma_sound_is_playing(&(_media()->sound[MENU_MUSIC][0])))
 			ma_sound_stop(&(_media()->sound[MENU_MUSIC][0]));
+		if (_var()->alive[_player()->team] == 1
+				&& _var()->alive[ft_check_my_team()] > 1)
+		{
+			ma_sound_stop(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
+			ft_start_from_start(&(_media()->sound[GAME_MUSIC][ASHES]))
+		}
+		else if (_var()->alive[_player()->team] == 1
+				&& _var()->alive[ft_check_my_team()] == 1)
+		{
+			ma_sound_stop(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
+			ft_start_from_start(&(_media()->sound[GAME_MUSIC][MORTAL]));
+		}
 		ft_start_from_start(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
 	}
 }
