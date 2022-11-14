@@ -6,12 +6,11 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 12:08:36 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 12:02:56 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
-
 
 t_vector2F	closest_point(t_vector2F a, t_vector2F b, t_vector2F c)
 {
@@ -109,7 +108,7 @@ void	shoot(void)
 		shoot_alone3F();
 		return ;
 	}
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		if (_var()->o_player[i].id != _player()->id &&
 			is_shoot_touch((t_vector2F){_player()->x, _player()->y},
@@ -123,23 +122,52 @@ void	shoot(void)
 				_player()->pitch)) * 1000);
 			printf("Shot touched at : {%f, %f, %f}\n",
 				closest3F.x,closest3F.y, closest3F.z);
-			if (closest3F.z < 450 && closest3F.z > -250)
+			if (((!_var()->o_player[i].is_crouching && closest3F.z < 450 && closest3F.z > -230)
+			|| (_var()->o_player[i].is_crouching && closest3F.z > 37 && closest3F.z < 432))
+			&& _var()->o_player[i].health > 0)
 			{
 				printf("player touched = %f\n", closest3F.z);
 				_player()->shooted.id = _var()->o_player[i].id;
 				_player()->shooted.shoot = 1;
-				if (closest3F.z < -33) // HEADSHOT WHEN NOT CROUCH
+				if ((!_var()->o_player[i].is_crouching && closest3F.z < 40)
+				|| (_var()->o_player[i].is_crouching && closest3F.z < 165)) // HEADSHOT CROUCH
 				{
-					printf("HEADSHOT\n");
+					printf("vie apres => %d\n", _var()->o_player[i].health - _weapon()[_player()->weapon_id]->headshot);
+					if (_var()->o_player[i].health - _weapon()
+						[_player()->weapon_id]->headshot <= 0)
+					{
+						printf("je push => %d\n", _var()->o_player[i].id);
+						kill_push(_var()->o_player[i].id);
+						_player()->kills++;
+					}
 					_player()->shooted.shoot = 2;
 				}
-				else if (closest3F.z > 220) // FOOTSHOT WHEN NOT CROUCH
+				else if ((!_var()->o_player[i].is_crouching && closest3F.z < 235)
+				|| (_var()->o_player[i].is_crouching && closest3F.z < 315)) // NORMAL
 				{
-					printf("shoot in the leg..\n");
-					_player()->shooted.shoot = 3;
+					printf("vie apres => %d\n", _var()->o_player[i].health - _weapon()[_player()->weapon_id]->power);
+					if (_var()->o_player[i].health - _weapon()
+						[_player()->weapon_id]->power <= 0)
+					{
+						printf("je push => %d\n", _var()->o_player[i].id);
+						kill_push(_var()->o_player[i].id);
+						_player()->kills++;
+					}
+					printf("===> NORMAL\n");
 				}
-				else
-					printf("touched \n");
+				else // FOOTSHOT
+				{
+					printf("vie apres => %d\n", _var()->o_player[i].health - _weapon()[_player()->weapon_id]->footshot);
+					if (_var()->o_player[i].health - _weapon()
+						[_player()->weapon_id]->footshot <= 0)
+					{
+						printf("je push => %d\n", _var()->o_player[i].id);
+						kill_push(_var()->o_player[i].id);
+						_player()->kills++;
+					}
+					_player()->shooted.shoot = 3;
+					printf("===> FOOTSHOT\n");
+				}
 				touched = 1;
 				init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
 			}

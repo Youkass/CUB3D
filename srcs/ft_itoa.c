@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 20:54:07 by darian            #+#    #+#             */
-/*   Updated: 2022/10/21 17:06:35 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*ft_itoa(int n)
 
 	i = 0;
 	neg = 0;
-	str = malloc(sizeof(char) * (size_nb(n) + is_neg(n) + 1));
+	str = ft_malloc(sizeof(char) * (size_nb(n) + is_neg(n) + 1));
 	if (!str)
 		return (NULL);
 	if (ft_return(str, n) != NULL)

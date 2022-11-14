@@ -114,10 +114,13 @@ void	init_weapons(void);
 /*                          FILE = srcs/dyn_array.c                           */
 /* -------------------------------------------------------------------------- */
 void	init_array(t_array *a, int size);
+int	kill_push(int	value);
 int	arr_push(t_array *a, int	value);
 void	arr_pop(t_array *a, int	id);
 void	arr_destroy(t_array *a);
-void	print_tab(t_array *a);
+void	arr_fill(t_array *a, int value);
+void	print_arr(t_array *a);
+int	ft_in_array(t_array *a, int value);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network/server_thread.c                     */
@@ -129,7 +132,7 @@ int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
 int ft_is_send(t_client_thread *client);
 int	check_only(int nb, int r, int type);
-int	round_play(int round, t_send_server_game *data, t_client_thread *client);
+int	round_play(int round, t_send_server_game *data, t_client_thread *client, int is_finished);
 int	round_end(t_send_server_game *data, t_client_thread *client);
 int	round_end_wait(t_send_server_game *data, t_client_thread *client);
 int	round_wait_start(t_send_server_game *data, t_client_thread *client);
@@ -235,10 +238,12 @@ t_media	*_media(void);
 t_obj	*_player(void);
 t_raycasting	**_ray(void);
 t_var	*_var(void);
+t_log	*_log(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
 /* -------------------------------------------------------------------------- */
+void	crouch(int	mode);
 void	key_hook(void);
 int	ft_game_hook(int keycode);
 int	ft_up_head(void);
@@ -257,6 +262,12 @@ int	ft_escape(void);
 /* -------------------------------------------------------------------------- */
 /*                   FILE = srcs/utils/malloc_hooks_enum.c                    */
 /* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/*                           FILE = srcs/kill_log.c                           */
+/* -------------------------------------------------------------------------- */
+t_elem	*new_log(int id1, int id2);
+void	print_log(t_list	*li);
 
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/math/math.c                           */
@@ -309,6 +320,8 @@ int	ft_init_client(void);
 void	ft_copy_data_before_pong(t_obj *player);
 void	print_data_recv(t_obj	*player);
 void	restart_round(void);
+void	render_kill_log();
+int	get_killer(int id, int team_id);
 void	ft_pong_client(void);
 
 /* -------------------------------------------------------------------------- */
@@ -324,6 +337,7 @@ t_obj	ft_get_data(t_obj *player);
 void	get_key(int keycode);
 int	ft_release(int keycode);
 void	generate_dsprite(void);
+void	generate_dsprite_red(void);
 void	restart_player(void);
 void	ft_init_player_pos(void);
 void	walk_clock(void);
@@ -488,6 +502,7 @@ void	ft_fps(void);
 void	*ft_draw_void(void *r);
 void		draw_sky(void);
 void	draw_void_thread();
+void	*who_killed_th(int id, int team_id);
 void	check_death(void);
 void	update_bullets(void);
 void	recompute_array_shot(int index);

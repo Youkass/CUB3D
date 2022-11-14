@@ -16,7 +16,7 @@ char	*ft_get_ip_input(void)
 	char	*buf;
 	int		r; 
 	printf("Enter Host Ip on the next line : \n");
-	buf = malloc(sizeof(char) * BUFFER_SIZE);
+	buf = ft_malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buf)
 		return (NULL);
 	r = read(STDIN_FILENO, buf, BUFFER_SIZE);
@@ -62,6 +62,16 @@ void	ft_copy_data_before_pong(t_obj *player)
 
 	j = 0;
 	i = 0;
+	//player->kill_round.n = _player()->kill_round.n;
+	//player->kill_round.size = _player()->kill_round.size;
+	while (i < (int)_player()->nr)
+	{
+		player->kill_round[i] = _player()->kill_round[i];
+		i++;
+	}
+	i = 0;
+	player->nr = _player()->nr;
+	player->is_crouching = _player()->is_crouching;
 	player->team = _player()->team;
 	player->change_team = _player()->change_team;
 	player->plane = _player()->plane;
@@ -151,26 +161,54 @@ void	restart_round(void)
 	init_player_team();
 }
 
+void	render_kill_log()
+{
+	int		i;
+	t_list	*tmp;
+	t_elem	*log;
+
+	tmp = _log()->log;
+	i = 0;
+	while (tmp && i < 5)
+	{
+		log = (t_elem *)tmp->content;
+		draw_text_scale(
+			ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
+				" killed ", _var()->o_player[log->ids[1]].pseudo)),
+				pos(150, 50 + i * 20), pos(4, 4), WHITE);
+		tmp = tmp->next;
+		i++;
+	}
+}
+
 void	ft_pong_client(void)
 {
 	t_send_server_game	serv;
-	t_obj				my_player;	
+	t_send_client_game	client;
 	int					i;
 	static int			incremented = 0;
 	
 	i = 0;
 
-	memset(&my_player, 0, sizeof(my_player));
-	ft_copy_data_before_pong(&my_player);
-	if (send(_var()->socket, &my_player, sizeof(my_player), 0) < 0)
+	memset(&client, 0, sizeof(client));
+	ft_copy_data_before_pong(&client.player);
+	client.blue_wins = _team()[TEAM_BLUE]->win;
+	client.red_wins = _team()[TEAM_RED]->win;
+	client.round_end = 0;
+	if (incremented == 1 &&( _var()->alive[TRED] == 0 || _var()->alive[TBLUE] == 0))
+		incremented++;
+	if (incremented == 2)
+		client.round_end = 1;
+	if (send(_var()->socket, &client, sizeof(client), 0) < 0)
 		return ;
 	memset(&serv, 0, sizeof(serv));
+	_var()->alive[TRED] = 0;
+	_var()->alive[TBLUE] = 0;
 	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) < 0)
 		return ;
+	_var()->linked_players = serv.linked_players;
 	while (i < _var()->linked_players)
 	{
-//		if (serv.player[i].is_shooting > 0 && i != _player()->id)
-//			ft_play_sound(i);
 		if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
 			_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
 		else if (serv.player[i].shooted.shoot == 2 && serv.player[i].shooted.id == _player()->id)
@@ -182,44 +220,38 @@ void	ft_pong_client(void)
 			_player()->shooted.shoot = 0;
 			_player()->shooted.id = -1;
 		}
-		if (i == _player()->id)
-		{
-			_player()->kills = serv.player[i].kills;
-			_player()->deaths = serv.player[i].deaths;
-		}
+		if (serv.player[i].team == TEAM_BLUE && !serv.player[i].is_dead)
+			_var()->alive[TBLUE]++;
+		if (serv.player[i].team == TEAM_RED && !serv.player[i].is_dead)
+			_var()->alive[TRED]++;
+		if (_var()->o_player[i].kills < serv.player[i].kills)
+			ft_lstadd_back(&_log()->log, ft_lstnew((void *)new_log(serv.player
+				[i].id, serv.player[i].kill_round[serv.player[i].nr - 1])));
 		_var()->o_player[i] = serv.player[i];
-		_var()->o_player[i].kills = serv.player[i].kills;
-		_var()->o_player[i].deaths = serv.player[i].deaths;
-		_var()->o_player[i].id = i;
 		++i;
+	}
+	if (_var()->alive[TBLUE] == 0 && !incremented)
+	{
+		_var()->last_round_winner = TRED;
+		++_team()[TEAM_RED]->win;
+		++_team()[TEAM_BLUE]->loose;
+		incremented = 1;
+	}
+	else if (_var()->alive[TRED] == 0 && !incremented)
+	{
+		_var()->last_round_winner = TBLUE;
+		++_team()[TEAM_BLUE]->win;
+		++_team()[TEAM_RED]->loose;
+		incremented = 1;
 	}
 	_var()->round_state = serv.round_state;
 	_var()->player_alive = serv.player_alive;
 	_var()->red_alive = serv.red_alive;
 	_var()->blue_alive = serv.blue_alive;
-	if (_var()->round_state == ROUND_END)
-	{
-		if (serv.round_winner == TRED && incremented == 0)
-		{
-			_var()->last_round_winner = TRED;
-			++_team()[TEAM_RED]->win;
-			++_team()[TEAM_BLUE]->loose;
-			incremented += 1;
-		}
-		else if (serv.round_winner == TBLUE && incremented == 0)
-		{
-			_var()->last_round_winner = TBLUE;
-			++_team()[TEAM_BLUE]->win;
-			++_team()[TEAM_RED]->loose;
-			incremented += 1;
-		}
-		_var()->freeze = 1;
-	}
 	if (serv.round_state == ROUND_LEADERBOARD && serv.match_finished == 1)
 		_var()->match_finished = 1;
 	else if (_var()->round_state == ROUND_END_WAIT)
 	{
-		incremented = 0;
 		_var()->freeze = 1;
 	}
 	if (_var()->round_state == ROUND_WAIT_START)
@@ -228,7 +260,10 @@ void	ft_pong_client(void)
 		init_player_team();
 	}
 	if (_var()->round_state == ROUND_START)
+	{
+		incremented = 0;
 		_var()->freeze = 0;
+	}
 	if (_var()->match_finished)
 	{
 		_var()->mode = MENU;

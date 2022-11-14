@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/30 16:53:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_nb	*_nb(void)
 	static t_nb	*img = NULL;
 	
 	if (!img)
-		img = malloc(sizeof(t_nb));
+		img = ft_malloc(sizeof(t_nb));
 	if (!img)
 		return (NULL);
 	return (img);
@@ -165,7 +165,7 @@ int	circle_collide(void)
 
 	i = 0;
 	length = 0;
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		if (circle_circle_col(&_var()->o_player[i]))
 		{

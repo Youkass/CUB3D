@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 12:12:48 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 14:27:57 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ typedef struct s_enum_key
 
 ===============================================================================
 */
+
+void	crouch(int	mode)
+{
+	if (mode)
+	{
+		_player()->z = -100;
+		_player()->is_crouching = 1;
+	}
+	else
+	{
+		_player()->z = 0;
+		_player()->is_crouching = 0;
+	}	
+}
 
 void	key_hook(void)
 {
@@ -62,9 +76,11 @@ void	key_hook(void)
 			_player()->start_reload = get_clock(_var()->clock);
 			shoot();
 		}
-		else if (_var()->is_host == SERVER &&
-				_menu()->mode == MENU_LOBBY && _var()->mode != GAME && 
-				_var()->nb_player == _var()->linked_players) // menu lobby
+	}
+	if (_var()->key[space])
+	{
+		if (_var()->is_host == SERVER && _menu()->mode == MENU_LOBBY && _var()
+			->mode != GAME && _var()->nb_player == _var()->linked_players) // menu lobby
 		{
 			_player()->is_start = 1;
 			printf("j'ai appuyé sur space\n");
@@ -83,6 +99,13 @@ void	key_hook(void)
 			_player()->ammo += needed;
 		}
 	}
+	if (_var()->key[maj])
+	{
+		crouch(1);
+		printf("crouch\n");
+	}
+	else if (!_var()->key[maj])
+		crouch(0);
 }
 
 int	ft_game_hook(int keycode)

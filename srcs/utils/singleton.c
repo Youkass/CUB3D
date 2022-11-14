@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/10 15:29:52 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 21:57:55 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,18 @@ t_var	*_var(void)
 			printf("le ft_malloc pet\n");
 	}
 	return (var);
+}
+
+
+t_log	*_log(void)
+{
+	static t_log *log = NULL;
+
+	if (log == NULL)
+	{
+		log = ft_malloc(sizeof(t_log));
+		if (!log)
+			ft_black_hole(137);
+	}
+	return (log);
 }

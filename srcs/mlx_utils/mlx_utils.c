@@ -79,8 +79,10 @@ void	ft_fps(void)
 	_var()->old_time = _var()->time;
 	_var()->time = get_clock(_var()->clock);
 	_var()->frame_time = (get_clock(_var()->clock) - _var()->old_time) / 1000000.0;
-	//printf("FPS = %d\n",  (int)(1.0 / _var()->frame_time));ft_
-	_player()->move_speed = _var()->frame_time * 3.0;
+	if (_var()->key[ctrl])
+		_player()->move_speed = _var()->frame_time * 5.0;
+	else
+		_player()->move_speed = _var()->frame_time * 3.0;
 	_player()->rot_speed = _var()->frame_time * 2.0;
 }
 
@@ -250,6 +252,7 @@ void	check_death(void)
 	if (_player()->health <= 0 && _player()->is_dead == 0)
 	{
 		_player()->is_dead = 1;
+		_player()->deaths++;
 		_player()->death_start = get_clock(_var()->clock);
 		_player()->death_n = 0;
 	}
@@ -340,7 +343,7 @@ void	set_spectate(void)
 	{
 		_player()->spectate = 1;
 		_player()->spec_id = - 1;
-		while (i < _var()->nb_player)
+		while (i < _var()->linked_players)
 		{
 			if (_var()->o_player[i].team == _player()->team
 				&& _var()->o_player[i].is_dead == 0)
@@ -363,7 +366,6 @@ int	ft_loop()
 	set_spectate();
 //	if (_player()->is_shooting > 0)
 //		ft_play_sound(_player()->id);
-	printf("%d, %d\n", _var()->mode, _menu()->mode);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 	{
 		ft_pong_client();
@@ -389,6 +391,7 @@ int	ft_loop()
 			draw_text_scale(ft_itoa(_var()->last_round_winner), pos(WIN_W / 2 - (1 * (42)) / 2, 300), pos(1, 1), BLUE);
 	}
 	ft_draw_map();
+	//render_kill_log();
 	draw_text_scale(ft_strjoin(ft_itoa(_player()->full_ammo), "/"), pos(WIN_W - _image()->ammo.w - 90, WIN_H - _image()->ammo.h - 10), pos(3, 3), WHITE);
 	draw_text_scale(ft_itoa(_player()->ammo), pos(WIN_W - _image()->ammo.w - 90 + ft_strlen("45/") * 14, WIN_H - _image()->ammo.h - 8), pos(3, 3), WHITE);
 	ft_put_image_to_image_scale(*_img(), _image()->ammo, pos(WIN_W - _image()->ammo.w - 20, WIN_H - _image()->ammo.h - 10), posf(4, 4));//
