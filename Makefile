@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
+#    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/14 15:48:27 by yobougre         ###   ########.fr        #
+#    Updated: 2022/11/14 20:08:18 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS		=	srcs/main.c\
 				srcs/raycasting/name_casting.c\
 				srcs/raycasting/bullet_casting.c\
 				srcs/mlx_utils/mlx_utils.c\
+				srcs/mlx_utils/render.c\
 				srcs/utils/singleton.c\
 				srcs/utils/singleton_2.c\
 				srcs/utils/malloc_hooks_enum.c\
@@ -100,7 +101,7 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
-CC_FLAGS	= 
+CC_FLAGS	= -Wall -Werror -Wextra
 MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -ldl -lpthread
 
 

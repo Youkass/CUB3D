@@ -199,6 +199,12 @@ void	ft_pong_client(void)
 		incremented++;
 	if (incremented == 2)
 		client.round_end = 1;
+	client.restart = 0;
+	if(_var()->restart == 1)
+	{
+		client.restart = 1;
+		_var()->restart = 0;
+	}
 	if (send(_var()->socket, &client, sizeof(client), 0) < 0)
 		return ;
 	memset(&serv, 0, sizeof(serv));
@@ -207,7 +213,6 @@ void	ft_pong_client(void)
 	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) < 0)
 		return ;
 	_var()->linked_players = serv.linked_players;
-    _var()->last_round_winner = -1;
 	while (i < _var()->linked_players)
 	{
 		if (serv.player[i].is_shooting > 0 && i != _player()->id)
@@ -248,9 +253,6 @@ void	ft_pong_client(void)
 		incremented = 1;
 	}
 	_var()->round_state = serv.round_state;
-	_var()->player_alive = serv.player_alive;
-	_var()->red_alive = serv.red_alive;
-	_var()->blue_alive = serv.blue_alive;
 	if (serv.round_state == ROUND_LEADERBOARD && serv.match_finished == 1)
 		_var()->match_finished = 1;
 	else if (_var()->round_state == ROUND_END_WAIT)
@@ -271,5 +273,14 @@ void	ft_pong_client(void)
 	{
 		_var()->mode = MENU;
 		_menu()->mode = MENU_LEADERBOARD;
+		_var()->freeze = 0;
+		incremented = 0;
+	}
+	if (serv.restart == 1)
+	{
+		restart_player();
+		_var()->mode = MENU;
+		_menu()->mode = MENU_LOBBY;
+		_var()->freeze = 0;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/13 21:19:15 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 20:21:52 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ t_server_data	*_server(void)
 	if (!server)
 		server = ft_malloc(sizeof(t_server_data) * 1);
 	return (server);
+}
+
+void	restart_state(t_client_thread	*c)
+{
+	int	i;
+
+	i = 0;
+	while (i < N_RSTATE)
+	{
+		c->serv->round_state[i] = 0;
+		c->round_state_send[i] = 0;
+		i++;
+	}
 }
 
 int	ft_init_server(t_server_data *data)
@@ -46,8 +59,8 @@ int	ft_init_server(t_server_data *data)
 	data->server.sin_family = AF_INET;
 	data->server.sin_port = htons(30000);
 	data->clock_started = 0;
+	data->restart = 0;
 	data->round_end = 0;
-	data->test = 0;
 	if (setsockopt(data->socket, SOL_SOCKET, (SO_REUSEADDR), &option, sizeof(option)) < 0)
 	{
 		printf("Socket error\n");
