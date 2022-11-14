@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/12 12:44:14 by denissereno      ###   ########.fr        #
+#    Updated: 2022/11/13 20:44:25 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS		=	srcs/main.c\
 				srcs/tools.c\
 				srcs/shoot.c\
 				srcs/ft_itoa.c\
+				srcs/kill_log.c\
 				srcs/raycasting/raycasting_utils.c\
 				srcs/raycasting/raycasting.c\
 				srcs/raycasting/spritecasting.c\
@@ -55,10 +56,12 @@ SRCS		=	srcs/main.c\
 				srcs/math/vector/operator2F.c\
 				srcs/math/vector/tools.c\
 				srcs/init.c\
-				srcs/new_raycaster.c
+				srcs/new_raycaster.c\
+				srcs/dyn_array.c\
 
 SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/network/lobby.c\
+					srcs/kill_log.c\
 				  	srcs/network_client/network_utils.c\
 				  	srcs/network/server_thread.c\
 					srcs/math/math.c\
@@ -79,7 +82,7 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/init.c\
 					srcs/menu/recv_utils.c\
 					srcs/parsing/parsing.c\
-					srcs/team.c
+					srcs/team.c\
 
 
 NAME		= cub3D
@@ -96,7 +99,7 @@ OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra
-MLB_FLAGS	= -g -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
+MLB_FLAGS	= -g -fsanitize=address -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
 
 
 $(OBJS_DIR)%.o : %.c includes/cub.h

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 12:45:00 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 21:43:13 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ esc : 65307
 # define TRED 0
 # define TBLUE 1
 
-# define NB_ROUNDS 5
+# define NB_ROUNDS 3
 
 # define GAME 0
 # define MENU 1
@@ -125,6 +125,8 @@ esc : 65307
 # define X 120
 # define Y 121
 # define Z 122
+# define CTRL 65507
+# define MAJ 65505
 
 # define SENSIBILITY 0.30
 
@@ -161,8 +163,8 @@ esc : 65307
 # define P2 (PI/2)
 # define P3 (3*PI/2)
 # define DR 0.0174533
-# define WIN_H 900
-# define WIN_W 1440
+# define WIN_H 600
+# define WIN_W 900
 # define PRG_NAME "Cub3d by Curly Squad"
 # define MAX_KEYS 5
 # define W 119

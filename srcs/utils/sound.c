@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 12:10:38 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 21:20:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	ft_init_music(void)
 	_media()->result = ma_sound_init_from_file(&(_media()->engine),
 		"sound/menu_music.wav", 0, NULL, NULL, &(_media()->sound[MENU_MUSIC][0]));
 	if (_media()->result != MA_SUCCESS)
-		exit (1); //TODO
+		ft_black_hole(1); //TODO
 	_media()->result = ma_sound_init_from_file(&(_media()->engine),
 		"sound/game_music.wav", 0, NULL, NULL, &(_media()->sound[GAME_MUSIC][0]));
 	if (_media()->result != MA_SUCCESS)
-		exit (1); //TODO
+		ft_black_hole(1); //TODO
 }
 
 void	ft_init_sound(void)
@@ -35,7 +35,7 @@ void	ft_init_sound(void)
 				"sound/shot.wav", 0, NULL, NULL,
 					&(_media()->shot_sound[i]));
 		if (_media()->result != MA_SUCCESS)
-			exit (1); //TODO
+			ft_black_hole(1); //TODO
 		++i;
 	}
 }
@@ -44,7 +44,7 @@ void	ft_init_media(void)
 {
 	_media()->result = ma_engine_init(NULL, &(_media()->engine));
 	if (_media()->result != MA_SUCCESS)
-		exit (1); //TODO
+		ft_black_hole(1); //TODO
 	ft_init_music();
 	ft_init_sound();
 }

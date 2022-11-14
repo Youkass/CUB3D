@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 12:35:42 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 21:19:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	check_button_state(void)
 			if (i == 2 && _menu()->s_state[2].state == 2)
 				_menu()->mode = MENU_OPTION;
 			if (i == 3 && _menu()->s_state[3].state == 2)
-				exit(0); // TODO FREE TOUT ICI
+				ft_black_hole(0); // TODO FREE TOUT ICI
 			_menu()->s_state[i].state = 
 			ft_hitbox(_menu()->s_state[i].hitbox, _var()->m_pos);
 		}
@@ -294,7 +294,15 @@ int	menu_hook_pseudo(int keycode)
 	if (keycode == ENTER && n > 3 && _var()->is_host == CLIENT)
 	{
 		if (ft_init_client() == EXIT_FAILURE)
-			exit(1); //TODO
+		{
+			_player()->pseudo[0] = 0;
+			n = 0;
+			_var()->ip[0] = 0;
+			_menu()->n_ip = 0;
+			_menu()->mode = MENU_START;
+			_var()->mode = MENU;
+			return (0);
+		}
 		printf("je passe en mode lobby\n");
 		_menu()->mode = MENU_LOBBY;
 		_var()->mode = MENU;
@@ -304,69 +312,67 @@ int	menu_hook_pseudo(int keycode)
 
 int	menu_hook_ip(int keycode)
 {
-	static int	n = 0;
-
-	if (keycode == ZERO && n + 1 < 16)
+	if (keycode == ZERO && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '0';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '0';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == ONE && n + 1 < 16)
+	if (keycode == ONE && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '1';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '1';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == TWO && n + 1 < 16)
+	if (keycode == TWO && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '2';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '2';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == THREE && n + 1 < 16)
+	if (keycode == THREE && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '3';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '3';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == FOUR && n + 1 < 16)
+	if (keycode == FOUR && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '4';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '4';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == FIVE && n + 1 < 16)
+	if (keycode == FIVE && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '5';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '5';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == SIX && n + 1 < 16)
+	if (keycode == SIX && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '6';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '6';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == SEVEN && n + 1 < 16)
+	if (keycode == SEVEN && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '7';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '7';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == EIGHT && n + 1 < 16)
+	if (keycode == EIGHT && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '8';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '8';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == NINE && n + 1 < 16)
+	if (keycode == NINE && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '9';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '9';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == SPACE && n + 1 < 16)
+	if (keycode == SPACE && _menu()->n_ip + 1 < 16)
 	{
-		_var()->ip[n++] = '.';
-		_var()->ip[n] = 0;
+		_var()->ip[_menu()->n_ip++] = '.';
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == ERASE && n > 0)
+	if (keycode == ERASE && _menu()->n_ip > 0)
 	{
-		n--;
-		_var()->ip[n] = 0;
+		_menu()->n_ip--;
+		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == ENTER && n > 2 && _var()->is_host == CLIENT)
+	if (keycode == ENTER && _menu()->n_ip > 2 && _var()->is_host == CLIENT)
 	{
 		_menu()->mode = MENU_PSEUDO;
 		_var()->mode = MENU;

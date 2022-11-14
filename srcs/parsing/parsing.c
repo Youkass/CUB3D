@@ -41,7 +41,7 @@ static char	*ft_strncpy_split(char const *src, size_t n)
 	char	*dest;
 
 	i = 0;
-	dest = malloc(sizeof(char) * n);
+	dest = ft_malloc(sizeof(char) * n);
 	if (!dest)
 		return (NULL);
 	while (i < n - 1 && src[i] != '\0')
@@ -99,7 +99,7 @@ char	**ft_split(char const *s, char c)
 
 	if (s == NULL)
 		return (NULL);
-	split = malloc(sizeof(char *) * (count_words(s, c) + 1));
+	split = ft_malloc(sizeof(char *) * (count_words(s, c) + 1));
 	if (!split)
 		return (NULL);
 	return (ft_split_body(s, c, split));
@@ -273,7 +273,7 @@ char	*copy_line_and_add(char *str, int size)
 	char	*new;
 
 	i = 0;
-	new	= malloc(sizeof(char) * (size + 1));
+	new	= ft_malloc(sizeof(char) * (size + 1));
 	while (str[i])
 	{
 		if (str[i] == ' ')
@@ -295,7 +295,7 @@ char	**resize_map(char **map)
 	char	**new;
 
 	max = get_longest_line(map);
-	new = malloc(sizeof(char *) * 100);
+	new = ft_malloc(sizeof(char *) * 100);
 	i = 0;
 	while (map[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 07:12:17 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 21:19:15 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_server_data	*_server(void)
 	static t_server_data	*server = NULL;
 
 	if (!server)
-		server = malloc(sizeof(t_server_data) * 1);
+		server = ft_malloc(sizeof(t_server_data) * 1);
 	return (server);
 }
 
@@ -30,7 +30,7 @@ int	ft_init_server(t_server_data *data)
 	if (data->socket < 0)
 	{
 		perror("Socket error\n");
-		exit(1);
+		ft_black_hole(1);
 	}
 	memset(&data->server, 0, sizeof(data->server));
 	memset(&data->round_state, 0, sizeof(data->round_state));
@@ -46,10 +46,12 @@ int	ft_init_server(t_server_data *data)
 	data->server.sin_family = AF_INET;
 	data->server.sin_port = htons(30000);
 	data->clock_started = 0;
+	data->round_end = 0;
+	data->test = 0;
 	if (setsockopt(data->socket, SOL_SOCKET, (SO_REUSEADDR), &option, sizeof(option)) < 0)
 	{
 		printf("Socket error\n");
-		exit(1);
+		ft_black_hole(1);
 	}
 	if (bind(data->socket,
 		(const struct sockaddr *)&(data->server), 
@@ -66,7 +68,7 @@ void	ft_exit(int signal)
 	pthread_mutex_unlock(&_server()->mutex);
 	printf("server fermé\n");
 	free(_server());
-	exit(1);
+	ft_black_hole(1);
 }
 
 int main(int ac, char **av)
@@ -80,9 +82,9 @@ int main(int ac, char **av)
 	data.started = 0;
 	init_weapons();
 	if (ft_init_server(&data) == EXIT_FAILURE)
-		exit(EXIT_FAILURE);
+		ft_black_hole(EXIT_FAILURE);
 	if (ft_init_client_thread(&data))
-		exit(EXIT_FAILURE);
+		ft_black_hole(EXIT_FAILURE);
 	if (ft_connect_clients(&data))
 	{
 		while (i < data.nb_players)
@@ -91,7 +93,8 @@ int main(int ac, char **av)
 			++i;
 		}
 		close(data.socket);
-		exit(EXIT_FAILURE);
+		ft_black_hole(EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
+

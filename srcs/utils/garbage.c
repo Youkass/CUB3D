@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:11:08 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/10 14:51:05 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/13 21:27:10 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_list	*_lst(void)
 	{
 		lst = malloc(sizeof(t_list));
 		if (!lst)
-			exit (1); //TODO this gotta be the first exit 
+			ft_black_hole(1); //TODO this gotta be the first exit 
 		lst->next = NULL;
 		lst->content = NULL;
 	}
@@ -61,15 +61,10 @@ t_list	*_lst(void)
 t_list	*ft_new_node(void *content)
 {
 	t_list	*node;
-	t_list	*tmp;
 
 	node = malloc(sizeof(t_list));
-	tmp = _lst();
 	if (!node)
-	{
-		ft_lstclear(&tmp, free);
-		exit(139); //TODO
-	}
+		ft_black_hole(139); //TODO
 	node->content = content;
 	node->next = NULL;
 	return (node);
@@ -83,10 +78,7 @@ void	*ft_malloc(int size)
 	output = malloc(size);
 	tmp = _lst();
 	if (!output)
-	{
-		ft_lstclear(&tmp, free);
-		exit(139); //TODO
-	}
+		ft_black_hole(139); //TODO
 	ft_lstadd_back(&tmp, ft_new_node(output));
 	return (output);
 }
