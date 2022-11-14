@@ -175,7 +175,7 @@ void	render_kill_log()
 		draw_text_scale(
 			ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
 				" killed ", _var()->o_player[log->ids[1]].pseudo)),
-				pos(150, 50 + i * 20), pos(4, 4), WHITE);
+				pos(200, 50 + i * 20), pos(4, 4), WHITE);
 		tmp = tmp->next;
 		i++;
 	}

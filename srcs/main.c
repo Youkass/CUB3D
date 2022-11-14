@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 14:06:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 15:02:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,8 +376,8 @@ int	ft_loop_hook(void)
 	if (_var()->mode == GAME)
 	{
 		ft_loop();
-		mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
-		mouse_rotate();
+		// mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+		// mouse_rotate();
 	}
 	if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
@@ -452,7 +452,7 @@ int	ft_game(void)
 	mlx_loop_hook(_mlx()->mlx, &ft_loop_hook, NULL);
 	mlx_hook(_mlx()->mlx_win, 5, 1L << 3, &ft_mouse_release, NULL);
 	mlx_mouse_hook(_mlx()->mlx_win, &menu_mouse_hook, NULL);
-	mlx_expose_hook(_mlx()->mlx_win, ft_expose, &_var()->mode);
+	// mlx_expose_hook(_mlx()->mlx_win, ft_expose, &_var()->mode);
 	return (0);
 }
 
