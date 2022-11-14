@@ -134,7 +134,7 @@ char	*read_file(int fd)
 	int		read_val;
 	char	*str;
 	char	*tmp;
-	char	buff[1084];
+	char	buff[1085];
 
 	str = NULL;
 	read_val = 1;

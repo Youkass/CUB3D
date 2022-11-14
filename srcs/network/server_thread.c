@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/14 13:59:55 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/14 14:31:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ int	ft_connect_clients(t_server_data *data)
 		i++;
 	}
 	i = 0;
-	while (1)
+	while (i < data->nb_players)
 	{
-		pthread_join((data->clients[i++].thread_id), NULL);
+		if (pthread_join((data->clients[i++].thread_id), NULL) != 0)
+			return(EXIT_FAILURE);
 		//usleep(1000);
 		//pthread_mutex_lock(&data->mutex);
 		//pthread_mutex_unlock(&data->mutex);
