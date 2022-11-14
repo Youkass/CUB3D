@@ -359,7 +359,7 @@ int	ft_loop()
 	reload_clock();
 	draw_rays();
 	walk_clock();
-	ft_play_music(0, GAME_MUSIC);
+	ft_play_music(GAME_MUSIC);
 	set_spectate();
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 	{

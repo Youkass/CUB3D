@@ -197,6 +197,7 @@ void	ft_pong_client(void)
 	_var()->player_alive = serv.player_alive;
 	_var()->red_alive = serv.red_alive;
 	_var()->blue_alive = serv.blue_alive;
+	_var()->last_round_winner = -1;
 	if (_var()->round_state == ROUND_END)
 	{
 		if (serv.round_winner == TRED && incremented == 0)
