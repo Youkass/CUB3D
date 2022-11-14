@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 23:11:29 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 12:02:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 17:42:41 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,5 @@ float	one_dist2F(t_vector2F a, t_vector2F b)
 
 float	one_dist3F(t_vector3F a, t_vector3F b)
 {
-	return (sqrtf(powf(a.x - b.x, 2) + powf(a.y - b.y, 2) + powf(a.z - b.z, 2)));
+	return (sqrtf(powf(a.x - b.x, 3) + powf(a.y - b.y, 3) + powf(a.z - b.z, 3)));
 }

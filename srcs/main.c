@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 10:58:10 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:46:39 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../includes/cub.h"
-#include <unistd.h> 
 
+#include <unistd.h> 
+# include "../includes/cub.h"
 
 void	get_key(int keycode)
 {
+	if (keycode == CTRL)
+		_var()->key[ctrl] = 1;
 	if (keycode == A_)
 		_var()->key[a] = 1;
 	if (keycode == W)
@@ -35,6 +37,8 @@ void	get_key(int keycode)
 		_var()->key[right] = 1;
 	if (keycode == SPACE)
 		_var()->key[space] = 1;
+	if (keycode == MAJ)
+		_var()->key[maj] = 1;
 	if (keycode == R)
 		_var()->key[r] = 1;
 }
@@ -42,7 +46,12 @@ void	get_key(int keycode)
 int	ft_release(int keycode)
 {
 	if (keycode == A_)
+	{
 		_var()->key[a] = 0;
+		_player()->is_walking = 0;
+	}
+	if (keycode == CTRL)
+		_var()->key[ctrl] = 0;
 	if (keycode == W)
 	{
 		_var()->key[w] = 0;
@@ -54,7 +63,10 @@ int	ft_release(int keycode)
 		_player()->is_walking = 0;
 	}
 	if (keycode == D)
+	{
 		_var()->key[d] = 0;
+		_player()->is_walking = 0;
+	}
 	if (keycode == ESC)
 		_var()->key[esc] = 0;
 	if (keycode == ARR_UP)
@@ -67,6 +79,8 @@ int	ft_release(int keycode)
 		_var()->key[right] = 0;
 	if (keycode == SPACE)
 		_var()->key[space] = 0;
+	if (keycode == MAJ)
+		_var()->key[maj] = 0;
 	if (keycode == R)
 		_var()->key[r] = 0;
 	return (0);
@@ -74,41 +88,79 @@ int	ft_release(int keycode)
 
 void	generate_dsprite(void)
 {
-	_image()->dsprite[0] = generate_image("./img/soldier/front.xpm"); // front
-	_image()->dsprite[1] = generate_image("./img/soldier/front_east_1.xpm"); // front east
-	_image()->dsprite[2] = generate_image("./img/soldier/front_east_2.xpm"); // front east
-	_image()->dsprite[3] = generate_image("./img/soldier/front_east_3.xpm"); // front east
-	_image()->dsprite[4] = generate_image("./img/soldier/east.xpm"); // east
-	_image()->dsprite[5] = generate_image("./img/soldier/back_east_1.xpm"); // back east
-	_image()->dsprite[6] = generate_image("./img/soldier/back_east_2.xpm"); // back east
-	_image()->dsprite[7] = generate_image("./img/soldier/back_east_3.xpm"); // back east
-	_image()->dsprite[8] = generate_image("./img/soldier/back.xpm"); // back
-	_image()->dsprite[9] = generate_image("./img/soldier/back_west_3.xpm"); // back west
-	_image()->dsprite[10] = generate_image("./img/soldier/back_west_2.xpm"); // back west
-	_image()->dsprite[11] = generate_image("./img/soldier/back_west_1.xpm"); // back west
-	_image()->dsprite[12] = generate_image("./img/soldier/west.xpm"); // west
-	_image()->dsprite[13] = generate_image("./img/soldier/front_west_3.xpm"); // front west
-	_image()->dsprite[14] = generate_image("./img/soldier/front_west_2.xpm"); // front west
-	_image()->dsprite[15] = generate_image("./img/soldier/front_west_1.xpm"); // front westwest
+	_image()->dsprite[0] = generate_image("./img/soldier/new_blue/front.xpm"); // front
+	_image()->dsprite[1] = generate_image("./img/soldier/new_blue/front_east_1.xpm"); // front east
+	_image()->dsprite[2] = generate_image("./img/soldier/new_blue/front_east_2.xpm"); // front east
+	_image()->dsprite[3] = generate_image("./img/soldier/new_blue/front_east_3.xpm"); // front east
+	_image()->dsprite[4] = generate_image("./img/soldier/new_blue/east.xpm"); // east
+	_image()->dsprite[5] = generate_image("./img/soldier/new_blue/back_east_1.xpm"); // back east
+	_image()->dsprite[6] = generate_image("./img/soldier/new_blue/back_east_2.xpm"); // back east
+	_image()->dsprite[7] = generate_image("./img/soldier/new_blue/back_east_3.xpm"); // back east
+	_image()->dsprite[8] = generate_image("./img/soldier/new_blue/back.xpm"); // back
+	_image()->dsprite[9] = generate_image("./img/soldier/new_blue/back_west_3.xpm"); // back west
+	_image()->dsprite[10] = generate_image("./img/soldier/new_blue/back_west_2.xpm"); // back west
+	_image()->dsprite[11] = generate_image("./img/soldier/new_blue/back_west_1.xpm"); // back west
+	_image()->dsprite[12] = generate_image("./img/soldier/new_blue/west.xpm"); // west
+	_image()->dsprite[13] = generate_image("./img/soldier/new_blue/front_west_3.xpm"); // front west
+	_image()->dsprite[14] = generate_image("./img/soldier/new_blue/front_west_2.xpm"); // front west
+	_image()->dsprite[15] = generate_image("./img/soldier/new_blue/front_west_1.xpm"); // front westwest
 
-	_image()->walk_sprite[0] = generate_image("./img/soldier/walk/front.xpm");
-	_image()->walk_sprite[1] = generate_image("./img/soldier/walk/southeast.xpm");
-	_image()->walk_sprite[2] = generate_image("./img/soldier/walk/east.xpm");
-	_image()->walk_sprite[3] = generate_image("./img/soldier/walk/northeast.xpm");
-	_image()->walk_sprite[4] = generate_image("./img/soldier/walk/back.xpm");
-	_image()->walk_sprite[5] = generate_image("./img/soldier/walk/northwest.xpm");
-	_image()->walk_sprite[6] = generate_image("./img/soldier/walk/west.xpm");
-	_image()->walk_sprite[7] = generate_image("./img/soldier/walk/southwest.xpm");
+	_image()->walk_sprite[0] = generate_image("./img/soldier/new_blue/walk/front.xpm");
+	_image()->walk_sprite[1] = generate_image("./img/soldier/new_blue/walk/southeast.xpm");
+	_image()->walk_sprite[2] = generate_image("./img/soldier/new_blue/walk/east.xpm");
+	_image()->walk_sprite[3] = generate_image("./img/soldier/new_blue/walk/northeast.xpm");
+	_image()->walk_sprite[4] = generate_image("./img/soldier/new_blue/walk/back.xpm");
+	_image()->walk_sprite[5] = generate_image("./img/soldier/new_blue/walk/northwest.xpm");
+	_image()->walk_sprite[6] = generate_image("./img/soldier/new_blue/walk/west.xpm");
+	_image()->walk_sprite[7] = generate_image("./img/soldier/new_blue/walk/southwest.xpm");
 
-	_image()->death_sprite = generate_image("./img/soldier/death.xpm");
+	_image()->death_sprite = generate_image("./img/soldier/new_blue/death.xpm");
 
 	_image()->rifle = generate_image("./img/soldier/rifle.xpm");
+}
+
+void	generate_dsprite_red(void)
+{
+	_image()->dsprite_red[0] = generate_image("./img/soldier/red/front.xpm"); // front
+	_image()->dsprite_red[1] = generate_image("./img/soldier/red/front_east_1.xpm"); // front east
+	_image()->dsprite_red[2] = generate_image("./img/soldier/red/front_east_2.xpm"); // front east
+	_image()->dsprite_red[3] = generate_image("./img/soldier/red/front_east_3.xpm"); // front east
+	_image()->dsprite_red[4] = generate_image("./img/soldier/red/east.xpm"); // east
+	_image()->dsprite_red[5] = generate_image("./img/soldier/red/back_east_1.xpm"); // back east
+	_image()->dsprite_red[6] = generate_image("./img/soldier/red/back_east_2.xpm"); // back east
+	_image()->dsprite_red[7] = generate_image("./img/soldier/red/back_east_3.xpm"); // back east
+	_image()->dsprite_red[8] = generate_image("./img/soldier/red/back.xpm"); // back
+	_image()->dsprite_red[9] = generate_image("./img/soldier/red/back_west_3.xpm"); // back west
+	_image()->dsprite_red[10] = generate_image("./img/soldier/red/back_west_2.xpm"); // back west
+	_image()->dsprite_red[11] = generate_image("./img/soldier/red/back_west_1.xpm"); // back west
+	_image()->dsprite_red[12] = generate_image("./img/soldier/red/west.xpm"); // west
+	_image()->dsprite_red[13] = generate_image("./img/soldier/red/front_west_3.xpm"); // front west
+	_image()->dsprite_red[14] = generate_image("./img/soldier/red/front_west_2.xpm"); // front west
+	_image()->dsprite_red[15] = generate_image("./img/soldier/red/front_west_1.xpm"); // front westwest
+
+	_image()->walk_sprite_red[0] = generate_image("./img/soldier/red/walk/front.xpm");
+	_image()->walk_sprite_red[1] = generate_image("./img/soldier/red/walk/southeast.xpm");
+	_image()->walk_sprite_red[2] = generate_image("./img/soldier/red/walk/east.xpm");
+	_image()->walk_sprite_red[3] = generate_image("./img/soldier/red/walk/northeast.xpm");
+	_image()->walk_sprite_red[4] = generate_image("./img/soldier/red/walk/back.xpm");
+	_image()->walk_sprite_red[5] = generate_image("./img/soldier/red/walk/northwest.xpm");
+	_image()->walk_sprite_red[6] = generate_image("./img/soldier/red/walk/west.xpm");
+	_image()->walk_sprite_red[7] = generate_image("./img/soldier/red/walk/southwest.xpm");
+
+	_image()->death_sprite_red = generate_image("./img/soldier/red/death.xpm");
 }
 
 void	restart_player(void)
 {
 	double	dist;
 
+	_log()->log = NULL;
+	_var()->alive[TRED] = _var()->nb_player / 2;
+	_var()->alive[TBLUE] = _var()->nb_player / 2;
+	memset(&_player()->kill_match, 0, sizeof(_player()->kill_match));
+	memset(&_player()->kill_round, 0, sizeof(_player()->kill_round));
+	_player()->nr = 0;
+	_player()->nm = 0;
 	_player()->is_shooting = 0;
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
@@ -122,6 +174,7 @@ void	restart_player(void)
 	_player()->shooted.shoot = 0;
 	_player()->dy = 0;
 	_player()->is_dead = 0;
+	_player()->is_crouching = 0;
 	_player()->death_n = 0;
 	_player()->plane = (t_vector2F){0, -0.66};
 	_player()->pitch = 0;
@@ -141,7 +194,12 @@ void	ft_init_player_pos(void)
 	memset(_var()->blue, 0, sizeof(_var()->blue));
 	memset(_var()->red, 0, sizeof(_var()->red));
 	memset(_var()->neutral, 0, sizeof(_var()->neutral));
+	memset(&_player()->kill_match, 0, sizeof(_player()->kill_match));
+	memset(&_player()->kill_round, 0, sizeof(_player()->kill_round));
+	_player()->nr = 0;
+	_player()->nm = 0;
 	_var()->n_blue = 0;
+	_log()->log = NULL;
 	_player()->spectate = 0;
 	_player()->spec_id = -1;
 	_var()->n_red = 0;
@@ -165,6 +223,7 @@ void	ft_init_player_pos(void)
 	_player()->shooted.id = -1;
 	_player()->shooted.shoot = 0;
 	_player()->dy = 0;
+	_player()->is_crouching = 0;
 	_player()->is_dead = 0;
 	_player()->death_n = 0;
 	_player()->plane = (t_vector2F){0, -0.66};
@@ -175,6 +234,7 @@ void	ft_init_player_pos(void)
 	_player()->pitch = 0;
 	_player()->norm_pitch = 0;
 	generate_dsprite();
+	generate_dsprite_red();
 	_image()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
@@ -270,7 +330,9 @@ int	ft_hook(int keycode)
 	if (_var()->mode == MENU)
 		menu_hook(keycode);
 	if (_var()->mode == MENU && _menu()->mode == MENU_PSEUDO)
+	{
 		menu_hook_pseudo(keycode);
+	}
 	if (_var()->mode == MENU && _menu()->mode == MENU_IP)
 		menu_hook_ip(keycode);
 	return (0);
@@ -294,12 +356,13 @@ int	ft_loop_hook(void)
 			if (pid == 0)
 			{
 				system(ft_strjoin("./server ", ft_itoa(_var()->nb_player)));
-				exit(1);
+				ft_black_hole(1);
 			}
 			else
 			{
 				sleep(1);
-				ft_init_client();
+				if (ft_init_client() == EXIT_FAILURE)
+					_var()->menu->mode = MENU_START;
 			}
 		_var()->mode = LOBBY_WAIT;
 	}
@@ -313,8 +376,8 @@ int	ft_loop_hook(void)
 	if (_var()->mode == GAME)
 	{
 		ft_loop();
-		mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
-		mouse_rotate();
+		// mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+		// mouse_rotate();
 	}
 	if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
@@ -364,14 +427,6 @@ int	ft_rotate(double rot_speed)
 	return (0);
 }
 
-/*
-	_player()->pitch += 200 * _player()->move_speed;
-	if(_player()->pitch > 400)
-		_player()->pitch = 400;
-	_player()->norm_pitch = normalise_between2F(posf(-1000, 1000),
-		posf(-1, 1), _player()->pitch);
-*/
-
 int	mouse_rotate(void)
 {
 	t_vector2D	pos;
@@ -397,7 +452,7 @@ int	ft_game(void)
 	mlx_loop_hook(_mlx()->mlx, &ft_loop_hook, NULL);
 	mlx_hook(_mlx()->mlx_win, 5, 1L << 3, &ft_mouse_release, NULL);
 	mlx_mouse_hook(_mlx()->mlx_win, &menu_mouse_hook, NULL);
-	mlx_expose_hook(_mlx()->mlx_win, ft_expose, &_var()->mode);
+	// mlx_expose_hook(_mlx()->mlx_win, ft_expose, &_var()->mode);
 	return (0);
 }
 
@@ -447,6 +502,8 @@ void	init_key(void)
 	_var()->key[left] = 0;
 	_var()->key[right] = 0;
 	_var()->key[space] = 0;
+	_var()->key[ctrl] = 0;
+	_var()->key[maj] = 0;
 }
 
 void	init_var(void)
@@ -454,6 +511,8 @@ void	init_var(void)
 	int	i;
 	
 	memset(_var(), 0, sizeof(t_var));
+	if (pthread_mutex_init(&_log()->mutex, NULL))
+		ft_black_hole(137);
 	_var()->mode = MENU;
 	_menu()->mode = MENU_START;
 	_var()->walk_n = 0;
@@ -514,10 +573,10 @@ int main(int argc, char **argv)
 	init_var();
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		exit(139);
+		ft_black_hole(139);
 	_var()->map = resize_map(ft_split(read_file(fd), '\n'));
 	if (!_var()->map)
-		exit(139);
+		ft_black_hole(139);
 	init_weapons();
 	ft_print_tab(_var()->map);
 	ft_init_mlx();
@@ -528,6 +587,7 @@ int main(int argc, char **argv)
 	ft_init_player2();
 	ft_malloc_map();
 	init_key();
+	_menu()->n_ip = 0;
 	gen_menu_images();
 	_image()->bullet = generate_image("./img/bullet.xpm");
 	_image()->ammo = generate_image("./img/ammo.xpm");

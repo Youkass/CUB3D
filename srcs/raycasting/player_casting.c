@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 04:35:43 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 18:21:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,17 @@ static void	init_cast(t_obj *player, t_obj *my_player)
 			_pc()->pos.x + my_player->plane.x * _pc()->pos.y);
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
-	_pc()->move_screen = (int)(100 / _pc()->trans.y) + my_player->pitch + player->z / _pc()->trans.y;
+	if (player->is_crouching)
+		_pc()->move_screen = (int)((-player->z + _player()->z + 150 + 70) / _pc()->trans.y) + my_player->pitch + player->z / _pc()->trans.y;
+	else
+		_pc()->move_screen = (int)((-player->z + _player()->z + 150) / _pc()->trans.y) + my_player->pitch + player->z / _pc()->trans.y;
 }
-static void	compute_draw(void)
+static void	compute_draw(t_obj *player)
 {
-	_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 1.5;
+	if (player->is_crouching)
+		_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 2.5;
+	else
+		_pc()->size.y = abs((int)(WIN_H / (_pc()->trans.y))) / 1.5;
 	_pc()->draw_start.y = -_pc()->size.y / 2 + WIN_H / 2 + _pc()->move_screen;
 	if (_pc()->draw_start.y < 0)
 		_pc()->draw_start.y = 0;
@@ -67,7 +73,7 @@ static void	draw(t_obj *player, t_obj *my_player)
 		//tex_sp =  mod(normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, _player2()->angle) +
 		//normalise_between((t_vector2D){0, 360}, (t_vector2D){0, 8}, rad_to_deg(atan2(my_player->y - _player2()->y, my_player->x - _player2()->x))), 8);
 	}
-	compute_draw();
+	compute_draw(player);
 	stripe = _pc()->draw_start.x;
 	while (stripe < _pc()->draw_end.x)
 	{
@@ -86,17 +92,26 @@ static void	draw(t_obj *player, t_obj *my_player)
 				if (!tex_mode)
 				{
 					_pc()->tex.y = ((_pc()->d * _image()->dsprite[tex_dir].h) /_pc()->size.y) / 256;
-					ft_put_pixel(_img(), &_image()->dsprite[tex_dir], (t_vector2D){stripe, y}, _pc()->tex);
+					if (player->team == TEAM_BLUE)
+						ft_put_pixel(_img(), &_image()->dsprite[tex_dir], pos(stripe, y), _pc()->tex);
+					else
+						ft_put_pixel(_img(), &_image()->dsprite_red[tex_dir], pos(stripe, y), _pc()->tex);
 				}
 				else if (tex_mode == 1)
 				{
 					_pc()->tex.y = ((_pc()->d * _image()->walk_sprite[0].h) /_pc()->size.y) / 256;
-					ft_put_pixel(_img(), &_image()->walk_sprite[walk_tex], (t_vector2D){stripe, y}, (t_vector2D){_pc()->tex.x + 43 * _var()->walk_n, _pc()->tex.y});
+					if (player->team == TEAM_BLUE)
+						ft_put_pixel(_img(), &_image()->walk_sprite[walk_tex], pos(stripe, y), pos(_pc()->tex.x + 43 * _var()->walk_n, _pc()->tex.y));
+					else
+						ft_put_pixel(_img(), &_image()->walk_sprite_red[walk_tex], pos(stripe, y), pos(_pc()->tex.x + 43 * _var()->walk_n, _pc()->tex.y));
 				}
 				else
 				{
 					_pc()->tex.y = ((_pc()->d * _image()->death_sprite.h) /_pc()->size.y) / 256;
-					ft_put_pixel(_img(), &_image()->death_sprite, (t_vector2D){stripe, y + 5}, (t_vector2D){_pc()->tex.x + 39 * player->death_n, _pc()->tex.y});
+					if (player->team == TEAM_BLUE)
+						ft_put_pixel(_img(), &_image()->death_sprite, pos(stripe, y + 5), pos(_pc()->tex.x + 39 * player->death_n, _pc()->tex.y));
+					else
+						ft_put_pixel(_img(), &_image()->death_sprite_red, pos(stripe, y + 5), pos(_pc()->tex.x + 39 * player->death_n, _pc()->tex.y));
 				}
 				y++;
 			}
@@ -118,16 +133,16 @@ void	sort_by_distance(t_obj *player)
 
 	i = 0;
 	j = 0;
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		_var()->sort_player[i] = _var()->o_player[i];
 		i++;
 	}
 	i = 0;
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		j = i + 1;
-		while (j < _var()->nb_player)
+		while (j < _var()->linked_players)
 		{
 			if (compute_distance((t_vector2F){player->x, player->y}, (t_vector2F){_var()->sort_player[j].x, _var()->sort_player[j].y}) >
 			compute_distance((t_vector2F){player->x, player->y}, (t_vector2F){_var()->sort_player[i].x, _var()->sort_player[i].y}))
@@ -154,7 +169,7 @@ void	player_casting(void)
 	else
 		player = *_player();
 	sort_by_distance(&player);
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		if (_var()->sort_player[i].id != player.id)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 14:13:04 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:09:32 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ esc : 65307
 # define TRED 0
 # define TBLUE 1
 
-# define NB_ROUNDS 5
+# define NB_ROUNDS 3
 
 # define GAME 0
 # define MENU 1
@@ -136,6 +136,8 @@ esc : 65307
 # define X 120
 # define Y 121
 # define Z 122
+# define CTRL 65507
+# define MAJ 65505
 
 # define SENSIBILITY 0.15
 

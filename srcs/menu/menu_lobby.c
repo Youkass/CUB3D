@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 10:02:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 21:20:12 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_cpy_tab(t_send_server o_player)
 	i = 0;
 	_var()->linked_players = o_player.linked_pl;
 	//printf("linked : %d\n", _var()->linked_players);
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		if (o_player.player[i].pseudo[0] != 0)
 			_var()->o_player[i] = o_player.player[i];
@@ -89,10 +89,10 @@ void	get_pseudos(void)
 		player.start = 0;
 	player.flag = 1;
 	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
-		exit (1); //TODO
+		ft_black_hole(1); //TODO
 	memset(&o_player, 0, sizeof(o_player));
 	if (ft_recv_players(&o_player, sizeof(t_send_server)))
-		exit (1); //TODO
+		ft_black_hole(1); //TODO
 	ft_copy_new_data(o_player);
 }
 

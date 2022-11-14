@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 04:43:03 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 18:21:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	bullet_casting(void)
 		player = _var()->o_player[_player()->spec_id];
 	else
 		player = *_player();
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		j = 0;
 		if (i == player.id)

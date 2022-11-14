@@ -146,6 +146,18 @@ typedef struct	s_velo3
 	int			time_ms;
 }	t_velo3;
 
+typedef struct	s_elem
+{
+	int				ids[2];
+	unsigned long	start;
+}	t_elem;
+
+typedef struct	s_log
+{
+	t_list			*log;
+	pthread_mutex_t	mutex;
+}	t_log;
+
 
 /*
  Le but de cette struct est d'en faire une liste chainée pour pouvoir display
@@ -179,6 +191,14 @@ typedef struct	s_shot
 	int				weapon_type;
 	int				shot;
 }	t_shot;
+
+
+typedef struct	s_array
+{
+	int		*array;
+	size_t	n;
+	size_t	size;
+} t_array;
 
 
 struct	s_obj
@@ -228,6 +248,11 @@ struct	s_obj
 	int			spec_id;
 	int			kills;
 	int			deaths;
+	int			is_crouching;
+	int			kill_round[9];
+	int			kill_match[120];
+	int			nr;
+	int			nm;
 	int			kevlar; // entre 0 et 2. 0 = pas de Kevlar, 1 = Kevlar, 2 = Kevlar + casque
 };
 
@@ -330,6 +355,7 @@ typedef struct s_menu
 	unsigned long	start;
 	t_data		wait;
 	t_vector2D	draw_pl[2];
+	int			n_ip;
 }	t_menu;
 
 typedef struct	s_rect
@@ -385,7 +411,9 @@ typedef enum s_key
 	down = 40,
 	left = 41,
 	right = 42,
-	space = 43
+	space = 43,
+	ctrl = 44,
+	maj = 45
 }	t_key;
 
 typedef struct s_var
@@ -423,7 +451,7 @@ typedef struct s_var
 	unsigned int		start_click;
 	int					click_keycode;
 	int					click;
-	int					key[44];
+	int					key[46];
 	int					red[3];
 	int					blue[3];
 	int					neutral[6];
@@ -440,6 +468,8 @@ typedef struct s_var
 	int					red_alive;
 	int					blue_alive;
 	int					ran_i;
+	int					alive[2];
+	t_log				*log;
 }	t_var;
 typedef struct	s_image
 {
@@ -449,20 +479,16 @@ typedef struct	s_image
 	t_data			bullet;
 	t_data			bg;
 	t_data			dsprite[16];
+	t_data			dsprite_red[16];
 	t_data			sprite;
 	t_data			death_sprite;
+	t_data			death_sprite_red;
 	t_data			walk_sprite[8];
+	t_data			walk_sprite_red[8];
 	t_data			crosshair;
 	t_data			front;
 	t_data			ammo;
 }	t_image;
-
-typedef struct	s_array
-{
-	int		*array;
-	size_t	n;
-	size_t	size;
-} t_array;
 
 typedef struct	s_team
 {
@@ -520,6 +546,14 @@ typedef struct	s_send_client
 	int			flag;
 }	t_send_client;
 
+typedef struct	s_send_client_game
+{
+	t_obj		player;
+	int			red_wins;
+	int			blue_wins;
+	int			round_end;
+}	t_send_client_game;
+
 typedef struct	s_send_server
 {
 	t_obj		player[MAX_PLAYER];
@@ -531,6 +565,7 @@ typedef struct	s_send_server
 typedef struct	s_send_server_game
 {
 	t_obj		player[MAX_PLAYER];
+	int			linked_players;
 	int			match_finished;
 	int			round_winner;
 	int			round_state;
@@ -588,6 +623,8 @@ struct	s_server_data
 	int						player_alive;
 	int						red_alive;
 	int						blue_alive;
+	int						round_end;
+	int						test;
 };
 
 #endif
