@@ -14,6 +14,20 @@
 		"vector": "c",
 		"__tuple": "c",
 		"chrono": "c",
-		"variant": "c"
+		"variant": "c",
+		"__node_handle": "c",
+		"string": "c",
+		"string_view": "c",
+		"__bit_reference": "c",
+		"atomic": "c",
+		"cstddef": "c",
+		"__memory": "c",
+		"limits": "c",
+		"locale": "c",
+		"optional": "c",
+		"ratio": "c",
+		"system_error": "c",
+		"tuple": "c",
+		"type_traits": "c"
 	}
 }

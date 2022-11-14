@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 10:06:11 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_obj	*ft_copy_map_line(char *line, int index)
 	t_obj	*new_line;
 
 	i = 1;
-	new_line = malloc(sizeof(t_obj) * _var()->map_width);
+	new_line = ft_malloc(sizeof(t_obj) * _var()->map_width);
 	if (!new_line)
 		return (NULL);
 	new_line[0].c = line[0];
@@ -102,7 +102,7 @@ int	ft_malloc_map(void)
 
 	i = 0;
 	ft_find_wall_scale();
-	_var()->coord_map = malloc(sizeof(t_obj *) * _var()->map_width);
+	_var()->coord_map = ft_malloc(sizeof(t_obj *) * _var()->map_width);
 	if (!_var()->coord_map)
 		return (1); //TODO call garbage collector
 	while (_var()->map[i])
@@ -206,7 +206,7 @@ void	draw_player_map(void)
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER)
 		&& _player()->team == TEAM_RED)
 	{
-		while (i < _var()->nb_player / 2)
+		while (i < _var()->linked_players / 2)
 		{
 			player = _var()->o_player[_var()->red[i]];
 			if (_player()->spectate && _player()->spec_id >= 0
@@ -224,7 +224,7 @@ void	draw_player_map(void)
 	else if ((_var()->is_host == CLIENT || _var()->is_host == SERVER)
 		&& _player()->team == TEAM_BLUE)
 	{
-		while (i < _var()->nb_player / 2)
+		while (i < _var()->linked_players / 2)
 		{
 			player = _var()->o_player[_var()->blue[i]];
 			if (_player()->spectate && _player()->spec_id >= 0

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 18:46:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 04:39:14 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 18:21:28 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	name_casting(void)
 	else
 		player = *_player();
 	sort_by_distance(&player);
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		if (_var()->sort_player[i].id != player.id)
 		{

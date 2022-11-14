@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:55:39 by dasereno          #+#    #+#             */
-/*   Updated: 2022/10/23 19:17:07 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*li;
 
-	li = malloc(sizeof(*li));
+	li = ft_malloc(sizeof(*li));
 	if (!li)
 		return (NULL);
 	li->content = content;

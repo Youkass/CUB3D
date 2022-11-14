@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shoot.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 16:08:32 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/14 15:32:52 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
-
 
 t_vector2F	closest_point(t_vector2F a, t_vector2F b, t_vector2F c)
 {
@@ -109,7 +108,7 @@ void	shoot(void)
 		shoot_alone3F();
 		return ;
 	}
-	while (i < _var()->nb_player)
+	while (i < _var()->linked_players)
 	{
 		if (_var()->o_player[i].id != _player()->id &&
 			is_shoot_touch((t_vector2F){_player()->x, _player()->y},
@@ -121,17 +120,52 @@ void	shoot(void)
 				posf(_player()->x, _player()->y), closest) *
 				-sin(normalise_between2F(posf(-960, 960), posf(-1, 1),
 				_player()->pitch)) * 1000);
-			if (closest3F.z < 450 && closest3F.z > -250)
+			printf("Shot touched at : {%f, %f, %f}\n",
+				closest3F.x,closest3F.y, closest3F.z);
+			if (((!_var()->o_player[i].is_crouching && closest3F.z < 450 && closest3F.z > -230)
+			|| (_var()->o_player[i].is_crouching && closest3F.z > 37 && closest3F.z < 432))
+			&& _var()->o_player[i].health > 0)
 			{
 				_player()->shooted.id = _var()->o_player[i].id;
 				_player()->shooted.shoot = 1;
-				if (closest3F.z < -33) // HEADSHOT WHEN NOT CROUCH
+				if ((!_var()->o_player[i].is_crouching && closest3F.z < 40)
+				|| (_var()->o_player[i].is_crouching && closest3F.z < 165)) // HEADSHOT CROUCH
 				{
+					printf("vie apres => %d\n", _var()->o_player[i].health - _weapon()[_player()->weapon_id]->headshot);
+					if (_var()->o_player[i].health - _weapon()
+						[_player()->weapon_id]->headshot <= 0)
+					{
+						printf("je push => %d\n", _var()->o_player[i].id);
+						kill_push(_var()->o_player[i].id);
+						_player()->kills++;
+					}
 					_player()->shooted.shoot = 2;
 				}
-				else if (closest3F.z > 220) // FOOTSHOT WHEN NOT CROUCH
+				else if ((!_var()->o_player[i].is_crouching && closest3F.z < 235)
+				|| (_var()->o_player[i].is_crouching && closest3F.z < 315)) // NORMAL
 				{
+					printf("vie apres => %d\n", _var()->o_player[i].health - _weapon()[_player()->weapon_id]->power);
+					if (_var()->o_player[i].health - _weapon()
+						[_player()->weapon_id]->power <= 0)
+					{
+						printf("je push => %d\n", _var()->o_player[i].id);
+						kill_push(_var()->o_player[i].id);
+						_player()->kills++;
+					}
+					printf("===> NORMAL\n");
+				}
+				else // FOOTSHOT
+				{
+					printf("vie apres => %d\n", _var()->o_player[i].health - _weapon()[_player()->weapon_id]->footshot);
+					if (_var()->o_player[i].health - _weapon()
+						[_player()->weapon_id]->footshot <= 0)
+					{
+						printf("je push => %d\n", _var()->o_player[i].id);
+						kill_push(_var()->o_player[i].id);
+						_player()->kills++;
+					}
 					_player()->shooted.shoot = 3;
+					printf("===> FOOTSHOT\n");
 				}
 				touched = 1;
 				init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
@@ -142,11 +176,13 @@ void	shoot(void)
 	}
 	if (touched == 0)
 	{
+		printf("===> %f\n", _var()->frame_time);
+		printf("pas touchew\n");
 		if (nearest_wall3D(&closest3F))
 			init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
 		else
 				init_shot3F(pos3f(_player()->x, _player()->y, (_player()->z) + 100), pos3f(_player()->x
-		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y + _player()->dy * _weapon()[_player()->weapon_id]->range, _player()->z - ((sin(normalise_between2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * 5)));
+		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y + _player()->dy * _weapon()[_player()->weapon_id]->range, _player()->z - ((sin(normalise_between2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * _weapon()[_player()->weapon_id]->range)));
 	}
 }
 
