@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 19:25:38 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/14 14:13:04 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ esc : 65307
 # include <sys/time.h>
 # include <signal.h>
 # include <string.h>
+# include <time.h>
 # ifndef MINIAUDIO_IMPLEMENTATION
 #  define MINIAUDIO_IMPLEMENTATION
 #  include "../miniaudio/extras/miniaudio_split/miniaudio.h"
@@ -61,7 +62,6 @@ esc : 65307
 # define LOOSE 2
 
 # define N_RSTATE 7
-# define NB_SOUND 10
 # define ROUND_PLAY 0
 # define ROUND_END 1
 # define ROUND_END_WAIT 2
@@ -80,9 +80,20 @@ esc : 65307
 # define ONLINE_START 2
 # define LOBBY_WAIT 3
 # define GAME_START_ONLINE 4
+
+# define NB_SOUND 10
 # define MENU_MUSIC 1
 # define GAME_MUSIC 2
+# define ROUND_MUSIC 3
 # define SHOT_SOUND 3
+# define GAME_WIN 1
+# define GAME_LOST 2
+# define ROUND_WIN 3
+# define ROUND_LOST 4
+# define SYMPH 0
+# define DOOM 1
+# define MORTAL 2
+# define ASHES 3
 
 # define MENU_START 0
 # define MENU_OPTION 1

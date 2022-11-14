@@ -99,10 +99,18 @@ t_var	*_var(void);
 /* -------------------------------------------------------------------------- */
 /*                        FILE = ./srcs/utils/sound.c                         */
 /* -------------------------------------------------------------------------- */
-void	ft_init_music(void);
+void	ft_init_menu_music(void);
+void	ft_init_game_music(void);
+void	ft_init_round_music(void);
 void	ft_init_sound(void);
 void	ft_init_media(void);
-void	ft_play_music(long unsigned int time, int index);
+int	ft_check_game_music(void);
+void	ft_init_ran(void);
+void	ft_start_from_start(ma_sound *sound);
+void	ft_play_end_sound(ma_sound *sound);
+void	ft_play_end_round(void);
+void	ft_play_end_game(void);
+void	ft_play_music(int index);
 void	ft_play_shot_sound(t_obj player);
 void	ft_play_own_shot(void);
 

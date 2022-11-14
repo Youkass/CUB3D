@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 16:36:18 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/14 14:11:25 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct	s_media
 	ma_device_config	device_config;
 	ma_device			device;
 	ma_engine			engine;
-	ma_sound			sound[NB_SOUND][2];
+	ma_sound			sound[NB_SOUND][5];
 	ma_sound			shot_sound[MAX_SHOT_SOUND];
 	ma_sound_config		sound_config[NB_SOUND];
 }	t_media;
@@ -439,6 +439,7 @@ typedef struct s_var
 	int					player_alive;
 	int					red_alive;
 	int					blue_alive;
+	int					ran_i;
 }	t_var;
 typedef struct	s_image
 {
