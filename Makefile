@@ -6,7 +6,7 @@
 #    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/12 14:47:26 by yobougre         ###   ########.fr        #
+#    Updated: 2022/11/14 14:19:06 by denissereno      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ SRCS		=	srcs/main.c\
 				srcs/math/vector/tools.c\
 				srcs/init.c\
 				miniaudio/extras/miniaudio_split/miniaudio.c\
-				srcs/new_raycaster.c
+				srcs/new_raycaster.c\
+				srcs/dyn_array.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/network/lobby.c\
@@ -99,8 +100,8 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
-CC_FLAGS	= -Wall -Werror -Wextra -ldl -lpthread
-MLB_FLAGS	= -g -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread
+CC_FLAGS	= -g -fsanitize=address
+MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -ldl -lpthread
 
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
