@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/15 18:15:07 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/15 23:37:40 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ esc : 65307
 # define MENU_LOBBY 5
 # define MENU_IP 6
 # define MENU_LEADERBOARD 7
+# define MENU_INTRO 8
 
 # define TEAM_RED 0
 # define TEAM_VOID 1

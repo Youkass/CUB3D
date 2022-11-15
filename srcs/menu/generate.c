@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 02:28:53 by yuro4ka          ###   ########.fr       */
+/*   Updated: 2022/11/15 23:40:54 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ couldn't be generated.
 t_data	generate_image(char *path)
 {
 	t_data	sprite;
-
+	
+	memset(&sprite, 0, sizeof(t_data));
 	if (!path)
-	{
-		sprite.img = NULL;
 		return (sprite);
-	}
 	sprite.img = mlx_xpm_file_to_image(_mlx()->mlx, path,
 			&sprite.w, &sprite.h);
 	if (!sprite.img)
