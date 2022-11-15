@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/15 18:15:07 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/15 23:38:27 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ esc : 65307
 # define TEAM_VOID 1
 # define TEAM_BLUE 2
 
-# define NB_WEAPONS 2
+# define NB_WEAPONS 3
 
 # define TH_RAY 5
 
@@ -214,6 +214,13 @@ esc : 65307
 # define SOUND 9
 # define L_ARR 10
 # define R_ARR 11
+
+# define ATTACK 1
+# define RELOAD 2
+
+# define RIFLE 0
+# define GUN 1
+# define KNIFE 2
 
 # define NORMAL 0
 # define HOVER 1

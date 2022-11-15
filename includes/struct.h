@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 19:54:47 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:42:11 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ typedef struct	s_weapon
 	int		range;
 	int		headshot;
 	int		footshot;
+	int		shot_frames;
+	int		reload_frames;
+	int		anim_shotms;
 }	t_weapon;
 
 typedef struct	s_hitbox
@@ -489,6 +492,7 @@ typedef struct	s_image
 	t_data			crosshair;
 	t_data			front;
 	t_data			ammo;
+	t_data			*weapons[3][3];
 }	t_image;
 
 typedef struct	s_team
