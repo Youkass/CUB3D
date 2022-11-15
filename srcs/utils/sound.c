@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 19:12:30 by yuro4ka          ###   ########.fr       */
+/*   Updated: 2022/11/15 13:22:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void	ft_play_music(int index)
 				&& _var()->alive[ft_check_my_team()] > 1)
 		{
 			ma_sound_stop(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
-			ft_start_from_start(&(_media()->sound[GAME_MUSIC][ASHES]))
+			ft_start_from_start(&(_media()->sound[GAME_MUSIC][ASHES]));
 		}
 		else if (_var()->alive[_player()->team] == 1
 				&& _var()->alive[ft_check_my_team()] == 1)
