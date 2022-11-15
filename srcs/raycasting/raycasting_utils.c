@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 16:43:03 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 14:29:10 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/15 21:37:04 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b)
 			|| (pos_a.x * 4 + pos_a.y * a->line_length > a->w * 4 + a->h * a->line_length)
 		|| (pos_a.x < 0 || pos_a.x < 0 || pos_b.x < 0 || pos_b.y < 0))
 		return ;
-	if (b->addr[((pos_b.y *b->line_length)  + (pos_b.x * 4)) + 3] != -1)
+	if (b->addr[((pos_b.y *b->line_length) + (pos_b.x * 4)) + 3] != -1)
 	{
 		a->addr[pos_a.y * a->line_length + pos_a.x * 4] = b->addr[(pos_b.y *b->line_length)  + (pos_b.x * 4)];
 		a->addr[(pos_a.y * a->line_length + pos_a.x * 4) + 1] = b->addr[((pos_b.y *b->line_length)  + (pos_b.x * 4)) + 1];

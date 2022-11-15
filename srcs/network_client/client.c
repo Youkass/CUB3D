@@ -90,8 +90,6 @@ void	ft_copy_data_before_pong(t_obj *player)
 	player->old_dx = _player()->old_dx;
 	player->old_dy = _player()->old_dy;
 	player->angle = _player()->angle;
-	player->move_speed = _player()->move_speed;
-	player->rot_speed = _player()->rot_speed;
 	player->is_walking = _player()->is_walking;
 	player->is_dead = _player()->is_dead;
 	player->start_dead = _player()->start_dead;
@@ -208,7 +206,7 @@ void	ft_pong_client(void)
 	{
 		printf("je passe par ce retour de send\n");
 		_var()->mode = MENU;
-		_var()->menu->mode = MENU_START;
+		_menu()->mode = MENU_START;
 		return ;
 	}
 	memset(&serv, 0, sizeof(serv));
@@ -218,7 +216,7 @@ void	ft_pong_client(void)
 	{
 		printf("je passe par ce retour de recv\n");
 		_var()->mode = MENU;
-		_var()->menu->mode = MENU_START;
+		_menu()->mode = MENU_START;
 		return ;
 	}
 	_var()->linked_players = serv.linked_players;

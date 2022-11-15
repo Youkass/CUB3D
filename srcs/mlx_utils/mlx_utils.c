@@ -205,7 +205,8 @@ void		draw_sky(void)
 			if (tex.x + offset == pl_coord[0].x && tex.y == 400)
 				_menu()->draw_pl[0] = (t_vector2D){pt.x, pt.y};
 			tex.x = (tex.x + offset) % WIN_W;
-			ft_put_pixel(_img(), &_image()->bg, pt, tex);
+			if (_img() && _image()->bg.img)
+				ft_put_pixel(_img(), &_image()->bg, pt, tex);
 			pt.x++;
 		}
 		pt.y++;
@@ -321,17 +322,16 @@ void	hud(void)
 		WIN_H / 2 - 8));
 	if (_player()->is_shooting)
 	{
-		ft_put_sprite_to_images(*_img(), _image()->rifle,
-					pos(WIN_W / 2 - (_image()->rifle.w / 4),
-					WIN_H - _image()->rifle.h), pos(_image()->rifle.w / 2, 0),
-					pos(_image()->rifle.w / 2, _image()->rifle.h));
+		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][ATTACK]
+			[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][ATTACK]
+			[0].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][0].h * 2), posf(0.5, 0.5));
 	}
 	else
 	{
-		ft_put_sprite_to_images(*_img(), _image()->rifle,
-			pos(WIN_W / 2 - (_image()->rifle.w / 4), WIN_H - _image()->rifle.h),
-			pos(0, 0), pos(_image()->rifle.w / 2, _image()->rifle.h));
-	}	
+		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][NORMAL]
+			[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][NORMAL]
+			[0].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][NORMAL][0].h * 2), posf(0.5, 0.5));
+	}
 }
 
 void	set_spectate(void)

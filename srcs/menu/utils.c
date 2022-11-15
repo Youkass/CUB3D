@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/11 18:13:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/15 21:46:03 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_po
 t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vector2F scale)
 {
 	t_vector2D	rel_pos[2];
-	t_vector2D	it;
+	t_vector2F	it;
 
 	rel_pos[0] = (t_vector2D){p.x * 4, p.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
-	it = (t_vector2D){0, 0};
+	it = (t_vector2F){0, 0};
 	if (p.x + lil.w > big.w
 	|| (p.y) + lil.h > big.h)
 		return (big);
@@ -90,7 +90,7 @@ t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vecto
 		it.x = 0;
 		while (it.x < lil.w)
 		{
-			draw_pixel(&big, lil, it, rel_pos[0]);
+			draw_pixel(&big, lil, pos((int)it.x, (int)it.y), rel_pos[0]);
 			rel_pos[0].x += 4;
 			p.x++;
 			it.x += scale.x;

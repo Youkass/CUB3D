@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/15 13:42:28 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:41:55 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,14 @@ void	get_key(int keycode)
 		_var()->key[s] = 1;
 	if (keycode == D)
 		_var()->key[d] = 1;
+	if (keycode == ONE)
+		_var()->key[one] = 1;
+	if (keycode == TWO)
+		_var()->key[two] = 1;
+	if (keycode == THREE)
+		_var()->key[three] = 1;
+	if (keycode == F)
+		_var()->key[f] = 1;
 	if (keycode == ESC)
 		_var()->key[esc] = 1;
 	if (keycode == ARR_UP)
@@ -83,6 +91,14 @@ int	ft_release(int keycode)
 		_var()->key[maj] = 0;
 	if (keycode == R)
 		_var()->key[r] = 0;
+	if (keycode == ONE)
+		_var()->key[one] = 0;
+	if (keycode == TWO)
+		_var()->key[two] = 0;
+	if (keycode == THREE)
+		_var()->key[three] = 0;
+	if (keycode == F)
+		_var()->key[f] = 0;
 	return (0);
 }
 
@@ -368,7 +384,7 @@ int	ft_loop_hook(void)
 			{
 				sleep(1);
 				if (ft_init_client() == EXIT_FAILURE)
-					_var()->menu->mode = MENU_START;
+					_menu()->mode = MENU_START;
 			}
 		_var()->mode = LOBBY_WAIT;
 	}
@@ -571,6 +587,54 @@ void	init_data_shot(t_obj *player)
 //	return (0);
 //}
 
+void	init_image(void)
+{
+	_image()->bullet = generate_image("./img/bullet.xpm");
+	_image()->ammo = generate_image("./img/ammo.xpm");
+	_image()->crosshair = generate_image("./img/crosshair.xpm");
+	_image()->front = generate_image("./img/soldier/front.xpm");
+	if(WIN_W == 1440)
+		_image()->bg = generate_image("./img/spacebg1440.xpm");
+	else
+		_image()->bg = generate_image("./img/spacebg.xpm");
+	_image()->weapons[0][NORMAL] = ft_malloc(sizeof(t_data));
+	_image()->weapons[0][NORMAL][0] = generate_image("./img/weapons/rifle/rifle.xpm");
+	_image()->weapons[0][ATTACK] = ft_malloc(sizeof(t_data) * 3);
+	_image()->weapons[0][ATTACK][0] = generate_image("./img/weapons/rifle/rifleshoot1.xpm");
+	_image()->weapons[0][ATTACK][1] = generate_image("./img/weapons/rifle/rifleshoot2.xpm");
+	_image()->weapons[0][ATTACK][2] = generate_image("./img/weapons/rifle/rifleshoot3.xpm");
+	_image()->weapons[0][RELOAD] = ft_malloc(sizeof(t_data) * 8);
+	_image()->weapons[0][RELOAD][0] = generate_image("./img/weapons/rifle/riflereload1.xpm");
+	_image()->weapons[0][RELOAD][1] = generate_image("./img/weapons/rifle/riflereload2.xpm");
+	_image()->weapons[0][RELOAD][2] = generate_image("./img/weapons/rifle/riflereload3.xpm");
+	_image()->weapons[0][RELOAD][3] = generate_image("./img/weapons/rifle/riflereload4.xpm");
+	_image()->weapons[0][RELOAD][4] = generate_image("./img/weapons/rifle/riflereload5.xpm");
+	_image()->weapons[0][RELOAD][5] = generate_image("./img/weapons/rifle/riflereload6.xpm");
+	_image()->weapons[0][RELOAD][6] = generate_image("./img/weapons/rifle/riflereload7.xpm");
+	_image()->weapons[0][RELOAD][7] = generate_image("./img/weapons/rifle/riflereload8.xpm");
+
+	_image()->weapons[1][NORMAL] = ft_malloc(sizeof(t_data));
+	_image()->weapons[1][NORMAL][0] = generate_image("./img/weapons/gun/gun.xpm");
+	_image()->weapons[1][ATTACK] = ft_malloc(sizeof(t_data) * 6);
+	_image()->weapons[1][ATTACK][0] = generate_image("./img/weapons/gun/gunshot1.xpm");
+	_image()->weapons[1][ATTACK][1] = generate_image("./img/weapons/gun/gunshot2.xpm");
+	_image()->weapons[1][ATTACK][2] = generate_image("./img/weapons/gun/gunshot3.xpm");
+	_image()->weapons[1][ATTACK][0] = generate_image("./img/weapons/gun/gunshot4.xpm");
+	_image()->weapons[1][ATTACK][1] = generate_image("./img/weapons/gun/gunshot5.xpm");
+	_image()->weapons[1][ATTACK][2] = generate_image("./img/weapons/gun/gunshot6.xpm");
+	_image()->weapons[1][RELOAD] = ft_malloc(sizeof(t_data) * 4);
+	_image()->weapons[1][RELOAD][0] = generate_image("./img/weapons/gun/gunreload1.xpm");
+	_image()->weapons[1][RELOAD][1] = generate_image("./img/weapons/gun/gunreload2.xpm");
+	_image()->weapons[1][RELOAD][2] = generate_image("./img/weapons/gun/gunreload3.xpm");
+	_image()->weapons[1][RELOAD][3] = generate_image("./img/weapons/gun/gunreload4.xpm");
+
+	_image()->weapons[2][NORMAL] = ft_malloc(sizeof(t_data));
+	_image()->weapons[2][NORMAL][0] = generate_image("./img/weapons/knife/knife.xpm");
+	_image()->weapons[2][ATTACK] = ft_malloc(sizeof(t_data));
+	_image()->weapons[2][ATTACK][0] = generate_image("./img/weapons/knife/knifeattack.xpm");
+	_image()->weapons[2][RELOAD] = NULL;
+}
+
 int main(int argc, char **argv)
 {
 	int		fd;
@@ -595,14 +659,7 @@ int main(int argc, char **argv)
 	init_key();
 	_menu()->n_ip = 0;
 	gen_menu_images();
-	_image()->bullet = generate_image("./img/bullet.xpm");
-	_image()->ammo = generate_image("./img/ammo.xpm");
-	_image()->crosshair = generate_image("./img/crosshair.xpm");
-	_image()->front = generate_image("./img/soldier/front.xpm");
-	if(WIN_W == 1440)
-		_image()->bg = generate_image("./img/spacebg1440.xpm");
-	else
-		_image()->bg = generate_image("./img/spacebg.xpm");
+	init_image();
 	ft_game();
 	mlx_loop(_mlx()->mlx);
 	return (0);

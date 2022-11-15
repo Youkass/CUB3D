@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 20:07:18 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/15 23:09:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,19 @@ void	key_hook(void)
 			shoot();
 		}
 	}
-	if (_player()->id == 0 &&_var()->key[maj])
+	if (_player()->id == 0 &&_var()->key[maj] && _var()->mode == MENU)
 	{
 		printf("click\n");
 		_var()->restart = 1;
 	}
+	if (_var()->key[one] && _var()->mode == GAME)
+		_player()->weapon_id = 0;
+	if (_var()->key[two] && _var()->mode == GAME)
+		_player()->weapon_id = 1;
+	if (_var()->key[three] && _var()->mode == GAME)
+		_player()->weapon_id = 2;
+	if (_var()->key[f] && _var()->mode == GAME)
+		_player()->weapon_id = mod(_player()->weapon_id + 1, 3);
 	if (_var()->key[space])
 	{
 		if (_var()->is_host == SERVER && _menu()->mode == MENU_LOBBY && _var()
@@ -104,12 +112,12 @@ void	key_hook(void)
 			_player()->ammo += needed;
 		}
 	}
-	if (_var()->key[maj])
+	if (_var()->key[maj] && _var()->mode == GAME)
 	{
 		crouch(1);
 		printf("crouch\n");
 	}
-	else if (!_var()->key[maj])
+	else if (!_var()->key[maj] && _var()->mode == GAME)
 		crouch(0);
 }
 
