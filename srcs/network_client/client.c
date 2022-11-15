@@ -189,7 +189,6 @@ void	ft_pong_client(void)
 	static int			incremented = 0;
 	
 	i = 0;
-
 	memset(&client, 0, sizeof(client));
 	ft_copy_data_before_pong(&client.player);
 	client.blue_wins = _team()[TEAM_BLUE]->win;
@@ -206,12 +205,22 @@ void	ft_pong_client(void)
 		_var()->restart = 0;
 	}
 	if (send(_var()->socket, &client, sizeof(client), 0) < 0)
+	{
+		printf("je passe par ce retour de send\n");
+		_var()->mode = MENU;
+		_var()->menu->mode = MENU_START;
 		return ;
+	}
 	memset(&serv, 0, sizeof(serv));
 	_var()->alive[TRED] = 0;
 	_var()->alive[TBLUE] = 0;
 	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) < 0)
+	{
+		printf("je passe par ce retour de recv\n");
+		_var()->mode = MENU;
+		_var()->menu->mode = MENU_START;
 		return ;
+	}
 	_var()->linked_players = serv.linked_players;
 	while (i < _var()->linked_players)
 	{

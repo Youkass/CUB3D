@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 20:18:42 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/15 18:40:35 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,18 @@ void	get_pseudos(void)
 		player.start = 0;
 	player.flag = 1;
 	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
-		ft_black_hole(1); //TODO
+	{
+		_var()->mode = MENU;
+		_var()->menu->mode = MENU_START;
+		return ;
+	}
 	memset(&o_player, 0, sizeof(o_player));
 	if (ft_recv_players(&o_player, sizeof(t_send_server)))
-		ft_black_hole(1); //TODO
+	{
+		_var()->mode = MENU;
+		_var()->menu->mode = MENU_START;
+		return ;
+	}
 	ft_copy_new_data(o_player);
 }
 
