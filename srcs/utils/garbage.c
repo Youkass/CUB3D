@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   garbage.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/10 13:11:08 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/13 21:27:10 by denissereno      ###   ########.fr       */
+/*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
+/*   Updated: 2022/11/16 15:54:17 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/cub.h"
 
@@ -21,7 +22,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void*))
 		while (*lst != NULL)
 		{
 			tmp = (*lst)->next;
-			(del)((*lst)->content);
+			if ((*lst)->content != NULL)
+				(del)((*lst)->content);
 			free(*lst);
 			*lst = tmp;
 		}

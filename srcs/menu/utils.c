@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 02:30:07 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/16 14:29:45 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vecto
 	rel_pos[0] = (t_vector2D){p.x * 4, p.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
 	it = (t_vector2F){0, 0};
-	printf("p.x : %d | p.y %d | lil.w %d | lil.h %d | big.w %d | big.h %d\n", p.x, p.y,
-		lil.w, lil.h, big.w, big.h);
+	printf("p.x : %d | p.y %d | lil.w %f | lil.h %f | big.w %d | big.h %d\n", p.x, p.y,
+		lil.w * scale.x, lil.h * scale.y, big.w, big.h);
 	if (p.x + lil.w * scale.x > big.w
-	|| (p.y) + lil.h * scale.y> big.h)
+	|| (p.y) + lil.h * scale.y > big.h)
 		return (big);
 	if (scale.x > 20 || scale.y > 20)
 		return (big);
