@@ -318,16 +318,40 @@ void	update_bullets3F(void)
 
 void	hud(void)
 {
+	unsigned long	time_attack;
+	unsigned long	time_reload;
+	int				index;
+
+	time_attack = get_time(_var()->shotanim_start);
+	time_reload = get_time(_var()->reloadanim_start);
 	ft_put_image_to_image(*_img(), _image()->crosshair, pos(WIN_W / 2 - 8,
 		WIN_H / 2 - 8));
-	if (_player()->is_shooting)
+	// if (_player()->is_shooting)
+	// {
+	if (_var()->shot_anim && time_attack < _weapon()[_player()->weapon_id]->reload_ms)
 	{
-		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][ATTACK]
-			[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][ATTACK]
-			[0].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][0].h * 2), posf(0.5, 0.5));
+		index = normalise_between(pos(0, _weapon()[_player()->weapon_id]->reload_ms), pos(0,  _weapon()[_player()->weapon_id]->shot_frames), time_attack);
+		if (_player()->weapon_id == KNIFE)
+			ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][ATTACK]
+				[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][ATTACK]
+				[0].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][0].h * 2), posf(0.5, 0.5));
+		else
+			ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][ATTACK]
+				[index], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][ATTACK]
+				[index].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][index].h * 2), posf(0.5, 0.5));
+	}
+	else if (_var()->reload_anim && (int)time_reload < _weapon()[_player()->weapon_id]->anim_reloadms)
+	{
+		index = normalise_between(pos(0, _weapon()[_player()->weapon_id]->anim_reloadms), pos(0,  _weapon()[_player()->weapon_id]->reload_frames), time_reload);
+		printf("=> %d\n", index);
+		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][RELOAD]
+			[index], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][RELOAD]
+			[index].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][RELOAD][index].h * 2), posf(0.5, 0.5));
 	}
 	else
 	{
+		_var()->shot_anim = 0;
+		_var()->reload_anim = 0;
 		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][NORMAL]
 			[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][NORMAL]
 			[0].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][NORMAL][0].h * 2), posf(0.5, 0.5));
@@ -393,9 +417,12 @@ int	ft_loop()
 	}
 	ft_draw_map();
 	render_health(pos(50, 250));
-	draw_text_scale(ft_strjoin(ft_itoa(_player()->full_ammo), "/"), pos(55, 220 + _image()->ammo.h - 10), pos(3, 3), WHITE);
-	draw_text_scale(ft_itoa(_player()->ammo), pos(55 + ft_strlen("45/") * 14, 220 + _image()->ammo.h - 8), pos(3, 3), WHITE);
-	ft_put_image_to_image_scale(*_img(), _image()->ammo, pos(125, 220 + _image()->ammo.h - 10), posf(4, 4));//
+	if (_player()->weapon_id != KNIFE)
+	{
+		draw_text_scale(ft_strjoin(ft_itoa(_player()->full_ammo[_player()->weapon_id]), "/"), pos(55, 220 + _image()->ammo.h - 10), pos(3, 3), WHITE);
+		draw_text_scale(ft_itoa(_player()->ammo[_player()->weapon_id]), pos(55 + ft_strlen("45/") * 14, 220 + _image()->ammo.h - 8), pos(3, 3), WHITE);
+		ft_put_image_to_image_scale(*_img(), _image()->ammo, pos(125, 220 + _image()->ammo.h - 10), posf(4, 4));//
+	}
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);

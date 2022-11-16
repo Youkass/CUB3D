@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/15 22:41:55 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/16 01:57:46 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ void	generate_dsprite_red(void)
 void	restart_player(void)
 {
 	double	dist;
+	int		i;
 
 	_player()->is_start = 0;
 	_log()->log = NULL;
@@ -187,8 +188,13 @@ void	restart_player(void)
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
 	_player()->health = 100;
-	_player()->ammo = _weapon()[0]->ammo;
-	_player()->full_ammo = _weapon()[0]->full_ammo;
+	i = 0;
+	while (i < NB_WEAPONS)
+	{
+		_player()->ammo[i] = _weapon()[i]->ammo;
+		_player()->full_ammo[i] = _weapon()[i]->full_ammo;
+		i++;
+	}
 	_player()->shoot_n = 0;
 	_player()->z = 0;
 	_player()->dx = -1;
@@ -211,6 +217,7 @@ void	restart_player(void)
 void	ft_init_player_pos(void)
 {
 	double	dist;
+	int		i;
 
 	_player()->team = TEAM_VOID;
 	memset(_var()->blue, 0, sizeof(_var()->blue));
@@ -233,8 +240,13 @@ void	ft_init_player_pos(void)
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
 	_player()->health = 100;
-	_player()->ammo = _weapon()[0]->ammo;
-	_player()->full_ammo = _weapon()[0]->full_ammo;
+	i = 0;
+	while (i < NB_WEAPONS)
+	{
+		_player()->ammo[i] = _weapon()[i]->ammo;
+		_player()->full_ammo[i] = _weapon()[i]->full_ammo;
+		i++;
+	}
 	_player()->shoot_n = 0;
 	_player()->x = 5;
 	_player()->y = 3;
@@ -553,6 +565,10 @@ void	init_var(void)
 	_var()->start_click = 0;
 	_var()->click = 0;
 	_var()->click_keycode = 0;
+	_var()->reload_anim = 0;
+	_var()->shot_anim = 0;
+	_var()->shotanim_start = get_clock(_var()->clock);
+	_var()->reloadanim_start = get_clock(_var()->clock);
 }
 
 void	init_data_shot(t_obj *player)
@@ -619,9 +635,9 @@ void	init_image(void)
 	_image()->weapons[1][ATTACK][0] = generate_image("./img/weapons/gun/gunshot1.xpm");
 	_image()->weapons[1][ATTACK][1] = generate_image("./img/weapons/gun/gunshot2.xpm");
 	_image()->weapons[1][ATTACK][2] = generate_image("./img/weapons/gun/gunshot3.xpm");
-	_image()->weapons[1][ATTACK][0] = generate_image("./img/weapons/gun/gunshot4.xpm");
-	_image()->weapons[1][ATTACK][1] = generate_image("./img/weapons/gun/gunshot5.xpm");
-	_image()->weapons[1][ATTACK][2] = generate_image("./img/weapons/gun/gunshot6.xpm");
+	_image()->weapons[1][ATTACK][3] = generate_image("./img/weapons/gun/gunshot4.xpm");
+	_image()->weapons[1][ATTACK][4] = generate_image("./img/weapons/gun/gunshot5.xpm");
+	_image()->weapons[1][ATTACK][5] = generate_image("./img/weapons/gun/gunshot6.xpm");
 	_image()->weapons[1][RELOAD] = ft_malloc(sizeof(t_data) * 4);
 	_image()->weapons[1][RELOAD][0] = generate_image("./img/weapons/gun/gunreload1.xpm");
 	_image()->weapons[1][RELOAD][1] = generate_image("./img/weapons/gun/gunreload2.xpm");
