@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/15 13:42:28 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/16 01:42:30 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,7 +387,6 @@ int	ft_loop_hook(void)
 	}
 	if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
-
 	return (0);
 }
 
@@ -520,7 +519,7 @@ void	init_var(void)
 	if (pthread_mutex_init(&_log()->mutex, NULL))
 		ft_black_hole(137);
 	_var()->mode = MENU;
-	_menu()->mode = MENU_START;
+	_menu()->mode = INTRO;
 	_var()->walk_n = 0;
 	_var()->clock = start_clock();
 	_var()->walk_start = get_clock(_var()->clock);

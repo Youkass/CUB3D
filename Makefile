@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/15 18:01:06 by yobougre         ###   ########.fr        #
+#    Updated: 2022/11/16 01:42:47 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRCS		=	srcs/main.c\
 				srcs/menu/render.c\
 				srcs/menu/utils.c\
 				srcs/menu/mouse_hook.c\
+				srcs/menu/intro.c\
 				srcs/menu/dragbar.c\
 				srcs/menu/recv_utils.c\
 				srcs/parsing/parsing.c\

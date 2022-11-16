@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/15 23:32:43 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/16 01:29:40 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -631,5 +631,12 @@ struct	s_server_data
 	int						round_end;
 	int						restart;
 };
+
+typedef struct	s_intro
+{
+	t_vector2D		double_pos[2];
+	unsigned long	check;
+	int				limite;
+}	t_intro;
 
 #endif
