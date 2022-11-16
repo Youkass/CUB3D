@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 21:19:15 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/16 01:41:40 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,8 @@ int	menu_loop(void)
 {
 	click_update();
 	ft_play_music(MENU_MUSIC);
+	if (_menu()->mode == INTRO)
+		ft_intro();
 	if (_menu()->mode == MENU_LEADERBOARD)
 		ft_pong_client();
 	else if(_menu()->mode == MENU_LOBBY
