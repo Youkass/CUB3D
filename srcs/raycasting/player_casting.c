@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_casting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 18:21:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:41:41 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	draw(t_obj *player, t_obj *my_player)
 				}
 				else if (tex_mode == 1)
 				{
-					_pc()->tex.y = ((_pc()->d * _image()->walk_sprite[0].h) /_pc()->size.y) / 256;
+					_pc()->tex.y = ((_pc()->d * _image()->walk_sprite[walk_tex].h) /_pc()->size.y) / 256;
 					if (player->team == TEAM_BLUE)
 						ft_put_pixel(_img(), &_image()->walk_sprite[walk_tex], pos(stripe, y), pos(_pc()->tex.x + 43 * _var()->walk_n, _pc()->tex.y));
 					else
