@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 18:45:52 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/16 19:13:39 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,7 @@ void	ft_draw_wall(t_obj wall, t_vector2D pos)
 		var.j = 0;
 		while (var.j < _var()->scale)
 		{
-			// if (is_neighbor(pos))
-			// 	ft_put_pixel_color(_img(), (char [4]){0, 89, 22, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
-			// else
-			// 	ft_put_pixel_color(_img(), (char [4]){0, 15, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
+			// if (is_neighbor(pos))), (char [4]){0, 15, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
 				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  wall.y + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  200);

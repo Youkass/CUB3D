@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/16 01:57:46 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/16 19:39:03 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,8 +410,8 @@ int	ft_loop_hook(void)
 	if (_var()->mode == GAME)
 	{
 		ft_loop();
-		mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
-		mouse_rotate();
+		// mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+		// mouse_rotate();
 	}
 	if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();

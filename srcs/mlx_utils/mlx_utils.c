@@ -334,19 +334,18 @@ void	hud(void)
 		if (_player()->weapon_id == KNIFE)
 			ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][ATTACK]
 				[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][ATTACK]
-				[0].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][0].h * 2), posf(0.5, 0.5));
+				[0].w * 2 / 4) + 200, WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][0].h * 2), posf(0.5, 0.5));
 		else
 			ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][ATTACK]
 				[index], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][ATTACK]
-				[index].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][index].h * 2), posf(0.5, 0.5));
+				[index].w * 2 / 4) + 200, WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][index].h * 2), posf(0.5, 0.5));
 	}
 	else if (_var()->reload_anim && (int)time_reload < _weapon()[_player()->weapon_id]->anim_reloadms)
 	{
 		index = normalise_between(pos(0, _weapon()[_player()->weapon_id]->anim_reloadms), pos(0,  _weapon()[_player()->weapon_id]->reload_frames), time_reload);
-		printf("=> %d\n", index);
 		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][RELOAD]
 			[index], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][RELOAD]
-			[index].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][RELOAD][index].h * 2), posf(0.5, 0.5));
+			[index].w * 2 / 4) + 200, WIN_H - _image()->weapons[_player()->weapon_id][RELOAD][index].h * 2 + 50), posf(0.5, 0.5));
 	}
 	else
 	{
@@ -354,7 +353,7 @@ void	hud(void)
 		_var()->reload_anim = 0;
 		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][NORMAL]
 			[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][NORMAL]
-			[0].w * 2 / 4), WIN_H - _image()->weapons[_player()->weapon_id][NORMAL][0].h * 2), posf(0.5, 0.5));
+			[0].w * 2 / 4) + 200, WIN_H - _image()->weapons[_player()->weapon_id][NORMAL][0].h * 2), posf(0.5, 0.5));
 	}
 }
 

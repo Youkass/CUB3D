@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 04:29:52 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/16 19:32:53 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,13 +166,16 @@ void	draw_wall(t_raycasting *r)
 	{
 		r->tex.y = (int)r->tex_pos & (128 - 1);
         r->tex_pos += r->tex_step;
-		r->color = (int)_menu()->wall.addr[(r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)];
-		if(r->side == 1)
-			r->color = (r->color >> 1) & 8355711;
-		_img()->addr[r->y * _img()->line_length + r->x * 4] = _menu()->wall.addr[(r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)];
-		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 1] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 1];
-		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 2] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 2];
-		_img()->addr[(r->y * _img()->line_length + r->x * 4) + 3] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 3];
+		// if (r->tex.y * _menu()->wall.line_length < _menu()->wall.h &&
+		// (r->tex.x * 4) < _menu()->wall.w && r->tex.x > 0 && r->tex.y > 0)
+		// 	r->color = (int)_menu()->wall.addr[(r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)];
+		// if(r->side == 1)
+		// 	r->color = (r->color >> 1) & 8355711;
+		ft_put_pixel(_img(), &_menu()->wall, pos(r->x, r->y), pos(r->tex.x, r->tex.y));
+		// _img()->addr[r->y * _img()->line_length + r->x * 4] = _menu()->wall.addr[(r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)];
+		// _img()->addr[(r->y * _img()->line_length + r->x * 4) + 1] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 1];
+		// _img()->addr[(r->y * _img()->line_length + r->x * 4) + 2] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 2];
+		// _img()->addr[(r->y * _img()->line_length + r->x * 4) + 3] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 3];
 		r->y++;
 	}
 }
