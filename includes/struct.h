@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/15 22:42:11 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/16 01:53:11 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct	s_weapon
 	int		shot_frames;
 	int		reload_frames;
 	int		anim_shotms;
+	int		anim_reloadms;
 }	t_weapon;
 
 typedef struct	s_hitbox
@@ -230,8 +231,8 @@ struct	s_obj
 	int			death_start;
 	int			weapon_id;
 	int			health;
-	int			ammo;
-	int			full_ammo;
+	int			ammo[NB_WEAPONS];
+	int			full_ammo[NB_WEAPONS];
 	char		pseudo[16];
 	t_vector2F	plane;
 	t_vector2F	old_plane;
@@ -243,7 +244,7 @@ struct	s_obj
 	t_hit		shooted;
 	int			exchange;
 	int			is_shooting;
-	int				is_start;
+	int			is_start;
 	int			change_team;
 	float		 scale;
 	int			money;
@@ -474,6 +475,10 @@ typedef struct s_var
 	int					alive[2];
 	t_log				*log;
 	int					restart;
+	unsigned long		shotanim_start;
+	int					shot_anim;
+	unsigned long		reloadanim_start;
+	int					reload_anim;
 }	t_var;
 typedef struct	s_image
 {

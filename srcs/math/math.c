@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:43:05 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 20:15:21 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/16 01:23:12 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,12 @@ float	normalise_between2F(t_vector2F r, t_vector2F t, int nb)
 */
 int mod(int a, int b)
 {
-    int r = a % b;
-    return r < 0 ? r + b : r;
+    int r;
+	
+	r = a % b;
+	if (r < 0)
+		return (r + b);
+    return (r);
 }
 
 /*

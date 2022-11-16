@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/15 23:41:21 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/16 01:43:13 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,12 @@ void	shoot(void)
 
 	i = 0;
 	touched = 0;
-	if (_var()->nb_player == 1)
+	if (_var()->nb_player == 1 && !_var()->reload_anim)
 	{
-		shoot_alone3F();
+		if (_player()->weapon_id != KNIFE)
+			shoot_alone3F();
+		_var()->shotanim_start = get_clock(_var()->clock);
+		_var()->shot_anim = 1;
 		return ;
 	}
 	while (i < _var()->linked_players)
@@ -114,7 +117,7 @@ void	shoot(void)
 			is_shoot_touch((t_vector2F){_player()->x, _player()->y},
 			(t_vector2F){_player()->x + (_player()->dx * _weapon()[_player()->weapon_id]->range), _player()->y
 			+ (_player()->dy * _weapon()[_player()->weapon_id]->range)}, (t_circle){(t_vector2F){_var()->o_player[i].x,
-			_var()->o_player[i].y}, 0.30}, &closest))
+			_var()->o_player[i].y}, 0.30}, &closest) && !_var()->reload_anim)
 		{
 			closest3F = pos3f(closest.x, closest.y, one_dist2F(
 				posf(_player()->x, _player()->y), closest) *
@@ -160,6 +163,8 @@ void	shoot(void)
 					printf("===> FOOTSHOT\n");
 				}
 				touched = 1;
+				_var()->shotanim_start = get_clock(_var()->clock);
+				_var()->shot_anim = 1;
 				if (_player()->weapon_id != KNIFE)
 					init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
 			}
@@ -167,10 +172,14 @@ void	shoot(void)
 		}
 		i++;
 	}
-	if (touched == 0)
+	if (touched == 0  && !_var()->reload_anim)
 	{
+		_var()->shotanim_start = get_clock(_var()->clock);
+		_var()->shot_anim = 1;
 		printf("===> %f\n", _var()->frame_time);
 		printf("pas touchew\n");
+		if (_player()->weapon_id == KNIFE)
+			return ;
 		if (nearest_wall3D(&closest3F))
 			init_shot3F(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3F);
 		else

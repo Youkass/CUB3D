@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/15 23:09:58 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/16 01:56:17 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void	key_hook(void)
 	if (_var()->key[mouse])
 	{
 		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET
-		&& _player()->ammo > 0)
+		&& _player()->ammo[_player()->weapon_id] > 0)
 		{
 			_player()->can_shoot = 0;
 			_player()->is_shooting = 1;
-			--_player()->ammo;
+			--_player()->ammo[_player()->weapon_id];
 			_player()->start_reload = get_clock(_var()->clock);
 			shoot();
 		}
@@ -101,15 +101,18 @@ void	key_hook(void)
 	}
 	if (_var()->key[r])
 	{
-		if (_var()->mode == GAME && _player()->full_ammo > 0 && _player()->ammo < 15)
+		if (_var()->mode == GAME && _player()->full_ammo[_player()->weapon_id] > 0 && _player()->ammo[_player()->weapon_id] < 15
+		&& _player()->weapon_id != KNIFE)
 		{
 			int	needed;
 
-			needed = abs(_player()->ammo - 15);
-			if (_player()->full_ammo <= needed)
-				needed = _player()->full_ammo;
-			_player()->full_ammo -= needed;
-			_player()->ammo += needed;
+			needed = abs(_player()->ammo[_player()->weapon_id] - 15);
+			if (_player()->full_ammo[_player()->weapon_id] <= needed)
+				needed = _player()->full_ammo[_player()->weapon_id];
+			_player()->full_ammo[_player()->weapon_id] -= needed;
+			_player()->ammo[_player()->weapon_id] += needed;
+			_var()->reload_anim = 1;
+			_var()->reloadanim_start = get_clock(_var()->clock);
 		}
 	}
 	if (_var()->key[maj] && _var()->mode == GAME)
