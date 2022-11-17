@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 20:03:46 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/17 22:25:43 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,21 @@ int	perc(int a, int b)
 */
 void	menu_start(void)
 {
+	static t_vector2D	double_pos[2];
+	static int 			start = 0;
+
+	if (!start)
+	{
+		double_pos[1].x = 430;
+		double_pos[1].y = 50;
+		double_pos[0].x = 722;
+		double_pos[0].y = 50;
+		++start;
+	}
+	ft_play_music(MENU_MUSIC);
 	draw_bg((char [4]){0, 0, 0, 0});
 	ft_put_image_to_image(*_img(), _menu()->bg,
 		(t_vector2D){0, 0});
-	ft_put_image_to_image(*_img(), _menu()->logo,
-		(t_vector2D){WIN_W / 2 - (_menu()->logo.w / 2), perc(WIN_H, 20) - (_menu()->logo.h / 2)});
 	ft_put_image_to_image(*_img(), _menu()->buttons
 	[_menu()->s_state[0].state][PLAY], _butp()[0]);
 	ft_put_image_to_image(*_img(), _menu()->buttons
@@ -56,6 +66,7 @@ void	menu_start(void)
 	[_menu()->s_state[2].state][CREDITS], _butp()[2]);
 	ft_put_image_to_image(*_img(), _menu()->buttons
 	[_menu()->s_state[3].state][EXIT], _butp()[3]);
+	ft_end_intro(double_pos);
 }
 
 void	menu_player(void)

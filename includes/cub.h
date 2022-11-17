@@ -295,6 +295,9 @@ void    gen_menu_images(void);
 /* -------------------------------------------------------------------------- */
 void	ft_open_intro_sprites(void);
 void	ft_intro_sprite_to_image(int i1, int i2, t_vector2D v1, t_vector2D v2);
+t_vector2D	ft_draw_youri();
+t_vector2D	ft_draw_darian(void);
+void	ft_end_intro(t_vector2D *double_pos);
 void	ft_intro(void);
 
 /* -------------------------------------------------------------------------- */
