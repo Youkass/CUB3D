@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 15:54:19 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/17 19:04:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,6 +345,7 @@ typedef struct s_menu
 	t_vector2D	pos_s_bar;
 	int			draging_s;
 	t_vector2D	pos_m_bar;
+	t_vector2D	double_pos[2];
 	int			draging_m;
 	int			mode;
 	t_data		wall;

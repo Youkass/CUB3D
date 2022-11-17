@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/15 23:40:54 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/17 21:46:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ void    gen_menu_images(void)
 	generate_button_state();
 	gen_serv_but();
 	_menu()->wall = generate_image("./img/wall.xpm");
-	_menu()->logo = generate_image("./img/menu/img/logo.xpm");
+	_menu()->logo = generate_image("./img/intro/logo.xpm");
 	if (WIN_W == 1440)
 		_menu()->bg = generate_image("./img/bg1440.xpm");
 	else

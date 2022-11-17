@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/15 13:22:19 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/17 22:21:39 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int	ft_check_my_team(void)
 
 void	ft_play_music(int index)
 {
-	if (_var()->mode == MENU)
+	if (_menu()->mode == MENU_START || _menu()->mode == INTRO)
 	{
 		ft_play_end_round();
 		ft_play_end_game();
