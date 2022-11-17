@@ -51,6 +51,8 @@ int	ft_init_client(void)
 	printf("je reçois mon id : %d\n", _player()->id);
 	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int), 0) < 0)
 		return (EXIT_FAILURE);
+	if (recv(_var()->socket, &(_var()->pid), sizeof(int), 0) < 0)
+		return (EXIT_FAILURE);
 	printf("je sors de la fonction\n");
 	return (EXIT_SUCCESS);
 }

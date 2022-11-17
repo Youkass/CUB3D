@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 01:53:11 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 00:44:04 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -479,7 +479,9 @@ typedef struct s_var
 	int					shot_anim;
 	unsigned long		reloadanim_start;
 	int					reload_anim;
+	int					pid;
 }	t_var;
+
 typedef struct	s_image
 {
 	t_data			alpha[255];
