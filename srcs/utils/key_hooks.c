@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/16 01:56:17 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 00:43:25 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,36 @@ int	ft_left(void)
 
 int	ft_escape(void)
 {
-	ft_black_hole(0);
+	if (click_delay())
+		return (0);
+	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER) && _player()->id == 0)
+	{
+		close(_var()->socket);
+		if (_var()->pid > 0)
+			kill((pid_t)_var()->pid, SIGKILL);
+		_var()->pid = -1;
+		click();
+	}
+	if (_var()->mode == GAME)
+	{
+		restart_player();
+		_var()->mode = MENU;
+		_menu()->mode = MENU_START;
+		click();
+	}
+	if (_var()->mode == MENU)
+	{
+		if (_menu()->mode == MENU_START)
+		{
+			ft_black_hole(0);
+		}
+		if (_menu()->mode == MENU_PLAYER)
+			_menu()->mode = MENU_START;
+		if (_menu()->mode == MENU_IP)
+			_menu()->mode = MENU_PLAYER;
+		if (_menu()->mode == MENU_PSEUDO)
+			_menu()->mode = MENU_PLAYER;
+		click();
+	}
 	return (0);
 }

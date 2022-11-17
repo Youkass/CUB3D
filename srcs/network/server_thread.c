@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/15 23:23:07 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 00:45:15 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -395,7 +395,12 @@ int	ft_send_all_data(t_client_thread *client)
 
 int	send_nb_players(t_client_thread *client)
 {
+	int	pid;
+
+	pid = (int)getpid();
 	if (send(client->socket, &(client->nb_players), sizeof(int), 0) < 0)
+		return (1);
+	if (send(client->socket, &pid, sizeof(int), 0) < 0)
 		return (1);
 	return (0);
 }
