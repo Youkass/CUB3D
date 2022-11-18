@@ -43,11 +43,6 @@ int	ft_init_client(void)
 	printf("je suis connecté\n");
 	if (recv(_var()->socket, &(_player()->id), sizeof(int), 0) < 0)
 		return (EXIT_FAILURE);
-	//if (_player()->id == 1)
-	//{
-	//	_player()->spectate = 1;
-	//	_player()->spec_id = 0;
-	//}
 	printf("je reçois mon id : %d\n", _player()->id);
 	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int), 0) < 0)
 		return (EXIT_FAILURE);
@@ -62,8 +57,6 @@ void	ft_copy_data_before_pong(t_obj *player)
 	int	i;
 
 	i = 0;
-	//player->kill_round.n = _player()->kill_round.n;
-	//player->kill_round.size = _player()->kill_round.size;
 	while (i < (int)_player()->nr)
 	{
 		player->kill_round[i] = _player()->kill_round[i];
@@ -116,12 +109,6 @@ void	ft_copy_data_before_pong(t_obj *player)
 	{
 		player->shott[i] = _player()->shott[i];
 		player->shott[i].pos = _player()->shott[i].pos;
-		// while (j < SHOT_FRAME)
-		// {
-		// 	player->shott[i].n_pos[j] = _player()->shott[i].n_pos[j];
-		// 	printf("%f, %f, %f", _player()->shott[i].n_pos[j]. x, _player()->shott[i].n_pos[j]. y, _player()->shott[i].n_pos[j]. z);
-		// 	j++;
-		// }
 		i++;
 	}
 	memset(player->pseudo, 0, sizeof(player->pseudo));
@@ -191,6 +178,7 @@ void	ft_pong_client(void)
 		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		return ;
 	}
+	_player()->is_shooting = 0;
 	memset(&serv, 0, sizeof(serv));
 	_var()->alive[TRED] = 0;
 	_var()->alive[TBLUE] = 0;

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 18:06:07 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 19:06:10 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	key_hook(void)
 		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET
 		&& _player()->ammo[_player()->weapon_id] > 0)
 		{
+			ft_play_own_shot();
 			_player()->can_shoot = 0;
 			_player()->is_shooting = 1;
 			--_player()->ammo[_player()->weapon_id];
@@ -287,6 +288,7 @@ int	ft_left(void)
 int	ft_escape(void)
 {
 	printf("je passe ici\n");
+	ft_black_hole(1);
 	if (click_delay())
 		return (0);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER) && _player()->id == 0)
