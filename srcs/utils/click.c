@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:53:24 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/18 01:34:01 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 19:12:35 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,12 @@ void	restart_player(void)
 	double	dist;
 	int		i;
 
+	i = 0;
+	while (i < 4)
+	{
+		_menu()->s_state[i].state = 0;
+		i++;
+	}
 	_player()->is_start = 0;
 	_log()->log = NULL;
 	_var()->alive[TRED] = _var()->nb_player / 2;

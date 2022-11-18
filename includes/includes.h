@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 21:08:19 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 21:22:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ esc : 65307
 # define TRED 0
 # define TBLUE 1
 
-# define NB_ROUNDS 5
+# define NB_ROUNDS 2
 
 # define GAME 0
 # define MENU 1

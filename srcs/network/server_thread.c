@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/18 17:28:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 20:50:45 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ int	round_end_wait(t_send_server_game *data, t_client_thread *client)
 		client->round_state_send[ROUND_END_WAIT] = 0;
 		client->round_state_send[ROUND_END] = -1;
 		client->round_state_send[ROUND_PLAY] = 0;
+		client->serv->round_state[ROUND_START] = 0;
 		return (1);
 	}
 	return (0);
@@ -286,19 +287,19 @@ int	round_wait_start(t_send_server_game *data, t_client_thread *client)
 {
 	if (client->serv->round_state[ROUND_WAIT_START] >= client->serv->linked_players)
 	{
-		printf("[%d] WAIT START\n", client->id);
 		if (client->round_state_send[ROUND_END_WAIT] != -1)
 		{
 			--client->serv->round_state[ROUND_END_WAIT];
 			if (client->id == 0)
 			{
+				printf("je rentre\n");
 				client->serv->start = get_clock(client->serv->clock);
 				client->serv->clock_started = 1;
 			}
 		}
 		if (client->serv->clock_started && get_time_server(client->serv->start,
-			client->serv->clock) >= 3000000
-		&& !client->round_state_send[ROUND_START])
+				client->serv->clock) >= 3000000
+			&& !client->round_state_send[ROUND_START])
 		{
 			client->round_state_send[ROUND_START] = 1;
 			++client->serv->round_state[ROUND_START];
@@ -352,6 +353,7 @@ void	round_leaderboard(t_send_server_game *data, t_client_thread *client)
 int	ft_send_all_data(t_client_thread *client)
 {
 	int					i;
+	int					j;
 	t_send_server_game	data;
 	static __thread int	round = 0;
 
@@ -360,6 +362,13 @@ int	ft_send_all_data(t_client_thread *client)
 	while (i < client->serv->linked_players)
 	{
 		data.player[i] = client->serv->player_data[i];
+		j = 0;
+		while (j < _player()->shoot_n)
+		{
+			data.player[i].shott[j] = client->serv->player_data[i].shott[j];
+			data.player[i].shott[j].pos = client->serv->player_data[i].shott[j].pos;
+			j++;
+		}
 		++i;
 	}
 	if (client->serv->restart)
@@ -435,61 +444,6 @@ void	check_team(t_client_thread *c)
 	}
 }
 
-void	update_team_array(t_client_thread *c)
-{
-	if (c->id != 0)
-		return ;
-	pthread_mutex_lock(c->mutex);
-	check_team(c);
-	int	i;
-	int	team;
-	c->serv->player_alive = c->nb_players;
-	c->serv->red_alive = c->nb_players / 2;
-	c->serv->blue_alive = c->nb_players / 2;
-	i = 0;
-	while (i < c->nb_players)
-	{
-		if (c->serv->player_data[i].is_dead == 1)
-		{
-			--c->serv->player_alive;
-			if (c->serv->player_data[i].team == TEAM_RED)
-				--c->serv->red_alive;
-			else
-				--c->serv->blue_alive;
-		}
-		if (c->serv->player_data[i].shooted.id != -1
-		&& c->serv->player_data[i].shooted.id < c->nb_players
-		&& ((c->serv->player_data[i].shooted.shoot == 1 && 
-		c->serv->player_data[c->serv->player_data[i].shooted.id].health -
-		_weapon()[c->serv->player_data[i].weapon_id]->power <= 0)
-		|| (c->serv->player_data[i].shooted.shoot == 2 && 
-		c->serv->player_data[c->serv->player_data[i].shooted.id].health -
-		_weapon()[c->serv->player_data[i].weapon_id]->headshot <= 0) ||
-		(c->serv->player_data[i].shooted.shoot == 3 && 
-		c->serv->player_data[c->serv->player_data[i].shooted.id].health -
-		_weapon()[c->serv->player_data[i].weapon_id]->footshot <= 0)))
-		{
-			team = c->serv->player_data[i].team;
-			if (team == 2)
-				--team;
-			++c->serv->player_data[i].kills;
-			team = c->serv->player_data[c->serv->player_data[i].shooted.id].team;
-			if (team == 2)
-				--team;
-			++c->serv->player_data[c->serv->player_data[i].shooted.id].deaths;
-		}
-		i++;
-	}
-	pthread_mutex_unlock(c->mutex);
-}
-
-int	ft_update_team(t_client_thread *c)
-{
-	(void)c;
-	//update_team_array(c);
-	return (0);
-}
-
 void	init_team_server(t_client_thread *c)
 {
 	int			i;
@@ -556,6 +510,7 @@ void	*client_routine(void *client_t)
 	{
 		if (wait_lobby(client))
 			return (NULL);
+		memset(&client->round_state_send, 0, sizeof(client->round_state_send));
 		pthread_mutex_lock(client->mutex);
 		client->restart = 0;
 		client->serv->restart = 0;
@@ -564,6 +519,8 @@ void	*client_routine(void *client_t)
 		client->serv->started = 0;
 		client->serv->round_end = 0;
 		restart_state(client);
+		client->round_state_send[ROUND_END_WAIT] = 0;
+		printf("ici %d => %d\n", client->id, client->round_state_send[ROUND_END_WAIT]);
 		client->serv->round_state[ROUND_PLAY] = client->nb_players;
 		init_team_server(client);
 		get_team_id(client);
@@ -571,8 +528,6 @@ void	*client_routine(void *client_t)
 		while (1)
 		{
 			if (ft_recv_first_data(client))
-				return (NULL);
-			if (ft_update_team(client))
 				return (NULL);
 			if (ft_send_all_data(client))
 				return (NULL);

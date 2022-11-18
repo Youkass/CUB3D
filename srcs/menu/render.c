@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 18:09:48 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 21:20:45 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,6 +314,8 @@ void	menu_leaderboard(void)
 			_var()->blue[i], i, TEAM_BLUE);
 		i++;
 	}
+	draw_text_scale("press (Maj) to restart", pos(WIN_W / 2 - 462,
+		WIN_H - 150), pos(2, 2), WHITE);
 }
 
 void	menu_pseudo(void)
