@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 01:43:13 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 01:06:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,7 +312,7 @@ void	init_shot3F(t_vector3F start, t_vector3F end)
 	_player()->shott[n].pos = _player()->shott[n].n_pos[0];
 	_player()->shott[n].shot = 1;
 	_player()->shott[n].velo3.dist = dist_3f(start, end);
-	_player()->shott[n].velo3.time_ms = (int)get_time_velo3F(one_dist2F(posf(start.x, start.y), posf(end.x, end.y)), 30000);
+	_player()->shott[n].velo3.time_ms = (int)get_time_velo3F(one_dist2F(posf(start.x, start.y), posf(end.x, end.y)), 15000);
 	_player()->shott[n].velo3.velo = velocity_ms3F(_player()->shott[n].velo3.dist,
 		_player()->shott[n].velo3.time_ms);
 	_player()->shott[n].start_time = get_clock(_var()->clock);

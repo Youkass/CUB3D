@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 21:50:20 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 01:41:57 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 01:06:46 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_weapons(void)
 	_weapon()[0]->name = ft_malloc(sizeof(char) * 6);
 	_weapon()[0]->name = "Rifle\0";
 	_weapon()[0]->id = 0;
-	_weapon()[0]->range = 25;
+	_weapon()[0]->range = 99;
 	_weapon()[0]->power = 15;
 	_weapon()[0]->reload_ms = 200000;
 	_weapon()[0]->ammo = 15;
@@ -31,7 +31,7 @@ void	init_weapons(void)
 	_weapon()[1]->name = ft_malloc(sizeof(char) * 4);
 	_weapon()[1]->name = "Gun\0";
 	_weapon()[1]->id = 0;
-	_weapon()[1]->range = 2;
+	_weapon()[1]->range = 99;
 	_weapon()[1]->power = 30;
 	_weapon()[1]->reload_ms = 300000;
 	_weapon()[1]->ammo = 8;
