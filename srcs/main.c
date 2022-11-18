@@ -6,12 +6,13 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/16 19:39:03 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 00:59:50 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h> 
 # include "../includes/cub.h"
+
 
 void	get_key(int keycode)
 {
@@ -164,54 +165,6 @@ void	generate_dsprite_red(void)
 	_image()->walk_sprite_red[7] = generate_image("./img/soldier/red/walk/southwest.xpm");
 
 	_image()->death_sprite_red = generate_image("./img/soldier/red/death.xpm");
-}
-
-void	restart_player(void)
-{
-	double	dist;
-	int		i;
-
-	_player()->is_start = 0;
-	_log()->log = NULL;
-	_var()->alive[TRED] = _var()->nb_player / 2;
-	_var()->alive[TBLUE] = _var()->nb_player / 2;
-	memset(&_player()->kill_match, 0, sizeof(_player()->kill_match));
-	memset(&_player()->kill_round, 0, sizeof(_player()->kill_round));
-	_player()->nr = 0;
-	_var()->match_finished = 0;
-	_player()->kills = 0;
-	_player()->deaths = 0;
-	memset(_player()->kill_round, 0, sizeof(_player()->kill_round));
-	_player()->nr = 0;
-	_player()->nm = 0;
-	_player()->is_shooting = 0;
-	_player()->can_shoot = 1;
-	_player()->start_reload = get_clock(_var()->clock);
-	_player()->health = 100;
-	i = 0;
-	while (i < NB_WEAPONS)
-	{
-		_player()->ammo[i] = _weapon()[i]->ammo;
-		_player()->full_ammo[i] = _weapon()[i]->full_ammo;
-		i++;
-	}
-	_player()->shoot_n = 0;
-	_player()->z = 0;
-	_player()->dx = -1;
-	_player()->shooted.id = -1;
-	_player()->shooted.shoot = 0;
-	_player()->dy = 0;
-	_player()->is_dead = 0;
-	_player()->is_crouching = 0;
-	_player()->death_n = 0;
-	_player()->plane = (t_vector2F){0, -0.66};
-	_player()->pitch = 0;
-	_player()->norm_pitch = 0;
-	dist = hypot(_player()->dx, _player()->dy);
-	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
-	_player()->is_walking = 0;
-	_player()->spectate = 0;
-	_player()->spec_id = -1;
 }
 
 void	ft_init_player_pos(void)
@@ -410,8 +363,8 @@ int	ft_loop_hook(void)
 	if (_var()->mode == GAME)
 	{
 		ft_loop();
-		// mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
-		// mouse_rotate();
+		mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+		mouse_rotate();
 	}
 	if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();
@@ -486,7 +439,7 @@ int	ft_game(void)
 	mlx_loop_hook(_mlx()->mlx, &ft_loop_hook, NULL);
 	mlx_hook(_mlx()->mlx_win, 5, 1L << 3, &ft_mouse_release, NULL);
 	mlx_mouse_hook(_mlx()->mlx_win, &menu_mouse_hook, NULL);
-	// mlx_expose_hook(_mlx()->mlx_win, ft_expose, &_var()->mode);
+	mlx_expose_hook(_mlx()->mlx_win, ft_expose, &_var()->mode);
 	return (0);
 }
 
@@ -680,3 +633,4 @@ int main(int argc, char **argv)
 	mlx_loop(_mlx()->mlx);
 	return (0);
 }
+

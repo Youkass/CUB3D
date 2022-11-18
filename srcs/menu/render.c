@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 20:03:46 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 00:52:55 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,26 +129,6 @@ void	draw_leaderboard(void)
 	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
 	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
 	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
-}
-
-void	click(void)
-{
-	_var()->start_click = get_clock(_var()->clock);
-	_var()->click = 1;
-}
-
-int	click_update(void)
-{
-	if (_var()->click && get_time(_var()->start_click)> 170000)
-		_var()->click = 0;
-	return (0);
-}
-
-int	click_delay(void)
-{
-	if (_var()->click == 1)
-		return(1);
-	return (0);
 }
 
 void	update_key(void)
