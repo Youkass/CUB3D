@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 21:15:22 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/19 00:05:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,8 @@ int	ft_play_end_round(void)
 	media = _media();
 	if (_var()->round_state == ROUND_END && _var()->match_finished < 0)
 	{
-		if (_var()->last_round_winner == _player()->team_id)
+		ma_sound_stop(&(media->sound[GAME_MUSIC][_var()->ran_i]));
+		if (_var()->last_round_winner != ft_check_my_team())
 			ft_play_end_sound(&(media->sound[ROUND_MUSIC][ROUND_WIN]));
 		else
 			ft_play_end_sound(&(media->sound[ROUND_MUSIC][ROUND_LOST]));
@@ -200,11 +201,10 @@ int	ft_play_end_game(void)
 	media = _media();
 	if (_var()->match_finished > 0)
 	{
-		if (_team()[_player()->team]->win == NB_ROUNDS)
+		if (_var()->last_round_winner == ft_check_my_team())
 			ft_play_end_sound(&(media->sound[ROUND_MUSIC][GAME_WIN]));
 		else
 			ft_play_end_sound(&(media->sound[ROUND_MUSIC][GAME_LOST]));
-		ft_init_ran();
 		return (1);
 	}
 	return (0);
@@ -225,12 +225,20 @@ void	ft_check_end_songs(void)
 		ma_sound_stop(&(media->sound[ROUND_MUSIC][ROUND_LOST]));
 }
 
-int	ft_check_my_team(void)
+int	ft_check_enemie_team(void)
 {
-	if (_player()->team == TRED)
+	if (_player()->team == TEAM_RED)
 		return (TBLUE);
 	else
 		return (TRED);
+}
+
+int	ft_check_my_team(void)
+{
+	if (_player()->team == TEAM_RED)
+		return (TRED);
+	else
+		return (TBLUE);
 }
 
 static void	ft_if_game(void)
@@ -240,20 +248,26 @@ static void	ft_if_game(void)
 	media = _media();
 	if (ma_sound_is_playing(&(media->sound[MENU_MUSIC][0])))
 		ma_sound_stop(&(media->sound[MENU_MUSIC][0]));
-	if (_var()->alive[_player()->team] == 1
-		&& _var()->alive[ft_check_my_team()] > 1)
+	if (_var()->alive[ft_check_enemie_team()] == 1
+		&& _var()->alive[ft_check_my_team()] == 1 && _var()->nb_player > 2)
 	{
-		ma_sound_stop(&(media->sound[GAME_MUSIC][_var()->ran_i]));
-		ft_start_from_start(&(media->sound[GAME_MUSIC][ASHES]));
-	}
-	else if (_var()->alive[_player()->team] == 1
-		&& _var()->alive[ft_check_my_team()] == 1)
-	{
+		printf("je vais lancé MORTAL\n");
+		ma_sound_stop(&(media->sound[GAME_MUSIC][ASHES]));
 		ma_sound_stop(&(media->sound[GAME_MUSIC][_var()->ran_i]));
 		ft_start_from_start(&(media->sound[GAME_MUSIC][MORTAL]));
 	}
-	ft_check_end_songs();
-	ft_start_from_start(&(media->sound[GAME_MUSIC][_var()->ran_i]));
+	else if (_var()->alive[ft_check_my_team()] == 1
+		&& _var()->alive[ft_check_enemie_team()] > 1)
+	{
+		printf("je vais lancé ashes\n");
+		ma_sound_stop(&(media->sound[GAME_MUSIC][_var()->ran_i]));
+		ft_start_from_start(&(media->sound[GAME_MUSIC][ASHES]));
+	}
+	else
+	{
+		ft_check_end_songs();
+		ft_start_from_start(&(media->sound[GAME_MUSIC][_var()->ran_i]));
+	}
 }
 
 void	ft_play_music(int index)
@@ -261,22 +275,24 @@ void	ft_play_music(int index)
 	t_media	*media;
 
 	media = _media();
-	if (_menu()->mode == MENU_START || _menu()->mode == INTRO)
+	(void)index;
+	if ( _menu()->mode == MENU_LEADERBOARD)
 	{
-		ft_play_end_round();
 		ft_play_end_game();
-		if (!ft_play_end_round() && !ft_play_end_game())
-		{
-			index = ft_check_game_music();
-			if (index > 0)
-				ma_sound_stop(&(media->sound[GAME_MUSIC][index]));
-			ft_start_from_start((&(media->sound[MENU_MUSIC][0])));
-		}
+		ft_init_ran();
+	}
+	if (_menu()->mode == MENU_START || _menu()->mode == INTRO 
+			|| _menu()->mode == MENU_LOBBY)
+	{
+		ft_check_end_songs();
+		printf("je coupe les ends song et je passe en mode menu_music\n");
+		ma_sound_stop(&(media->sound[GAME_MUSIC][_var()->ran_i]));
+		printf("je coupe GAME MUSIC index ran_i\n");
+		ft_start_from_start((&(media->sound[MENU_MUSIC][0])));
+		printf("je lance menu_music\n");
 	}
 	if (_var()->mode == GAME)
-	{
 		ft_if_game();
-	}
 }
 
 void	ft_play_shot_sound(t_obj player)
