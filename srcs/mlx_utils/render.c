@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:34:23 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/14 16:47:07 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 01:12:48 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ void	render_health(t_vector2D	a)
 		draw_rectange(pos(a.x + 1 + i, a.y + 1), pos(1, 20), RED);
 		i++;
 	}
-	draw_text_scale(str, pos(a.x + ft_strlen(str) * (42 / 4), a.y + 5), pos(4, 4), WHITE);
+	draw_text_scale(str, pos(a.x + ft_strlen(str) * (42 / 4), a.y + 5), pos(4, 4), colo(0, 0, 0));
 }
