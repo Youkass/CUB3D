@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/16 01:42:47 by yobougre         ###   ########.fr        #
+#    Updated: 2022/11/18 17:44:59 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,6 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/utils/singleton.c\
 					srcs/utils/singleton_2.c\
 					srcs/utils/malloc_hooks_enum.c\
-					srcs/utils/key_hooks.c\
 					srcs/utils/clock.c\
 					srcs/utils/list.c\
 					srcs/utils/collisions.c\

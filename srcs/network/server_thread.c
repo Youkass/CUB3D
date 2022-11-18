@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/18 00:45:15 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:28:39 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ int	round_wait_start(t_send_server_game *data, t_client_thread *client)
 {
 	if (client->serv->round_state[ROUND_WAIT_START] >= client->serv->linked_players)
 	{
-		printf("WAIT START\n");
+		printf("[%d] WAIT START\n", client->id);
 		if (client->round_state_send[ROUND_END_WAIT] != -1)
 		{
 			--client->serv->round_state[ROUND_END_WAIT];

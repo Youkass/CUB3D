@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 02:00:41 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:52:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	init_cast(int i, t_obj *player, t_obj *my_player)
 {
-	_pc()->pos.x = player->shott[i].pos3F.x - my_player->x;
-	_pc()->pos.y = player->shott[i].pos3F.y -my_player->y;
+	_pc()->pos.x = player->shott[i].pos.x - my_player->x;
+	_pc()->pos.y = player->shott[i].pos.y -my_player->y;
 	_pc()->inv_det = 1.0 / (my_player->plane.x * my_player->dy -
 			my_player->dx * my_player->plane.y);
 	_pc()->trans.x = _pc()->inv_det * (my_player->dy *
@@ -24,7 +24,7 @@ static void	init_cast(int i, t_obj *player, t_obj *my_player)
 			_pc()->pos.x + my_player->plane.x * _pc()->pos.y);
 	_pc()->sprite_screen_x = (int)((WIN_W / 2) * (1 + _pc()->trans.x
 				/ _pc()->trans.y));
-	_pc()->move_screen = (int)((int)player->shott[i].pos3F.z / _pc()->trans.y) + my_player->pitch + my_player->z / _pc()->trans.y;
+	_pc()->move_screen = (int)((int)player->shott[i].pos.z / _pc()->trans.y) + my_player->pitch + my_player->z / _pc()->trans.y;
 }
 
 static void	compute_draw(void)

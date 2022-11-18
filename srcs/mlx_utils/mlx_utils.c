@@ -245,14 +245,14 @@ void	update_bullets(void)
 {
 	int	i;
 	int	new_shoot_n;
-	t_vector2F velo;
+	t_vector3F velo;
 
 	new_shoot_n = _player()->shoot_n;
 	i = 0;
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point(_player()->shott[i].start_pos,
+		velo = velocity_get_point3F(_player()->shott[i].start_pos,
 			_player()->shott[i].velo.velo,
 				get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time)
@@ -281,21 +281,22 @@ void	update_bullets3F(void)
 	t_vector3F velo;
 
 	new_shoot_n = _player()->shoot_n;
-	i = -1;
-	while (i++ < _player()->shoot_n)
+	i = 0;
+	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point3F(_player()->shott[i].start_pos3F,
-			_player()->shott[i].velo3.velo,
+		velo = velocity_get_point3F(_player()->shott[i].start_pos,
+			_player()->shott[i].velo.velo,
 				get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time)
-				>= (float)_player()->shott[i].velo3.time_ms)
+				>= (float)_player()->shott[i].velo.time_ms)
 		{
 			new_shoot_n--;
 			recompute_array_shot(i);
 		}
 		else
-			_player()->shott[i].pos3F = velo;
+			_player()->shott[i].pos = velo;
+		i++;
 	}
 	_player()->shoot_n = new_shoot_n;
 }

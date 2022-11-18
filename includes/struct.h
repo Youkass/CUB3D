@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/17 19:04:53 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:50:56 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,16 +179,10 @@ typedef struct	s_log
 
 typedef struct	s_shot
 {
-	t_vector2F		start_pos;
-	t_vector2F		end_pos;
-	t_vector2F		pos;
-	t_vector2F		n_pos[SHOT_FRAME];
-	t_velo			velo;
-
-	t_velo3			velo3;
-	t_vector3F		start_pos3F;
-	t_vector3F		end_pos3F;
-	t_vector3F		pos3F;
+	t_velo3			velo;
+	t_vector3F		start_pos;
+	t_vector3F		end_pos;
+	t_vector3F		pos;
 
 	unsigned long	start_time;
 	int				n;
