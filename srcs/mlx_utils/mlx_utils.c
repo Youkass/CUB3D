@@ -381,7 +381,8 @@ void	set_spectate(void)
 	int	i;
 
 	i = 0;
-	if (_player()->is_dead && _var()->red_alive > 0 && _var()->blue_alive > 0)
+	if (_player()->is_dead && _var()->alive[TRED] > 0
+		&& _var()->alive[TBLUE] > 0)
 	{
 		_player()->spectate = 1;
 		_player()->spec_id = - 1;
@@ -452,6 +453,18 @@ static void	ft_is_not_knife(void)
 		_image()->ammo, pos(125, 220 + _image()->ammo.h - 10), posf(4, 4));
 }
 
+void	draw_death(void)
+{
+	char	*str;
+
+	str = ft_strjoin("Spectating: ", _var()->o_player[_player()->
+			spec_id].pseudo);
+	draw_text("You are dead..", pos(WIN_W / 2 - 168, 100), WHITE);
+	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id
+		<= _var()->linked_players)
+		draw_text(str, pos(WIN_W / 2 - ft_strlen(str), 200), WHITE);
+}
+
 int	ft_loop()
 {
 	ft_call();
@@ -459,6 +472,8 @@ int	ft_loop()
 		ft_loop_multi();
 	if (_player()->is_shooting > 0)
 		ft_play_own_shot();
+	if (_player()->is_dead)
+		draw_death();
 	update_bullets3F();
 	bullet_casting();
 	hud();
