@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 21:22:06 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 22:01:55 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ esc : 65307
 # define CMD_PRINT_IP "hostname -i > .tmp"
 //# define CMD_PRINT_IP "127.0.0.1"
 //# define CMD_PRINT_IP "ipconfig getifaddr en0"
-# define MAX_PLAYER 6
+# define MAX_PLAYER 10
 # define MAX_SHOT_SOUND 100
 # define HOST 1
 # define BUFFER_SIZE 30

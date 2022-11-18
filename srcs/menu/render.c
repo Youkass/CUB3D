@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 21:20:45 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 22:02:38 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,6 @@ void	menu_player(void)
 		20}, (t_vector2F){0.15, 0.15});
 	ft_put_image_to_image(*_img(),
 		_menu()->nb_p[0][_menu()->p_state[0].state], _butpl()[0]);
-	ft_put_image_to_image(*_img(),
-		_menu()->nb_p[1][_menu()->p_state[1].state], _butpl()[1]);
-	ft_put_image_to_image(*_img(),
-		_menu()->nb_p[2][_menu()->p_state[2].state], _butpl()[2]);
 	ft_put_image_to_image(*_img(),
 		_menu()->nb_p[3][_menu()->p_state[3].state], _butpl()[3]);
 }
@@ -288,10 +284,11 @@ void	menu_lobby(void)
 			(t_vector2D){200, 10}, pos(2, 2), colo(100, 86, 68));
 	else
 		draw_text(_var()->ip, (t_vector2D){200, 10}, colo(100, 86, 68));
-	if (_var()->is_host == SERVER && _var()->linked_players >= _var()->nb_player
-		&& is_neutral())
-		draw_text("'Space' to start",
-			(t_vector2D){200, 300 + (i + 2) * 60}, colo(100, 86, 68));
+	if (_var()->is_host == SERVER && is_neutral())
+		{
+		draw_text_scale("press (Space) to start", pos(WIN_W / 2 - 462,
+			WIN_H - 150), pos(2, 2), WHITE);
+		}
 }
 
 void	menu_leaderboard(void)
