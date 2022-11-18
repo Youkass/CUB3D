@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 01:06:58 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 18:04:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,25 +188,6 @@ void	shoot(void)
 	}
 }
 
-void	compute_shot(t_vector2F start, t_vector2F end)
-{
-	t_vector2F	distance;
-	t_vector2F	nstep;
-	int	i;
-
-	distance.x = end.x - start.x;
-	distance.y = end.y - start.y;
-	nstep.x = distance.x / SHOT_FRAME;
-	nstep.y = distance.y / SHOT_FRAME;
-	i = 0;
-	while (i < SHOT_FRAME)
-	{
-		_player()->shott[_player()->shoot_n].n_pos[i] = start;
-		start = add_2f(start, nstep);
-		i++;
-	}
-}
-
 static void	init_ray_wall(t_raycasting *r)
 {
 	r->cam.x = 2 * (WIN_W / 2) / (double)WIN_W - 1;
@@ -305,16 +286,17 @@ void	init_shot3F(t_vector3F start, t_vector3F end)
 	int	n;
 
 	n = _player()->shoot_n;
-	_player()->shott[n].start_pos3F = start;
-	_player()->shott[n].end_pos3F = end;
+	_player()->shott[n].start_pos = start;
+	_player()->shott[n].end_pos = end;
 	_player()->shott[n].n = 0;
 	_player()->shott[n].weapon_type = _player()->weapon_id;
-	_player()->shott[n].pos = _player()->shott[n].n_pos[0];
 	_player()->shott[n].shot = 1;
-	_player()->shott[n].velo3.dist = dist_3f(start, end);
-	_player()->shott[n].velo3.time_ms = (int)get_time_velo3F(one_dist2F(posf(start.x, start.y), posf(end.x, end.y)), 15000);
-	_player()->shott[n].velo3.velo = velocity_ms3F(_player()->shott[n].velo3.dist,
-		_player()->shott[n].velo3.time_ms);
+	_player()->shott[n].velo.dist = dist_3f(start, end);
+	_player()->shott[n].velo.time_ms = (int)get_time_velo3F(one_dist2F(posf(start.x, start.y), posf(end.x, end.y)), 15000);
+	_player()->shott[n].velo.velo = velocity_ms3F(_player()->shott[n].velo.dist,
+		_player()->shott[n].velo.time_ms);
 	_player()->shott[n].start_time = get_clock(_var()->clock);
+	_player()->shott[n].pos = pos3f(0, 0, 0);
+	//velocity_get_point3F(_player()->shott[n]. start_pos, _player()->shott[n].velo.velo, get_time(_player()->shott[n].start_time));
 	_player()->shoot_n++;
 }

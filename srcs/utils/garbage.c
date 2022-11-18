@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/16 15:54:17 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:40:40 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	ft_black_hole(int exit_code)
 {
 	t_list	*tmp;
 
+	printf("salut\n");
 	tmp = _lst();
 	ft_lstclear(&tmp, free);
 	exit(exit_code);

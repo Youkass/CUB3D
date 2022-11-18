@@ -115,7 +115,7 @@ void	ft_copy_data_before_pong(t_obj *player)
 	while (i < _player()->shoot_n)
 	{
 		player->shott[i] = _player()->shott[i];
-		player->shott[i].pos3F = _player()->shott[i].pos3F;
+		player->shott[i].pos = _player()->shott[i].pos;
 		// while (j < SHOT_FRAME)
 		// {
 		// 	player->shott[i].n_pos[j] = _player()->shott[i].n_pos[j];
@@ -183,19 +183,23 @@ void	ft_pong_client(void)
 		client.restart = 1;
 		_var()->restart = 0;
 	}
-	if (send(_var()->socket, &client, sizeof(client), 0) < 0)
+	if (send(_var()->socket, &client, sizeof(client), 0) <= 0)
 	{
 		_var()->mode = MENU;
 		_menu()->mode = MENU_START;
+		restart_player();
+		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		return ;
 	}
 	memset(&serv, 0, sizeof(serv));
 	_var()->alive[TRED] = 0;
 	_var()->alive[TBLUE] = 0;
-	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) < 0)
+	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) <= 0)
 	{
 		_var()->mode = MENU;
 		_menu()->mode = MENU_START;
+		restart_player();
+		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		return ;
 	}
 	_var()->linked_players = serv.linked_players;
@@ -223,10 +227,11 @@ void	ft_pong_client(void)
 				[i].id, serv.player[i].kill_round[serv.player[i].nr - 1])));
 
 		int	j = 0;
-		while (j < _player()->shoot_n)
+		while (j < serv.player[i].shoot_n)
 		{
-			_var()->o_player[i].shott[j] = _player()->shott[j];
-			_var()->o_player[i].shott[j].pos3F = _player()->shott[j].pos3F;
+			printf("[%d] => %f, %f, %f\n", serv.player[i].id, serv.player[i].shott[j].pos.x, serv.player[i].shott[j].pos.y, serv.player[i].shott[j].pos.z);
+			_var()->o_player[i].shott[j] = serv.player[i].shott[j];
+			_var()->o_player[i].shott[j].pos = serv.player[i].shott[j].pos;
 			++j;
 		}
 		_var()->o_player[i] = serv.player[i];
@@ -278,3 +283,4 @@ void	ft_pong_client(void)
 		_var()->freeze = 0;
 	}
 }
+

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/16 01:42:30 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 17:54:42 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -526,22 +526,15 @@ void	init_var(void)
 void	init_data_shot(t_obj *player)
 {
 	int	i;
-	int	j;
 
-	j = 0;
 	i = 0;
 	while (i < MAX_BULLET)
 	{
-		player->shott[i].end_pos = (t_vector2F){0, 0};
+		player->shott[i].end_pos = pos3f(0, 0, 0);
 		player->shott[i].n = 0;
-		while (j < SHOT_FRAME)
-		{
-			player->shott[i].n_pos[j] = (t_vector2F){0, 0};
-			j++;
-		}
-		player->shott[i].pos = (t_vector2F){0, 0};
+		player->shott[i].pos = pos3f(0, 0, 0);
 		player->shott[i].shot = 0;
-		player->shott[i].start_pos = (t_vector2F){0, 0};
+		player->shott[i].start_pos = pos3f(0, 0, 0);
 		player->shott[i].start_time = 0;
 		player->shott[i].weapon_type = 0;
 		i++;

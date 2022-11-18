@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dyn_array.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:12:11 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 11:59:50 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/18 17:44:14 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,20 @@ int	ft_in_array(t_array *a, int value)
 		i++;
 	}
 	return (0);
+}
+
+t_vector2F	get_90_angle(int	dir)
+{
+	double		deg;
+	double		rad;
+	t_vector2F	v;
+
+	deg = rad_to_deg(atan2(_player()->dy, _player()->dx)) + (90 * dir);
+	rad = deg_to_rad(deg);
+	v.x = (cos(rad));
+	v.y = (sin(rad));
+	v.x+=_player()->dx;
+	v.y+=_player()->dy;
+	deg = (atan2(v.y - _player()->dy, v.x - _player()->dx));  
+	return (posf(cos(deg), sin(deg)));
 }

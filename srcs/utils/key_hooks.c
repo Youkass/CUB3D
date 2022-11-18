@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 14:10:39 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 18:06:07 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,22 +236,6 @@ int	ft_right(void)
 	return (0);
 }
 
-t_vector2F	get_90_angle(int	dir)
-{
-	double		deg;
-	double		rad;
-	t_vector2F	v;
-
-	deg = rad_to_deg(atan2(_player()->dy, _player()->dx)) + (90 * dir);
-	rad = deg_to_rad(deg);
-	v.x = (cos(rad));
-	v.y = (sin(rad));
-	v.x+=_player()->dx;
-	v.y+=_player()->dy;
-	deg = (atan2(v.y - _player()->dy, v.x - _player()->dx));  
-	return (posf(cos(deg), sin(deg)));
-}
-
 int	ft_strafe_left(void)
 {
 	t_vector2F	dir;
@@ -303,31 +287,30 @@ int	ft_left(void)
 int	ft_escape(void)
 {
 	printf("je passe ici\n");
-	//if (click_delay())
-	//	return (0);
-	click();
+	if (click_delay())
+		return (0);
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER) && _player()->id == 0)
 	{
+		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		close(_var()->socket);
 		if (_var()->pid > 0)
 			kill((pid_t)_var()->pid, SIGKILL);
 		_var()->pid = -1;
 		click();
+		_var()->is_host = NONE;
 	}
-	else if (_var()->mode == GAME)
+	if (_var()->mode == GAME)
 	{
 		restart_player();
+		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		_var()->mode = MENU;
 		_menu()->mode = MENU_START;
-		sleep(1);
 		click();
 	}
 	else if (_var()->mode == MENU)
 	{
 		if (_menu()->mode == MENU_START)
-		{
 			ft_black_hole(0);
-		}
 		if (_menu()->mode == MENU_PLAYER)
 			_menu()->mode = MENU_START;
 		if (_menu()->mode == MENU_IP)

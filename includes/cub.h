@@ -214,6 +214,7 @@ void	print_data_recv(t_obj	*player);
 void	restart_round(void);
 void	render_kill_log();
 void	ft_pong_client(void);
+int	ft_escape(void);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/network_client/network_utils.c                 */
@@ -230,9 +231,9 @@ void	ft_init_img();
 void	ft_pixel_put(float x, float y, int color);
 void	ft_reload_frame();
 void	ft_fps(void);
+void	draw_sky(void);
 void	*ft_draw_void(void *r);
-void		draw_sky(void);
-void	draw_void_thread();
+void	draw_void_thread(void);
 void	check_death(void);
 void	update_bullets(void);
 void	recompute_array_shot(int index);
@@ -335,6 +336,7 @@ void	click(void);
 int	click_update(void);
 int	click_delay(void);
 void	restart_player(void);
+int	is_neutral(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/key_hooks.c                        */
@@ -353,7 +355,6 @@ t_vector2F	get_90_angle(int	dir);
 int	ft_strafe_left(void);
 int	ft_strafe_right(void);
 int	ft_left(void);
-int	ft_escape(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
@@ -447,7 +448,6 @@ void	menu_start(void);
 void	menu_player(void);
 void	draw_lobby(void);
 void	draw_leaderboard(void);
-int	is_neutral(void);
 void	update_key(void);
 void	draw_pseudo_box(char	*pseudo, int i, int team);
 void	draw_pseudo_box_leader(char	*pseudo, int id, int i, int team);
