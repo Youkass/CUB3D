@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 01:43:40 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 02:00:41 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	init_cast(int i, t_obj *player, t_obj *my_player)
 {
-	printf("x =%f, y = %f, w =%f\n", player->shott[i].pos3F.x, player->shott[i].pos3F.y, player->shott[i].pos3F.z);
 	_pc()->pos.x = player->shott[i].pos3F.x - my_player->x;
 	_pc()->pos.y = player->shott[i].pos3F.y -my_player->y;
 	_pc()->inv_det = 1.0 / (my_player->plane.x * my_player->dy -
@@ -100,7 +99,6 @@ void	bullet_casting(void)
 		j = 0;
 		while (j < _var()->o_player[i].shoot_n)
 		{
-			printf("id => %d\n", _var()->o_player[i].id);
 			if (i != 0)
 				init_cast(j, &_var()->o_player[i], &player);
 			// 	init_cast(j, &player, &player);
