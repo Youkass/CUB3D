@@ -6,13 +6,13 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/09 19:35:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/16 01:18:35 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-struct timeval	start_clock()
+struct timeval	start_clock(void)
 {
 	struct timeval	start;
 

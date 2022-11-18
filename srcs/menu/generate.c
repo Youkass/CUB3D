@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/12 02:28:53 by yuro4ka          ###   ########.fr       */
+/*   Updated: 2022/11/17 21:46:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@ couldn't be generated.
 t_data	generate_image(char *path)
 {
 	t_data	sprite;
-
+	
+	memset(&sprite, 0, sizeof(t_data));
 	if (!path)
-	{
-		sprite.img = NULL;
 		return (sprite);
-	}
 	sprite.img = mlx_xpm_file_to_image(_mlx()->mlx, path,
 			&sprite.w, &sprite.h);
 	if (!sprite.img)
@@ -272,7 +270,7 @@ void    gen_menu_images(void)
 	generate_button_state();
 	gen_serv_but();
 	_menu()->wall = generate_image("./img/wall.xpm");
-	_menu()->logo = generate_image("./img/menu/img/logo.xpm");
+	_menu()->logo = generate_image("./img/intro/logo.xpm");
 	if (WIN_W == 1440)
 		_menu()->bg = generate_image("./img/bg1440.xpm");
 	else
