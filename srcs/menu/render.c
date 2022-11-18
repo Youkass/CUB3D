@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/17 22:25:43 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 01:29:34 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,20 @@ void	draw_leaderboard(void)
 	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
 	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
 	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
+}
+
+int	is_neutral(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < _var()->linked_players)
+	{
+		if (_var()->o_player[i].team == TEAM_VOID)
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void	update_key(void)
@@ -277,7 +291,8 @@ void	menu_lobby(void)
 		, pos(2, 2), colo(100, 86, 68));
 	else
 		draw_text(_var()->ip, (t_vector2D){200, 10}, colo(100, 86, 68));
-	if (_var()->is_host == SERVER && _var()->linked_players >= _var()->nb_player)
+	if (_var()->is_host == SERVER && _var()->linked_players >= _var()->nb_player
+	&& is_neutral())
 		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, colo(100, 86, 68));
 }
 

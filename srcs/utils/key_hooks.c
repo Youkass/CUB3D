@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/16 01:36:31 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 01:27:09 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ void	key_hook(void)
 		if (_menu()->mode == INTRO)
 			_menu()->mode = MENU_START;
 		if (_var()->is_host == SERVER && _menu()->mode == MENU_LOBBY && _var()
-			->mode != GAME && _var()->nb_player == _var()->linked_players) // menu lobby
+			->mode != GAME && _var()->nb_player == _var()->linked_players
+			 && is_neutral()) // menu lobby
 		{
 			_player()->is_start = 1;
 			printf("j'ai appuyé sur space\n");
