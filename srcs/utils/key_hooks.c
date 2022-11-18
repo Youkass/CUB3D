@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 20:52:53 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 21:21:53 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	key_hook(void)
 		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET
 		&& _player()->ammo[_player()->weapon_id] > 0)
 		{
+			ft_play_own_shot();
 			_player()->can_shoot = 0;
 			_player()->is_shooting = 1;
 			--_player()->ammo[_player()->weapon_id];

@@ -43,11 +43,6 @@ int	ft_init_client(void)
 	printf("je suis connecté\n");
 	if (recv(_var()->socket, &(_player()->id), sizeof(int), 0) < 0)
 		return (EXIT_FAILURE);
-	//if (_player()->id == 1)
-	//{
-	//	_player()->spectate = 1;
-	//	_player()->spec_id = 0;
-	//}
 	printf("je reçois mon id : %d\n", _player()->id);
 	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int), 0) < 0)
 		return (EXIT_FAILURE);
@@ -62,8 +57,6 @@ void	ft_copy_data_before_pong(t_obj *player)
 	int	i;
 
 	i = 0;
-	//player->kill_round.n = _player()->kill_round.n;
-	//player->kill_round.size = _player()->kill_round.size;
 	while (i < (int)_player()->nr)
 	{
 		player->kill_round[i] = _player()->kill_round[i];
