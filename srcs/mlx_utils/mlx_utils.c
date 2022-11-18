@@ -39,7 +39,6 @@ void	ft_init_img()
 	_img()->bits_per_pixel /= 8;
 	_img()->h = WIN_H;
 	_img()->w = WIN_W;
-//	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
 
 /*
@@ -66,12 +65,8 @@ void	ft_pixel_put(float x, float y, int color)
 
 void	ft_reload_frame()
 {
-	// mlx_destroy_images(_mlx()->mlx, _img()->img);
-	// _img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
 		&(_img()->line_length), &(_img()->endian));
-//	_img()->bits_per_pixel /= 8;
-	//mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 }
 
 void	ft_fps(void)
@@ -86,43 +81,88 @@ void	ft_fps(void)
 	_player()->rot_speed = _var()->frame_time * 2.0;
 }
 
-//void	ft_draw_void()
-//{
-//	t_int	var;
-//	t_vector2D	*planet;
 
-//	planet = (t_vector2D[2]){{-1, -1}, {-1, -1}};
-//	var.i = 0;
-//	while (var.i < WIN_W)
-//	{
-//		var.j = 0;
-//		while (var.j < WIN_H)
-//		{
-//			int xo = ((int)_player()->angle * 4) - var.i;
-//			if (xo < 0)
-//				xo += WIN_W;
-//			xo = xo % WIN_W;
+/*===============================================================================*/
+/* DRAW SKY UNDER																 */
+/*===============================================================================*/
+static void	ft_next_while_draw_sky(t_vector2D pt)
+{
+	while (pt.y < WIN_H)
+	{
+		pt.x = 0;
+		while (pt.x < WIN_W)
+		{
+			ft_put_pixel_color(_img(), (char [4]){250, 144, 144, 0},
+				pt.x, pt.y);
+			pt.x++;
+		}
+		pt.y++;
+	}
+	if ( _menu()->draw_pl[0].x != -1 &&  _menu()->draw_pl[0].y != -1)
+		ft_put_sprite_to_images(*_img(), _menu()->planets[0],
+			_menu()->draw_pl[0], (t_vector2D){_menu()->n * 48,
+				_menu()->ny * 48},  (t_vector2D){48, 48});
+}
 
-//			if (var.j < WIN_H / 2 + _player()->pitch)
-//			{
-//				if (var.i == 800 && (var.j + WIN_H / 2) - _player()->pitch == 550)
-//					planet[0] = (t_vector2D){xo, var.j};
-//				else if (var.i == 200 && (var.j + WIN_H / 2) - _player()->pitch == 200)
-//					planet[1] = (t_vector2D){xo, var.j};
-//				else
-//					ft_put_pixel(_img(), &_image()->bg, (t_vector2D){var.i, var.j}, (t_vector2D){xo, (var.j + WIN_H / 2) - _player()->pitch});
-//			}
-//			else
-//				ft_put_pixel_color(_img(), (char [4]){155, 155, 155, 0}, var.i, var.j);
-//			var.j++;
-//		}
-//		var.i++;
-//	}
-//	if (planet[0].x != -1 && planet[0].y != -1)
-//		ft_put_sprite_to_images(*_img(), _menu()->planets[0],  planet[0], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
-//	if (planet[1].x != -1 && planet[1].y != -1)
-//		ft_put_sprite_to_images(*_img(), _menu()->planets[0],  planet[1], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
-//}
+static void	ft_norme_while_draw_sky(int offst, int pitch, t_vector2D *pl_coord)
+{
+	t_vector2D	pt;
+	t_vector2D	tex;
+
+	pt.y = 0;
+	while (pt.y < WIN_H / 2 + pitch)
+	{
+		tex.y = (((pt.y * 2 * WIN_W / (WIN_H)) / 4 )
+			- (pitch * 0.8)) + WIN_H / 2;
+		pt.x = 0;
+		while (pt.x < WIN_W)
+		{
+			tex.x = pt.x * WIN_W / (4 * WIN_W / 2);
+			if (tex.x + offst == pl_coord[0].x && tex.y == 400)
+				_menu()->draw_pl[0] = (t_vector2D){pt.x, pt.y};
+			tex.x = (tex.x + offst) % WIN_W;
+			if (_img() && _image()->bg.img)
+				ft_put_pixel(_img(), &_image()->bg, pt, tex);
+			pt.x++;
+		}
+		pt.y++;
+	}
+	ft_next_while_draw_sky(pt);
+}
+
+static void	ft_norme_draw_sky(t_vector2D *pl_coord)
+{
+	double	angle;
+	int		offset;
+	int		pitch;
+
+	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id <= 
+	_var()->linked_players)
+	{
+		angle = atan2(_var()->o_player[_player()->spec_id].dy,
+			_var()->o_player[_player()->spec_id].dx);
+		pitch = _var()->o_player[_player()->spec_id].pitch;
+	}
+	else
+	{
+		angle = atan2(_player()->dy, _player()->dx);
+		pitch = _player()->pitch;
+	}
+	offset = (int)(angle * WIN_W* 2 / (M_PI * 2)) + (WIN_W / 2) * 2;
+	ft_norme_while_draw_sky(offset, pitch, pl_coord);
+}
+
+void	draw_sky(void)
+{
+	static t_vector2D	pl_coord[2] = {{2000, 500}, {1050, 500}};
+
+	_menu()->draw_pl[0] = pos(-1, -1);
+	_menu()->draw_pl[1] = pos(-1, -1);
+	ft_norme_draw_sky(pl_coord);
+}
+/*===============================================================================*/
+/* DRAW SKY UPSIDE																 */
+/*===============================================================================*/
 
 void	*ft_draw_void(void *r)
 {
@@ -155,77 +195,12 @@ void	*ft_draw_void(void *r)
 			var.j++;
 		}
 		var.i++;
-		//var.j = 0;
-		//while (var.j < WIN_H)
-		//{
-		//	if (var.j < (WIN_H / 2) + _player()->pitch)
-		//		ft_put_pixel(_img(), &_menu()->bg, (t_vector2D){(int)var.i, (int)var.j}, (t_vector2D){(int)var.i, (int)var.j});
-		//	else
-		//		ft_put_pixel_color(_img(), (char [4]){50, 168, 82, 0}, (int)var.i, (int)var.j);
-		//	var.j++;
-		//}
-		//var.i++;
 	}
 	
 	return (NULL);
 }
 
-void		draw_sky(void)
-{
-	double		angle;
-	int			offset;
-	t_vector2D	tex;
-	t_vector2D	pt;
-	int			pitch;
-	static t_vector2D	pl_coord[2] = (t_vector2D [2]){{2000, 500}, {1050, 500}};
-	_menu()->draw_pl[0] = pos(-1, -1);
-	_menu()->draw_pl[1] = pos(-1, -1);
-
-	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id <= 
-	_var()->linked_players)
-	{
-		angle = atan2(_var()->o_player[_player()->spec_id].dy,
-			_var()->o_player[_player()->spec_id].dx);
-		pitch = _var()->o_player[_player()->spec_id].pitch;
-	}
-	else
-	{
-		angle = atan2(_player()->dy, _player()->dx);
-		pitch = _player()->pitch;
-	}
-	offset = (int)(angle * WIN_W* 2 / (M_PI * 2)) + (WIN_W / 2) * 2;
-	pt.y = 0;
-	while (pt.y < WIN_H / 2 + pitch)
-	{
-		tex.y =( ((pt.y * 2 * WIN_W / (WIN_H)) / 4 )- (pitch * 0.8)) + WIN_H / 2;
-		pt.x = 0;
-		while (pt.x < WIN_W)
-		{
-			tex.x = pt.x * WIN_W / (4 * WIN_W / 2);
-			if (tex.x + offset == pl_coord[0].x && tex.y == 400)
-				_menu()->draw_pl[0] = (t_vector2D){pt.x, pt.y};
-			tex.x = (tex.x + offset) % WIN_W;
-			if (_img() && _image()->bg.img)
-				ft_put_pixel(_img(), &_image()->bg, pt, tex);
-			pt.x++;
-		}
-		pt.y++;
-	}
-	while (pt.y < WIN_H)
-	{
-		pt.x = 0;
-		while (pt.x < WIN_W)
-		{
-			ft_put_pixel_color(_img(), (char [4]){250, 144, 144, 0}, pt.x, pt.y);
-			pt.x++;
-		}
-		pt.y++;
-	}
-	if ( _menu()->draw_pl[0].x != -1 &&  _menu()->draw_pl[0].y != -1)
-		ft_put_sprite_to_images(*_img(), _menu()->planets[0], _menu()->draw_pl[0], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
-}
-
-void	draw_void_thread()
+void	draw_void_thread(void)
 {
 	static t_vector2D	r[10];
 	static int			started = 0;
@@ -243,9 +218,16 @@ void	draw_void_thread()
 	for (int i = 0; i < 10; i++)
 		pthread_join(_var()->th_void[i], NULL);
 	if ( _menu()->planets_pos[0].x != -1 &&  _menu()->planets_pos[0].y != -1)
-		ft_put_sprite_to_images(*_img(), _menu()->planets[0], _menu()->planets_pos[0], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
-	if ( _menu()->planets_pos[1].x != -1 &&  _menu()->planets_pos[1].y != -1)
-		ft_put_sprite_to_images(*_img(), _menu()->planets[0], _menu()->planets_pos[1], (t_vector2D){_menu()->n * 48, _menu()->ny * 48},  (t_vector2D){48, 48});
+		ft_put_sprite_to_images(*_img(),
+			_menu()->planets[0], _menu()->planets_pos[0],
+				(t_vector2D){_menu()->n * 48,
+					_menu()->ny * 48},  (t_vector2D){48, 48});
+	if ( _menu()->planets_pos[1].x != -1
+			&&  _menu()->planets_pos[1].y != -1)
+		ft_put_sprite_to_images(*_img(),
+			_menu()->planets[0], _menu()->planets_pos[1],
+				(t_vector2D){_menu()->n * 48,
+					_menu()->ny * 48}, (t_vector2D){48, 48});
 }
 
 void	check_death(void)
@@ -270,8 +252,11 @@ void	update_bullets(void)
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point(_player()->shott[i].start_pos, _player()->shott[i].velo.velo, get_time(_player()->shott[i].start_time));
-		if (get_time(_player()->shott[i].start_time) >= (float)_player()->shott[i].velo.time_ms)
+		velo = velocity_get_point(_player()->shott[i].start_pos,
+			_player()->shott[i].velo.velo,
+				get_time(_player()->shott[i].start_time));
+		if (get_time(_player()->shott[i].start_time)
+				>= (float)_player()->shott[i].velo.time_ms)
 			new_shoot_n--;
 		else
 			_player()->shott[i].pos = velo;
@@ -296,25 +281,78 @@ void	update_bullets3F(void)
 	t_vector3F velo;
 
 	new_shoot_n = _player()->shoot_n;
-	i = 0;
-	while (i < _player()->shoot_n)
+	i = -1;
+	while (i++ < _player()->shoot_n)
 	{
-		//if (_player()->shott[i].n == 0)
-			//_player()->shott[i].start_time = get_clock(_var()->clock);
 		_player()->shott[i].n++;
-		velo = velocity_get_point3F(_player()->shott[i].start_pos3F, _player()->shott[i].velo3.velo, get_time(_player()->shott[i].start_time));
-		if (get_time(_player()->shott[i].start_time) >= (float)_player()->shott[i].velo3.time_ms)
+		velo = velocity_get_point3F(_player()->shott[i].start_pos3F,
+			_player()->shott[i].velo3.velo,
+				get_time(_player()->shott[i].start_time));
+		if (get_time(_player()->shott[i].start_time)
+				>= (float)_player()->shott[i].velo3.time_ms)
 		{
 			new_shoot_n--;
 			recompute_array_shot(i);
 		}
 		else
 			_player()->shott[i].pos3F = velo;
-		i++;
 	}
 	_player()->shoot_n = new_shoot_n;
 }
 
+static void	ft_help_hud_if(int index, unsigned long time_attack)
+{
+	index = normalise_between(pos(0,
+		_weapon()[_player()->weapon_id]->reload_ms),
+			pos(0,  _weapon()[_player()->weapon_id]->shot_frames),
+				time_attack);
+	if (_player()->weapon_id == KNIFE)
+		ft_put_image_to_image_scale(*_img(),
+			_image()->weapons[_player()->weapon_id][ATTACK][0],
+				pos(WIN_W / 2 -
+					(_image()->weapons
+						[_player()->weapon_id][ATTACK][0].w * 2 / 4) + 200,
+							WIN_H -
+								_image()->weapons
+									[_player()->weapon_id][ATTACK][0].h * 2),
+										posf(0.5, 0.5));
+	else
+		ft_put_image_to_image_scale(*_img(),
+			_image()->weapons[_player()->weapon_id][ATTACK]
+				[index], pos(WIN_W / 2 -
+					(_image()->weapons[_player()->weapon_id][ATTACK]
+						[index].w * 2 / 4) + 200, WIN_H -
+							_image()->weapons
+								[_player()->weapon_id]
+									[ATTACK][index].h * 2), posf(0.5, 0.5));
+}
+
+static void	ft_help_hud_else_if(int index, unsigned long time_reload)
+{
+	index = normalise_between(pos(0,
+		_weapon()[_player()->weapon_id]->anim_reloadms), pos(0,
+			_weapon()[_player()->weapon_id]->reload_frames), time_reload);
+	ft_put_image_to_image_scale(*_img(),
+		_image()->weapons[_player()->weapon_id][RELOAD]
+			[index], pos(WIN_W / 2 -
+				(_image()->weapons[_player()->weapon_id][RELOAD]
+					[index].w * 2 / 4) + 200, WIN_H -
+						_image()->weapons[_player()->weapon_id][RELOAD]
+							[index].h * 2 + 50), posf(0.5, 0.5));
+}
+
+static void	ft_help_hud_else(void)
+{
+	_var()->shot_anim = 0;
+	_var()->reload_anim = 0;
+	ft_put_image_to_image_scale(*_img(),
+		_image()->weapons[_player()->weapon_id][NORMAL]
+			[0], pos(WIN_W / 2 -
+				(_image()->weapons[_player()->weapon_id][NORMAL]
+					[0].w * 2 / 4) + 200, WIN_H - _image()->weapons
+						[_player()->weapon_id][NORMAL][0].h * 2),
+							posf(0.5, 0.5));
+}
 
 void	hud(void)
 {
@@ -324,37 +362,17 @@ void	hud(void)
 
 	time_attack = get_time(_var()->shotanim_start);
 	time_reload = get_time(_var()->reloadanim_start);
+	index = 0;
 	ft_put_image_to_image(*_img(), _image()->crosshair, pos(WIN_W / 2 - 8,
 		WIN_H / 2 - 8));
-	// if (_player()->is_shooting)
-	// {
-	if (_var()->shot_anim && time_attack < _weapon()[_player()->weapon_id]->reload_ms)
-	{
-		index = normalise_between(pos(0, _weapon()[_player()->weapon_id]->reload_ms), pos(0,  _weapon()[_player()->weapon_id]->shot_frames), time_attack);
-		if (_player()->weapon_id == KNIFE)
-			ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][ATTACK]
-				[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][ATTACK]
-				[0].w * 2 / 4) + 200, WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][0].h * 2), posf(0.5, 0.5));
-		else
-			ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][ATTACK]
-				[index], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][ATTACK]
-				[index].w * 2 / 4) + 200, WIN_H - _image()->weapons[_player()->weapon_id][ATTACK][index].h * 2), posf(0.5, 0.5));
-	}
-	else if (_var()->reload_anim && (int)time_reload < _weapon()[_player()->weapon_id]->anim_reloadms)
-	{
-		index = normalise_between(pos(0, _weapon()[_player()->weapon_id]->anim_reloadms), pos(0,  _weapon()[_player()->weapon_id]->reload_frames), time_reload);
-		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][RELOAD]
-			[index], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][RELOAD]
-			[index].w * 2 / 4) + 200, WIN_H - _image()->weapons[_player()->weapon_id][RELOAD][index].h * 2 + 50), posf(0.5, 0.5));
-	}
+	if (_var()->shot_anim
+			&& time_attack < _weapon()[_player()->weapon_id]->reload_ms)
+		ft_help_hud_if(index, time_attack);
+	else if (_var()->reload_anim
+			&& (int)time_reload < _weapon()[_player()->weapon_id]->anim_reloadms)
+		ft_help_hud_else_if(index, time_reload);
 	else
-	{
-		_var()->shot_anim = 0;
-		_var()->reload_anim = 0;
-		ft_put_image_to_image_scale(*_img(), _image()->weapons[_player()->weapon_id][NORMAL]
-			[0], pos(WIN_W / 2 - (_image()->weapons[_player()->weapon_id][NORMAL]
-			[0].w * 2 / 4) + 200, WIN_H - _image()->weapons[_player()->weapon_id][NORMAL][0].h * 2), posf(0.5, 0.5));
-	}
+		ft_help_hud_else();
 }
 
 void	set_spectate(void)
@@ -376,7 +394,39 @@ void	set_spectate(void)
 	}
 }
 
-int	ft_loop()
+static void	ft_loop_multi(void)
+{
+		char *str;
+
+		ft_pong_client();
+		player_casting();
+		name_casting();
+		if (_player()->team == TEAM_RED)
+			str = ft_strjoin(ft_itoa(_team()[TEAM_RED]->win),
+				ft_strjoin(" - ", ft_itoa(_team()[TEAM_BLUE]->win)));
+		else
+			str = ft_strjoin(ft_itoa(_team()[TEAM_BLUE]->win),
+				ft_strjoin(" - ", ft_itoa(_team()[TEAM_RED]->win)));
+		draw_text_scale(str,
+			pos(WIN_W / 2 - (ft_strlen(str) * (42)) / 2, 100),
+				pos(1, 1), WHITE);
+		render_kill_log();
+}
+
+static void	ft_if_round_end_wait(void)
+{
+	if (_var()->last_round_winner == TRED)
+		draw_text_scale("RED WIN THE ROUND",
+			pos(WIN_W / 2 - (17 * (42)) / 2, 300), pos(1, 1), RED);
+	else if (_var()->last_round_winner == TBLUE)
+		draw_text_scale("BLUE WIN THE ROUND",
+			pos(WIN_W / 2 - (18 * (42)) / 2, 300), pos(1, 1), BLUE);
+	else
+		draw_text_scale(ft_itoa(_var()->last_round_winner),
+			pos(WIN_W / 2 - (1 * (42)) / 2, 300), pos(1, 1), BLUE);
+}
+
+static void	ft_call(void)
 {
 	planet_clock();
 	draw_sky();
@@ -387,41 +437,36 @@ int	ft_loop()
 	walk_clock();
 	ft_play_music(GAME_MUSIC);
 	set_spectate();
+}
+
+static void	ft_is_not_knife(void)
+{
+	draw_text_scale(
+		ft_strjoin(ft_itoa(_player()->full_ammo[_player()->weapon_id]),
+			"/"), pos(55, 220 + _image()->ammo.h - 10), pos(3, 3), WHITE);
+	draw_text_scale(ft_itoa(_player()->ammo[_player()->weapon_id]),
+		pos(55 + ft_strlen("45/") * 14,
+			220 + _image()->ammo.h - 8), pos(3, 3), WHITE);
+	ft_put_image_to_image_scale(*_img(),
+		_image()->ammo, pos(125, 220 + _image()->ammo.h - 10), posf(4, 4));
+}
+
+int	ft_loop()
+{
+	ft_call();
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
-	{
-		ft_pong_client();
-		player_casting();
-		name_casting();
-		char *str;
-		if (_player()->team == TEAM_RED)
-			str = ft_strjoin(ft_itoa(_team()[TEAM_RED]->win), ft_strjoin(" - ", ft_itoa(_team()[TEAM_BLUE]->win)));
-		else
-			str = ft_strjoin(ft_itoa(_team()[TEAM_BLUE]->win), ft_strjoin(" - ", ft_itoa(_team()[TEAM_RED]->win)));
-		draw_text_scale(str, pos(WIN_W / 2 - (ft_strlen(str) * (42)) / 2, 100), pos(1, 1), WHITE);
-		render_kill_log();
-	}
+		ft_loop_multi();
 	if (_player()->is_shooting > 0)
 		ft_play_own_shot();
 	update_bullets3F();
 	bullet_casting();
 	hud();
 	if (_var()->round_state == ROUND_END_WAIT)
-	{
-		if (_var()->last_round_winner == TRED)
-			draw_text_scale("RED WIN THE ROUND", pos(WIN_W / 2 - (17 * (42)) / 2, 300), pos(1, 1), RED);
-		else if (_var()->last_round_winner == TBLUE)
-			draw_text_scale("BLUE WIN THE ROUND", pos(WIN_W / 2 - (18 * (42)) / 2, 300), pos(1, 1), BLUE);
-		else
-			draw_text_scale(ft_itoa(_var()->last_round_winner), pos(WIN_W / 2 - (1 * (42)) / 2, 300), pos(1, 1), BLUE);
-	}
+		ft_if_round_end_wait();
 	ft_draw_map();
 	render_health(pos(50, 250));
 	if (_player()->weapon_id != KNIFE)
-	{
-		draw_text_scale(ft_strjoin(ft_itoa(_player()->full_ammo[_player()->weapon_id]), "/"), pos(55, 220 + _image()->ammo.h - 10), pos(3, 3), WHITE);
-		draw_text_scale(ft_itoa(_player()->ammo[_player()->weapon_id]), pos(55 + ft_strlen("45/") * 14, 220 + _image()->ammo.h - 8), pos(3, 3), WHITE);
-		ft_put_image_to_image_scale(*_img(), _image()->ammo, pos(125, 220 + _image()->ammo.h - 10), posf(4, 4));//
-	}
+		ft_is_not_knife();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);

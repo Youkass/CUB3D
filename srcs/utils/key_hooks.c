@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 01:27:09 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 14:10:39 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,8 +302,10 @@ int	ft_left(void)
 
 int	ft_escape(void)
 {
-	if (click_delay())
-		return (0);
+	printf("je passe ici\n");
+	//if (click_delay())
+	//	return (0);
+	click();
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER) && _player()->id == 0)
 	{
 		close(_var()->socket);
@@ -312,14 +314,15 @@ int	ft_escape(void)
 		_var()->pid = -1;
 		click();
 	}
-	if (_var()->mode == GAME)
+	else if (_var()->mode == GAME)
 	{
 		restart_player();
 		_var()->mode = MENU;
 		_menu()->mode = MENU_START;
+		sleep(1);
 		click();
 	}
-	if (_var()->mode == MENU)
+	else if (_var()->mode == MENU)
 	{
 		if (_menu()->mode == MENU_START)
 		{

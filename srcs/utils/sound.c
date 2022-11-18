@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 01:26:25 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 15:17:28 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,25 @@ int	ft_check_my_team(void)
 		return (TRED);
 }
 
+static void	ft_if_game(void)
+{
+	if (ma_sound_is_playing(&(_media()->sound[MENU_MUSIC][0])))
+		ma_sound_stop(&(_media()->sound[MENU_MUSIC][0]));
+	if (_var()->alive[_player()->team] == 1
+			&& _var()->alive[ft_check_my_team()] > 1)
+	{
+		ma_sound_stop(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
+		ft_start_from_start(&(_media()->sound[GAME_MUSIC][ASHES]));
+	}
+	else if (_var()->alive[_player()->team] == 1
+			&& _var()->alive[ft_check_my_team()] == 1)
+	{
+		ma_sound_stop(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
+		ft_start_from_start(&(_media()->sound[GAME_MUSIC][MORTAL]));
+	}
+	ft_start_from_start(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
+}
+
 void	ft_play_music(int index)
 {
 	if (_menu()->mode == MENU_START || _menu()->mode == INTRO)
@@ -187,23 +206,7 @@ void	ft_play_music(int index)
 		}
 	}
 	if (_var()->mode == GAME)
-	{
-		if (ma_sound_is_playing(&(_media()->sound[MENU_MUSIC][0])))
-			ma_sound_stop(&(_media()->sound[MENU_MUSIC][0]));
-		if (_var()->alive[_player()->team] == 1
-				&& _var()->alive[ft_check_my_team()] > 1)
-		{
-			ma_sound_stop(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
-			ft_start_from_start(&(_media()->sound[GAME_MUSIC][ASHES]));
-		}
-		else if (_var()->alive[_player()->team] == 1
-				&& _var()->alive[ft_check_my_team()] == 1)
-		{
-			ma_sound_stop(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
-			ft_start_from_start(&(_media()->sound[GAME_MUSIC][MORTAL]));
-		}
-		ft_start_from_start(&(_media()->sound[GAME_MUSIC][_var()->ran_i]));
-	}
+		ft_if_game();
 }
 
 void	ft_play_shot_sound(t_obj player)
