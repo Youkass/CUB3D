@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 17:52:06 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 19:16:02 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,8 @@ void	bullet_casting(void)
 		j = 0;
 		while (j < _var()->o_player[i].shoot_n)
 		{
-			if (i != 0)
+			if (_var()->o_player[i].id != _player()->id)
 				init_cast(j, &_var()->o_player[i], &player);
-			// 	init_cast(j, &player, &player);
-			// else
 			draw();
 			j++;
 		}

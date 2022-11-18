@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 18:06:07 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 20:52:53 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	key_hook(void)
 {
 	if (_var()->key[esc])
 		ft_escape();
-	if (_player()->is_dead || _var()->freeze)
+	if (_player()->is_dead || _var()->freeze || click_delay())
 		return ;
 	if (_var()->key[a])
 		ft_strafe_left();
@@ -67,6 +67,8 @@ void	key_hook(void)
 		ft_down_head();
 	if (_var()->key[mouse])
 	{
+		if (_menu()->mode == INTRO)
+			_menu()->mode = MENU_START;
 		if (_var()->mode == GAME && _player()->can_shoot && _player()->shoot_n < MAX_BULLET
 		&& _player()->ammo[_player()->weapon_id] > 0)
 		{
@@ -80,6 +82,7 @@ void	key_hook(void)
 	if (_player()->id == 0 &&_var()->key[maj] && _var()->mode == MENU)
 	{
 		printf("click\n");
+		click();
 		_var()->restart = 1;
 	}
 	if (_var()->key[one] && _var()->mode == GAME)
@@ -286,11 +289,12 @@ int	ft_left(void)
 
 int	ft_escape(void)
 {
-	printf("je passe ici\n");
 	if (click_delay())
 		return (0);
+	printf("je passe ici\n");
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER) && _player()->id == 0)
 	{
+		printf("1\n");
 		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		close(_var()->socket);
 		if (_var()->pid > 0)
@@ -301,6 +305,7 @@ int	ft_escape(void)
 	}
 	if (_var()->mode == GAME)
 	{
+		printf("2\n");
 		restart_player();
 		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		_var()->mode = MENU;
@@ -309,6 +314,7 @@ int	ft_escape(void)
 	}
 	else if (_var()->mode == MENU)
 	{
+		printf("3\n");
 		if (_menu()->mode == MENU_START)
 			ft_black_hole(0);
 		if (_menu()->mode == MENU_PLAYER)
