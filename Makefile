@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/16 19:22:36 by dasereno         ###   ########.fr        #
+#    Updated: 2022/11/18 00:56:42 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ SRCS		=	srcs/main.c\
 				srcs/init.c\
 				miniaudio/extras/miniaudio_split/miniaudio.c\
 				srcs/new_raycaster.c\
+				srcs/utils/click.c\
 				srcs/dyn_array.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
@@ -85,7 +86,8 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/init.c\
 					srcs/menu/recv_utils.c\
 					srcs/parsing/parsing.c\
-					srcs/team.c\
+					srcs/utils/click.c\
+					srcs/team.c
 
 
 NAME		= cub3D
