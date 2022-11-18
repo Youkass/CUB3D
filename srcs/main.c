@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 21:20:38 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 23:13:42 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,6 +335,7 @@ int ft_loop_hook(void)
 	int pid;
 
 	click_update();
+	printf("%d\n", _var()->nb_player);
 	if (_var()->mode == ONLINE_START)
 	{
 		_var()->is_host = SERVER;
@@ -362,8 +363,13 @@ int ft_loop_hook(void)
 	if (_var()->mode == GAME)
 	{
 		ft_loop();
-		mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
-		mouse_rotate();
+		if (!_var()->freeze)
+		{
+			mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+			mouse_rotate();
+		}
+		else
+			mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 	}
 	if (_var()->mode == MENU || _var()->mode == LOBBY_WAIT)
 		menu_loop();

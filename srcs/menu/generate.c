@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generate.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/17 21:46:19 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 21:58:08 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,20 +89,11 @@ t_vector2D	*_butp(void)
 t_vector2D	*_butpl(void)
 {
 	static t_vector2D	*butp = NULL;
-	int	i;
-	int	j;
 
-	i = 3;
-	j = 0;
 	if (!butp)
 	{
 		butp = ft_malloc(sizeof(t_vector2D) * 4);
-		while (i)
-		{
-			butp[j] = (t_vector2D){(WIN_W / 2) - (i * 84) + 128, 350};
-			i--;
-			j++;
-		}
+		butp[0] = (t_vector2D){(WIN_W / 2) - 64, 350};
 		butp[3] = (t_vector2D){(WIN_W / 2) - 64, 450};
 	}
 	return (butp);
@@ -146,14 +137,12 @@ static void	gen_menu_buttons(void)
 
 void	gen_serv_but(void)
 {
-	_menu()->nb_p[0][0] = generate_image("./img/menu/serv/2.xpm");
-	_menu()->nb_p[0][1] = generate_image("./img/menu/serv/2_h.xpm");
-	_menu()->nb_p[1][0] = generate_image("./img/menu/serv/4.xpm");
-	_menu()->nb_p[1][1] = generate_image("./img/menu/serv/4_h.xpm");
-	_menu()->nb_p[2][0] = generate_image("./img/menu/serv/6.xpm");
-	_menu()->nb_p[2][1] = generate_image("./img/menu/serv/6_h.xpm");
+	_menu()->nb_p[0][0] = generate_image("./img/menu/serv/host.xpm");
+	_menu()->nb_p[0][1] = generate_image("./img/menu/serv/host_h.xpm");
+	_menu()->nb_p[0][2] = generate_image("./img/menu/serv/host_ac.xpm");
 	_menu()->nb_p[3][0] = generate_image("./img/menu/serv/join.xpm");
 	_menu()->nb_p[3][1] = generate_image("./img/menu/serv/join_h.xpm");
+	_menu()->nb_p[3][2] = generate_image("./img/menu/serv/join_h.xpm");
 }
 
 void	generate_button_state(void)

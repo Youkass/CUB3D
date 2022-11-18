@@ -301,57 +301,58 @@ void	update_bullets3F(void)
 	_player()->shoot_n = new_shoot_n;
 }
 
-static void	ft_help_hud_if(int index, unsigned long time_attack)
+static void	ft_help_hud_if(int index, unsigned long time_attack, int weapon_id)
 {
 	index = normalise_between(pos(0,
-		_weapon()[_player()->weapon_id]->reload_ms),
-			pos(0,  _weapon()[_player()->weapon_id]->shot_frames),
+		_weapon()[weapon_id]->reload_ms),
+			pos(0,  _weapon()[weapon_id]->shot_frames),
 				time_attack);
-	if (_player()->weapon_id == KNIFE)
+	if (weapon_id == KNIFE)
 		ft_put_image_to_image_scale(*_img(),
-			_image()->weapons[_player()->weapon_id][ATTACK][0],
+			_image()->weapons[weapon_id][ATTACK][0],
 				pos(WIN_W / 2 -
 					(_image()->weapons
-						[_player()->weapon_id][ATTACK][0].w * 2 / 4) + 200,
+						[weapon_id][ATTACK][0].w * 2 / 4) + 200,
 							WIN_H -
 								_image()->weapons
-									[_player()->weapon_id][ATTACK][0].h * 2),
+									[weapon_id][ATTACK][0].h * 2),
 										posf(0.5, 0.5));
 	else
 		ft_put_image_to_image_scale(*_img(),
-			_image()->weapons[_player()->weapon_id][ATTACK]
+			_image()->weapons[weapon_id][ATTACK]
 				[index], pos(WIN_W / 2 -
-					(_image()->weapons[_player()->weapon_id][ATTACK]
+					(_image()->weapons[weapon_id][ATTACK]
 						[index].w * 2 / 4) + 200, WIN_H -
 							_image()->weapons
-								[_player()->weapon_id]
+								[weapon_id]
 									[ATTACK][index].h * 2), posf(0.5, 0.5));
 }
 
-static void	ft_help_hud_else_if(int index, unsigned long time_reload)
+static void	ft_help_hud_else_if(int index, unsigned long time_reload,
+	int weapon_id)
 {
 	index = normalise_between(pos(0,
-		_weapon()[_player()->weapon_id]->anim_reloadms), pos(0,
-			_weapon()[_player()->weapon_id]->reload_frames), time_reload);
+		_weapon()[weapon_id]->anim_reloadms), pos(0,
+			_weapon()[weapon_id]->reload_frames), time_reload);
 	ft_put_image_to_image_scale(*_img(),
-		_image()->weapons[_player()->weapon_id][RELOAD]
+		_image()->weapons[weapon_id][RELOAD]
 			[index], pos(WIN_W / 2 -
-				(_image()->weapons[_player()->weapon_id][RELOAD]
+				(_image()->weapons[weapon_id][RELOAD]
 					[index].w * 2 / 4) + 200, WIN_H -
-						_image()->weapons[_player()->weapon_id][RELOAD]
+						_image()->weapons[weapon_id][RELOAD]
 							[index].h * 2 + 50), posf(0.5, 0.5));
 }
 
-static void	ft_help_hud_else(void)
+static void	ft_help_hud_else(int weapon_id)
 {
 	_var()->shot_anim = 0;
 	_var()->reload_anim = 0;
 	ft_put_image_to_image_scale(*_img(),
-		_image()->weapons[_player()->weapon_id][NORMAL]
+		_image()->weapons[weapon_id][NORMAL]
 			[0], pos(WIN_W / 2 -
-				(_image()->weapons[_player()->weapon_id][NORMAL]
+				(_image()->weapons[weapon_id][NORMAL]
 					[0].w * 2 / 4) + 200, WIN_H - _image()->weapons
-						[_player()->weapon_id][NORMAL][0].h * 2),
+						[weapon_id][NORMAL][0].h * 2),
 							posf(0.5, 0.5));
 }
 
@@ -360,29 +361,39 @@ void	hud(void)
 	unsigned long	time_attack;
 	unsigned long	time_reload;
 	int				index;
+	int				weapon_id;
 
 	time_attack = get_time(_var()->shotanim_start);
 	time_reload = get_time(_var()->reloadanim_start);
 	index = 0;
 	ft_put_image_to_image(*_img(), _image()->crosshair, pos(WIN_W / 2 - 8,
 		WIN_H / 2 - 8));
+	if (_player()->spectate && _player()->spec_id > 0 && _player()->spec_id
+	< _var()->linked_players)
+		weapon_id = _var()->o_player[_player()->spec_id].weapon_id;
+	else
+		weapon_id = _player()->weapon_id;
 	if (_var()->shot_anim
 			&& time_attack < _weapon()[_player()->weapon_id]->reload_ms)
-		ft_help_hud_if(index, time_attack);
+		ft_help_hud_if(index, time_attack, weapon_id);
 	else if (_var()->reload_anim
 			&& (int)time_reload < _weapon()[_player()->weapon_id]->anim_reloadms)
-		ft_help_hud_else_if(index, time_reload);
+		ft_help_hud_else_if(index, time_reload, weapon_id);
 	else
-		ft_help_hud_else();
+		ft_help_hud_else(weapon_id);
 }
 
 void	set_spectate(void)
 {
-	int	i;
+	int						i;
+	static unsigned long	start = 0;
 
 	i = 0;
-	if (_player()->is_dead && _var()->alive[TRED] > 0
-		&& _var()->alive[TBLUE] > 0)
+	if (!start && _player()->is_dead)
+		start = get_clock(_var()->clock);
+	if (start && _player()->is_dead && _var()->alive[TRED] > 0
+		&& _var()->alive[TBLUE] > 0 && _var()->linked_players > 2
+		&& get_time(start) > 300000)
 	{
 		_player()->spectate = 1;
 		_player()->spec_id = - 1;
@@ -455,25 +466,24 @@ static void	ft_is_not_knife(void)
 
 void	draw_death(void)
 {
-	char	*str;
+	char					*str;
 
-	str = ft_strjoin("Spectating: ", _var()->o_player[_player()->
+	str = ft_strjoin("Spectating ", _var()->o_player[_player()->
 			spec_id].pseudo);
-	draw_text("You are dead..", pos(WIN_W / 2 - 168, 100), WHITE);
 	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id
 		<= _var()->linked_players)
-		draw_text(str, pos(WIN_W / 2 - ft_strlen(str), 200), WHITE);
+		draw_text(str, pos(WIN_W / 2 - ft_strlen(str), WIN_H - 100), WHITE);
+	else
+		draw_text("You are dead..", pos(WIN_W / 2 - 168, 100), WHITE);
 }
 
-int	ft_loop()
+int	ft_loop(void)
 {
 	ft_call();
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 		ft_loop_multi();
 	if (_player()->is_shooting > 0)
 		ft_play_own_shot();
-	if (_player()->is_dead)
-		draw_death();
 	update_bullets3F();
 	bullet_casting();
 	hud();
@@ -483,6 +493,8 @@ int	ft_loop()
 	render_health(pos(50, 250));
 	if (_player()->weapon_id != KNIFE)
 		ft_is_not_knife();
+	if (_player()->is_dead)
+		draw_death();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);

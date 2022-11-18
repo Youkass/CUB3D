@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   intro.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuro4ka <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 01:57:27 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/18 14:36:49 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 23:54:04 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ft_init_youri(unsigned long *start, unsigned long *clock,
 		*start = get_clock(_var()->clock);
 }
 
-t_vector2D	ft_draw_youri()
+t_vector2D	ft_draw_youri(void)
 {
 	static t_vector2D		pos;
 	static unsigned long	start = 0;
@@ -60,7 +60,6 @@ t_vector2D	ft_draw_youri()
 		else
 			ft_put_image_to_image_scale(*_img(),
 				_image()->intro_sprite[5], pos, (t_vector2F){0.3, 0.3});
-
 	}
 	if (get_time(clock) > 50 && pos.x > 430)
 	{
@@ -84,7 +83,7 @@ t_vector2D	ft_draw_darian(void)
 	static t_vector2D		pos;
 	static unsigned long	start = 0;
 	static unsigned long	clock = 0;
-	
+
 	if (!start)
 		ft_init_darian(&start, &clock, &pos);
 	if (pos.x < WIN_W / 2)
@@ -98,7 +97,6 @@ t_vector2D	ft_draw_darian(void)
 		else
 			ft_put_image_to_image_scale(*_img(),
 				_image()->intro_sprite[2], pos, (t_vector2F){0.3, 0.3});
-
 	}
 	if (get_time(clock) > 500 && pos.x < WIN_W / 2)
 	{
@@ -115,19 +113,19 @@ void	ft_end_intro(t_vector2D *double_pos)
 
 	if (!start)
 	{
-		pos_logo.x =  WIN_W / 2 - _menu()->logo.w * 2 - 30;
+		pos_logo.x = WIN_W / 2 - _menu()->logo.w * 2 - 30;
 		pos_logo.y = -100;
 		++start;
 	}
 	ft_put_image_to_image_scale(*_img(),
-			_menu()->logo, pos_logo,
-				(t_vector2F){0.15, 0.15});
+		_menu()->logo, pos_logo,
+		(t_vector2F){0.15, 0.15});
 	ft_put_image_to_image_scale(*_img(),
-			_image()->intro_sprite[2], double_pos[0],
-				(t_vector2F){0.3, 0.3});
+		_image()->intro_sprite[2], double_pos[0],
+		(t_vector2F){0.3, 0.3});
 	ft_put_image_to_image_scale(*_img(),
-			_image()->intro_sprite[5], double_pos[1],
-				(t_vector2F){0.3, 0.3});
+		_image()->intro_sprite[5], double_pos[1],
+		(t_vector2F){0.3, 0.3});
 	if (double_pos[1].x > 260)
 		double_pos[1].x -= 3;
 	if (double_pos[0].x < 870)

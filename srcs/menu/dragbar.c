@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dragbar.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 17:07:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/18 23:52:43 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	m_bar_drag(void)
 	}
 }
 
-
 /*
 -This function create a hitbox of 40 * 40px around the end of the sound and music
 bar. If the mouse is in and is mouse clicking that call a function that will
@@ -55,7 +54,7 @@ void	drag_bar(void)
 {
 	if (ft_hitbox((t_vector2D[4]){{_menu()->pos_s_bar.x - 30,
 				_menu()->pos_s_bar.y - 30}, {_menu()->pos_s_bar.x
-				+ 30, _menu()->pos_s_bar.y - 30},  {_menu()
+				+ 30, _menu()->pos_s_bar.y - 30}, {_menu()
 				->pos_s_bar.x - 30, _menu()->pos_s_bar.y + 30},
 			{_menu()->pos_s_bar.x + 2, _menu()->pos_s_bar.y
 				+ 30}}, _var()->m_pos) && _var()->key[mouse]
@@ -65,10 +64,9 @@ void	drag_bar(void)
 		_menu()->draging_s = 0;
 	if (_menu()->draging_s)
 		s_bar_drag();
-
 	if (ft_hitbox((t_vector2D[4]){{_menu()->pos_m_bar.x - 30,
 				_menu()->pos_m_bar.y - 30}, {_menu()->pos_m_bar.x
-				+ 30, _menu()->pos_m_bar.y - 30},  {_menu()
+				+ 30, _menu()->pos_m_bar.y - 30}, {_menu()
 				->pos_m_bar.x - 30, _menu()->pos_m_bar.y + 30},
 			{_menu()->pos_m_bar.x + 2, _menu()->pos_m_bar.y
 				+ 30}}, _var()->m_pos) && _var()->key[mouse]
@@ -78,5 +76,4 @@ void	drag_bar(void)
 		_menu()->draging_m = 0;
 	if (_menu()->draging_m)
 		m_bar_drag();
-
 }

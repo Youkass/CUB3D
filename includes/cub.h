@@ -76,6 +76,7 @@ void	arr_destroy(t_array *a);
 void	arr_fill(t_array *a, int value);
 void	print_arr(t_array *a);
 int	ft_in_array(t_array *a, int value);
+t_vector2F	get_90_angle(int	dir);
 
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/init.c                             */
@@ -101,8 +102,6 @@ void	round_leaderboard(t_send_server_game *data, t_client_thread *client);
 int	ft_send_all_data(t_client_thread *client);
 int	send_nb_players(t_client_thread *client);
 void	check_team(t_client_thread *c);
-void	update_team_array(t_client_thread *c);
-int	ft_update_team(t_client_thread *c);
 void	init_team_server(t_client_thread *c);
 void	get_team_id(t_client_thread	*c);
 void	*client_routine(void *client_t);
@@ -149,7 +148,6 @@ t_vector2F	closest_point(t_vector2F a, t_vector2F b, t_vector2F c);
 int	is_shoot_touch(t_vector2F a, t_vector2F b, t_circle c, t_vector2F *closest);
 void	shoot_alone3F(void);
 void	shoot(void);
-void	compute_shot(t_vector2F start, t_vector2F end);
 int	nearest_wall3D(t_vector3F	*closest);
 void	init_shot3F(t_vector3F start, t_vector3F end);
 
@@ -213,8 +211,8 @@ void	ft_copy_data_before_pong(t_obj *player);
 void	print_data_recv(t_obj	*player);
 void	restart_round(void);
 void	render_kill_log();
+void	get_data(int i, t_send_server_game serv);
 void	ft_pong_client(void);
-int	ft_escape(void);
 
 /* -------------------------------------------------------------------------- */
 /*                 FILE = srcs/network_client/network_utils.c                 */
@@ -240,7 +238,8 @@ void	recompute_array_shot(int index);
 void	update_bullets3F(void);
 void	hud(void);
 void	set_spectate(void);
-int	ft_loop();
+void	draw_death(void);
+int	ft_loop(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/mlx_utils/render.c                       */
@@ -317,6 +316,7 @@ void	ft_init_menu_music(void);
 void	ft_init_game_music(void);
 void	ft_init_round_music(void);
 void	ft_init_sound(void);
+void	ft_init_sound_next(void);
 void	ft_init_media(void);
 int	ft_check_game_music(void);
 void	ft_init_ran(void);
@@ -324,6 +324,7 @@ void	ft_start_from_start(ma_sound *sound);
 void	ft_play_end_sound(ma_sound *sound);
 int	ft_play_end_round(void);
 int	ft_play_end_game(void);
+void	ft_check_end_songs(void);
 int	ft_check_my_team(void);
 void	ft_play_music(int index);
 void	ft_play_shot_sound(t_obj player);
@@ -335,6 +336,7 @@ void	ft_play_own_shot(void);
 void	click(void);
 int	click_update(void);
 int	click_delay(void);
+void	replace_player(void);
 void	restart_player(void);
 int	is_neutral(void);
 
@@ -351,10 +353,10 @@ int	ft_forward(void);
 int	ft_is_wall(t_vector2D pos);
 int	ft_back(void);
 int	ft_right(void);
-t_vector2F	get_90_angle(int	dir);
 int	ft_strafe_left(void);
 int	ft_strafe_right(void);
 int	ft_left(void);
+int	ft_escape(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
@@ -415,28 +417,28 @@ t_image	*_image();
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
-void	get_key(int keycode);
-int	ft_release(int keycode);
-void	generate_dsprite(void);
-void	generate_dsprite_red(void);
-void	ft_init_player_pos(void);
-void	walk_clock(void);
-void	death_clock(void);
-void	reload_clock(void);
-void	ft_init_player2(void);
-void	ft_print_tab(char **s);
-int	ft_hook(int keycode);
-int	ft_mouse_hook(int keycode);
-int	ft_loop_hook(void);
-int	ft_mouse_release(int keycode);
-int	ft_expose(void *data);
-int	ft_rotate(double rot_speed);
-int	mouse_rotate(void);
-int	ft_game(void);
-void	init_key(void);
-void	init_var(void);
-void	init_data_shot(t_obj *player);
-void	init_image(void);
+void get_key(int keycode);
+int ft_release(int keycode);
+void generate_dsprite(void);
+void generate_dsprite_red(void);
+void ft_init_player_pos(void);
+void walk_clock(void);
+void death_clock(void);
+void reload_clock(void);
+void ft_init_player2(void);
+void ft_print_tab(char **s);
+int ft_hook(int keycode);
+int ft_mouse_hook(int keycode);
+int ft_loop_hook(void);
+int ft_mouse_release(int keycode);
+int ft_expose(void *data);
+int ft_rotate(double rot_speed);
+int mouse_rotate(void);
+int ft_game(void);
+void init_key(void);
+void init_var(void);
+void init_data_shot(t_obj *player);
+void init_image(void);
 int main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */

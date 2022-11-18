@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recv_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 11:50:49 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/05 14:14:05 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 23:52:54 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_recv_players(t_send_server *o_player, int size)
 {
 	int	ret;
 	int	i;
-	
+
 	i = 1;
 	ret = 0;
 	while (i)
@@ -35,7 +35,7 @@ int	ft_recv_one(int socket, t_send_client *player, int size)
 {
 	int	ret;
 	int	i;
-	
+
 	i = 1;
 	ret = 0;
 	while (i)

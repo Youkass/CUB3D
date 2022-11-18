@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/15 22:28:36 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 22:05:51 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	get_pseudos(void)
 		_menu()->mode = MENU_START;
 		return ;
 	}
+	if (o_player.start)
+		recv(_var()->socket, &_var()->nb_player, sizeof(int), MSG_WAITALL);
 	ft_copy_new_data(o_player);
 }
 

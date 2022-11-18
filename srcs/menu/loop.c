@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 20:53:03 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 23:55:42 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	check_button_state(void)
 			{
 				_var()->nb_player = 1;
 				_var()->mode = GAME;
-				printf("salam\n");
 			}
 			if (i == 1 && _menu()->s_state[1].state == 2)
 				_menu()->mode = MENU_PLAYER;
@@ -38,8 +37,8 @@ void	check_button_state(void)
 				_menu()->mode = MENU_OPTION;
 			if (i == 3 && _menu()->s_state[3].state == 2)
 				ft_black_hole(0); // TODO FREE TOUT ICI
-			_menu()->s_state[i].state = 
-			ft_hitbox(_menu()->s_state[i].hitbox, _var()->m_pos);
+			_menu()->s_state[i].state = ft_hitbox(_menu()->s_state[i].hitbox,
+			_var()->m_pos);
 		}
 		i++;
 	}
@@ -58,19 +57,7 @@ void	check_button_state_pl(void)
 		{
 			if (i == 0 && _menu()->p_state[0].state == 2)
 			{
-				_var()->nb_player = 2;
-				_menu()->mode = MENU_PSEUDO;
-				_var()->is_host = SERVER;
-			}
-			if (i == 1 && _menu()->p_state[1].state == 2)
-			{
-				_var()->nb_player = 4;
-				_menu()->mode = MENU_PSEUDO;
-				_var()->is_host = SERVER;
-			}
-			if (i == 2 && _menu()->p_state[2].state == 2)
-			{
-				_var()->nb_player = 6;
+				_var()->nb_player = 10;
 				_menu()->mode = MENU_PSEUDO;
 				_var()->is_host = SERVER;
 			}
@@ -197,9 +184,9 @@ int	menu_loop(void)
 		ft_intro();
 	if (_menu()->mode == MENU_LEADERBOARD)
 		ft_pong_client();
-	else if(_menu()->mode == MENU_LOBBY
-			&& (_var()->mode != GAME
-				&& _var()->mode != GAME_START_ONLINE))
+	else if (_menu()->mode == MENU_LOBBY
+		&& (_var()->mode != GAME
+			&& _var()->mode != GAME_START_ONLINE))
 		menu_pong();
 	drag_bar();
 	if (_menu()->mode == MENU_START)
@@ -275,7 +262,8 @@ int	menu_hook_pseudo(int keycode)
 {
 	static int	n = 0;
 
-	if (((keycode >= A_ && keycode <= Z) || is_nb_keycode(keycode)) && n + 1 < 17)
+	if (((keycode >= A_ && keycode <= Z) || is_nb_keycode(keycode))
+		&& n + 1 < 17)
 	{
 		if (is_nb_keycode(keycode))
 			_player()->pseudo[n++] = get_nb_keycode(keycode);

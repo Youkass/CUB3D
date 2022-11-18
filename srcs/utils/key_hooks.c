@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 21:21:53 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 22:39:04 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ void	key_hook(void)
 		if (_menu()->mode == INTRO)
 			_menu()->mode = MENU_START;
 		if (_var()->is_host == SERVER && _menu()->mode == MENU_LOBBY && _var()
-			->mode != GAME && _var()->nb_player == _var()->linked_players
-			 && is_neutral()) // menu lobby
+			->mode != GAME && is_neutral()) // menu lobby
 		{
 			_player()->is_start = 1;
 			printf("j'ai appuyé sur space\n");
@@ -306,7 +305,6 @@ int	ft_escape(void)
 	}
 	if (_var()->mode == GAME)
 	{
-		printf("2\n");
 		restart_player();
 		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		_var()->mode = MENU;

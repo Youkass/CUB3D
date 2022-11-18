@@ -148,6 +148,39 @@ void	render_kill_log()
 	}
 }
 
+void	get_data(int i, t_send_server_game serv)
+{
+	if (serv.player[i].is_shooting > 0 && i != _player()->id)
+		ft_play_shot_sound(serv.player[i]);
+	if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
+		_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
+	else if (serv.player[i].shooted.shoot == 2 && serv.player[i].shooted.id == _player()->id)
+		_player()->health -= _weapon()[serv.player[i].weapon_id]->headshot;
+	else if (serv.player[i].shooted.shoot == 3 && serv.player[i].shooted.id == _player()->id)
+		_player()->health -= _weapon()[serv.player[i].weapon_id]->footshot;
+	if (serv.player[i].shooted.shoot > 0 && i == _player()->id)
+	{
+		_player()->shooted.shoot = 0;
+		_player()->shooted.id = -1;
+	}
+	if (serv.player[i].team == TEAM_BLUE && !serv.player[i].is_dead)
+		_var()->alive[TBLUE]++;
+	if (serv.player[i].team == TEAM_RED && !serv.player[i].is_dead)
+		_var()->alive[TRED]++;
+	if (_var()->o_player[i].kills < serv.player[i].kills)
+		ft_lstadd_back(&_log()->log, ft_lstnew((void *)new_log(serv.player
+			[i].id, serv.player[i].kill_round[serv.player[i].nr - 1])));
+
+	int	j = 0;
+	while (j < serv.player[i].shoot_n)
+	{
+		_var()->o_player[i].shott[j] = serv.player[i].shott[j];
+		_var()->o_player[i].shott[j].pos = serv.player[i].shott[j].pos;
+		++j;
+	}
+	_var()->o_player[i] = serv.player[i];
+}
+
 void	ft_pong_client(void)
 {
 	t_send_server_game	serv;
@@ -161,7 +194,7 @@ void	ft_pong_client(void)
 	client.blue_wins = _team()[TEAM_BLUE]->win;
 	client.red_wins = _team()[TEAM_RED]->win;
 	client.round_end = 0;
-	if (incremented == 1 &&( _var()->alive[TRED] == 0 || _var()->alive[TBLUE] == 0))
+	if (incremented == 1 && ( _var()->alive[TRED] == 0 || _var()->alive[TBLUE] == 0))
 		incremented++;
 	if (incremented == 2)
 		client.round_end = 1;
@@ -194,35 +227,7 @@ void	ft_pong_client(void)
 	_var()->linked_players = serv.linked_players;
 	while (i < _var()->linked_players)
 	{
-		if (serv.player[i].is_shooting > 0 && i != _player()->id)
-			ft_play_shot_sound(serv.player[i]);
-		if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
-		else if (serv.player[i].shooted.shoot == 2 && serv.player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[serv.player[i].weapon_id]->headshot;
-		else if (serv.player[i].shooted.shoot == 3 && serv.player[i].shooted.id == _player()->id)
-			_player()->health -= _weapon()[serv.player[i].weapon_id]->footshot;
-		if (serv.player[i].shooted.shoot > 0 && i == _player()->id)
-		{
-			_player()->shooted.shoot = 0;
-			_player()->shooted.id = -1;
-		}
-		if (serv.player[i].team == TEAM_BLUE && !serv.player[i].is_dead)
-			_var()->alive[TBLUE]++;
-		if (serv.player[i].team == TEAM_RED && !serv.player[i].is_dead)
-			_var()->alive[TRED]++;
-		if (_var()->o_player[i].kills < serv.player[i].kills)
-			ft_lstadd_back(&_log()->log, ft_lstnew((void *)new_log(serv.player
-				[i].id, serv.player[i].kill_round[serv.player[i].nr - 1])));
-
-		int	j = 0;
-		while (j < serv.player[i].shoot_n)
-		{
-			_var()->o_player[i].shott[j] = serv.player[i].shott[j];
-			_var()->o_player[i].shott[j].pos = serv.player[i].shott[j].pos;
-			++j;
-		}
-		_var()->o_player[i] = serv.player[i];
+		get_data(i, serv);
 		++i;
 	}
 	if (_var()->alive[TBLUE] == 0 && !incremented)
@@ -243,12 +248,10 @@ void	ft_pong_client(void)
 	if (serv.round_state == ROUND_LEADERBOARD && serv.match_finished == 1)
 		_var()->match_finished = 1;
 	else if (_var()->round_state == ROUND_END_WAIT)
-	{
 		_var()->freeze = 1;
-	}
 	if (_var()->round_state == ROUND_WAIT_START)
 	{
-		restart_player();
+		replace_player();
 		init_player_team();
 	}
 	if (_var()->round_state == ROUND_START)
