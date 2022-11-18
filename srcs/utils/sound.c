@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/17 22:21:39 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 01:26:25 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,10 @@ void	ft_play_shot_sound(t_obj player)
 	float	dist;
 
 	i = 0;
-	dist = one_dist2F(posf(player.x, player.y), posf(_player()->x, _player()->y)); volume = normalise_between2F(posf(0, 25), posf(0, 1), dist);
+	(void)volume;
+	dist = one_dist2F(posf(player.x, player.y),
+		posf(_player()->x, _player()->y));
+	volume = normalise_between2F(posf(0, 25), posf(0, 1), dist);
 	if (dist >= 25)
 		volume = 0.1;
 	while (i < MAX_SHOT_SOUND)
@@ -221,7 +224,7 @@ void	ft_play_shot_sound(t_obj player)
 		if (!ma_sound_is_playing(&(_media()->shot_sound[i])))
 		{
 			if (player.id != _player()->id)
-				ma_sound_set_volume(&(_media()->shot_sound[i]), volume);
+				ma_sound_set_volume(&(_media()->shot_sound[i]), 0.2);
 			ma_sound_start(&(_media()->shot_sound[i]));
 			return ;
 		}
@@ -238,6 +241,7 @@ void	ft_play_own_shot(void)
 	{
 		if (!ma_sound_is_playing(&(_media()->shot_sound[i])))
 		{
+			ma_sound_set_volume(&(_media()->shot_sound[i]), 0.2);
 			ma_sound_start(&(_media()->shot_sound[i]));
 			return ;
 		}
