@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 01:33:34 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 15:15:43 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,49 @@ void	menu_player(void)
 	draw_bg((char [4]){0, 0, 0, 0});
 	ft_put_image_to_image(*_img(), _menu()->bg,
 		(t_vector2D){0, 0});
-	ft_put_image_to_image(*_img(), _menu()->logo,
-		(t_vector2D){WIN_W / 2 - (_menu()->logo.w / 2), perc(WIN_H, 20) - (_menu()->logo.h / 2)});
-
-	ft_put_image_to_image(*_img(), _menu()->nb_p[0][_menu()->p_state[0].state], _butpl()[0]);
-	ft_put_image_to_image(*_img(), _menu()->nb_p[1][_menu()->p_state[1].state],  _butpl()[1]);
-	ft_put_image_to_image(*_img(), _menu()->nb_p[2][_menu()->p_state[2].state],  _butpl()[2]);
-	ft_put_image_to_image(*_img(), _menu()->nb_p[3][_menu()->p_state[3].state],  _butpl()[3]);
+	ft_put_image_to_image_scale(*_img(),
+			_menu()->logo, (t_vector2D){WIN_W / 2 - (_menu()->logo.w * 2) - 30,
+				20},(t_vector2F){0.15, 0.15});
+	ft_put_image_to_image(*_img(),
+		_menu()->nb_p[0][_menu()->p_state[0].state], _butpl()[0]);
+	ft_put_image_to_image(*_img(),
+		_menu()->nb_p[1][_menu()->p_state[1].state], _butpl()[1]);
+	ft_put_image_to_image(*_img(),
+		_menu()->nb_p[2][_menu()->p_state[2].state], _butpl()[2]);
+	ft_put_image_to_image(*_img(),
+		_menu()->nb_p[3][_menu()->p_state[3].state], _butpl()[3]);
 }
+
+static void	ft_draw_lobby(int size_box, t_vector2D size_box_minus)
+{
+	int	i;
+
+	i = 0;
+	while (i < _var()->linked_players)
+	{
+		if (_var()->o_player[i].team == TEAM_VOID)
+			draw_rectange(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
+				(WIN_H / 3) / 2 + 16), size_box_minus, colo(0, 0, 0));
+		else if (_var()->o_player[i].team == TEAM_RED)
+			draw_rectange(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
+				(WIN_H / 3) / 2 + 16), size_box_minus, RED);
+		else
+			draw_rectange(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
+				(WIN_H / 3) / 2 + 16), size_box_minus, BLUE);
+		i++;
+	}
+}
+/*===============================================================================*/
+/*THE FUNCTION ABOVE AND OVER NEED TO BE IN THE SAME FILE						 */
+/*===============================================================================*/
 
 void	draw_lobby(void)
 {
-	int	i;
-	int	size_box;
+	int			size_box;
+	t_vector2D	size_box_minus;
 
-	i = 0;
 	size_box = _menu()->wait.w / _var()->nb_player;
+	size_box_minus = pos(size_box - 16, 16);
 	// Couleur rouge blanc et bleu
 	draw_rectange(pos(0, 0), pos(WIN_W / 3, WIN_H), RED);
 	draw_rectange(pos(WIN_W / 3, 0), pos(WIN_W / 3, WIN_H), LIGTH_GREY);
@@ -99,31 +126,12 @@ void	draw_lobby(void)
 	// bande grise
 	draw_rectange(pos(0, WIN_H / 3 - 8), pos(WIN_W, 16), DARK_GREY);
 	draw_rectange(pos(WIN_W / 3 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
-	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
+	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H),
+		DARK_GREY);
 	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
-	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
-	while (i < _var()->linked_players)
-	{
-		if (_var()->o_player[i].team == TEAM_VOID)
-		{
-			draw_rectange(
-			pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
-			pos(size_box - 16, 16), colo(0, 0, 0));
-		}
-		else if (_var()->o_player[i].team == TEAM_RED)
-		{
-			draw_rectange(
-			pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
-			pos(size_box - 16, 16), RED);
-		}
-		else
-		{
-			draw_rectange(
-			pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box, (WIN_H / 3) / 2 + 16),
-			pos(size_box - 16, 16), BLUE);
-		}
-		i++;
-	}
+	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2),
+		DARK_GREY);
+	ft_draw_lobby(size_box, size_box_minus);
 }
 
 void	draw_leaderboard(void)
@@ -137,9 +145,11 @@ void	draw_leaderboard(void)
 	// bande grise
 	draw_rectange(pos(0, WIN_H / 3 - 8), pos(WIN_W, 16), DARK_GREY);
 	draw_rectange(pos(WIN_W / 3 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
-	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
+	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H),
+		DARK_GREY);
 	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
-	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
+	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2),
+		DARK_GREY);
 }
 
 void	update_key(void)
@@ -164,11 +174,15 @@ void	draw_pseudo_box(char	*pseudo, int i, int team)
 
 	size = ft_strlen(pseudo) * 21;
 	if (team == TEAM_VOID)
-		draw_text_scale(pseudo, pos(WIN_W / 2 - size / 2, WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
+		draw_text_scale(pseudo, pos(WIN_W / 2 - size / 2,
+			WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
 	if (team == TEAM_RED)
-		draw_text_scale(pseudo, pos((WIN_W / 3) / 2 - size / 2, WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
+		draw_text_scale(pseudo, pos((WIN_W / 3) / 2 - size / 2,
+			WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
 	if (team == TEAM_BLUE)
-		draw_text_scale(pseudo, pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2, WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
+		draw_text_scale(pseudo,
+			pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2,
+				WIN_H / 3 + 64 + i * 60), pos(2, 2), colo(12, 12, 12));
 }
 
 void	draw_pseudo_box_leader(char	*pseudo, int id, int i, int team)
@@ -184,7 +198,8 @@ void	draw_pseudo_box_leader(char	*pseudo, int id, int i, int team)
 	if (team == TEAM_RED)
 		posp = pos((WIN_W / 3) / 2 - size / 2, WIN_H / 3 + 64 + i * 60);
 	if (team == TEAM_BLUE)
-		posp = pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2, WIN_H / 3 + 64 + i * 60);
+		posp = pos(((WIN_W / 3) * 2) + (WIN_W / 3) / 2  - size / 2,
+			WIN_H / 3 + 64 + i * 60);
 	draw_text_scale(pseudo, posp, pos(2, 2), colo(12, 12, 12));
 }
 
@@ -196,34 +211,11 @@ int	get_ratio(int kills, int deaths)
 		return (kills / deaths);
 }
 
-
-void	sort_team(void)
+static void	ft_sort_team(t_vector2D id, int tmp)
 {
 	int	i;
-	int	j;
-	t_vector2D	id;
-	int tmp;
+	int j;
 
-	i = 0;
-	while (i < _var()->n_red - 1)
-	{
-		j = 0;
-		while (j < _var()->n_red - 1 - i)
-		{
-			id.x = _var()->red[j];
-			id.y = _var()->red[j + 1];
-			if (get_ratio(_var()->o_player[id.x].kills,
-				_var()->o_player[id.x].deaths) > get_ratio(_var()->o_player
-				[id.y].kills, _var()->o_player[id.y].deaths))
-			{
-				tmp = _var()->red[j];
-				_var()->red[j] = _var()->red[j + 1];
-				_var()->red[j + 1] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
 	i = 0;
 	while (i < _var()->n_blue)
 	{
@@ -246,40 +238,66 @@ void	sort_team(void)
 	}
 }
 
-void	menu_lobby(void)
+void	sort_team(void)
+{
+	int	i;
+	int	j;
+	t_vector2D	id;
+	int tmp;
+
+	i = -1;
+	while (i++ < _var()->n_red - 1)
+	{
+		j = 0;
+		while (j < _var()->n_red - 1 - i)
+		{
+			id.x = _var()->red[j];
+			id.y = _var()->red[j + 1];
+			if (get_ratio(_var()->o_player[id.x].kills,
+				_var()->o_player[id.x].deaths) > get_ratio(_var()->o_player
+				[id.y].kills, _var()->o_player[id.y].deaths))
+			{
+				tmp = _var()->red[j];
+				_var()->red[j] = _var()->red[j + 1];
+				_var()->red[j + 1] = tmp;
+			}
+			j++;
+		}
+	}
+	ft_sort_team(id, tmp);
+}
+
+static void	ft_draw_pseudo_team(int limite, int team_id, int *team)
 {
 	int	i;
 
+	i = 0;
+	while (i < limite)
+	{
+		draw_pseudo_box(_var()->o_player[team[i]].pseudo, i, team_id);
+		i++;
+	}
+}
+
+void	menu_lobby(void)
+{
 	update_key();
 	draw_lobby();
 	ft_put_image_to_image(*_img(), _menu()->wait,
-	(t_vector2D){WIN_W / 4 - (_menu()->wait.w / 2), (WIN_H / 3) / 2 - (_menu()->wait.h / 2) - 16});
-	i = 0;
-	while (i < _var()->n_red)
-	{
-		draw_pseudo_box(_var()->o_player[_var()->red[i]].pseudo, i, TEAM_RED);
-		i++;
-	}
-	i = 0;
-	while (i < _var()->n_blue)
-	{
-		draw_pseudo_box(_var()->o_player[_var()->blue[i]].pseudo, i, TEAM_BLUE);
-		i++;
-	}
-	i = 0;
-	while (i < _var()->n_neutral)
-	{
-		draw_pseudo_box(_var()->o_player[_var()->neutral[i]].pseudo, i, TEAM_VOID);
-		i++;
-	}
+	(t_vector2D){WIN_W / 4 - (_menu()->wait.w / 2),
+		(WIN_H / 3) / 2 - (_menu()->wait.h / 2) - 16});
+	ft_draw_pseudo_team(_var()->n_red, TEAM_RED, _var()->red);
+	ft_draw_pseudo_team(_var()->n_blue, TEAM_BLUE, _var()->blue);
+	ft_draw_pseudo_team(_var()->n_neutral, TEAM_VOID, _var()->neutral);
 	if (_var()->is_host == SERVER)
-		draw_text_scale(ft_strjoin("ip ", ft_get_host_ip()), (t_vector2D){200, 10}
-		, pos(2, 2), colo(100, 86, 68));
+		draw_text_scale(ft_strjoin("ip ", ft_get_host_ip()),
+			(t_vector2D){200, 10}, pos(2, 2), colo(100, 86, 68));
 	else
 		draw_text(_var()->ip, (t_vector2D){200, 10}, colo(100, 86, 68));
 	if (_var()->is_host == SERVER && _var()->linked_players >= _var()->nb_player
 	&& is_neutral())
-		draw_text("'Space' to start", (t_vector2D){200, 300 + (i + 2) * 60}, colo(100, 86, 68));
+		draw_text("'Space' to start",
+			(t_vector2D){200, 300 + (i + 2) * 60}, colo(100, 86, 68));
 }
 
 void	menu_leaderboard(void)
@@ -291,13 +309,15 @@ void	menu_leaderboard(void)
 	i = 0;
 	while (i < _var()->n_red)
 	{
-		draw_pseudo_box_leader(_var()->o_player[_var()->red[i]].pseudo, _var()->red[i], i, TEAM_RED);
+		draw_pseudo_box_leader(_var()->o_player[_var()->red[i]].pseudo,
+			_var()->red[i], i, TEAM_RED);
 		i++;
 	}
 	i = 0;
 	while (i < _var()->n_blue)
 	{
-		draw_pseudo_box_leader(_var()->o_player[_var()->blue[i]].pseudo, _var()->blue[i], i, TEAM_BLUE);
+		draw_pseudo_box_leader(_var()->o_player[_var()->blue[i]].pseudo,
+			_var()->blue[i], i, TEAM_BLUE);
 		i++;
 	}
 }
@@ -305,9 +325,11 @@ void	menu_leaderboard(void)
 void	menu_pseudo(void)
 {
 	draw_bg((char [4]){250, 200, 0, 0});
-	ft_put_image_to_image(*_img(), _image()->alpha['D'], (t_vector2D){300, 300});
+	ft_put_image_to_image(*_img(), _image()->alpha['D'],
+		(t_vector2D){300, 300});
 	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, GREEN);
-	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
+	draw_rectange((t_vector2D){300, 300},
+		(t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
 	draw_text(_player()->pseudo, (t_vector2D){350, 350}, colo(100, 86, 68));
 }
 
@@ -315,8 +337,10 @@ void	menu_ip(void)
 {
 
 	draw_bg((char [4]){250, 200, 0, 0});
-	draw_text("Enter your ip (max 15)('space for '.')", (t_vector2D){100, 100}, colo(100, 86, 68));
-	draw_rectange((t_vector2D){300, 300}, (t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
+	draw_text("Enter your ip (max 15)('space for '.')",
+		(t_vector2D){100, 100}, colo(100, 86, 68));
+	draw_rectange((t_vector2D){300, 300},
+		(t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
 	draw_text(_var()->ip, (t_vector2D){350, 350}, colo(100, 86, 68));
 }
 

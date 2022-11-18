@@ -6,7 +6,7 @@
 /*   By: yuro4ka <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 01:57:27 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/17 22:00:58 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 14:36:49 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,15 @@ void	ft_intro_sprite_to_image(int i1, int i2, t_vector2D v1, t_vector2D v2)
 		_image()->intro_sprite[i2], v2, (t_vector2F){0.5, 0.5});
 }
 
+static void	ft_init_youri(unsigned long *start, unsigned long *clock,
+	t_vector2D *pos)
+{
+		pos->x = WIN_W - 350;
+		pos->y = 50;
+		*clock = get_clock(_var()->clock);
+		*start = get_clock(_var()->clock);
+}
+
 t_vector2D	ft_draw_youri()
 {
 	static t_vector2D		pos;
@@ -39,12 +48,7 @@ t_vector2D	ft_draw_youri()
 	static unsigned long	clock = 0;
 
 	if (!start)
-	{
-		pos.x = WIN_W - 350;
-		pos.y = 50;
-		clock = get_clock(_var()->clock);
-		start = get_clock(_var()->clock);
-	}
+		ft_init_youri(&start, &clock, &pos);
 	if (pos.x > 430)
 		ft_put_image_to_image_scale(*_img(),
 			_image()->intro_sprite[3], pos, (t_vector2F){0.3, 0.3});
@@ -66,6 +70,15 @@ t_vector2D	ft_draw_youri()
 	return (pos);
 }
 
+static void	ft_init_darian(unsigned long *start, unsigned long *clock,
+	t_vector2D *pos)
+{
+		pos->x = 50;
+		pos->y = 50;
+		*clock = get_clock(_var()->clock);
+		*start = get_clock(_var()->clock);
+}
+
 t_vector2D	ft_draw_darian(void)
 {
 	static t_vector2D		pos;
@@ -73,12 +86,7 @@ t_vector2D	ft_draw_darian(void)
 	static unsigned long	clock = 0;
 	
 	if (!start)
-	{
-		pos.x = 50;
-		pos.y = 50;
-		clock = get_clock(_var()->clock);
-		start = get_clock(_var()->clock);
-	}
+		ft_init_darian(&start, &clock, &pos);
 	if (pos.x < WIN_W / 2)
 		ft_put_image_to_image_scale(*_img(),
 			_image()->intro_sprite[0], pos, (t_vector2F){0.3, 0.3});
