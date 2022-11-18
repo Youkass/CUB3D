@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 01:29:34 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 01:33:34 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,20 +140,6 @@ void	draw_leaderboard(void)
 	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
 	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
 	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
-}
-
-int	is_neutral(void)
-{
-	int	i;
-
-	i = 0;
-	while (i < _var()->linked_players)
-	{
-		if (_var()->o_player[i].team == TEAM_VOID)
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 void	update_key(void)
