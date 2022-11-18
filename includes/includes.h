@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 19:39:03 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 21:22:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,25 @@ esc : 65307
 # define GAME_START_ONLINE 4
 
 # define NB_SOUND 10
+# define MENU_SOUND 5
 # define MENU_MUSIC 1
 # define GAME_MUSIC 2
+# define GAME_SOUND 4
 # define ROUND_MUSIC 3
 # define SHOT_SOUND 3
+
 # define GAME_WIN 1
 # define GAME_LOST 2
+
 # define ROUND_WIN 3
 # define ROUND_LOST 4
+
 # define SYMPH 0
 # define DOOM 1
 # define MORTAL 2
 # define ASHES 3
+
+# define BUTTON 0
 
 # define MENU_START 0
 # define MENU_OPTION 1

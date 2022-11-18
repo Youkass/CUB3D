@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 18:22:11 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 21:15:22 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,28 @@ void	ft_init_sound(void)
 			ft_black_hole (1);
 		++i;
 	}
+}
+
+void	ft_init_sound_next(void)
+{
+	t_media	*media;
+
+	media = _media();
+	media->result = ma_sound_init_from_file(&(media->engine),
+			"sound/button_sound.wav", 0, NULL, NULL,
+			&(media->sound[MENU_SOUND][BUTTON]));
+	if (media->result != MA_SUCCESS)
+		ft_black_hole (1);
+	media->result = ma_sound_init_from_file(&(media->engine),
+			"sound/knife_sound.wav", 0, NULL, NULL,
+			&(media->sound[GAME_SOUND][0]));
+	if (media->result != MA_SUCCESS)
+		ft_black_hole (1);
+	media->result = ma_sound_init_from_file(&(media->engine),
+			"sound/reload_sound.wav", 0, NULL, NULL,
+			&(media->sound[GAME_SOUND][1]));
+	if (media->result != MA_SUCCESS)
+		ft_black_hole (1);
 }
 
 void	ft_init_media(void)
@@ -188,6 +210,21 @@ int	ft_play_end_game(void)
 	return (0);
 }
 
+void	ft_check_end_songs(void)
+{
+	t_media	*media;
+
+	media = _media();
+	if (ma_sound_is_playing(&(media->sound[ROUND_MUSIC][GAME_WIN])))
+		ma_sound_stop(&(media->sound[ROUND_MUSIC][GAME_WIN]));
+	if (ma_sound_is_playing(&(media->sound[ROUND_MUSIC][GAME_LOST])))
+		ma_sound_stop(&(media->sound[ROUND_MUSIC][GAME_LOST]));
+	if (ma_sound_is_playing(&(media->sound[ROUND_MUSIC][ROUND_WIN])))
+		ma_sound_stop(&(media->sound[ROUND_MUSIC][ROUND_WIN]));
+	if (ma_sound_is_playing(&(media->sound[ROUND_MUSIC][ROUND_LOST])))
+		ma_sound_stop(&(media->sound[ROUND_MUSIC][ROUND_LOST]));
+}
+
 int	ft_check_my_team(void)
 {
 	if (_player()->team == TRED)
@@ -215,6 +252,7 @@ static void	ft_if_game(void)
 		ma_sound_stop(&(media->sound[GAME_MUSIC][_var()->ran_i]));
 		ft_start_from_start(&(media->sound[GAME_MUSIC][MORTAL]));
 	}
+	ft_check_end_songs();
 	ft_start_from_start(&(media->sound[GAME_MUSIC][_var()->ran_i]));
 }
 
@@ -236,7 +274,9 @@ void	ft_play_music(int index)
 		}
 	}
 	if (_var()->mode == GAME)
+	{
 		ft_if_game();
+	}
 }
 
 void	ft_play_shot_sound(t_obj player)
@@ -274,11 +314,12 @@ void	ft_play_own_shot(void)
 
 	media = _media();
 	i = 0;
+	printf("je tire\n");
 	while (i < MAX_SHOT_SOUND)
 	{
 		if (!ma_sound_is_playing(&(media->shot_sound[i])))
 		{
-			ma_sound_set_volume(&(media->shot_sound[i]), 0.2);
+			ma_sound_set_volume(&(media->shot_sound[i]), 0.4);
 			ma_sound_start(&(media->shot_sound[i]));
 			return ;
 		}
