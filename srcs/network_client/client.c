@@ -60,9 +60,7 @@ int	ft_init_client(void)
 void	ft_copy_data_before_pong(t_obj *player)
 {
 	int	i;
-	int	j;
 
-	j = 0;
 	i = 0;
 	//player->kill_round.n = _player()->kill_round.n;
 	//player->kill_round.size = _player()->kill_round.size;
@@ -117,11 +115,13 @@ void	ft_copy_data_before_pong(t_obj *player)
 	while (i < _player()->shoot_n)
 	{
 		player->shott[i] = _player()->shott[i];
-		while (j < SHOT_FRAME)
-		{
-			player->shott[i].n_pos[j] = _player()->shott[i].n_pos[j];
-			j++;
-		}
+		player->shott[i].pos3F = _player()->shott[i].pos3F;
+		// while (j < SHOT_FRAME)
+		// {
+		// 	player->shott[i].n_pos[j] = _player()->shott[i].n_pos[j];
+		// 	printf("%f, %f, %f", _player()->shott[i].n_pos[j]. x, _player()->shott[i].n_pos[j]. y, _player()->shott[i].n_pos[j]. z);
+		// 	j++;
+		// }
 		i++;
 	}
 	memset(player->pseudo, 0, sizeof(player->pseudo));
@@ -221,6 +221,14 @@ void	ft_pong_client(void)
 		if (_var()->o_player[i].kills < serv.player[i].kills)
 			ft_lstadd_back(&_log()->log, ft_lstnew((void *)new_log(serv.player
 				[i].id, serv.player[i].kill_round[serv.player[i].nr - 1])));
+
+		int	j = 0;
+		while (j < _player()->shoot_n)
+		{
+			_var()->o_player[i].shott[j] = _player()->shott[j];
+			_var()->o_player[i].shott[j].pos3F = _player()->shott[j].pos3F;
+			++j;
+		}
 		_var()->o_player[i] = serv.player[i];
 		++i;
 	}
