@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 01:12:18 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/16 01:36:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	key_hook(void)
 		_player()->weapon_id = mod(_player()->weapon_id + 1, 3);
 	if (_var()->key[space])
 	{
+		if (_menu()->mode == INTRO)
+			_menu()->mode = MENU_START;
 		if (_var()->is_host == SERVER && _menu()->mode == MENU_LOBBY && _var()
 			->mode != GAME && _var()->nb_player == _var()->linked_players) // menu lobby
 		{

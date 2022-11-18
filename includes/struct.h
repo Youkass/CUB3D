@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 00:44:04 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/17 19:04:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,6 +349,7 @@ typedef struct s_menu
 	t_vector2D	pos_s_bar;
 	int			draging_s;
 	t_vector2D	pos_m_bar;
+	t_vector2D	double_pos[2];
 	int			draging_m;
 	int			mode;
 	t_data		wall;
@@ -496,6 +497,7 @@ typedef struct	s_image
 	t_data			death_sprite_red;
 	t_data			walk_sprite[8];
 	t_data			walk_sprite_red[8];
+	t_data			intro_sprite[8];
 	t_data			crosshair;
 	t_data			front;
 	t_data			ammo;
@@ -641,5 +643,12 @@ struct	s_server_data
 	int						round_end;
 	int						restart;
 };
+
+typedef struct	s_intro
+{
+	t_vector2D		double_pos[2];
+	unsigned long	check;
+	int				limite;
+}	t_intro;
 
 #endif

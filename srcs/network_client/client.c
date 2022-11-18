@@ -128,33 +128,6 @@ void	ft_copy_data_before_pong(t_obj *player)
 	strcpy(player->pseudo, _player()->pseudo);
 }
 
-// void	ft_pong_client(void)
-// {
-// 	t_obj	player;
-// 	int		i;
-	
-// 	i = 0;
-// 	memset(&player, 0, sizeof(player));
-// 	ft_copy_data_before_pong(&player);
-// 	if (send(_var()->socket, &player, sizeof(player), 0)< 0)
-// 		return ;
-// 	while (i < _var()->linked_players)
-// 	{
-// 		if (recv(_var()->socket, &player, sizeof(player), 0) < 0)
-// 			return ;
-// 		if (player.shooted.shoot == 1 && player.shooted.id == _player()->id)
-// 			_player()->health -= _weapon()[player.weapon_id].power;
-// 		if (player.shooted.shoot == 1 && i == _player()->id)
-// 		{
-// 			_player()->shooted.shoot = 0;
-// 			_player()->shooted.id = -1;
-// 		}
-// 		_var()->o_player[i] = player;
-// 		_var()->o_player[i].id = i;
-// 		++i;
-// 	}
-// }
-
 void	print_data_recv(t_obj	*player)
 {
 	printf("-----RECV FROM %d-----\n", player->id);
@@ -212,7 +185,6 @@ void	ft_pong_client(void)
 	}
 	if (send(_var()->socket, &client, sizeof(client), 0) < 0)
 	{
-		printf("je passe par ce retour de send\n");
 		_var()->mode = MENU;
 		_menu()->mode = MENU_START;
 		return ;
@@ -222,7 +194,6 @@ void	ft_pong_client(void)
 	_var()->alive[TBLUE] = 0;
 	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) < 0)
 	{
-		printf("je passe par ce retour de recv\n");
 		_var()->mode = MENU;
 		_menu()->mode = MENU_START;
 		return ;
