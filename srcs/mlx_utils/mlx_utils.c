@@ -458,7 +458,6 @@ int	ft_loop()
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 		ft_loop_multi();
 	if (_player()->is_shooting > 0)
-		ft_play_own_shot();
 	update_bullets3F();
 	bullet_casting();
 	hud();
