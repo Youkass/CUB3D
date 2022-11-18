@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:53:24 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/18 00:59:34 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 01:34:01 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,18 @@ void	restart_player(void)
 	_player()->is_walking = 0;
 	_player()->spectate = 0;
 	_player()->spec_id = -1;
+}
+
+int	is_neutral(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < _var()->linked_players)
+	{
+		if (_var()->o_player[i].team == TEAM_VOID)
+			return (0);
+		i++;
+	}
+	return (1);
 }

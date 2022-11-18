@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bullet_casting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 18:21:28 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/18 01:30:59 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
