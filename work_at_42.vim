@@ -186,16 +186,16 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 391 - ((68 * winheight(0) + 36) / 72)
+let s:l = 279 - ((36 * winheight(0) + 36) / 72)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-391
-normal! 059|
+279
+normal! 0
 lcd ~/Desktop/FT_42/Cercle_4/CUB3D
 wincmd w
 argglobal
-if bufexists("~/Desktop/FT_42/Cercle_4/CUB3D/srcs/mlx_utils/mlx_utils.c") | buffer ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/mlx_utils/mlx_utils.c | else | edit ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/mlx_utils/mlx_utils.c | endif
+if bufexists("~/Desktop/FT_42/Cercle_4/CUB3D/srcs/utils/sound.c") | buffer ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/utils/sound.c | else | edit ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/utils/sound.c | endif
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -319,12 +319,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 191 - ((40 * winheight(0) + 36) / 72)
+let s:l = 125 - ((27 * winheight(0) + 36) / 72)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-191
-normal! 029|
+125
+normal! 08|
 lcd ~/Desktop/FT_42/Cercle_4/CUB3D
 wincmd w
 argglobal
@@ -452,12 +452,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 504 - ((30 * winheight(0) + 18) / 36)
+let s:l = 37 - ((28 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-504
-normal! 020|
+37
+normal! 0
 lcd ~/Desktop/FT_42/Cercle_4/CUB3D
 wincmd w
 argglobal
@@ -603,12 +603,12 @@ exe 'vert 4resize ' . ((&columns * 93 + 141) / 282)
 tabnext 1
 badd +1 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/menu/render.c
 badd +1 ~/Desktop/FT_42/Cercle_4/CUB3D
-badd +40 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/menu/intro.c
+badd +43 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/mlx_utils/mlx_utils.c
 badd +349 ~/Desktop/FT_42/Cercle_4/CUB3D/includes/struct.h
-badd +102 ~/Desktop/FT_42/Cercle_4/CUB3D/Makefile
-badd +56 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/mlx_utils/mlx_utils.c
-badd +248 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/utils/sound.c
 badd +94 ~/Desktop/FT_42/Cercle_4/CUB3D/includes/includes.h
+badd +40 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/menu/intro.c
+badd +102 ~/Desktop/FT_42/Cercle_4/CUB3D/Makefile
+badd +248 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/utils/sound.c
 badd +134 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/network_client/client.c
 badd +361 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/main.c
 badd +51 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/network/server.c
