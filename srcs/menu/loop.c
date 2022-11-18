@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 01:41:40 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/18 20:53:03 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	check_button_state(void)
 			{
 				_var()->nb_player = 1;
 				_var()->mode = GAME;
+				printf("salam\n");
 			}
 			if (i == 1 && _menu()->s_state[1].state == 2)
 				_menu()->mode = MENU_PLAYER;
@@ -191,7 +192,6 @@ void	planet_clock(void)
 */
 int	menu_loop(void)
 {
-	click_update();
 	ft_play_music(MENU_MUSIC);
 	if (_menu()->mode == INTRO)
 		ft_intro();

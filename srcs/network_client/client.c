@@ -105,6 +105,7 @@ void	ft_copy_data_before_pong(t_obj *player)
 	player->exchange = _player()->exchange;
 	player->is_start = _player()->is_start;
 	player->is_shooting = _player()->is_shooting;
+	i = 0;
 	while (i < _player()->shoot_n)
 	{
 		player->shott[i] = _player()->shott[i];
@@ -217,7 +218,6 @@ void	ft_pong_client(void)
 		int	j = 0;
 		while (j < serv.player[i].shoot_n)
 		{
-			printf("[%d] => %f, %f, %f\n", serv.player[i].id, serv.player[i].shott[j].pos.x, serv.player[i].shott[j].pos.y, serv.player[i].shott[j].pos.z);
 			_var()->o_player[i].shott[j] = serv.player[i].shott[j];
 			_var()->o_player[i].shott[j].pos = serv.player[i].shott[j].pos;
 			++j;

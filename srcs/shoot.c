@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 18:04:58 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/18 20:55:35 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	shoot_alone3F(void)
 	init_shot3F(pos3f(_player()->x, _player()->y, (_player()->z) + 100), pos3f(_player()->x
 		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y +
 		_player()->dy * _weapon()[_player()->weapon_id]->range, _player()->z -
-		((sin(normalise_between2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * 15)));
+		((sin(normalise_between2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * _weapon()[_player()->weapon_id]->range)));
 }
 
 /*
@@ -139,6 +139,7 @@ void	shoot(void)
 						_player()->kills++;
 					}
 					_player()->shooted.shoot = 2;
+					printf("===> HEADSHOT\n");
 				}
 				else if ((!_var()->o_player[i].is_crouching && closest3F.z < 235)
 				|| (_var()->o_player[i].is_crouching && closest3F.z < 315)) // NORMAL
@@ -296,7 +297,7 @@ void	init_shot3F(t_vector3F start, t_vector3F end)
 	_player()->shott[n].velo.velo = velocity_ms3F(_player()->shott[n].velo.dist,
 		_player()->shott[n].velo.time_ms);
 	_player()->shott[n].start_time = get_clock(_var()->clock);
-	_player()->shott[n].pos = pos3f(0, 0, 0);
-	//velocity_get_point3F(_player()->shott[n]. start_pos, _player()->shott[n].velo.velo, get_time(_player()->shott[n].start_time));
+	_player()->shott[n].pos = velocity_get_point3F(_player()->shott[n].start_pos
+	, _player()->shott[n].velo.velo, get_time(_player()->shott[n].start_time));
 	_player()->shoot_n++;
 }
