@@ -33,12 +33,21 @@ The following function will initialize our frames inside the window
 */
 void	ft_init_img()
 {
-	_img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
-	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
-		&(_img()->line_length), &(_img()->endian));
-	_img()->bits_per_pixel /= 8;
-	_img()->h = WIN_H;
-	_img()->w = WIN_W;
+	t_list	*tmp;
+	t_data	*img;
+
+	tmp = _lstimg();
+	img = _img();
+	(void)tmp;
+	img->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
+	if (!img->img)
+		ft_black_hole(139);
+	//ft_lstadd_back(&tmp, ft_new_node(&img->img));
+	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
+		&(img->line_length), &(img->endian));
+	img->bits_per_pixel /= 8;
+	img->h = WIN_H;
+	img->w = WIN_W;
 }
 
 /*
