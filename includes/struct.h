@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 01:21:05 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 01:29:34 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,7 +337,7 @@ typedef struct s_menu
 	t_data		logo;
 	t_data		bg;
 	t_data		img;
-	t_data		nb_p[4][2];
+	t_data		nb_p[4][3];
 	int			s_bar;
 	int			m_bar;
 	t_vector2D	pos_s_bar;
