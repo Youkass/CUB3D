@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 17:50:56 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 01:21:05 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -451,9 +451,9 @@ typedef struct s_var
 	int					click_keycode;
 	int					click;
 	int					key[46];
-	int					red[3];
-	int					blue[3];
-	int					neutral[6];
+	int					red[5];
+	int					blue[5];
+	int					neutral[MAX_PLAYER];
 	int					n_red;
 	int					n_neutral;
 	int					n_blue;
@@ -502,10 +502,10 @@ typedef struct	s_team
 {
 	int			win;
 	int			loose;
-	int			players[3];
+	int			players[5];
 	int			deaths;
 	t_vector2F	team_spawn;
-	t_vector2F	player_spawn[3];
+	t_vector2F	player_spawn[5];
 }	t_team;
 
 typedef struct	s_player_stat
@@ -523,7 +523,7 @@ typedef struct	s_team_serv
 	int				wins;
 	int				looses;
 	int				round_state;
-	t_player_stat	players[3];
+	t_player_stat	players[5];
 }	t_team_serv;
 
 typedef struct s_player
