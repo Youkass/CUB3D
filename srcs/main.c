@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 15:31:11 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/20 00:17:28 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,24 +171,16 @@ void ft_init_player_pos(void)
 	double dist;
 	int i;
 
+	memset(_player(), 0, sizeof(t_obj));
 	_player()->team = TEAM_VOID;
 	memset(_var()->blue, 0, sizeof(_var()->blue));
 	memset(_var()->red, 0, sizeof(_var()->red));
 	memset(_var()->neutral, 0, sizeof(_var()->neutral));
 	memset(&_player()->kill_match, 0, sizeof(_player()->kill_match));
 	memset(&_player()->kill_round, 0, sizeof(_player()->kill_round));
-	_player()->nr = 0;
-	_player()->nm = 0;
-	_var()->n_blue = 0;
 	_log()->log = NULL;
-	_player()->spectate = 0;
 	_player()->spec_id = -1;
-	_var()->n_red = 0;
-	_var()->n_neutral = 0;
-	_player()->pseudo[0] = 0;
-	_player()->is_shooting = 0;
 	_player()->exchange = 4;
-	_player()->weapon_id = 0;
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
 	_player()->health = 100;
@@ -199,34 +191,20 @@ void ft_init_player_pos(void)
 		_player()->full_ammo[i] = _weapon()[i]->full_ammo;
 		i++;
 	}
-	_player()->shoot_n = 0;
 	_player()->x = 5;
 	_player()->y = 3;
 	_player()->change_team = -1;
-	_player()->z = 0;
 	_player()->scale = 0.8;
-	_player()->dx = -1;
+	_player()->dx = -0.50;
 	_player()->shooted.id = -1;
-	_player()->shooted.shoot = 0;
-	_player()->dy = 0;
-	_player()->is_crouching = 0;
-	_player()->is_dead = 0;
-	_player()->death_n = 0;
 	_player()->plane = (t_vector2F){0, -0.66};
-	_var()->time = 0;
-	_var()->old_time = 0;
 	_player()->hb.hit.r = 0.5;
-	_player()->hb.n = 0;
-	_player()->pitch = 0;
-	_player()->norm_pitch = 0;
 	generate_dsprite();
 	generate_dsprite_red();
 	_image()->sprite = generate_image("./img/front.xpm");
 	dist = hypot(_player()->dx, _player()->dy);
 	_player()->angle = 360 - acos(_player()->dx / dist) * 180 / M_PI;
-	_player()->is_walking = 0;
 	init_data_shot(_player());
-	_player()->is_start = 0;
 }
 
 void walk_clock(void)
@@ -297,7 +275,7 @@ void ft_print_tab(char **s)
 	int line;
 
 	i = 0;
-	while (s[i])
+	while (_var()->map[i])
 	{
 		printf("%s\n", s[i]);
 		line = ft_strlen(s[i]);
@@ -335,7 +313,7 @@ int ft_loop_hook(void)
 	int pid;
 
 	click_update();
-	printf("%d\n", _var()->nb_player);
+	// printf("%d\n", _var()->nb_player);
 	if (_var()->mode == ONLINE_START)
 	{
 		_var()->is_host = SERVER;
@@ -363,7 +341,7 @@ int ft_loop_hook(void)
 	if (_var()->mode == GAME)
 	{
 		ft_loop();
-		if (!_var()->freeze)
+		if (!_var()->freeze || _player()->spectate)
 		{
 			mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
 			mouse_rotate();
@@ -555,6 +533,7 @@ void init_image(void)
 	_image()->bullet = generate_image("./img/bullet.xpm");
 	_image()->ammo = generate_image("./img/ammo.xpm");
 	_image()->crosshair = generate_image("./img/crosshair.xpm");
+	_image()->hitmarker = generate_image("./img/hitmarker.xpm");
 	_image()->front = generate_image("./img/soldier/front.xpm");
 	if (WIN_W == 1440)
 		_image()->bg = generate_image("./img/spacebg1440.xpm");
@@ -604,15 +583,21 @@ int main(int argc, char **argv)
 
 	(void)argc;
 	init_var();
-	printf("MUSIC : %d\n", MUSIC);
+	printf("MUSIC : %d\n", IS_MUSIC);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		ft_black_hole(139);
-	_var()->map = resize_map(ft_split(read_file(fd), '\n'));
-	if (!_var()->map)
+	char	**buf = ft_split(read_file(fd), '\n');
+	parse_args(buf);
+	_var()->before_map = resize_map(buf);
+	if (!_var()->before_map)
 		ft_black_hole(139);
+	// ft_print_tab(_var()->before_map);
+	for (int i = 0; _var()->map[i][0]; i++)
+		printf("%s\n", _var()->map[i]);
+	exit(0);
+	copy_map_static();
 	init_weapons();
-	ft_print_tab(_var()->map);
 	ft_init_mlx();
 	ft_init_media();
 	ft_init_img();

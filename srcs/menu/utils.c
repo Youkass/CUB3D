@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/17 17:09:13 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:34:19 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,10 +179,10 @@ t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos)
 }
 
 
-t_data	ft_put_sprite_to_images_scale(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size, t_vector2D scale)
+t_data	ft_put_sprite_to_images_scale(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size, t_vector2F scale)
 {
 	t_vector2D	rel_pos[2];
-	t_vector2D	it;
+	t_vector2F	it;
 	t_vector2D	save;
 
 	save = pos;
@@ -191,7 +191,7 @@ t_data	ft_put_sprite_to_images_scale(t_data big, t_data lil, t_vector2D pos, t_v
 		return (big);
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
-	it = (t_vector2D){0, 0};
+	it = (t_vector2F){0, 0};
 	if (pos.x + lil.w > big.w
 	|| (pos.y) + lil.h > big.h)
 		return (big);

@@ -175,7 +175,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 
 	it = pos;
 	ok = 0;
-	while (map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+	while (map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
 		if (map[pos.y][pos.x] == '1')
 		{
@@ -185,7 +185,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 		pos.x++;
 	}
 	pos = it;
-	while (pos.x >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+	while (pos.x >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
 		if (map[pos.y][pos.x] == '1')
 		{
@@ -195,7 +195,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 		pos.x--;
 	}
 	pos = it;
-	while (map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+	while (map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
 		if (map[pos.y][pos.x] == '1')
 		{
@@ -205,7 +205,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 		pos.y++;
 	}
 	pos = it;
-	while (pos.y >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+	while (pos.y >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
 		if (map[pos.y][pos.x] == '1')
 		{
@@ -226,14 +226,17 @@ int	is_player(char c)
 	return (0);
 }
 
-int check_map(char **map)
+int check_map(char **map, int start)
 {
 	t_vector2D	it;
+	t_vector2D	pt;
 
-	it = (t_vector2D){0, 0};
+	it = pos(0, start);
+	pt = pos(0, 0);
 	while (map[it.y])
 	{
 		it.x = 0;
+		pt.x = 0;
 		while (map[it.y][it.x])
 		{
 			if (map[it.y][it.x] == '0' || is_player(map[it.y][it.x]))
@@ -241,13 +244,18 @@ int check_map(char **map)
 				if (!is_char_in_range(it, map))
 				{
 					printf("SCANDLAEUX CA MARCHE PAS\n");
-						return (0);
+					return (0);
 				}
 			}
+			pt.x++;
 			it.x++;
 		}
+		strcpy(_var()->map[pt.y], map[it.y]);
+		printf("%s\n", _var()->map[pt.y]);
+		pt.y++;
 		it.y++;
 	}
+	_var()->map[pt.y][0] = 0;
 	return (1);
 }
 
@@ -263,6 +271,11 @@ int	get_longest_line(char **map)
 		if (ft_strlen(map[i]) > (size_t)max)
 			max = ft_strlen(map[i]);
 		i++;
+	}
+	if (i > 1024)
+	{
+		printf("Map to big: Max 1024 * 1024\n");
+		ft_black_hole(1);
 	}
 	return (max);
 }
@@ -295,6 +308,11 @@ char	**resize_map(char **map)
 	char	**new;
 
 	max = get_longest_line(map);
+	if (max > 1024)
+	{
+		printf("Map to big: Max 1024 * 1024\n");
+		ft_black_hole(1);
+	}
 	new = ft_malloc(sizeof(char *) * 100);
 	i = 0;
 	while (map[i])
@@ -304,6 +322,25 @@ char	**resize_map(char **map)
 	}
 	new[i] = NULL;
 	return (new);
+}
+
+void	copy_map_static(void)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (_var()->before_map[i])
+	{
+		j = 0;
+		while (_var()->before_map[i][j])
+		{
+			_var()->map[i][j] = _var()->before_map[i][j];
+			j++;
+		}
+		_var()->map[i][j] = 0;
+		i++;
+	}
 }
 /*
 int main(int argc, char **argv)

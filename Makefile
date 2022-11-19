@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/19 15:32:45 by yobougre         ###   ########.fr        #
+#    Updated: 2022/11/19 22:57:21 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS		=	srcs/main.c\
 				srcs/menu/dragbar.c\
 				srcs/menu/recv_utils.c\
 				srcs/parsing/parsing.c\
+				srcs/parsing/args.c\
 				srcs/network_client/network_utils.c\
 				srcs/network_client/client.c\
 				srcs/math/math.c\
@@ -87,6 +88,7 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/menu/recv_utils.c\
 					srcs/parsing/parsing.c\
 					srcs/utils/click.c\
+					miniaudio/extras/miniaudio_split/miniaudio.c\
 					srcs/team.c
 
 
@@ -104,7 +106,7 @@ OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
-CC_FLAGS	= -Wall -Werror -Wextra -g3
+CC_FLAGS	= -Wall -Werror -Wextra -g
 MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -ldl -lpthread
 
 
@@ -133,6 +135,7 @@ $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
+	@mkdir -p $(OBJS_DIR_SERVER)miniaudio/extras/miniaudio_split/
 	@mkdir -p $(OBJS_DIR_SERVER)srcs
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 
@@ -145,15 +148,15 @@ $(NAME_B): $(OBJECTS_PREFIXED_B) maker
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME_B)$(END)\n"
 
 $(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
-	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) -O3 -pthread -Lincludes -lm
-	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
+	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS)  $(MLB_FLAGS)
+	@printf "\033[2K\r\033[0;32m[END]\033[0m $(SERVER)$(END)\n"
 
 $(AUDIO): $(OBJECTS_PREFIXED) maker
 	@$(CC) -o $(NAME) $(OBJECTS_PREFIXED) $(CC_FLAGS) -D IS_MUSIC=1 $(MLB_FLAGS)
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
 
 
-all: $(NAME) server
+all: $(NAME)
 
 server: $(SERVER)
 

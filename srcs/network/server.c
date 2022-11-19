@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 23:41:22 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:45:10 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	ft_init_server(t_server_data *data)
 	}
 	memset(&data->server, 0, sizeof(data->server));
 	memset(&data->round_state, 0, sizeof(data->round_state));
-	printf("%d\n", data->nb_players);
 	data->round_state[ROUND_PLAY] = data->nb_players;
 	init_array(&data->teams[0], data->nb_players / 2);
 	init_array(&data->teams[1], data->nb_players / 2);

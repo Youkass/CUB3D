@@ -365,6 +365,28 @@ static void	ft_help_hud_else(int weapon_id)
 							posf(0.5, 0.5));
 }
 
+void	hud_hit_and_touch(void)
+{
+	if (_player()->touched)
+		ft_put_image_to_image(*_img(), _image()->hitmarker, pos(WIN_W / 2 - 8,
+			WIN_H / 2 - 8));
+	else
+		ft_put_image_to_image(*_img(), _image()->crosshair, pos(WIN_W / 2 - 8,
+			WIN_H / 2 - 8));
+	if (_player()->touched == 1 && get_time(_var()->start_touch) > 100000)
+		_player()->touched = 0;
+
+	if (_player()->hitted)
+	{
+		draw_rectange(pos(0, 0), pos(WIN_W, 20), RED);
+		draw_rectange(pos(0, WIN_H - 20), pos(WIN_W, 20), RED);
+		draw_rectange(pos(0, 0), pos(20, WIN_H), RED);
+		draw_rectange(pos(WIN_W - 20, 0), pos(20, WIN_H), RED);
+	}
+	if (_player()->hitted == 1 && get_time(_var()->start_hit) > 100000)
+		_player()->hitted = 0;
+}
+
 void	hud(void)
 {
 	unsigned long	time_attack;
@@ -375,8 +397,6 @@ void	hud(void)
 	time_attack = get_time(_var()->shotanim_start);
 	time_reload = get_time(_var()->reloadanim_start);
 	index = 0;
-	ft_put_image_to_image(*_img(), _image()->crosshair, pos(WIN_W / 2 - 8,
-		WIN_H / 2 - 8));
 	if (_player()->spectate && _player()->spec_id > 0 && _player()->spec_id
 	< _var()->linked_players)
 		weapon_id = _var()->o_player[_player()->spec_id].weapon_id;
@@ -390,6 +410,10 @@ void	hud(void)
 		ft_help_hud_else_if(index, time_reload, weapon_id);
 	else
 		ft_help_hud_else(weapon_id);
+	hud_hit_and_touch();
+	if (_var()->round_state == ROUND_WAIT_START)
+		draw_text(ft_itoa(_var()->time_start), pos(WIN_W / 2 - 42, 100),
+			WHITE);
 }
 
 void	set_spectate(void)
@@ -488,6 +512,7 @@ void	draw_death(void)
 
 int	ft_loop(void)
 {
+	printf("linked => %d\n", _var()->linked_players);
 	ft_call();
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 		ft_loop_multi();

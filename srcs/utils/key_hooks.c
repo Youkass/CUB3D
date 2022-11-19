@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 22:39:04 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 22:00:51 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,49 @@ void	key_hook(void)
 {
 	if (_var()->key[esc])
 		ft_escape();
-	if (_player()->is_dead || _var()->freeze || click_delay())
-		return ;
-	if (_var()->key[a])
-		ft_strafe_left();
-	if (_var()->key[w])
-		ft_forward();
-	if (_var()->key[s])
-		ft_back();
-	if (_var()->key[d])
-		ft_strafe_right();
-	if (_var()->key[left])
-		ft_left();
-	if (_var()->key[right])
-		ft_right();
-	if (_var()->key[up])
-		ft_up_head();
-	if (_var()->key[down])
-		ft_down_head();
+	if (!(_player()->is_dead || _var()->freeze || click_delay()))
+	{
+		if (_var()->key[a])
+			ft_strafe_left();
+		if (_var()->key[w])
+			ft_forward();
+		if (_var()->key[s])
+			ft_back();
+		if (_var()->key[d])
+			ft_strafe_right();
+		if (_var()->key[left])
+			ft_left();
+		if (_var()->key[right])
+			ft_right();
+		if (_var()->key[up])
+			ft_up_head();
+		if (_var()->key[down])
+			ft_down_head();
+		if (_var()->key[one] && _var()->mode == GAME)
+			_player()->weapon_id = 0;
+		if (_var()->key[two] && _var()->mode == GAME)
+			_player()->weapon_id = 1;
+		if (_var()->key[three] && _var()->mode == GAME)
+			_player()->weapon_id = 2;
+		if (_var()->key[f] && _var()->mode == GAME)
+			_player()->weapon_id = mod(_player()->weapon_id + 1, 3);
+		if (_var()->key[r])
+		{
+			if (_var()->mode == GAME && _player()->full_ammo[_player()->weapon_id] > 0 && _player()->ammo[_player()->weapon_id] < 15
+			&& _player()->weapon_id != KNIFE)
+			{
+				int	needed;
+
+				needed = abs(_player()->ammo[_player()->weapon_id] - 15);
+				if (_player()->full_ammo[_player()->weapon_id] <= needed)
+					needed = _player()->full_ammo[_player()->weapon_id];
+				_player()->full_ammo[_player()->weapon_id] -= needed;
+				_player()->ammo[_player()->weapon_id] += needed;
+				_var()->reload_anim = 1;
+				_var()->reloadanim_start = get_clock(_var()->clock);
+			}
+		}
+	}
 	if (_var()->key[mouse])
 	{
 		if (_menu()->mode == INTRO)
@@ -82,18 +107,9 @@ void	key_hook(void)
 	}
 	if (_player()->id == 0 &&_var()->key[maj] && _var()->mode == MENU)
 	{
-		printf("click\n");
 		click();
 		_var()->restart = 1;
 	}
-	if (_var()->key[one] && _var()->mode == GAME)
-		_player()->weapon_id = 0;
-	if (_var()->key[two] && _var()->mode == GAME)
-		_player()->weapon_id = 1;
-	if (_var()->key[three] && _var()->mode == GAME)
-		_player()->weapon_id = 2;
-	if (_var()->key[f] && _var()->mode == GAME)
-		_player()->weapon_id = mod(_player()->weapon_id + 1, 3);
 	if (_var()->key[space])
 	{
 		if (_menu()->mode == INTRO)
@@ -103,22 +119,6 @@ void	key_hook(void)
 		{
 			_player()->is_start = 1;
 			printf("j'ai appuyé sur space\n");
-		}
-	}
-	if (_var()->key[r])
-	{
-		if (_var()->mode == GAME && _player()->full_ammo[_player()->weapon_id] > 0 && _player()->ammo[_player()->weapon_id] < 15
-		&& _player()->weapon_id != KNIFE)
-		{
-			int	needed;
-
-			needed = abs(_player()->ammo[_player()->weapon_id] - 15);
-			if (_player()->full_ammo[_player()->weapon_id] <= needed)
-				needed = _player()->full_ammo[_player()->weapon_id];
-			_player()->full_ammo[_player()->weapon_id] -= needed;
-			_player()->ammo[_player()->weapon_id] += needed;
-			_var()->reload_anim = 1;
-			_var()->reloadanim_start = get_clock(_var()->clock);
 		}
 	}
 	if (_var()->key[maj] && _var()->mode == GAME)
@@ -305,6 +305,7 @@ int	ft_escape(void)
 	}
 	if (_var()->mode == GAME)
 	{
+		printf("2\n");
 		restart_player();
 		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 		_var()->mode = MENU;
@@ -324,5 +325,7 @@ int	ft_escape(void)
 			_menu()->mode = MENU_PLAYER;
 		click();
 	}
+	else
+		ft_black_hole(1);
 	return (0);
 }

@@ -41,13 +41,36 @@ int	ft_init_client(void)
 	if (ret < 0)
 		return (EXIT_FAILURE);
 	printf("je suis connecté\n");
-	if (recv(_var()->socket, &(_player()->id), sizeof(int), 0) < 0)
+	if (recv(_var()->socket, &(_player()->id), sizeof(int), MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
 	printf("je reçois mon id : %d\n", _player()->id);
-	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int), 0) < 0)
+	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int),
+		MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
-	if (recv(_var()->socket, &(_var()->pid), sizeof(int), 0) < 0)
+	if (recv(_var()->socket, &(_var()->pid), sizeof(int), MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
+	if (_player()->id == 0)
+	{
+		if (send(_var()->socket, &(_var()->map), sizeof(_var()->map), 0) <= 0)
+			return (EXIT_FAILURE);
+		if (send(_var()->socket, &(_var()->map_width), sizeof(_var()->map_width), 0) <= 0)
+			return (EXIT_FAILURE);
+		if (send(_var()->socket, &(_var()->map_height), sizeof(_var()->map_height), 0) <= 0)
+			return (EXIT_FAILURE);
+		// send au serveur la map
+	}
+	if (_player()->id != 0)
+	{
+		if (recv(_var()->socket, &(_var()->map), sizeof(_var()->map), MSG_WAITALL) <= 0)
+			return (EXIT_FAILURE);
+		if (recv(_var()->socket, &(_var()->map_width), sizeof(_var()->map_width), MSG_WAITALL) <= 0)
+			return (EXIT_FAILURE);
+		if (recv(_var()->socket, &(_var()->map_height), sizeof(_var()->map_height), MSG_WAITALL) <= 0)
+			return (EXIT_FAILURE);
+		for (int i = 0; i < _var()->map_height; i++)
+			printf("=> %s\n", _var()->map[i]);
+		ft_malloc_map();
+	}
 	printf("je sors de la fonction\n");
 	return (EXIT_SUCCESS);
 }
@@ -148,16 +171,30 @@ void	render_kill_log()
 	}
 }
 
-void	get_data(int i, t_send_server_game serv)
+void	update_health(int i, t_send_server_game serv)
 {
 	if (serv.player[i].is_shooting > 0 && i != _player()->id)
 		ft_play_shot_sound(serv.player[i]);
-	if (serv.player[i].shooted.shoot == 1 && serv.player[i].shooted.id == _player()->id)
-		_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
-	else if (serv.player[i].shooted.shoot == 2 && serv.player[i].shooted.id == _player()->id)
-		_player()->health -= _weapon()[serv.player[i].weapon_id]->headshot;
-	else if (serv.player[i].shooted.shoot == 3 && serv.player[i].shooted.id == _player()->id)
-		_player()->health -= _weapon()[serv.player[i].weapon_id]->footshot;
+	if (serv.player[i].shooted.shoot > 0 && serv.player[i].shooted.id
+		== _player()->id)
+	{
+		if (serv.player[i].shooted.shoot == 1)
+			_player()->health -= _weapon()[serv.player[i].weapon_id]->power;
+		else if (serv.player[i].shooted.shoot == 2)
+			_player()->health -= _weapon()[serv.player[i].weapon_id]->headshot;
+		else if (serv.player[i].shooted.shoot == 3)
+			_player()->health -= _weapon()[serv.player[i].weapon_id]->footshot;
+		_player()->hitted = 1;
+		_var()->start_hit = get_clock(_var()->clock);
+	}
+}
+
+void	get_data(int i, t_send_server_game serv)
+{
+	int	j;
+
+	j = 0;
+	update_health(i, serv);
 	if (serv.player[i].shooted.shoot > 0 && i == _player()->id)
 	{
 		_player()->shooted.shoot = 0;
@@ -170,8 +207,6 @@ void	get_data(int i, t_send_server_game serv)
 	if (_var()->o_player[i].kills < serv.player[i].kills)
 		ft_lstadd_back(&_log()->log, ft_lstnew((void *)new_log(serv.player
 			[i].id, serv.player[i].kill_round[serv.player[i].nr - 1])));
-
-	int	j = 0;
 	while (j < serv.player[i].shoot_n)
 	{
 		_var()->o_player[i].shott[j] = serv.player[i].shott[j];
@@ -179,6 +214,55 @@ void	get_data(int i, t_send_server_game serv)
 		++j;
 	}
 	_var()->o_player[i] = serv.player[i];
+}
+
+void	round_handling(int	*incremented, t_send_server_game serv)
+{
+	if (_var()->alive[TBLUE] == 0 && !*incremented)
+	{
+		_var()->last_round_winner = TRED;
+		++_team()[TEAM_RED]->win;
+		++_team()[TEAM_BLUE]->loose;
+		*incremented = 1;
+	}
+	else if (_var()->alive[TRED] == 0 && !*incremented)
+	{
+		_var()->last_round_winner = TBLUE;
+		++_team()[TEAM_BLUE]->win;
+		++_team()[TEAM_RED]->loose;
+		*incremented = 1;
+	}
+	_var()->round_state = serv.round_state;
+	if (serv.round_state == ROUND_LEADERBOARD && serv.match_finished == 1)
+		_var()->match_finished = 1;
+	else if (_var()->round_state == ROUND_END_WAIT)
+		_var()->freeze = 1;
+	if (_var()->round_state == ROUND_WAIT_START)
+	{
+		replace_player();
+		init_player_team();
+	}
+	if (_var()->round_state == ROUND_START)
+	{
+		*incremented = 0;
+		_var()->freeze = 0;
+	}
+	if (_var()->match_finished)
+	{
+		_var()->mode = MENU;
+		_menu()->mode = MENU_LEADERBOARD;
+		_var()->freeze = 0;
+		*incremented = 0;
+	}
+	if (serv.restart == 1)
+	{
+		restart_player();
+		_var()->mode = MENU;
+		_menu()->mode = MENU_LOBBY;
+		_var()->freeze = 0;
+	}
+	if (serv.round_state == ROUND_WAIT_START)
+		_var()->time_start = serv.time;
 }
 
 void	ft_pong_client(void)
@@ -230,48 +314,6 @@ void	ft_pong_client(void)
 		get_data(i, serv);
 		++i;
 	}
-	if (_var()->alive[TBLUE] == 0 && !incremented)
-	{
-		_var()->last_round_winner = TRED;
-		++_team()[TEAM_RED]->win;
-		++_team()[TEAM_BLUE]->loose;
-		incremented = 1;
-	}
-	else if (_var()->alive[TRED] == 0 && !incremented)
-	{
-		_var()->last_round_winner = TBLUE;
-		++_team()[TEAM_BLUE]->win;
-		++_team()[TEAM_RED]->loose;
-		incremented = 1;
-	}
-	_var()->round_state = serv.round_state;
-	if (serv.round_state == ROUND_LEADERBOARD && serv.match_finished == 1)
-		_var()->match_finished = 1;
-	else if (_var()->round_state == ROUND_END_WAIT)
-		_var()->freeze = 1;
-	if (_var()->round_state == ROUND_WAIT_START)
-	{
-		replace_player();
-		init_player_team();
-	}
-	if (_var()->round_state == ROUND_START)
-	{
-		incremented = 0;
-		_var()->freeze = 0;
-	}
-	if (_var()->match_finished)
-	{
-		_var()->mode = MENU;
-		_menu()->mode = MENU_LEADERBOARD;
-		_var()->freeze = 0;
-		incremented = 0;
-	}
-	if (serv.restart == 1)
-	{
-		restart_player();
-		_var()->mode = MENU;
-		_menu()->mode = MENU_LOBBY;
-		_var()->freeze = 0;
-	}
+	round_handling(&incremented, serv);
 }
 
