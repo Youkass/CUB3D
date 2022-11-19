@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   team.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:39:25 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 18:21:34 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/19 01:14:05 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	init_teams(void)
 	_team()[TEAM_RED]->player_spawn[0] = posf(3, 3);
 	_team()[TEAM_RED]->player_spawn[1] = posf(3, 4);
 	_team()[TEAM_RED]->player_spawn[2] = posf(3, 2);
+	_team()[TEAM_RED]->player_spawn[3] = posf(3, 3);
+	_team()[TEAM_RED]->player_spawn[4] = posf(3, 3);
 
 	_team()[TEAM_BLUE]->loose = 0;
 	_team()[TEAM_BLUE]->win = 0;
@@ -73,6 +75,8 @@ void	init_teams(void)
 	_team()[TEAM_BLUE]->player_spawn[0] = posf(40, 9);
 	_team()[TEAM_BLUE]->player_spawn[1] = posf(40, 10);
 	_team()[TEAM_BLUE]->player_spawn[2] = posf(41, 9);
+	_team()[TEAM_BLUE]->player_spawn[3] = posf(41, 9);
+	_team()[TEAM_BLUE]->player_spawn[4] = posf(41, 9);
 	init_player_team();
 }
 
