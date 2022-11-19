@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 01:29:34 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 00:01:10 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,8 @@ struct	s_obj
 	int			nr;
 	int			nm;
 	int			kevlar; // entre 0 et 2. 0 = pas de Kevlar, 1 = Kevlar, 2 = Kevlar + casque
+	int			touched;
+	int			hitted;
 };
 
 typedef struct	s_network_data
@@ -417,31 +419,32 @@ typedef enum s_key
 
 typedef struct s_var
 {
-	t_menu			*menu;
-	t_vector2D		m_pos;
-	int				mode;
-	struct timeval	clock;
-	unsigned long	time;
-	unsigned long	old_time;
-	double			frame_time;
-	pthread_t		th[TH_RAY];
-	pthread_t		th_void[10];
-	t_obj			**coord_map;
-	t_obj			player2;
-	int				zbuffer[WIN_W];
-	unsigned long	walk_start;
-	int				walk_n;
-	t_obj			o_player[MAX_PLAYER];
-	t_obj			sort_player[MAX_PLAYER];
-	t_weapon		weapon[NB_WEAPONS];
-	int				linked_players;
-	char			ip[16];
-	int				started;
-	int				is_host;
+	t_menu				*menu;
+	t_vector2D			m_pos;
+	int					mode;
+	struct timeval		clock;
+	unsigned long		time;
+	unsigned long		old_time;
+	double				frame_time;
+	pthread_t			th[TH_RAY];
+	pthread_t			th_void[10];
+	t_obj				**coord_map;
+	t_obj				player2;
+	int					zbuffer[WIN_W];
+	unsigned long		walk_start;
+	int					walk_n;
+	t_obj				o_player[MAX_PLAYER];
+	t_obj				sort_player[MAX_PLAYER];
+	t_weapon			weapon[NB_WEAPONS];
+	int					linked_players;
+	char				ip[16];
+	int					started;
+	int					is_host;
 	struct sockaddr_in	client;
 	int					nb_player;
 	int					socket;
-	char				**map;
+	char				**before_map;
+	char				map[1024][1024];
 	int					map_width;
 	int					map_height;
 	int					scale;
@@ -475,6 +478,10 @@ typedef struct s_var
 	unsigned long		reloadanim_start;
 	int					reload_anim;
 	int					pid;
+	unsigned long		start_touch;
+	unsigned long		start_hit;
+	int					time_start;
+	unsigned char		colors[2][4];
 }	t_var;
 
 typedef struct	s_image
@@ -493,9 +500,11 @@ typedef struct	s_image
 	t_data			walk_sprite_red[8];
 	t_data			intro_sprite[8];
 	t_data			crosshair;
+	t_data			hitmarker;
 	t_data			front;
 	t_data			ammo;
 	t_data			*weapons[3][3];
+	t_data			dir[4];
 }	t_image;
 
 typedef struct	s_team
@@ -582,6 +591,7 @@ typedef struct	s_send_server_game
 	int			red_alive;
 	int			blue_alive;
 	int			restart;
+	int			time;
 }	t_send_server_game;
 
 typedef struct	s_client_thread
@@ -636,6 +646,9 @@ struct	s_server_data
 	int						blue_alive;
 	int						round_end;
 	int						restart;
+	char					map[1024][1024];
+	int						map_width;
+	int						map_height;
 };
 
 typedef struct	s_intro

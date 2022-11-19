@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/16 19:13:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:28:22 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,10 @@ int	ft_malloc_map(void)
 
 	i = 0;
 	ft_find_wall_scale();
-	_var()->coord_map = ft_malloc(sizeof(t_obj *) * _var()->map_width);
+	_var()->coord_map = ft_malloc(sizeof(t_obj *) * _var()->map_height);
 	if (!_var()->coord_map)
 		return (1); //TODO call garbage collector
-	while (_var()->map[i])
+	while (i < _var()->map_height)
 	{
 		_var()->coord_map[i] = ft_copy_map_line(_var()->map[i], i);
 		if (!_var()->coord_map[i])
@@ -115,6 +115,34 @@ int	ft_malloc_map(void)
 	ft_give_id();
 	return (0);
 }
+
+// int	ft_malloc_map(void)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	j = 0;
+// 	ft_find_wall_scale();
+// 	_var()->coord_map = ft_malloc(sizeof(t_obj *) * _var()->map_height);
+// 	if (!_var()->coord_map)
+// 		return (1); //TODO call garbage collector
+// 	while (_var()->before_map[i])
+// 	{
+// 		_var()->coord_map[i] = ft_malloc(sizeof(t_obj) * _var()->map_width);
+// 		j = 0;
+// 		while (j < _var()->map_width)
+// 		{
+// 			_var()->coord_map[i][j] = _var()->map[i][j];
+// 			j++;
+// 		}
+// 		if (!_var()->coord_map[i])
+// 			return (1); //TODO call garbage collector
+// 		++i;
+// 	}
+// 	ft_give_id();
+// 	return (0);
+// }
 
 /*
 ===============================================================================

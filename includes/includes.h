@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 15:33:38 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/19 18:28:09 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ esc : 65307
 # endif
 
 # ifndef IS_MUSIC
-#  define IS_MUSIC 0
+#  define IS_MUSIC 1
 # endif
 
 # define colo(x, y, z) (char [4]){z, y, x, 100}

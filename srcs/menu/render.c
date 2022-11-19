@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 22:02:38 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 21:56:41 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,14 +281,14 @@ void	menu_lobby(void)
 	ft_draw_pseudo_team(_var()->n_neutral, TEAM_VOID, _var()->neutral);
 	if (_var()->is_host == SERVER)
 		draw_text_scale(ft_strjoin("ip ", ft_get_host_ip()),
-			(t_vector2D){200, 10}, pos(2, 2), colo(100, 86, 68));
+			(t_vector2D){200, 10}, pos(2, 2), WHITE);
 	else
-		draw_text(_var()->ip, (t_vector2D){200, 10}, colo(100, 86, 68));
+		draw_text(_var()->ip, (t_vector2D){200, 10}, WHITE);
 	if (_var()->is_host == SERVER && is_neutral())
-		{
+	{
 		draw_text_scale("press (Space) to start", pos(WIN_W / 2 - 462,
 			WIN_H - 150), pos(2, 2), WHITE);
-		}
+	}
 }
 
 void	menu_leaderboard(void)
@@ -311,8 +311,9 @@ void	menu_leaderboard(void)
 			_var()->blue[i], i, TEAM_BLUE);
 		i++;
 	}
-	draw_text_scale("press (Maj) to restart", pos(WIN_W / 2 - 462,
-		WIN_H - 150), pos(2, 2), WHITE);
+	if (_player()->id == 0)
+		draw_text_scale("press (Maj) to restart", pos(WIN_W / 2 - 462,
+				WIN_H - 150), pos(2, 2), WHITE);
 }
 
 void	menu_pseudo(void)
@@ -320,20 +321,20 @@ void	menu_pseudo(void)
 	draw_bg((char [4]){250, 200, 0, 0});
 	ft_put_image_to_image(*_img(), _image()->alpha['D'],
 		(t_vector2D){300, 300});
-	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, GREEN);
+	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, WHITE);
 	draw_rectange((t_vector2D){300, 300},
 		(t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
-	draw_text(_player()->pseudo, (t_vector2D){350, 350}, colo(100, 86, 68));
+	draw_text(_player()->pseudo, (t_vector2D){350, 350}, WHITE);
 }
 
 void	menu_ip(void)
 {
 	draw_bg((char [4]){250, 200, 0, 0});
 	draw_text("Enter your ip (max 15)('space for '.')",
-		(t_vector2D){100, 100}, colo(100, 86, 68));
+		(t_vector2D){100, 100}, WHITE);
 	draw_rectange((t_vector2D){300, 300},
 		(t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
-	draw_text(_var()->ip, (t_vector2D){350, 350}, colo(100, 86, 68));
+	draw_text(_var()->ip, (t_vector2D){350, 350}, WHITE);
 }
 
 /*

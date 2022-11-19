@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 15:34:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/19 16:47:39 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,6 @@ void	ft_black_hole(int exit_code)
 	mlx_destroy_window(_mlx()->mlx, _mlx()->mlx_win);
 	mlx_destroy_display(_mlx()->mlx);
 	free(_mlx()->mlx);
-	printf("nique ta mere et ton pere\n");
 	ft_lstclear(&tmp, free);
 	exit(exit_code);
 }

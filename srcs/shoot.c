@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 20:55:35 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 17:31:50 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,8 @@ void	shoot(void)
 					printf("===> FOOTSHOT\n");
 				}
 				touched = 1;
+				_player()->touched = 1;
+				_var()->start_touch = get_clock(_var()->clock);
 				_var()->shotanim_start = get_clock(_var()->clock);
 				_var()->shot_anim = 1;
 				if (_player()->weapon_id != KNIFE)

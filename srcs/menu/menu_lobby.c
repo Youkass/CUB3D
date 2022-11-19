@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 22:05:51 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 19:34:40 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	get_pseudos(void)
 	else
 		player.start = 0;
 	player.flag = 1;
+	printf("=> %s\n", player.player.pseudo);
 	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
 	{
 		_var()->mode = MENU;
@@ -101,8 +102,11 @@ void	get_pseudos(void)
 		_menu()->mode = MENU_START;
 		return ;
 	}
-	if (o_player.start)
-		recv(_var()->socket, &_var()->nb_player, sizeof(int), MSG_WAITALL);
+	// if (o_player.start)
+	// {
+	// 	recv(_var()->socket, &_var()->nb_player, sizeof(int), MSG_WAITALL);
+	// 	printf("jai recu => %d\n", _var()->nb_player);
+	// }
 	ft_copy_new_data(o_player);
 }
 
