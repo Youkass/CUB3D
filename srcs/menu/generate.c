@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 21:58:08 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 15:26:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@ couldn't be generated.
 t_data	generate_image(char *path)
 {
 	t_data	sprite;
+	t_list	*tmp;
 	
 	memset(&sprite, 0, sizeof(t_data));
+	tmp = _lstimg();
 	if (!path)
 		return (sprite);
 	sprite.img = mlx_xpm_file_to_image(_mlx()->mlx, path,
 			&sprite.w, &sprite.h);
+	ft_lstadd_back(&tmp, ft_new_node(sprite.img));
 	if (!sprite.img)
 		return (sprite);
 	sprite.addr = mlx_get_data_addr(sprite.img, &sprite.bits_per_pixel,
@@ -237,11 +240,6 @@ void    gen_menu_images(void)
 	542 - OFFSET_Y + 36};
 	_menu()->pos_s_bar = (t_vector2D){819 - OFFSET_X + 42,
 	443 - OFFSET_Y + 36};
-	_img()->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
-	_img()->addr = mlx_get_data_addr(_img()->img,
-	&_img()->bits_per_pixel, &_img()->line_length,& _img()->endian);
-	_img()->h = WIN_H;
-	_img()->w = WIN_W;
 	_menu()->mute_m_state = MUTE_M;
 	_menu()->mute_s_state = MUTE_S;
 	_menu()->s_bar = 0;

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 23:13:42 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/19 15:31:11 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -604,6 +604,7 @@ int main(int argc, char **argv)
 
 	(void)argc;
 	init_var();
+	printf("MUSIC : %d\n", MUSIC);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		ft_black_hole(139);
