@@ -1,0 +1,139 @@
+srcs/main.c: Error!
+Error: TOO_MANY_FUNCS       (line: 126, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 154, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 180, col:   1):	Too many functions in file
+Error: TOO_MANY_LINES       (line: 208, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 210, col:   1):	Too many functions in file
+Error: TAB_INSTEAD_SPC      (line: 220, col:  39):	Found tab when expecting space
+Error: MIXED_SPACE_TAB      (line: 220, col:  41):	Mixed spaces and tabs
+Error: SPC_BEFORE_NL        (line: 220, col:  45):	Space before newline
+Error: CONSECUTIVE_SPC      (line: 231, col:  30):	Two or more consecutives spaces
+Error: TOO_MANY_FUNCS       (line: 238, col:   1):	Too many functions in file
+Error: MIXED_SPACE_TAB      (line: 240, col:  11):	Mixed spaces and tabs
+Error: SPACE_REPLACE_TAB    (line: 240, col:  11):	Found space when expecting tab
+Error: SPC_BEFORE_NL        (line: 243, col:  15):	Space before newline
+Error: TOO_MANY_FUNCS       (line: 261, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 261, col:   5):	space before function name
+Error: SPACE_REPLACE_TAB    (line: 263, col:   8):	Found space when expecting tab
+Error: TOO_MANY_FUNCS       (line: 288, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 288, col:   5):	space before function name
+Error: TOO_MANY_FUNCS       (line: 299, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 299, col:   5):	space before function name
+Error: SPACE_AFTER_KW       (line: 302, col:   9):	Missing space after keyword
+Error: TOO_MANY_FUNCS       (line: 312, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 312, col:   5):	space before function name
+Error: TOO_MANY_TAB         (line: 315, col:  13):	Extra tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 322, col:   1):	Too many functions in file
+Error: SPC_BEFORE_NL        (line: 326, col:  15):	Space before newline
+Error: TOO_MANY_TAB         (line: 344, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 348, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 348, col:   5):	space before function name
+Error: SPACE_REPLACE_TAB    (line: 350, col:  11):	Found space when expecting tab
+Error: SPACE_REPLACE_TAB    (line: 351, col:   8):	Found space when expecting tab
+Error: MISALIGNED_VAR_DECL  (line: 351, col:   9):	Misaligned variable declaration
+Error: TOO_MANY_FUNCS       (line: 361, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 361, col:   5):	space before function name
+Error: SPACE_REPLACE_TAB    (line: 363, col:   8):	Found space when expecting tab
+Error: SPACE_REPLACE_TAB    (line: 364, col:   8):	Found space when expecting tab
+Error: TOO_MANY_FUNCS       (line: 377, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 377, col:   4):	space before function name
+Error: TOO_MANY_FUNCS       (line: 391, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 391, col:   4):	space before function name
+Error: TOO_MANY_FUNCS       (line: 399, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 423, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 423, col:   4):	space before function name
+Error: SPACE_REPLACE_TAB    (line: 425, col:   8):	Found space when expecting tab
+Error: TOO_MANY_FUNCS       (line: 449, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 449, col:   4):	space before function name
+Error: TOO_MANY_FUNCS       (line: 456, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 456, col:   4):	space before function name
+Error: SPACE_REPLACE_TAB    (line: 458, col:   8):	Found space when expecting tab
+Error: TOO_MANY_FUNCS       (line: 469, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 469, col:   4):	space before function name
+Error: SPACE_REPLACE_TAB    (line: 471, col:  11):	Found space when expecting tab
+Error: TOO_MANY_TAB         (line: 475, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line: 477, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line: 480, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line: 482, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 491, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 491, col:   4):	space before function name
+Error: EOL_OPERATOR         (line: 506, col:  28):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 507, col:   1):	Extra tabs for indent level
+Error: TOO_FEW_TAB          (line: 507, col:  34):	Missing tabs for indent level
+Error: TOO_MANY_INSTR       (line: 507, col:  34):	Too many instructions on a single line
+Error: TOO_FEW_TAB          (line: 507, col:  47):	Missing tabs for indent level
+Error: TOO_MANY_INSTR       (line: 507, col:  47):	Too many instructions on a single line
+Error: TOO_MANY_FUNCS       (line: 512, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 512, col:   4):	space before function name
+Error: TOO_MANY_FUNCS       (line: 523, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 551, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 551, col:   5):	space before function name
+Error: TOO_MANY_FUNCS       (line: 578, col:   1):	Too many functions in file
+Error: SPACE_REPLACE_TAB    (line: 580, col:   8):	Found space when expecting tab
+Error: TOO_MANY_FUNCS       (line: 595, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 595, col:   5):	space before function name
+Error: TOO_MANY_FUNCS       (line: 614, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 614, col:   5):	space before function name
+Error: SPACE_REPLACE_TAB    (line: 616, col:   8):	Found space when expecting tab
+Error: TOO_MANY_FUNCS       (line: 632, col:   1):	Too many functions in file
+Error: EOL_OPERATOR         (line: 634, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 635, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 636, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 637, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 638, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 639, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 640, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 641, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 642, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 643, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 644, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 645, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 646, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 647, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 649, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 650, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 652, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 653, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 654, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 655, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 656, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 657, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 658, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 659, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_LINES       (line: 660, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 662, col:   1):	Too many functions in file
+Error: EOL_OPERATOR         (line: 664, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 665, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 666, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 667, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 668, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 669, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 671, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 672, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 673, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 674, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 675, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 676, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 677, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 678, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 680, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 681, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 683, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 684, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 688, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 688, col:   5):	space before function name
+Error: EOL_OPERATOR         (line: 700, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 701, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 703, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 704, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 705, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 706, col:   1):	Extra tabs for indent level
+Error: EOL_OPERATOR         (line: 707, col:  38):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 708, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 714, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 731, col:   1):	Too many functions in file
+Error: SPACE_BEFORE_FUNC    (line: 731, col:   4):	space before function name
+Error: SPACE_REPLACE_TAB    (line: 733, col:   8):	Found space when expecting tab
+Error: WRONG_SCOPE_COMMENT  (line: 745, col:   5):	Comment is invalid in this scope
+Error: FORBIDDEN_CS         (line: 746, col:   5):	Forbidden control structure
+Error: WRONG_SCOPE_COMMENT  (line: 748, col:   5):	Comment is invalid in this scope

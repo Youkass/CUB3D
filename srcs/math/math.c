@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:43:05 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 01:23:12 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 14:50:51 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ float	mag(t_vector2F v)
 t_vector2F	norm(t_vector2F v)
 {
 	float	r;
-
+	t_vector2F	vec;
+	
 	r = 1 / mag(v);
-	return ((t_vector2F){v.x * r, v.y * r});
+	vec.x = v.x * r;
+	vec.y = v.y * r;
+	return (vec);
 }
 
 /*
@@ -66,13 +69,13 @@ float	min(int a, int b)
 */
 int	normalise_between(t_vector2D r, t_vector2D t, int nb)
 {
-	return ((int)round((((float)nb - (float)r.x) / ((float)r.y - (float)r.x)) * t.y));
+	return ((int)round((((float)nb - (float)r.x)
+		/ ((float)r.y - (float)r.x)) * t.y));
 }
 
 float	normalise_between2F(t_vector2F r, t_vector2F t, int nb)
 {
 	return (2 * (((nb - r.x) / (r.y - r.x)) * t.y) - 1);
-	//return (((nb - r.x) / (r.y - r.x)) * t.y);
 }
 /*
 -Function that calculate the modulo of a by b.
