@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 15:19:54 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 16:11:44 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ map.
 */
 void	ft_find_wall_scale(void)
 {
-	_var()->scale = MINIMAP_SIZE / _var()->map_width;
+	_var()->scale = 11;
 	//_var()->scale = WIN_W / (ft_strlen(_var()->map[0]));
 	_var()->half_scale = _var()->scale / 2;
 	_var()->half_scale_offset = _var()->half_scale + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350;

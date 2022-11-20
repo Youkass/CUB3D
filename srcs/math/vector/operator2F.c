@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 23:08:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/04 16:59:31 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/20 14:49:01 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 
 t_vector2F div_2F(t_vector2F a, t_vector2F b)
 {
-	return ((t_vector2F){a.x / b.x, a.y / b.y});
+	t_vector2F vec;
+
+	vec.x = a.x / b.x;
+	vec.y = a.y / b.y;
+	return (vec);
 }
 
 /*
@@ -27,7 +31,11 @@ t_vector2F div_2F(t_vector2F a, t_vector2F b)
 
 t_vector2F mult_2F(t_vector2F a, t_vector2F b)
 {
-	return ((t_vector2F){a.x * b.x, a.y * b.y});
+	t_vector2F vec;
+
+	vec.x = a.x * b.x;
+	vec.y = a.y * b.y;
+	return (vec);
 }
 
 /*
@@ -45,7 +53,11 @@ float	fdot(t_vector2F a, t_vector2F b)
 
 t_vector2F	sub_2f(t_vector2F a, t_vector2F b)
 {
-	return ((t_vector2F){a.x - b.x, a.y - b.y});
+	t_vector2F vec;
+
+	vec.x = a.x - b.x;
+	vec.y = a.y - b.y;
+	return (vec);
 }
 
 /*
@@ -54,7 +66,11 @@ t_vector2F	sub_2f(t_vector2F a, t_vector2F b)
 
 t_vector2F	add_2f(t_vector2F a, t_vector2F b)
 {
-	return ((t_vector2F){a.x + b.x, a.y + b.y});
+	t_vector2F vec;
+
+	vec.x = a.x + b.x;
+	vec.y = a.y + b.y;
+	return (vec);
 }
 
 
@@ -64,5 +80,10 @@ t_vector2F	add_2f(t_vector2F a, t_vector2F b)
 
 t_vector3F	add_3f(t_vector3F a, t_vector3F b)
 {
-	return ((t_vector3F){a.x + b.x, a.y + b.y, a.z + b.z});
+	t_vector3F vec;
+
+	vec.x = a.x + b.x;
+	vec.y = a.y + b.y;
+	vec.z = a.z + b.z;
+	return (vec);
 }

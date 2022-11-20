@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 15:13:56 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 16:08:51 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,7 @@ esc : 65307
 
 # define EMPTY 0
 # define FILL 1 
+# define MILLE 1000
 
 # define OFFSET_Y 0
 # define OFFSET_X 0
