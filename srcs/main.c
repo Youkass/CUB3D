@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/02 16:54:37 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/20 22:33:10 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	ft_mouse_hook(int keycode)
 
 int	ft_loop_hook(void)
 {
+	_player()->dir =  (int)round(4 * _player()->angle / (2*PI) + 8 ) % 4;
+	printf("%d\n", _player()->dir);
 	ft_fps();
 	key_hook();
 	if (_var()->mode == GAME)
@@ -134,12 +136,11 @@ int main(int argc, char **argv)
 	_ray()->clock = start_clock();
 	if (fd < 0)
 		exit(139);
-	_img()->map = resize_map(ft_split(read_file(fd), '\n'));
+	ft_init_mlx();
+	parse_args(ft_split(read_file(fd), '\n'));
 	if (!_img()->map)
 		exit(139);
-	ft_print_tab(_img()->map);
 	(void)argc;
-	ft_init_mlx();
 	ft_init_img();
 	ft_init_player_pos();
 	init_key();

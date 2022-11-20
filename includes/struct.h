@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/02 15:19:17 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/20 22:27:56 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct	s_obj
 	double		move_speed;
 	double		rot_speed;
 	t_hitbox	hb;
+	int			dir;
 }	t_obj;
 
 typedef struct s_int
@@ -128,6 +129,7 @@ typedef struct s_raycasting
 	t_vector2FD		dir;
 	t_vector2FD		side_dist;
 	t_vector2FD		delta;
+	int				tex_i;
 	int				hit;
 	int				x;
 	int				side;
@@ -191,6 +193,11 @@ typedef struct s_var
 	t_vector2D	m_pos;
 	int			mode;
 	t_key		key;
+	char		map[1025][1025];
+	int			map_height;
+	int			map_width;
+	unsigned char		colors[2][4];
+	t_data			dir[4];
 }	t_var;
 
 typedef struct s_player

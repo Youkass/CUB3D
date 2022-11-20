@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
+#    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/10/02 17:43:23 by denissereno      ###   ########.fr        #
+#    Updated: 2022/11/20 20:39:19 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ SRCS		=	srcs/main.c\
 				srcs/menu/utils.c\
 				srcs/menu/mouse_hook.c\
 				srcs/menu/dragbar.c\
-				srcs/parsing/parsing.c
+				srcs/parsing/parsing.c\
+				srcs/parsing/args.c
 
 NAME		= cub3D
 minilibx	= mlx/libmlx.a

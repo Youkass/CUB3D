@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/02 17:12:49 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/20 21:56:36 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ The following function will give us the right size for the elements in the 2D
 map.
 ===============================================================================
 */
-void	ft_find_wall_scale(void)
-{
-	if (WIN_W > WIN_H)
-		_img()->scale = (size_t)WIN_W / (ft_strlen(_img()->map[0]));
-	else
-		_img()->scale = (size_t)WIN_H / (ft_strlen(_img()->map[0]));
-	//_img()->scale = 64;
-	_img()->scale = MINIMAP_SIZE / ft_strlen(_img()->map[0]);
-}
 
 /*
 ===============================================================================
@@ -75,46 +66,6 @@ typedef struct	s_obj
 
 ===============================================================================
 */
-t_obj	*ft_copy_map_line(char *line, int index)
-{
-	int		i;
-	t_obj	*new_line;
-
-	i = 1;
-	new_line = malloc(sizeof(t_obj) * _img()->map_width);
-	if (!new_line)
-		return (NULL);
-	new_line[0].c = line[0];
-	new_line[0].x = 0;
-	new_line[0].y = _img()->scale * index;
-	while (line[i])
-	{
-		new_line[i].c = line[i];
-		new_line[i].x = new_line[i - 1].x + _img()->scale;
-		new_line[i].y = _img()->scale * index;
-		++i;
-	}
-	return (new_line);
-}
-
-void	ft_malloc_map(void)
-{
-	int	i;
-
-	i = 0;
-	ft_find_wall_scale();
-	_img()->coord_map = malloc(sizeof(t_obj *) * _img()->map_width);
-	if (!_img()->coord_map)
-		return ; //TODO call garbage collector
-	while (_img()->map[i])
-	{
-		_img()->coord_map[i] = ft_copy_map_line(_img()->map[i], i);
-		if (!_img()->coord_map[i])
-			return ; //TODO call garbage collector
-		++i;
-	}
-	ft_give_id();
-}
 
 /*
 ===============================================================================
@@ -189,35 +140,38 @@ void DrawCircle(int xp, int yp, float radius, int color)
 	}
 }
 
-
-void	ft_draw_map(void)
+void	ft_put_pixel_color(t_data *a, unsigned char color[4], int x, int y)
 {
-	t_int		var;
-	t_vector2D	p_pos;
-
-	var.i = 0;
-	ft_malloc_map();
-	draw_rays();
-	while (var.i < _img()->map_height)
+	if (color[3] != 255)
 	{
-		var.j = 0;
-		while (var.j < _img()->map_width)
-		{
-			if (_img()->coord_map[var.i][var.j].id == WALL)
-				ft_draw_wall(_img()->coord_map[var.i][var.j]);
-			if (_img()->coord_map[var.i][var.j].id == MAP)
-				ft_draw_floor(_img()->coord_map[var.i][var.j], (t_vector2D){var.j, var.i});
-			if (_img()->coord_map[var.i][var.j].id == PLAYER)
-			{
-				p_pos = (t_vector2D){var.j, var.i};
-				ft_draw_floor(_img()->coord_map[p_pos.y][p_pos.x], (t_vector2D){var.j, var.i});
-			}
-			var.j++;
-		}
-		var.i++;
+		a->addr[y * a->line_length + x * 4] = color[0];
+		a->addr[(y * a->line_length + x * 4) + 1] = color[1];
+		a->addr[(y * a->line_length + x * 4) + 2] = color[2];
+		a->addr[(y * a->line_length + x * 4) + 3] = color[3];
 	}
-	DrawCircle((int)(_player()->hb.hit.x * _img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET, (int)(_player()->hb.hit.y* _img()->scale) + _img()->scale / 2, (_player()->hb.hit.radius) * _img()->scale, 0xFFFF0000);
-	plot_line((t_vector2D){(_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET , (_player()->y * (float)_img()->scale) + _img()->scale / 2},(t_vector2D){((_player()->x * (float)_img()->scale) + _img()->scale / 2 + MINIMAP_OFFSET) + _player()->dx * 10, ((_player()->y * (float)_img()->scale)) + (_player()->dy * 10) + _img()->scale / 2}, 0xcf34eb);
-	ft_draw_player();
-	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
+}
+
+void	draw_void(void)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < WIN_H)
+	{
+		x = 0;
+		while (y < WIN_H / 2 && x < WIN_W)
+		{
+			ft_put_pixel_color(_img(), _var()->colors[1],
+				x, y);
+			x++;
+		}
+		while (y < WIN_H && y > WIN_H / 2 && x < WIN_W)
+		{
+			ft_put_pixel_color(_img(), _var()->colors[0],
+				x, y);
+			x++;
+		}
+		y++;
+	}
 }

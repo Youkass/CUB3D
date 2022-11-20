@@ -113,7 +113,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
-		return (NULL);
+		return (exit(139), NULL);
 	while (s1 && *s1)
 	{
 		str[i++] = *s1;
@@ -134,7 +134,7 @@ char	*read_file(int fd)
 	int		read_val;
 	char	*str;
 	char	*tmp;
-	char	buff[1084];
+	char	buff[1085];
 
 	str = NULL;
 	read_val = 1;
@@ -175,7 +175,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 
 	it = pos;
 	ok = 0;
-	while (map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+	while (map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
 		if (map[pos.y][pos.x] == '1')
 		{
@@ -185,7 +185,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 		pos.x++;
 	}
 	pos = it;
-	while (pos.x >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+	while (pos.x >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
 		if (map[pos.y][pos.x] == '1')
 		{
@@ -195,7 +195,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 		pos.x--;
 	}
 	pos = it;
-	while (map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+	while (map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
 		if (map[pos.y][pos.x] == '1')
 		{
@@ -205,7 +205,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 		pos.y++;
 	}
 	pos = it;
-	while (pos.y >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != 'Z')
+	while (pos.y >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
 		if (map[pos.y][pos.x] == '1')
 		{
@@ -221,90 +221,67 @@ int	is_char_in_range(t_vector2D pos, char **map)
 
 int	is_player(char c)
 {
-	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
+	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == 'P')
 		return (1);
 	return (0);
 }
 
-int check_map(char **map)
+int check_map(char **map, int start)
 {
 	t_vector2D	it;
+	t_vector2D	pt;
+	int			longest;
 
-	it = (t_vector2D){0, 0};
+	it = (t_vector2D){0, start};
+	pt = (t_vector2D){0, 0};
+	longest = 0;
 	while (map[it.y])
 	{
+		if (pt.y > 1024)
+		{
+			printf("Error\n%d size is to big, max 1024\n", pt.y);
+			exit(0);
+		}
 		it.x = 0;
+		pt.x = 0;
 		while (map[it.y][it.x])
 		{
 			if (map[it.y][it.x] == '0' || is_player(map[it.y][it.x]))
 			{
 				if (!is_char_in_range(it, map))
 				{
-					printf("SCANDLAEUX CA MARCHE PAS\n");
-						return (0);
+					printf("Error\n");
+					exit(0);
 				}
 			}
+			else if (map[it.y][it.x] != '1' && map[it.y][it.x] != ' ')
+			{
+				printf("Error\n%c: Unrecognized token\n", map[it.y][it.x]);
+				exit(0);
+			}
+			pt.x++;
 			it.x++;
 		}
+		if (pt.x > longest)
+		{
+			longest = pt.x;
+			if (longest > 1024)
+			{
+				printf("Error\n%d size is to big, max 1024\n", longest);
+				exit(0);
+			}
+		}
+		printf(": %s \n",map[it.y]);
+		strcpy(_var()->map[pt.y], map[it.y]);
+		pt.y++;
 		it.y++;
 	}
+	_var()->map_width = longest;
+	_var()->map_height = pt.y;
+	_var()->map[pt.y][0] = 0;
 	return (1);
 }
 
-int	get_longest_line(char **map)
-{
-	int	i;
-	int	max;
-
-	i = 0;
-	max = 0;
-	while (map[i])
-	{
-		if (ft_strlen(map[i]) > (size_t)max)
-			max = ft_strlen(map[i]);
-		i++;
-	}
-	return (max);
-}
-
-char	*copy_line_and_add(char *str, int size)
-{
-	int		i;
-	char	*new;
-
-	i = 0;
-	new	= malloc(sizeof(char) * (size + 1));
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			new[i] = 'Z';
-		else
-			new[i] = str[i];
-		i++;
-	}
-	while (i < size)
-		new[i++] = 'Z';
-	new[i] = 0;
-	return (new);
-}
-
-char	**resize_map(char **map)
-{
-	int		max;
-	int		i;
-	char	**new;
-
-	max = get_longest_line(map);
-	new = malloc(sizeof(char *) * 100);
-	i = 0;
-	while (map[i])
-	{
-		new[i] = copy_line_and_add(map[i], max);
-		i++;
-	}
-	new[i] = NULL;
-	return (new);
-}
 /*
 int main(int argc, char **argv)
 {
