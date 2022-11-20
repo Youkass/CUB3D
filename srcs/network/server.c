@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 18:45:10 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:37:13 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,10 @@ int main(int ac, char **av)
 {
 	t_server_data	data;
 	int				i;
-	
+
 	i = 0;
-	(void)ac;
+	if (ac != 2)
+		return (0);
 	data.nb_players = atoi(av[1]);
 	data.started = 0;
 	init_weapons();
@@ -108,5 +109,6 @@ int main(int ac, char **av)
 		close(data.socket);
 		ft_black_hole(EXIT_FAILURE);
 	}
+	pthread_mutex_destroy(&data.mutex);
 	return (EXIT_SUCCESS);
 }

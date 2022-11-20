@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/14 16:32:58 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:38:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*detect_neighbors(void)
 		{
 			if ((int)(_player()->x + it.x + 0.5) >= 0 && (int)(_player()->x + it.x + 0.5) < _var()->map_width
 			&& (int)(_player()->y + it.y + 0.5) >= 0 && (int)(_player()->y + it.y + 0.5) < _var()->map_height
-			&& _var()->map[(int)(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x + 0.5)] == '1')
+			&& is_wall( _var()->map[(int)(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x + 0.5)]))
 				_player()->hb.nb[n++] = (t_vector2D){(int)(_player()->x + it.x + 0.5), (int)(_player()->y + it.y + 0.5)};
 			it.y--;
 		}
@@ -119,7 +119,7 @@ void	*compute_nb(int i)
 {
 	float	overlap;
 
-	if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0 && _var()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x] == '1')
+	if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0 && is_wall(_var()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x]))
 	{
 		_nb()->nearest[0].x = max_f((float)(_player()->hb.nb[i].x - 0.5), min_f(_nb()->potential.x,(float)_player()->hb.nb[i].x + 0.5));
 		_nb()->nearest[0].y = max_f((float)(_player()->hb.nb[i].y- 0.5), min_f(_nb()->potential.y,(float)_player()->hb.nb[i].y + 0.5));

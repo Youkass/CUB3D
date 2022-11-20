@@ -6,11 +6,18 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 15:19:40 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:37:31 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+int	is_wall(char c)
+{
+	if ((c >= '1' && c <= '9') || c == 'A' || c == 'B')
+		return (1);
+	return (0);
+}
 
 void	init_ray(t_raycasting *r)
 {
@@ -126,8 +133,18 @@ void	dda(t_raycasting *r)
 		}
 		if (r->map.y < _var()->map_height && r->map.y >= 0 &&
 			r->map.x < (int)ft_strlen(_var()->map[r->map.y]) && r->map.x >= 0
-			&& _var()->map[r->map.y][r->map.x] == '1')
+			&& is_wall(_var()->map[r->map.y][r->map.x]))
+		{
+			if (_var()->map[r->map.y][r->map.x] >= '2' && 
+			_var()->map[r->map.y][r->map.x] <= '9')
+				r->tex_i = _var()->map[r->map.y][r->map.x] - 48;
+			else if (_var()->map[r->map.y][r->map.x] >= 'A' && 
+			_var()->map[r->map.y][r->map.x] <= 'B')
+				r->tex_i = _var()->map[r->map.y][r->map.x] - 57;
+			else
+				r->tex_i = -1;
 			r->hit = 1;
+		}
 	}
 }
 
@@ -166,16 +183,10 @@ void	draw_wall(t_raycasting *r)
 	{
 		r->tex.y = (int)r->tex_pos & (128 - 1);
         r->tex_pos += r->tex_step;
-		// if (r->tex.y * _menu()->wall.line_length < _menu()->wall.h &&
-		// (r->tex.x * 4) < _menu()->wall.w && r->tex.x > 0 && r->tex.y > 0)
-		// 	r->color = (int)_menu()->wall.addr[(r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)];
-		// if(r->side == 1)
-		// 	r->color = (r->color >> 1) & 8355711;
-		ft_put_pixel(_img(), &_menu()->wall, pos(r->x, r->y), pos(r->tex.x, r->tex.y));
-		// _img()->addr[r->y * _img()->line_length + r->x * 4] = _menu()->wall.addr[(r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)];
-		// _img()->addr[(r->y * _img()->line_length + r->x * 4) + 1] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 1];
-		// _img()->addr[(r->y * _img()->line_length + r->x * 4) + 2] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 2];
-		// _img()->addr[(r->y * _img()->line_length + r->x * 4) + 3] = _menu()->wall.addr[((r->tex.y * _menu()->wall.line_length)  + (r->tex.x * 4)) + 3];
+		if (r->tex_i < 0 || r->tex_i > 9)
+			ft_put_pixel(_img(), &_menu()->wall, pos(r->x, r->y), pos(r->tex.x, r->tex.y));
+		else
+			ft_put_pixel(_img(), &_image()->textures[r->tex_i], pos(r->x, r->y), pos(r->tex.x, r->tex.y));
 		r->y++;
 	}
 }

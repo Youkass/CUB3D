@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/19 22:11:20 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:36:13 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,21 @@ int	ft_connect_clients(t_server_data *data)
 		data->clients[i].restart = 0;
 		data->clients[i].is_recv = 0;
 		data->clients[i].socket = accept(data->socket,
-			(struct sockaddr *)&(data->server), &(data->clients[i].csize));
+				(struct sockaddr *)&(data->server), &(data->clients[i].csize));
 		data->clients[i].start = 0;
 		data->clients[i].id = i;
 		if (data->clients[i].socket < 0)
-			return (EXIT_FAILURE); //TODO
+			return (EXIT_FAILURE);
 		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine,
 				&(data->clients[i])))
-			return (EXIT_FAILURE); //TODO
+			return (EXIT_FAILURE);
 		i++;
 	}
 	i = 0;
 	while (i < data->nb_players)
 	{
 		if (pthread_join((data->clients[i++].thread_id), NULL) != 0)
-			return(EXIT_FAILURE);
-		//usleep(1000);
-		//pthread_mutex_lock(&data->mutex);
-		//pthread_mutex_unlock(&data->mutex);
+			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -109,8 +106,6 @@ int	ft_recv_first_data(t_client_thread *client)
 	client->is_send = 0;
 	client->serv->player_data[client->id] = client->player_data;
 	pthread_mutex_unlock(client->mutex);
-	// while (ft_is_get(client))
-	// {}
 	return (0);
 }
 

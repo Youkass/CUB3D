@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 22:00:51 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:39:08 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ int	ft_forward(void)
 int	ft_is_wall(t_vector2D pos)
 {
 	if (pos.x >= 0 && pos.y >= 0 && pos.x < _var()->map_width
-		&& pos.y < _var()->map_height && _var()->map[pos.y][pos.x] == '1')
+		&& pos.y < _var()->map_height && is_wall(_var()->map[pos.y][pos.x]))
 		return (1);
 	return (0);
 }

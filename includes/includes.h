@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 16:08:51 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 19:58:03 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ esc : 65307
 # include <signal.h>
 # include <string.h>
 # include <time.h>
+# include <poll.h>
 # ifndef MINIAUDIO_IMPLEMENTATION
 #  define MINIAUDIO_IMPLEMENTATION
 #  include "../miniaudio/extras/miniaudio_split/miniaudio.h"
@@ -208,7 +209,7 @@ esc : 65307
 # define SHOT_FRAME 30
 # define MAX_BULLET 16
 
-# define MINIMAP_SIZE 512
+# define MINIMAP_SIZE 10
 # define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)
 
 # define uDiv 1

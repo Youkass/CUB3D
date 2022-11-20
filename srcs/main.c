@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 16:10:36 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:35:37 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -608,6 +608,7 @@ void	init_var(void)
 	memset(_var(), 0, sizeof(t_var));
 	if (pthread_mutex_init(&_log()->mutex, NULL))
 		ft_black_hole(137);
+	memset(&_var()->map, 0, sizeof(_var()->map));
 	_var()->mode = MENU;
 	_menu()->mode = INTRO;
 	_var()->linked_players = 1;
@@ -726,7 +727,6 @@ static void	ft_call_functions(void)
 {
 	// copy_map_static();
 	init_weapons();
-	ft_init_mlx();
 	ft_init_media();
 	ft_init_img();
 	_ray();
@@ -741,11 +741,16 @@ static void	ft_call_functions(void)
 void	ft_print_map(void)
 {
 	int	i;
+	int	j;
 
 	i = 0;
-	while (_var()->map[i][0])
+	printf("print_mao\n");
+	while (i < _var()->map_height)
 	{
-		printf("%s\n", _var()->map[i]);
+		j = 0;
+		while (j < _var()->map_width)
+			printf("%c", _var()->map[i][j++]);
+		printf("\n");
 		++i;
 	}
 }
@@ -761,10 +766,12 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		ft_black_hole(139);
+	ft_init_mlx();
 	buf = ft_split(read_file(fd), '\n');
 	parse_args(buf);
 	ft_call_functions();
 	ft_game();
+	ft_print_map();
 	mlx_loop(_mlx()->mlx);
 	return (0);
 }

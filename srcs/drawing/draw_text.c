@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_text.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:20:26 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/11 18:17:05 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/20 17:03:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ t_data	create_text_img(char *text, char color[4])
 	return (new);
 }
 
-void	draw_rectange(t_vector2D a, t_vector2D size, char color[4])
+void	draw_rectangle(t_vector2D a, t_vector2D size, char color[4])
 {
 	int	i;
 	int	j;

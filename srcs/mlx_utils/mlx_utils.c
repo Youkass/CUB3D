@@ -378,10 +378,10 @@ void	hud_hit_and_touch(void)
 
 	if (_player()->hitted)
 	{
-		draw_rectange(pos(0, 0), pos(WIN_W, 20), RED);
-		draw_rectange(pos(0, WIN_H - 20), pos(WIN_W, 20), RED);
-		draw_rectange(pos(0, 0), pos(20, WIN_H), RED);
-		draw_rectange(pos(WIN_W - 20, 0), pos(20, WIN_H), RED);
+		draw_rectangle(pos(0, 0), pos(WIN_W, 20), RED);
+		draw_rectangle(pos(0, WIN_H - 20), pos(WIN_W, 20), RED);
+		draw_rectangle(pos(0, 0), pos(20, WIN_H), RED);
+		draw_rectangle(pos(WIN_W - 20, 0), pos(20, WIN_H), RED);
 	}
 	if (_player()->hitted == 1 && get_time(_var()->start_hit) > 100000)
 		_player()->hitted = 0;

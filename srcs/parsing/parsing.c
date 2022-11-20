@@ -177,7 +177,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 	ok = 0;
 	while (map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
-		if (map[pos.y][pos.x] == '1')
+		if (is_wall(map[pos.y][pos.x]))
 		{
 			ok++;
 			break;
@@ -187,7 +187,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 	pos = it;
 	while (pos.x >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
-		if (map[pos.y][pos.x] == '1')
+		if (is_wall(map[pos.y][pos.x]))
 		{
 			ok++;
 			break;
@@ -197,7 +197,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 	pos = it;
 	while (map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
-		if (map[pos.y][pos.x] == '1')
+		if (is_wall(map[pos.y][pos.x]))
 		{
 			ok++;
 			break;
@@ -207,7 +207,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 	pos = it;
 	while (pos.y >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
 	{
-		if (map[pos.y][pos.x] == '1')
+		if (is_wall(map[pos.y][pos.x]))
 		{
 			ok++;
 			break;
@@ -245,15 +245,17 @@ int check_map(char **map, int start)
 			{
 				if (!is_char_in_range(it, map))
 				{
-					printf("SCANDLAEUX CA MARCHE PAS\n");
+					printf("Error\n");
 					return (0);
 				}
 			}
+			else
+				printf("Error\n");
 			pt.x++;
 			it.x++;
 		}
 		if (pt.x > longest)
-			longest = pt.x - 1;
+			longest = pt.x;
 		strcpy(_var()->map[pt.y], map[it.y]);
 		printf(": %s\n", _var()->map[pt.y]);
 		pt.y++;
