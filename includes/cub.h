@@ -350,6 +350,7 @@ void	sprite_casting(void);
 int intersects(t_circle circle, t_rect rect);
 void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b);
 void	ft_put_pixel_color(t_data *a, char color[4], int x, int y);
+void	ft_put_pixel_color_unsigned(t_data *a, unsigned char color[4], int x, int y);
 
 /* -------------------------------------------------------------------------- */
 /*                  FILE = srcs/raycasting/player_casting.c                   */
@@ -437,8 +438,8 @@ void	ft_find_wall_scale(void);
 void	ft_give_id(void);
 t_obj	*ft_copy_map_line(char *line, int index);
 int	ft_malloc_map(void);
-void	ft_draw_wall(t_obj wall, t_vector2D pos);
-void	ft_draw_floor(t_obj wall);
+void	ft_draw_wall(t_vector2D pos);
+void	ft_draw_floor(t_vector2D pos);
 void DrawCircle(int xp, int yp, float radius, int color);
 void	draw_player_map(void);
 void	ft_draw_map(void);
@@ -476,6 +477,7 @@ void	parse_dir(char *str, int index, int *nb);
 void	jump_spaces(int *i, char *str, int k);
 void	parse_color(char *str, int index, int *nb);
 int	is_nb_args(int	*tab);
+int	is_empty(char *str);
 void	parse_args(char **map);
 
 /* -------------------------------------------------------------------------- */

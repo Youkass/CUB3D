@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 00:17:28 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 15:13:10 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,7 +313,6 @@ int ft_loop_hook(void)
 	int pid;
 
 	click_update();
-	// printf("%d\n", _var()->nb_player);
 	if (_var()->mode == ONLINE_START)
 	{
 		_var()->is_host = SERVER;
@@ -583,20 +582,13 @@ int main(int argc, char **argv)
 
 	(void)argc;
 	init_var();
-	printf("MUSIC : %d\n", IS_MUSIC);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		ft_black_hole(139);
 	char	**buf = ft_split(read_file(fd), '\n');
 	parse_args(buf);
-	_var()->before_map = resize_map(buf);
-	if (!_var()->before_map)
-		ft_black_hole(139);
-	// ft_print_tab(_var()->before_map);
-	for (int i = 0; _var()->map[i][0]; i++)
-		printf("%s\n", _var()->map[i]);
-	exit(0);
-	copy_map_static();
+	for (int i = 0; i < _var()->map_height; i++)
+		printf("==> %s\n", _var()->map[i]);
 	init_weapons();
 	ft_init_mlx();
 	ft_init_media();
@@ -604,7 +596,6 @@ int main(int argc, char **argv)
 	_ray();
 	ft_init_player_pos();
 	ft_init_player2();
-	ft_malloc_map();
 	init_key();
 	_menu()->n_ip = 0;
 	gen_menu_images();

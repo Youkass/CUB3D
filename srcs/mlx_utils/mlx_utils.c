@@ -101,7 +101,7 @@ static void	ft_next_while_draw_sky(t_vector2D pt)
 		pt.x = 0;
 		while (pt.x < WIN_W)
 		{
-			ft_put_pixel_color(_img(), (char [4]){250, 144, 144, 0},
+			ft_put_pixel_color_unsigned(_img(), _var()->colors[0],
 				pt.x, pt.y);
 			pt.x++;
 		}
