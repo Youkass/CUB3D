@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 16:11:44 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:39:10 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_find_wall_scale(void)
 	_var()->scale = 11;
 	//_var()->scale = WIN_W / (ft_strlen(_var()->map[0]));
 	_var()->half_scale = _var()->scale / 2;
-	_var()->half_scale_offset = _var()->half_scale + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350;
+	_var()->half_scale_offset = _var()->half_scale + MINIMAP_OFFSET - _player()->x * _var()->scale - 350;
 	//_var()->half_scale_offset = _var()->half_scale;
 }
 
@@ -160,7 +160,8 @@ void	ft_draw_wall(t_vector2D pos)
 		{
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, pos.x * _var()->scale + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 250,  pos.y * _var()->scale + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  230);
+				ft_put_pixel_color(_img(), colo(200, 142, 103), (pos.x + 1)*
+					_var()->scale + var.i,  (pos.y + 1) * _var()->scale + var.j);
 			var.j++;
 		}
 		var.i++;
@@ -177,10 +178,10 @@ void	ft_draw_floor(t_vector2D pos)
 		var.j = 0;
 		while (var.j < _var()->scale)
 		{
-			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)pos.x * _var()->scale + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 250, (int)pos.y * _var()->scale + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  230);
+			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)(pos.x + 1)* _var()->scale + var.i, (int)(pos.y + 1) * _var()->scale + var.j);
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)pos.x * _var()->scale + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 250, (int)pos.y * _var()->scale + var.j  + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  230);
+				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)(pos.x + 1)* _var()->scale + var.i, (int)(pos.y + 1) * _var()->scale + var.j);
 			var.j++;
 		}
 		var.i++;
@@ -271,25 +272,30 @@ void	draw_player_map(void)
 void	ft_draw_map(void)
 {
 	t_int		var;
+	t_vector2D	offset;
 
-	var.i = _player()->y - 8;
+	var.i = _player()->y - MINIMAP_SIZE;
+	offset = pos(0, 0);
 	if (var.i < 0)
 		var.i = 0;
-	while (var.i < _var()->map_height && var.i < _player()->y + 8)
+	while (var.i < _var()->map_height && var.i < _player()->y + MINIMAP_SIZE)
 	{
-		var.j = _player()->x - 8;
+		var.j = _player()->x - MINIMAP_SIZE;
 		if (var.j < 0)
 			var.j = 0;
-		while (var.j < _var()->map_width && var.j < _player()->x + 8)
+		offset.x = 0;
+		while (var.j < _var()->map_width && var.j < _player()->x + MINIMAP_SIZE)
 		{
-			if (_var()->map[var.i][var.j] == '1')
-				ft_draw_wall(pos(var.j, var.i));
+			if (is_wall(_var()->map[var.i][var.j]))
+				ft_draw_wall(offset);
 			if (_var()->map[var.i][var.j] == '0')
-				ft_draw_floor(pos(var.j, var.i));
+				ft_draw_floor(offset);
 			if (is_player(_var()->map[var.i][var.j]))
-				ft_draw_floor(pos(var.j, var.i));
+				ft_draw_floor(offset);
 			var.j++;
+			offset.x++;
 		}
+		offset.y++;
 		var.i++;
 	}
 	draw_player_map();

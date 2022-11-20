@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 17:31:50 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:37:59 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,7 @@ static void	dda_wall(t_raycasting *r, t_vector2D *n)
 		}
 		if (r->map.y < _var()->map_height && r->map.y >= 0 &&
 			r->map.x < _var()->map_width && r->map.x >= 0
-			&& _var()->map[r->map.y][r->map.x] == '1')
+			&& is_wall(_var()->map[r->map.y][r->map.x]))
 			r->hit = 1;
 	}
 }

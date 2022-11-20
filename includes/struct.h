@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 00:01:10 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 23:19:10 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ typedef struct s_obj t_obj;
 struct	s_server_data;
 typedef struct	s_server_data t_server_data;
 
+typedef struct s_list
+{
+	void			*content;
+	void			*result;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct	s_media
 {
 	ma_result			result;
@@ -34,12 +41,6 @@ typedef struct	s_media
 	ma_sound			shot_sound[MAX_SHOT_SOUND];
 	ma_sound_config		sound_config[NB_SOUND];
 }	t_media;
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 typedef struct s_vector2F
 {
@@ -305,6 +306,7 @@ typedef struct s_raycasting
 	int				max_y;
 	int				min_y;
 	t_obj			pl;
+	int				tex_i;
 }	t_raycasting;
 
 typedef struct s_spritecasting
@@ -505,6 +507,7 @@ typedef struct	s_image
 	t_data			ammo;
 	t_data			*weapons[3][3];
 	t_data			dir[4];
+	t_data			textures[10];
 }	t_image;
 
 typedef struct	s_team

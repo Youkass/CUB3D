@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 19:34:40 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 20:26:35 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	get_pseudos(void)
 	else
 		player.start = 0;
 	player.flag = 1;
-	printf("=> %s\n", player.player.pseudo);
 	if (send(_var()->socket, &player, sizeof(player), 0) < 0)
 	{
 		_var()->mode = MENU;

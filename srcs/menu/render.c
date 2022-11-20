@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 21:56:41 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:03:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ static void	ft_draw_lobby(int size_box, t_vector2D size_box_minus)
 	while (i < _var()->linked_players)
 	{
 		if (_var()->o_player[i].team == TEAM_VOID)
-			draw_rectange(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
+			draw_rectangle(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
 					(WIN_H / 3) / 2 + 16), size_box_minus, colo(0, 0, 0));
 		else if (_var()->o_player[i].team == TEAM_RED)
-			draw_rectange(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
+			draw_rectangle(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
 					(WIN_H / 3) / 2 + 16), size_box_minus, RED);
 		else
-			draw_rectange(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
+			draw_rectangle(pos(WIN_W / 4 - (_menu()->wait.w / 2) + i * size_box,
 					(WIN_H / 3) / 2 + 16), size_box_minus, BLUE);
 		i++;
 	}
@@ -112,32 +112,32 @@ void	draw_lobby(void)
 
 	size_box = _menu()->wait.w / _var()->nb_player;
 	size_box_minus = pos(size_box - 16, 16);
-	draw_rectange(pos(0, 0), pos(WIN_W / 3, WIN_H), RED);
-	draw_rectange(pos(WIN_W / 3, 0), pos(WIN_W / 3, WIN_H), LIGTH_GREY);
-	draw_rectange(pos((WIN_W / 3) * 2, 0), pos(WIN_W / 3, WIN_H), BLUE);
-	draw_rectange(pos(0, 0), pos(WIN_W, WIN_H / 3), LIGTH_GREY);
-	draw_rectange(pos(0, WIN_H / 3 - 8), pos(WIN_W, 16), DARK_GREY);
-	draw_rectange(pos(WIN_W / 3 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
-	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H),
+	draw_rectangle(pos(0, 0), pos(WIN_W / 3, WIN_H), RED);
+	draw_rectangle(pos(WIN_W / 3, 0), pos(WIN_W / 3, WIN_H), LIGTH_GREY);
+	draw_rectangle(pos((WIN_W / 3) * 2, 0), pos(WIN_W / 3, WIN_H), BLUE);
+	draw_rectangle(pos(0, 0), pos(WIN_W, WIN_H / 3), LIGTH_GREY);
+	draw_rectangle(pos(0, WIN_H / 3 - 8), pos(WIN_W, 16), DARK_GREY);
+	draw_rectangle(pos(WIN_W / 3 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
+	draw_rectangle(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H),
 		DARK_GREY);
-	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
-	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2),
+	draw_rectangle(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
+	draw_rectangle(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2),
 		DARK_GREY);
 	ft_draw_lobby(size_box, size_box_minus);
 }
 
 void	draw_leaderboard(void)
 {
-	draw_rectange(pos(0, 0), pos(WIN_W / 3, WIN_H), RED);
-	draw_rectange(pos(WIN_W / 3, 0), pos(WIN_W / 3, WIN_H), LIGTH_GREY);
-	draw_rectange(pos((WIN_W / 3) * 2, 0), pos(WIN_W / 3, WIN_H), BLUE);
-	draw_rectange(pos(0, 0), pos(WIN_W, WIN_H / 3), LIGTH_GREY);
-	draw_rectange(pos(0, WIN_H / 3 - 8), pos(WIN_W, 16), DARK_GREY);
-	draw_rectange(pos(WIN_W / 3 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
-	draw_rectange(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H),
+	draw_rectangle(pos(0, 0), pos(WIN_W / 3, WIN_H), RED);
+	draw_rectangle(pos(WIN_W / 3, 0), pos(WIN_W / 3, WIN_H), LIGTH_GREY);
+	draw_rectangle(pos((WIN_W / 3) * 2, 0), pos(WIN_W / 3, WIN_H), BLUE);
+	draw_rectangle(pos(0, 0), pos(WIN_W, WIN_H / 3), LIGTH_GREY);
+	draw_rectangle(pos(0, WIN_H / 3 - 8), pos(WIN_W, 16), DARK_GREY);
+	draw_rectangle(pos(WIN_W / 3 - 8, WIN_H / 3), pos(16, WIN_H), DARK_GREY);
+	draw_rectangle(pos((WIN_W / 3) * 2 - 8, WIN_H / 3), pos(16, WIN_H),
 		DARK_GREY);
-	draw_rectange(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
-	draw_rectange(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2),
+	draw_rectangle(pos(0, WIN_H / 3), pos(16, (WIN_H / 3) * 2), DARK_GREY);
+	draw_rectangle(pos(WIN_W - 16, WIN_H / 3), pos(16, (WIN_H / 3) * 2),
 		DARK_GREY);
 }
 
@@ -322,7 +322,7 @@ void	menu_pseudo(void)
 	ft_put_image_to_image(*_img(), _image()->alpha['D'],
 		(t_vector2D){300, 300});
 	draw_text("Enter your pseudo (max 16)", (t_vector2D){200, 100}, WHITE);
-	draw_rectange((t_vector2D){300, 300},
+	draw_rectangle((t_vector2D){300, 300},
 		(t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
 	draw_text(_player()->pseudo, (t_vector2D){350, 350}, WHITE);
 }
@@ -332,7 +332,7 @@ void	menu_ip(void)
 	draw_bg((char [4]){250, 200, 0, 0});
 	draw_text("Enter your ip (max 15)('space for '.')",
 		(t_vector2D){100, 100}, WHITE);
-	draw_rectange((t_vector2D){300, 300},
+	draw_rectangle((t_vector2D){300, 300},
 		(t_vector2D){50 * 16, 150}, (char [4]){0, 0, 0, 0});
 	draw_text(_var()->ip, (t_vector2D){350, 350}, WHITE);
 }

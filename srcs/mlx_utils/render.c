@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:34:23 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/18 01:13:51 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 17:03:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	render_health(t_vector2D	a)
 
 	str = ft_strjoin(ft_itoa(_player()->health), "HP");
 	i = 0;
-	draw_rectange(a, pos(102, 22), WHITE);
+	draw_rectangle(a, pos(102, 22), WHITE);
 	while (i < _player()->health)
 	{
-		draw_rectange(pos(a.x + 1 + i, a.y + 1), pos(1, 20), RED);
+		draw_rectangle(pos(a.x + 1 + i, a.y + 1), pos(1, 20), RED);
 		i++;
 	}
 	draw_text_scale(str, pos(a.x + ft_strlen(str) * (42 / 4), a.y + 5), pos(4, 4), colo(0, 0, 0));

@@ -321,6 +321,7 @@ t_vector3F	pos3f(float x, float y, float z);
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/raycasting/raycasting.c                     */
 /* -------------------------------------------------------------------------- */
+int	is_wall(char c);
 void	init_ray(t_raycasting *r);
 void	init_dda(t_raycasting *r);
 void	dda(t_raycasting *r);
@@ -362,29 +363,30 @@ void	player_casting(void);
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
-void get_key(int keycode);
-int ft_release(int keycode);
-void generate_dsprite(void);
-void generate_dsprite_red(void);
-void ft_init_player_pos(void);
-void walk_clock(void);
-void death_clock(void);
-void reload_clock(void);
-void ft_init_player2(void);
-void ft_print_tab(char **s);
-int ft_hook(int keycode);
-int ft_mouse_hook(int keycode);
-int ft_loop_hook(void);
-int ft_mouse_release(int keycode);
-int ft_expose(void *data);
-int ft_rotate(double rot_speed);
-int mouse_rotate(void);
-int ft_game(void);
-void init_key(void);
-void init_var(void);
-void init_data_shot(t_obj *player);
-void init_image(void);
-int main(int argc, char **argv);
+void	get_key(int keycode);
+int	ft_release(int keycode);
+void	generate_dsprite(void);
+void	generate_dsprite_red(void);
+void	ft_init_player_pos(void);
+void	walk_clock(void);
+void	death_clock(void);
+void	reload_clock(void);
+void	ft_init_player2(void);
+void	ft_print_tab(char **s);
+int	ft_hook(int keycode);
+int	ft_mouse_hook(int keycode);
+int	ft_loop_hook(void);
+int	ft_mouse_release(int keycode);
+int	ft_expose(void *data);
+int	ft_rotate(double rot_speed);
+int	mouse_rotate(void);
+int	ft_game(void);
+void	init_key(void);
+void	init_var(void);
+void	init_data_shot(t_obj *player);
+void	init_image(void);
+void	ft_print_map(void);
+int	main(int argc, char **argv);
 
 /* -------------------------------------------------------------------------- */
 /*                           FILE = srcs/ft_itoa.c                            */
@@ -454,7 +456,7 @@ t_data	ft_draw_char(t_data big, t_data lil, t_vector2D pos, char color[4]);
 t_data	ft_draw_char_scale(t_data big, t_data lil, t_vector2D p, t_vector2D scale, char color[4]);
 void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char color[4]);
 t_data	create_text_img(char *text, char color[4]);
-void	draw_rectange(t_vector2D a, t_vector2D size, char color[4]);
+void	draw_rectangle(t_vector2D a, t_vector2D size, char color[4]);
 
 /* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/new_raycaster.c                         */
@@ -474,6 +476,7 @@ void	init_shot3F(t_vector3F start, t_vector3F end);
 /*                         FILE = srcs/parsing/args.c                         */
 /* -------------------------------------------------------------------------- */
 void	parse_dir(char *str, int index, int *nb);
+void	parse_new_textures(char *str, int index, int *nb);
 void	jump_spaces(int *i, char *str, int k);
 void	parse_color(char *str, int index, int *nb);
 int	is_nb_args(int	*tab);
