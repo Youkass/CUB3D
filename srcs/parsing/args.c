@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:28:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/20 00:20:18 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 14:53:22 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	parse_color(char *str, int index, int *nb)
 		printf("Error\n");
 		ft_black_hole(1);
 	}
+	_var()->colors[index][k] = 100;
 }
 
 int	is_nb_args(int	*tab)
@@ -136,7 +137,7 @@ void	parse_args(char **map)
 			parse_color(map[i], 0, &nb_types[4]);
 		else if (!strncmp(map[i], "C", 1))
 			parse_color(map[i], 1, &nb_types[5]);
-		if (is_nb_args(nb_types) && index == -1)
+		else if (is_nb_args(nb_types) && index == -1)
 			index = i;
 		++i;
 	}
@@ -148,4 +149,5 @@ void	parse_args(char **map)
 	while (is_empty(map[index]))
 		index++;
 	check_map(map, index);
+	ft_find_wall_scale();
 }

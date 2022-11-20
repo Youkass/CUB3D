@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/18 17:58:03 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 15:18:30 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int	ft_return_xp(t_obj *player, t_obj *my_player)
 {
 	player->hb.hit.pos.x = player->x;
 	return ((int)(player->hb.hit.pos.x
-		* _var()->scale) + _var()->half_scale_offset + _var()->map_width * _var()->scale - my_player->x * _var()->scale - 420);
+		* _var()->scale) + _var()->half_scale_offset + _var()->map_width * _var()->scale - my_player->x * _var()->scale - 372);
 }
 
 int	ft_return_yp(t_obj *player, t_obj *my_player)
 {
 	player->hb.hit.pos.y = player->y;
-	return ((int)(player->hb.hit.pos.y * _var()->scale) + _var()->half_scale + _var()->map_height * _var()->scale - my_player->y * _var()->scale - 150);
+	return ((int)(player->hb.hit.pos.y * _var()->scale) + _var()->half_scale + _var()->map_height * _var()->scale - my_player->y * _var()->scale - 179);
 }
 
 float	ft_return_radius(t_obj *player)

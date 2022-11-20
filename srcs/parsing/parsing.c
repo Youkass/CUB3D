@@ -221,7 +221,7 @@ int	is_char_in_range(t_vector2D pos, char **map)
 
 int	is_player(char c)
 {
-	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
+	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == 'P')
 		return (1);
 	return (0);
 }
@@ -230,9 +230,11 @@ int check_map(char **map, int start)
 {
 	t_vector2D	it;
 	t_vector2D	pt;
+	int			longest;
 
 	it = pos(0, start);
 	pt = pos(0, 0);
+	longest = 0;
 	while (map[it.y])
 	{
 		it.x = 0;
@@ -250,11 +252,15 @@ int check_map(char **map, int start)
 			pt.x++;
 			it.x++;
 		}
+		if (pt.x > longest)
+			longest = pt.x - 1;
 		strcpy(_var()->map[pt.y], map[it.y]);
-		printf("%s\n", _var()->map[pt.y]);
+		printf(": %s\n", _var()->map[pt.y]);
 		pt.y++;
 		it.y++;
 	}
+	_var()->map_width = longest;
+	_var()->map_height = pt.y;
 	_var()->map[pt.y][0] = 0;
 	return (1);
 }

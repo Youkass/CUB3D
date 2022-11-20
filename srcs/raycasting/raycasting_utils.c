@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 16:43:03 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 18:29:27 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 15:22:08 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,15 @@ void	ft_put_pixel_color(t_data *a, char color[4], int x, int y)
 		a->addr[(y * a->line_length + x * 4) + 3] = color[3];
 	}
 }
+
+void	ft_put_pixel_color_unsigned(t_data *a, unsigned char color[4], int x, int y)
+{
+	if (color[3] != 255)
+	{
+		a->addr[y * a->line_length + x * 4] = color[0];
+		a->addr[(y * a->line_length + x * 4) + 1] = color[1];
+		a->addr[(y * a->line_length + x * 4) + 2] = color[2];
+		a->addr[(y * a->line_length + x * 4) + 3] = color[3];
+	}
+}
+

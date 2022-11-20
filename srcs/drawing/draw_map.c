@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 13:26:11 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 21:28:22 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/20 15:19:54 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ map.
 */
 void	ft_find_wall_scale(void)
 {
-	_var()->scale = MINIMAP_SIZE / ft_strlen(_var()->map[0]);
+	_var()->scale = MINIMAP_SIZE / _var()->map_width;
 	//_var()->scale = WIN_W / (ft_strlen(_var()->map[0]));
 	_var()->half_scale = _var()->scale / 2;
 	_var()->half_scale_offset = _var()->half_scale + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350;
@@ -101,7 +101,6 @@ int	ft_malloc_map(void)
 	int	i;
 
 	i = 0;
-	ft_find_wall_scale();
 	_var()->coord_map = ft_malloc(sizeof(t_obj *) * _var()->map_height);
 	if (!_var()->coord_map)
 		return (1); //TODO call garbage collector
@@ -149,28 +148,26 @@ int	ft_malloc_map(void)
 The two following functions will draw square for the Wall obj and Floor obj
 ===============================================================================
 */
-void	ft_draw_wall(t_obj wall, t_vector2D pos)
+void	ft_draw_wall(t_vector2D pos)
 {
 	t_int	var;
 
 	var.i = 0;
-	(void)pos;
 	while (var.i < _var()->scale) 
 	{
 		var.j = 0;
 		while (var.j < _var()->scale)
 		{
-			// if (is_neighbor(pos))), (char [4]){0, 15, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  (int)wall.y + var.j + 50);
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350,  wall.y + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  200);
+				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, pos.x * _var()->scale + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 250,  pos.y * _var()->scale + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  230);
 			var.j++;
 		}
 		var.i++;
 	}
 }
 
-void	ft_draw_floor(t_obj wall)
+void	ft_draw_floor(t_vector2D pos)
 {
 	t_int	var;
 
@@ -180,10 +177,10 @@ void	ft_draw_floor(t_obj wall)
 		var.j = 0;
 		while (var.j < _var()->scale)
 		{
-			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350, (int)wall.y + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  200);
+			ft_put_pixel_color(_img(), (char [4]){255, 255, 255, 0}, (int)pos.x * _var()->scale + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 250, (int)pos.y * _var()->scale + var.j + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  230);
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0 ||
 			var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)wall.x + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 350, (int)wall.y + var.j  + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  200);
+				ft_put_pixel_color(_img(), (char [4]){0, 0, 0, 0}, (int)pos.x * _var()->scale + var.i + MINIMAP_OFFSET - _var()->map_width * _var()->scale - _player()->x * _var()->scale - 250, (int)pos.y * _var()->scale + var.j  + 50 +_var()->map_height * _var()->scale - _player()->y * _var()->scale -  230);
 			var.j++;
 		}
 		var.i++;
@@ -274,7 +271,6 @@ void	draw_player_map(void)
 void	ft_draw_map(void)
 {
 	t_int		var;
-	t_vector2D	p_pos;
 
 	var.i = _player()->y - 8;
 	if (var.i < 0)
@@ -286,15 +282,12 @@ void	ft_draw_map(void)
 			var.j = 0;
 		while (var.j < _var()->map_width && var.j < _player()->x + 8)
 		{
-			if (_var()->coord_map[var.i][var.j].id == WALL)
-				ft_draw_wall(_var()->coord_map[var.i][var.j], (t_vector2D){var.j, var.i});
-			if (_var()->coord_map[var.i][var.j].id == MAP)
-				ft_draw_floor(_var()->coord_map[var.i][var.j]);
-			if (_var()->coord_map[var.i][var.j].id == PLAYER)
-			{
-				p_pos = (t_vector2D){var.j, var.i};
-				ft_draw_floor(_var()->coord_map[p_pos.y][p_pos.x]);
-			}
+			if (_var()->map[var.i][var.j] == '1')
+				ft_draw_wall(pos(var.j, var.i));
+			if (_var()->map[var.i][var.j] == '0')
+				ft_draw_floor(pos(var.j, var.i));
+			if (is_player(_var()->map[var.i][var.j]))
+				ft_draw_floor(pos(var.j, var.i));
 			var.j++;
 		}
 		var.i++;
