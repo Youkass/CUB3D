@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/23 11:29:41 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/23 11:54:42 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,14 @@ int	is_shoot_touch(t_vector2F a, t_vector2F b, t_circle c, t_vector2F *closest)
 
 void	shoot_alone3f(void)
 {
-	init_shot3f(pos3f(_player()->x, _player()->y, (_player()->z) + 100), pos3f(_player()->x
-		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y +
-		_player()->dy * _weapon()[_player()->weapon_id]->range, _player()->z -
-		((sin(normalise_between2f(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * _weapon()[_player()->weapon_id]->range)));
+	init_shot3f(pos3f(_player()->x, _player()->y, (_player()->z) + 100),
+		pos3f(_player()->x + _player()->dx
+			* _weapon()[_player()->weapon_id]->range, _player()->y
+			+ _player()->dy * _weapon()[_player()->weapon_id]->range,
+			_player()->z
+			- ((sin(normalise_between2f(posf(-960, 960), posf(-1, 1),
+							_player()->pitch)) * 1000)
+				* _weapon()[_player()->weapon_id]->range)));
 }
 
 /*
@@ -87,6 +91,58 @@ by 1000 two our Z coord scaled at the tile map to the raycasting visualisating.
 
 */
 
+static int	ft_big_if(t_vector2F *closest)
+{
+	if (_var()->o_player[i].id != _player()->id
+		&& is_shoot_touch((t_vector2F){_player()->x, _player()->y},
+		(t_vector2F){_player()->x + (_player()->dx
+			* _weapon()[_player()->weapon_id]->range), _player()->y
+				+ (_player()->dy * _weapon()[_player()->weapon_id]->range)},
+				(t_circle){(t_vector2F){_var()->o_player[i].x,
+				_var()->o_player[i].y}, 0.30}, closest)
+				&& !_var()->reload_anim)
+		return (1);
+	return (0);
+}
+
+static void	ft_assign_3f(t_vector3F *closest3f, t_vector2F closest)
+{
+	*closest3f = pos3f(closest.x, closest.y, one_dist2f(
+				posf(_player()->x, _player()->y), closest)
+			* -sin(normalise_between2f(posf(-960, 960), posf(-1, 1),
+					_player()->pitch)) * 1000);
+}
+
+static int	ft_lil_if(t_vector3F closest3f, int i)
+{
+	if (((!_var()->o_player[i].is_crouching && closest3f.z < 450
+				&& closest3f.z > -230) || (_var()->o_player[i].is_crouching
+				&& closest3f.z > 37 && closest3f.z < 432))
+		&& _var()->o_player[i].health > 0)
+	{
+		_player()->shooted.id = _var()->o_player[i].id;
+		_player()->shooted.shoot = 1;
+		return (1);
+	}
+	return (0);
+}
+
+static int	ft_smol_if(t_vector3F closest3f, int i)
+{
+	if ((!_var()->o_player[i].is_crouching && closest3f.z < 40)
+		|| (_var()->o_player[i].is_crouching && closest3f.z < 165))
+	{
+		if (_var()->o_player[i].health
+			- _weapon()[_player()->weapon_id]->headshot <= 0)
+		{
+			kill_push(_var()->o_player[i].id);
+			_player()->kills++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
 void	shoot(void)
 {
 	int			i;
@@ -106,34 +162,13 @@ void	shoot(void)
 	}
 	while (i < _var()->linked_players)
 	{
-		if (_var()->o_player[i].id != _player()->id &&
-			is_shoot_touch((t_vector2F){_player()->x, _player()->y},
-			(t_vector2F){_player()->x + (_player()->dx * _weapon()[_player()->weapon_id]->range), _player()->y
-			+ (_player()->dy * _weapon()[_player()->weapon_id]->range)}, (t_circle){(t_vector2F){_var()->o_player[i].x,
-			_var()->o_player[i].y}, 0.30}, &closest) && !_var()->reload_anim)
+		if (ft_big_if(&closest))
 		{
-			closest3f = pos3f(closest.x, closest.y, one_dist2f(
-				posf(_player()->x, _player()->y), closest) *
-				-sin(normalise_between2f(posf(-960, 960), posf(-1, 1),
-				_player()->pitch)) * 1000);
-			if (((!_var()->o_player[i].is_crouching && closest3f.z < 450 && closest3f.z > -230)
-			|| (_var()->o_player[i].is_crouching && closest3f.z > 37 && closest3f.z < 432))
-			&& _var()->o_player[i].health > 0)
+			ft_assign_3f(&closest3f, closest);
+			if (ft_lil_if(closest3f, i))
 			{
-				_player()->shooted.id = _var()->o_player[i].id;
-				_player()->shooted.shoot = 1;
-				if ((!_var()->o_player[i].is_crouching && closest3f.z < 40)
-				|| (_var()->o_player[i].is_crouching && closest3f.z < 165)) // HEADSHOT CROUCH
-				{
-					if (_var()->o_player[i].health - _weapon()
-						[_player()->weapon_id]->headshot <= 0)
-					{
-						kill_push(_var()->o_player[i].id);
-						_player()->kills++;
-					}
+				if (ft_smol_if(closest3f, i))
 					_player()->shooted.shoot = 2;
-					printf("===> HEADSHOT\n");
-				}
 				else if ((!_var()->o_player[i].is_crouching && closest3f.z < 235)
 				|| (_var()->o_player[i].is_crouching && closest3f.z < 315)) // NORMAL
 				{
@@ -143,7 +178,6 @@ void	shoot(void)
 						kill_push(_var()->o_player[i].id);
 						_player()->kills++;
 					}
-					printf("===> NORMAL\n");
 				}
 				else // FOOTSHOT
 				{
