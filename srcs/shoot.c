@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/23 11:54:42 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:17:34 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,86 +143,126 @@ static int	ft_smol_if(t_vector3F closest3f, int i)
 	return (0);
 }
 
-void	shoot(void)
+static int	ft_else_if(t_vector3F closest3f, int i)
 {
-	int			i;
-	t_vector2F	closest;
-	t_vector3F	closest3f;
-	int			touched;
+	if ((!_var()->o_player[i].is_crouching && closest3f.z < 235)
+		|| (_var()->o_player[i].is_crouching && closest3f.z < 315))
+		return (1);
+	return (0);
+}
+
+static void	ft_if_in_else(int i)
+{
+	if (_var()->o_player[i].health
+		- _weapon()[_player()->weapon_id]->power <= 0)
+	{
+		kill_push(_var()->o_player[i].id);
+		_player()->kills++;
+	}
+}
+
+static void	ft_is_footshot(int i)
+{
+	if (_var()->o_player[i].health
+		- _weapon()[_player()->weapon_id]->footshot <= 0)
+	{
+		kill_push(_var()->o_player[i].id);
+		_player()->kills++;
+	}
+	_player()->shooted.shoot = 3;
+}
+
+static void	ft_init_and_if(int *touched, t_vector3F closest3f)
+{
+	*touched = 1;
+	_player()->touched = 1;
+	_var()->start_touch = get_clock(_var()->clock);
+	_var()->shotanim_start = get_clock(_var()->clock);
+	_var()->shot_anim = 1;
+	if (_player()->weapon_id != KNIFE)
+		init_shot3f(pos3f(_player()->x, _player()->y, _player()->z
+				+ 100), closest3f);
+}
+
+static void	ft_while(int *touched, t_vector2F *closest, t_vector3F *closest3f)
+{
+	int	i;
 
 	i = 0;
-	touched = 0;
+	while (i < _var()->linked_players)
+	{
+		if (ft_big_if(closest))
+		{
+			ft_assign_3f(closest3f, *closest);
+			if (ft_lil_if(*closest3f, i))
+			{
+				if (ft_smol_if(*closest3f, i))
+					_player()->shooted.shoot = 2;
+				else if (ft_else_if(*closest3f, i))
+					ft_if_in_else(i);
+				else
+					ft_is_footshot(i);
+				ft_init_and_if(touched, *closest3f);
+			}
+			break ;
+		}
+		i++;
+	}
+}
+
+static int	ft_first_if(void)
+{
 	if (_var()->nb_player == 1 && !_var()->reload_anim)
 	{
 		if (_player()->weapon_id != KNIFE)
 			shoot_alone3f();
 		_var()->shotanim_start = get_clock(_var()->clock);
 		_var()->shot_anim = 1;
+		return (1);
+	}
+	return (0);
+}
+
+static void	ft_last_else(void)
+{
+	init_shot3f(pos3f(_player()->x, _player()->y, (_player()->z) + 100),
+		pos3f(_player()->x + _player()->dx
+			* _weapon()[_player()->weapon_id]->range, _player()->y
+			+ _player()->dy * _weapon()[_player()->weapon_id]->range,
+			_player()->z - ((sin(normalise_between2f(posf(-960, 960),
+							posf(-1, 1), _player()->pitch)) * 1000)
+				* _weapon()[_player()->weapon_id]->range)));
+}
+
+void	shoot(void)
+{
+	t_vector2F	closest;
+	t_vector3F	closest3f;
+	int			touched;
+
+	touched = 0;
+	if (ft_first_if())
 		return ;
-	}
-	while (i < _var()->linked_players)
-	{
-		if (ft_big_if(&closest))
-		{
-			ft_assign_3f(&closest3f, closest);
-			if (ft_lil_if(closest3f, i))
-			{
-				if (ft_smol_if(closest3f, i))
-					_player()->shooted.shoot = 2;
-				else if ((!_var()->o_player[i].is_crouching && closest3f.z < 235)
-				|| (_var()->o_player[i].is_crouching && closest3f.z < 315)) // NORMAL
-				{
-					if (_var()->o_player[i].health - _weapon()
-						[_player()->weapon_id]->power <= 0)
-					{
-						kill_push(_var()->o_player[i].id);
-						_player()->kills++;
-					}
-				}
-				else // FOOTSHOT
-				{
-					if (_var()->o_player[i].health - _weapon()
-						[_player()->weapon_id]->footshot <= 0)
-					{
-						kill_push(_var()->o_player[i].id);
-						_player()->kills++;
-					}
-					_player()->shooted.shoot = 3;
-					printf("===> FOOTSHOT\n");
-				}
-				touched = 1;
-				_player()->touched = 1;
-				_var()->start_touch = get_clock(_var()->clock);
-				_var()->shotanim_start = get_clock(_var()->clock);
-				_var()->shot_anim = 1;
-				if (_player()->weapon_id != KNIFE)
-					init_shot3f(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3f);
-			}
-			break ;
-		}
-		i++;
-	}
-	if (touched == 0  && !_var()->reload_anim)
+	ft_while(&touched, &closest, &closest3f);
+	if (touched == 0 && !_var()->reload_anim)
 	{
 		_var()->shotanim_start = get_clock(_var()->clock);
 		_var()->shot_anim = 1;
-		printf("===> %f\n", _var()->frame_time);
-		printf("pas touchew\n");
 		if (_player()->weapon_id == KNIFE)
 			return ;
 		if (nearest_wall3d(&closest3f))
-			init_shot3f(pos3f(_player()->x, _player()->y, _player()->z + 100), closest3f);
+			init_shot3f(pos3f(_player()->x, _player()->y, _player()->z
+					+ 100), closest3f);
 		else
-				init_shot3f(pos3f(_player()->x, _player()->y, (_player()->z) + 100), pos3f(_player()->x
-		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y + _player()->dy * _weapon()[_player()->weapon_id]->range, _player()->z - ((sin(normalise_between2f(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000) * _weapon()[_player()->weapon_id]->range)));
+			ft_last_else();
 	}
 }
 
 static void	init_ray_wall(t_raycasting *r)
 {
 	r->cam.x = 2 * (WIN_W / 2) / (double)WIN_W - 1;
-	r->dir.x =  _player()->dx + _player()->plane.x * r->cam.x;
-	r->dir.y =  _player()->dy + _player()->plane.y * r->cam.x;
+	r->dir.x = _player()->dx + _player()->plane.x * r->cam.x;
+	r->dir.y = _player()->dy + _player()->plane.y * r->cam.x;
 	r->map = (t_vector2D){(_player()->x + 0.5), (_player()->y + 0.5)};
 	if (r->dir.y == 0)
 		r->delta.x = 0;
@@ -281,8 +321,8 @@ static void	dda_wall(t_raycasting *r, t_vector2D *n)
 			r->side = 1;
 			n->y++;
 		}
-		if (r->map.y < _var()->map_height && r->map.y >= 0 &&
-			r->map.x < _var()->map_width && r->map.x >= 0
+		if (r->map.y < _var()->map_height && r->map.y >= 0
+			&& r->map.x < _var()->map_width && r->map.x >= 0
 			&& is_wall(_var()->map[r->map.y][r->map.x]))
 			r->hit = 1;
 	}
@@ -292,22 +332,25 @@ int	nearest_wall3d(t_vector3F *closest)
 {
 	t_raycasting	r;
 	t_vector2D		n;
-	t_vector2F 		tmp;
+	t_vector2F		tmp;
 
 	init_ray_wall(&r);
 	init_dda_wall(&r);
 	dda_wall(&r, &n);
 	tmp = closest_point(posf(_player()->x, _player()->y), posf(_player()->x
-		+ _player()->dx * _weapon()[_player()->weapon_id]->range, _player()->y + _player()->dy * _weapon()[_player()->weapon_id]->range),
-		posf(r.map.x - 0.5, r.map.y - 0.5));
+				+ _player()->dx * _weapon()[_player()->weapon_id]->range,
+				_player()->y
+				+ _player()->dy * _weapon()[_player()->weapon_id]->range),
+			posf(r.map.x - 0.5, r.map.y - 0.5));
 	closest->x = tmp.x;
 	closest->y = tmp.y;
 	if (one_dist2f(posf(_player()->x, _player()->y), tmp)
 		* ((normalise_between2f(posf(-1000, 1000), posf(-1, 1),
-		_player()->pitch))) > 0.5)
+					_player()->pitch))) > 0.5)
 		return (0);
-	closest->z =one_dist2f(posf(_player()->x, _player()->y), tmp)
-		* -sin(normalise_between2f(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000;
+	closest->z = one_dist2f(posf(_player()->x, _player()->y), tmp)
+		* -sin(normalise_between2f(posf(-960, 960), posf(-1, 1),
+				_player()->pitch)) * 1000;
 	return (1);
 }
 
@@ -324,11 +367,12 @@ void	init_shot3f(t_vector3F start, t_vector3F end)
 	player->shott[n].weapon_type = player->weapon_id;
 	player->shott[n].shot = 1;
 	player->shott[n].velo.dist = dist_3f(start, end);
-	player->shott[n].velo.time_ms = (int)get_time_velo3f(one_dist2f(posf(start.x, start.y), posf(end.x, end.y)), 15000);
+	player->shott[n].velo.time_ms = (int)get_time_velo3f(one_dist2f(
+				posf(start.x, start.y), posf(end.x, end.y)), 15000);
 	player->shott[n].velo.velo = velocity_ms3f(player->shott[n].velo.dist,
-		player->shott[n].velo.time_ms);
+			player->shott[n].velo.time_ms);
 	player->shott[n].start_time = get_clock(_var()->clock);
-	player->shott[n].pos = velocity_get_point3f(player->shott[n].start_pos
-	, player->shott[n].velo.velo, get_time(player->shott[n].start_time));
+	player->shott[n].pos = velocity_get_point3f(player->shott[n].start_pos,
+			player->shott[n].velo.velo, get_time(player->shott[n].start_time));
 	player->shoot_n++;
 }

@@ -2,38 +2,15 @@ srcs/shoot.c: Error!
 Error: TOO_MANY_FUNCS       (line: 116, col:   1):	Too many functions in file
 Error: TOO_MANY_FUNCS       (line: 130, col:   1):	Too many functions in file
 Error: TOO_MANY_FUNCS       (line: 146, col:   1):	Too many functions in file
-Error: LINE_TOO_LONG        (line: 172, col:  82):	line too long
-Error: TOO_FEW_TAB          (line: 173, col:  17):	Missing tabs for indent level
-Error: LINE_TOO_LONG        (line: 173, col:  77):	line too long
-Error: WRONG_SCOPE_COMMENT  (line: 173, col:  77):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line: 173, col:  86):	line too long
-Error: WRONG_SCOPE_COMMENT  (line: 183, col:  22):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line: 183, col:  22):	Comment is invalid in this scope
-Error: LINE_TOO_LONG        (line: 200, col:  82):	line too long
-Error: CONSECUTIVE_SPC      (line: 206, col:  21):	Two or more consecutives spaces
-Error: LINE_TOO_LONG        (line: 215, col:  89):	line too long
-Error: TOO_MANY_TAB         (line: 217, col:   1):	Extra tabs for indent level
-Error: LINE_TOO_LONG        (line: 217, col:  83):	line too long
-Error: TOO_FEW_TAB          (line: 218, col:   1):	Missing tabs for indent level
-Error: LINE_TOO_LONG        (line: 218, col:  82):	line too long
-Error: TOO_MANY_LINES       (line: 220, col:   1):	Function has more than 25 lines
-Error: TOO_MANY_FUNCS       (line: 222, col:   1):	Too many functions in file
-Error: CONSECUTIVE_SPC      (line: 225, col:  15):	Two or more consecutives spaces
-Error: CONSECUTIVE_SPC      (line: 226, col:  15):	Two or more consecutives spaces
-Error: TOO_MANY_FUNCS       (line: 242, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 267, col:   1):	Too many functions in file
-Error: EOL_OPERATOR         (line: 285, col:  60):	Logic operator at the end of line
-Error: TOO_MANY_FUNCS       (line: 292, col:   1):	Too many functions in file
-Error: MIXED_SPACE_TAB      (line: 296, col:  15):	Mixed spaces and tabs
-Error: SPACE_REPLACE_TAB    (line: 296, col:  15):	Found space when expecting tab
-Error: TOO_FEW_TAB          (line: 302, col:   1):	Missing tabs for indent level
-Error: LINE_TOO_LONG        (line: 302, col:  82):	line too long
-Error: TOO_FEW_TAB          (line: 303, col:   1):	Missing tabs for indent level
-Error: TOO_FEW_TAB          (line: 308, col:   9):	Missing tabs for indent level
-Error: SPC_AFTER_OPERATOR   (line: 310, col:  16):	missing space after operator
-Error: LINE_TOO_LONG        (line: 311, col:  82):	line too long
-Error: TOO_MANY_FUNCS       (line: 315, col:   1):	Too many functions in file
-Error: LINE_TOO_LONG        (line: 328, col:  82):	line too long
-Error: TOO_FEW_TAB          (line: 330, col:   1):	Missing tabs for indent level
-Error: COMMA_START_LINE     (line: 332, col:  75):	Comma at line start
-Error: TOO_FEW_TAB          (line: 333, col:   1):	Missing tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 154, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 164, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 175, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 187, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 213, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 226, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 237, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 261, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 281, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 306, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 331, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 357, col:   1):	Too many functions in file
