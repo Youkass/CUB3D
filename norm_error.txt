@@ -1,16 +1,4 @@
-srcs/shoot.c: Error!
-Error: TOO_MANY_FUNCS       (line: 116, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 130, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 146, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 154, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 164, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 175, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 187, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 213, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 226, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 237, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 261, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 281, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 306, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 331, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 357, col:   1):	Too many functions in file
+srcs/utils/click.c: Error!
+Error: TOO_MANY_LINES       (line:  78, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_LINES       (line: 133, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 135, col:   1):	Too many functions in file

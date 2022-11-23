@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 20:07:03 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 21:59:19 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/23 14:01:09 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_elem	*new_log(int id1, int id2)
 	return (log);
 }
 
-void	print_log(t_list	*li)
+void	print_log(t_list *li)
 {
 	t_elem	*log;
 

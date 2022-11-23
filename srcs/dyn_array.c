@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 21:12:11 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 17:44:14 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/23 14:00:12 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,14 @@ void	init_array(t_array *a, int size)
 	a->array = ft_malloc(sizeof(int) * size);
 }
 
-int	kill_push(int	value)
+int	kill_push(int value)
 {
 	_player()->kill_round[_player()->nr++] = value;
 	_player()->kill_match[_player()->nm++] = value;
-	printf("=>>> %d\n", _player()->nm);
 	return (1);
 }
 
-int	arr_push(t_array *a, int	value)
+int	arr_push(t_array *a, int value)
 {
 	if (a->n >= a->size)
 		return (0);
@@ -35,14 +34,13 @@ int	arr_push(t_array *a, int	value)
 	return (1);
 }
 
-void	arr_pop(t_array *a, int	id)
+void	arr_pop(t_array *a, int id)
 {
 	size_t	i;
-	int	poped;
+	int		poped;
 
 	i = 0;
 	poped = 0;
-	printf("pop : n = %zu\n", a->n);
 	while (i < a->n)
 	{
 		if (a->array[i] == id)
@@ -82,10 +80,8 @@ void	print_arr(t_array *a)
 	size_t	i;
 
 	i = 0;
-	printf("-----\n");
-	while (i <= a->n)
-		printf("-> %d\n", a->array[i++]);
-	printf("-----\n");
+	(void)a;
+	(void)i;
 }
 
 int	ft_in_array(t_array *a, int value)
@@ -102,7 +98,7 @@ int	ft_in_array(t_array *a, int value)
 	return (0);
 }
 
-t_vector2F	get_90_angle(int	dir)
+t_vector2F	get_90_angle(int dir)
 {
 	double		deg;
 	double		rad;
@@ -112,8 +108,8 @@ t_vector2F	get_90_angle(int	dir)
 	rad = deg_to_rad(deg);
 	v.x = (cos(rad));
 	v.y = (sin(rad));
-	v.x+=_player()->dx;
-	v.y+=_player()->dy;
-	deg = (atan2(v.y - _player()->dy, v.x - _player()->dx));  
+	v.x += _player()->dx;
+	v.y += _player()->dy;
+	deg = (atan2(v.y - _player()->dy, v.x - _player()->dx));
 	return (posf(cos(deg), sin(deg)));
 }

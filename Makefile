@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/11/19 22:57:21 by dasereno         ###   ########.fr        #
+#    Updated: 2022/11/23 13:33:00 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,11 +61,16 @@ SRCS		=	srcs/main.c\
 				srcs/math/vector/tools.c\
 				srcs/init.c\
 				miniaudio/extras/miniaudio_split/miniaudio.c\
-				srcs/new_raycaster.c\
 				srcs/utils/click.c\
 				srcs/dyn_array.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
+					srcs/raycasting/raycasting_utils.c\
+					srcs/raycasting/raycasting.c\
+					srcs/raycasting/spritecasting.c\
+					srcs/raycasting/player_casting.c\
+					srcs/raycasting/name_casting.c\
+					srcs/raycasting/bullet_casting.c\
 					srcs/network/lobby.c\
 					srcs/kill_log.c\
 				  	srcs/network_client/network_utils.c\
@@ -130,6 +135,7 @@ $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/math
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/menu
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/raycasting
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/math/vector
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing

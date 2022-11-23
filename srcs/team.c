@@ -6,13 +6,13 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:39:25 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 01:16:36 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/23 13:53:50 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	init_player_team()
+void	init_player_team(void)
 {
 	int	i;
 
@@ -44,40 +44,44 @@ int	get_id_by_pseudo(char *pseudo)
 	return (-1);
 }
 
+static void	ft_init_team(t_team **team)
+{
+	team[TEAM_BLUE]->player_spawn[0] = posf(40, 9);
+	team[TEAM_BLUE]->player_spawn[1] = posf(40, 10);
+	team[TEAM_BLUE]->player_spawn[2] = posf(41, 9);
+	team[TEAM_BLUE]->player_spawn[3] = posf(41, 9);
+	team[TEAM_BLUE]->player_spawn[4] = posf(41, 9);
+	team[TEAM_RED]->player_spawn[0] = posf(3, 3);
+	team[TEAM_RED]->player_spawn[1] = posf(3, 4);
+	team[TEAM_RED]->player_spawn[2] = posf(3, 2);
+	team[TEAM_RED]->player_spawn[3] = posf(3, 3);
+	team[TEAM_RED]->player_spawn[4] = posf(3, 3);
+	team[TEAM_BLUE]->loose = 0;
+	team[TEAM_BLUE]->win = 0;
+	team[TEAM_BLUE]->team_spawn = posf(40, 9);
+}
+
 void	init_teams(void)
 {
 	int			i;
-	
-	_team()[TEAM_RED]->loose = 0;
-	_team()[TEAM_RED]->win = 0;
-	_team()[TEAM_RED]->team_spawn = posf(3, 3);
-	i = 0;
-	while (i < _var()->linked_players / 2)
-	{
-		_team()[TEAM_RED]->players[i] = _var()->red[i];
-		i++;
-	}
-	_team()[TEAM_RED]->player_spawn[0] = posf(3, 3);
-	_team()[TEAM_RED]->player_spawn[1] = posf(3, 4);
-	_team()[TEAM_RED]->player_spawn[2] = posf(3, 2);
-	_team()[TEAM_RED]->player_spawn[3] = posf(3, 3);
-	_team()[TEAM_RED]->player_spawn[4] = posf(3, 3);
+	t_team		**team;
 
-	_team()[TEAM_BLUE]->loose = 0;
-	_team()[TEAM_BLUE]->win = 0;
-	_team()[TEAM_BLUE]->team_spawn = posf(40, 9);
+	team = _team();
+	team[TEAM_RED]->loose = 0;
+	team[TEAM_RED]->win = 0;
+	team[TEAM_RED]->team_spawn = posf(3, 3);
+	ft_init_team(team);
 	i = 0;
 	while (i < _var()->linked_players / 2)
 	{
-		_team()[TEAM_BLUE]->players[i] = _var()->blue[i];
+		team[TEAM_RED]->players[i] = _var()->red[i];
 		i++;
 	}
-	_team()[TEAM_BLUE]->player_spawn[0] = posf(40, 9);
-	_team()[TEAM_BLUE]->player_spawn[1] = posf(40, 10);
-	_team()[TEAM_BLUE]->player_spawn[2] = posf(41, 9);
-	_team()[TEAM_BLUE]->player_spawn[3] = posf(41, 9);
-	_team()[TEAM_BLUE]->player_spawn[4] = posf(41, 9);
+	i = 0;
+	while (i < _var()->linked_players / 2)
+	{
+		team[TEAM_BLUE]->players[i] = _var()->blue[i];
+		i++;
+	}
 	init_player_team();
 }
-
-// Coder Team update coté serveur
