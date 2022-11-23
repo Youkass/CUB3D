@@ -261,7 +261,7 @@ void	update_bullets(void)
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point3F(_player()->shott[i].start_pos,
+		velo = velocity_get_point3f(_player()->shott[i].start_pos,
 			_player()->shott[i].velo.velo,
 				get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time)
@@ -294,7 +294,7 @@ void	update_bullets3F(void)
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point3F(_player()->shott[i].start_pos,
+		velo = velocity_get_point3f(_player()->shott[i].start_pos,
 			_player()->shott[i].velo.velo,
 				get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time)
