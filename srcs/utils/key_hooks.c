@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 23:39:08 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:44:33 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,14 @@ int	ft_is_wall(t_vector2D pos)
 		return (1);
 	return (0);
 }
+
+int	is_wall(char c)
+{
+	if ((c >= '1' && c <= '9') || c == 'A' || c == 'B')
+		return (1);
+	return (0);
+}
+
 
 int	ft_back(void)
 {
