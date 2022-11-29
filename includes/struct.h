@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 22:27:56 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:16:19 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,12 @@ typedef struct s_menu
 	t_data		wall;
 }	t_menu;
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct	s_rect
 {
 	float	width;
@@ -185,6 +191,8 @@ typedef struct s_key
 	int	s;
 	int	d;
 	int	esc;
+	int	left;
+	int right;
 }	t_key;
 
 typedef struct s_var

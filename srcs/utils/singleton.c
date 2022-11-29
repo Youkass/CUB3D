@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   singleton.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/09/29 19:58:51 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/29 18:17:28 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 t_data	*_img(void)
 {
 	static t_data	*img = NULL;
-	
+
 	if (!img)
-		img = malloc(sizeof(t_data));
+		img = ft_malloc(sizeof(t_data));
 	if (!img)
 		return (NULL);
 	return (img);
@@ -34,7 +34,7 @@ t_mlx	*_mlx(void)
 	static t_mlx	*mlx = NULL;
 
 	if (!mlx)
-		mlx = malloc(sizeof(t_mlx));
+		mlx = ft_malloc(sizeof(t_mlx));
 	if (!mlx)
 		return (NULL);
 	return (mlx);
@@ -48,7 +48,7 @@ t_obj	*_player(void)
 	static t_obj	*player = NULL;
 
 	if (!player)
-		player = malloc(sizeof(t_obj));
+		player = ft_malloc(sizeof(t_obj));
 	if (!player)
 		return (NULL);
 	return (player);
@@ -62,7 +62,7 @@ t_raycasting	*_ray(void)
 	static t_raycasting	*ray = NULL;
 
 	if (!ray)
-		ray = malloc(sizeof(t_raycasting));
+		ray = ft_malloc(sizeof(t_raycasting));
 	if (!ray)
 		return (NULL);
 	return (ray);
@@ -74,9 +74,9 @@ t_raycasting	*_ray(void)
 t_var	*_var(void)
 {
 	static t_var	*var = NULL;
-	
+
 	if (!var)
-		var = malloc(sizeof(t_var));
+		var = ft_malloc(sizeof(t_var));
 	if (!var)
 		return (NULL);
 	return (var);

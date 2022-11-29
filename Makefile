@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by tnard             #+#    #+#              #
-#    Updated: 2022/11/20 20:39:19 by dasereno         ###   ########.fr        #
+#    Updated: 2022/11/29 18:16:34 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,21 +21,18 @@ SRCS		=	srcs/main.c\
 				srcs/raycasting/raycasting.c\
 				srcs/mlx_utils/mlx_utils.c\
 				srcs/utils/singleton.c\
-				srcs/utils/malloc_hooks_enum.c\
 				srcs/utils/key_hooks.c\
 				srcs/utils/clock.c\
 				srcs/utils/math.c\
-				srcs/utils/collisions.c\
-				srcs/drawing/draw_player.c\
-				srcs/drawing/draw_map.c\
-				srcs/menu/generate.c\
-				srcs/menu/loop.c\
-				srcs/menu/render.c\
-				srcs/menu/utils.c\
-				srcs/menu/mouse_hook.c\
-				srcs/menu/dragbar.c\
+				srcs/utils/garbage.c\
+				srcs/utils/utils.c\
+				srcs/utils/utils_2.c\
+				srcs/utils/movements.c\
 				srcs/parsing/parsing.c\
-				srcs/parsing/args.c
+				srcs/parsing/parsing_2.c\
+				srcs/parsing/split.c\
+				srcs/parsing/args.c\
+				srcs/parsing/args_2.c
 
 NAME		= cub3D
 minilibx	= mlx/libmlx.a
@@ -55,8 +52,6 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
 	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@mkdir -p $(OBJS_DIR)srcs/utils
-	@mkdir -p $(OBJS_DIR)srcs/drawing
-	@mkdir -p $(OBJS_DIR)srcs/menu
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 

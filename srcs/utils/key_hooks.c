@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 22:17:01 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:21:46 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ typedef struct s_enum_key
 
 void	key_hook(void)
 {
-	detect_neighbors();
-
 	if (_var()->key.a)
-		ft_left();
+		ft_strafe_left();
 	if (_var()->key.w)
 		ft_forward();
 	if (_var()->key.s)
@@ -42,6 +40,10 @@ void	key_hook(void)
 	if (_var()->key.esc)
 		ft_escape();
 	if (_var()->key.d)
+		ft_strafe_right();
+	if (_var()->key.left)
+		ft_left();
+	if (_var()->key.right)
 		ft_right();
 }
 
@@ -56,14 +58,13 @@ int	ft_game_hook(int keycode)
 	tab[1].id = S;
 	tab[1].ft_hook_key = &ft_back;
 	tab[2].id = A;
-	tab[2].ft_hook_key = &ft_left;
+	tab[2].ft_hook_key = &ft_strafe_left;
 	tab[3].id = D;
-	tab[3].ft_hook_key = &ft_right;
+	tab[3].ft_hook_key = &ft_strafe_right;
 	tab[4].id = ESC;
 	tab[4].ft_hook_key = &ft_escape;
 	while (i < MAX_KEYS)
 	{
-		//if (_var()->key)
 		if (tab[i].id == keycode)
 			return (tab[i].ft_hook_key());
 		++i;
@@ -76,82 +77,46 @@ all the following functions are the function we assigned just above this comment
 ================================================================================
 */
 
-int	ft_forward(void)
-{
-	t_vector2F	tmp;
-
-	tmp.y = _player()->y + (_player()->dy * (_player()->move_speed));
-	tmp.x = (_player()->x) + (_player()->dx * (_player()->move_speed));
-	if (_var()->map[(int)tmp.y][(int)tmp.x] != '1')
-	{
-		_player()->y +=(_player()->dy * (_player()->move_speed));
-		_player()->x += (_player()->dx * (_player()->move_speed));
-	}
-	else
-	{
-		_player()->y -= (_player()->dy * (_player()->move_speed));
-		_player()->x -= (_player()->dx * (_player()->move_speed));
-	}
-	printf("%f, %f\n", _player()->x, _player()->y);
-	return (0);
-}
-
-int	ft_is_wall(t_vector2D pos)
-{
-	if (pos.x >= 0 && pos.y >= 0 && pos.x < _img()->map_width
-		&& pos.y < _img()->map_height && _img()->map[pos.y][pos.x] == '1')
-			return (1);
-	return (0);
-}
-
-int	ft_back(void)
-{
-	t_vector2F	tmp;
-
-	tmp.y = _player()->y - (_player()->dy * (_player()->move_speed));
-	tmp.x = _player()->x - (_player()->dx * (_player()->move_speed));
-	if (_var()->map[(int)tmp.y][(int)tmp.x] != '1')
-	{
-		_player()->y -=(_player()->dy * (_player()->move_speed));
-		_player()->x -= (_player()->dx * (_player()->move_speed));
-	}
-	else
-	{
-		_player()->y += (_player()->dy * (_player()->move_speed));
-		_player()->x += (_player()->dx * (_player()->move_speed));
-	}
-	return (0);
-}
-
 int	ft_right(void)
 {
+	double		at;
+
+	at = atan2(_player()->dy, _player()->dx);
 	_player()->old_dx = _player()->dx;
-	_player()->dx = _player()->dx * cos(_player()->rot_speed) - _player()->dy * sin(_player()->rot_speed);
-	_player()->dy = _player()->old_dx * sin(_player()->rot_speed) + _player()->dy * cos(_player()->rot_speed);
+	_player()->dx = _player()->dx * cos(_player()->rot_speed)
+	- _player()->dy * sin(_player()->rot_speed);
+	_player()->dy = _player()->old_dx * sin(_player()->rot_speed)
+	+ _player()->dy * cos(_player()->rot_speed);
 	_ray()->old_plane.x = _ray()->plane.x;
-	_ray()->plane.x = _ray()->plane.x * cos(_player()->rot_speed) - _ray()->plane.y * sin(_player()->rot_speed);
-	_ray()->plane.y = _ray()->old_plane.x * sin(_player()->rot_speed) + _ray()->plane.y * cos(_player()->rot_speed);
-	printf("x = %f, y = %f\n", _player()->dx, _player()->dy);
-	_player()->angle = atan2( _player()->dy, _player()->dx );
+	_ray()->plane.x = _ray()->plane.x * cos(_player()->rot_speed)
+	- _ray()->plane.y * sin(_player()->rot_speed);
+	_ray()->plane.y = _ray()->old_plane.x * sin(_player()->rot_speed)
+	+ _ray()->plane.y * cos(_player()->rot_speed);
+	_player()->angle = at;
 	return (0);
 }
 
 int	ft_left(void)
 {
+	double		at;
 
+	at = atan2(_player()->dy, _player()->dx);
 	_player()->old_dx = _player()->dx;
-	_player()->dx = _player()->dx * cos(-_player()->rot_speed) - _player()->dy * sin(-_player()->rot_speed);
-	_player()->dy = _player()->old_dx * sin(-_player()->rot_speed) + _player()->dy * cos(-_player()->rot_speed);
+	_player()->dx = _player()->dx * cos(-_player()->rot_speed) - _player()->dy
+	* sin(-_player()->rot_speed);
+	_player()->dy = _player()->old_dx * sin(-_player()->rot_speed)
+	+ _player()->dy * cos(-_player()->rot_speed);
 	_ray()->old_plane.x = _ray()->plane.x;
-	_ray()->plane.x = _ray()->plane.x * cos(-_player()->rot_speed) - _ray()->plane.y * sin(-_player()->rot_speed);
-	_ray()->plane.y = _ray()->old_plane.x * sin(-_player()->rot_speed) + _ray()->plane.y * cos(-_player()->rot_speed);
-	printf("x = %f, y = %f\n", _player()->dx, _player()->dy);
-	_player()->angle = atan2( _player()->dy, _player()->dx );
+	_ray()->plane.x = _ray()->plane.x * cos(-_player()->rot_speed)
+	- _ray()->plane.y * sin(-_player()->rot_speed);
+	_ray()->plane.y = _ray()->old_plane.x * sin(-_player()->rot_speed)
+	+ _ray()->plane.y * cos(-_player()->rot_speed);
+	_player()->angle = at;
 	return (0);
 }
 
-
 int	ft_escape(void)
 {
-	exit(1);
+	ft_black_hole(1);
+	exit(0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 15:30:32 by dasereno          #+#    #+#             */
+/*   Updated: 2022/11/29 18:18:30 by dasereno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -19,101 +31,15 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-static int	count_words(char const *s, char c)
-{
-	int	i;
-	int	w;
-
-	i = 0;
-	w = 0;
-	while (s[i])
-	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == 0))
-			w++;
-		i++;
-	}
-	return (w);
-}
-
-static char	*ft_strncpy_split(char const *src, size_t n)
-{
-	size_t	i;
-	char	*dest;
-
-	i = 0;
-	dest = malloc(sizeof(char) * n);
-	if (!dest)
-		return (NULL);
-	while (i < n - 1 && src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-void	*free_tab(char **tab, int k)
-{
-	while (k >= 0)
-	{
-		free(tab[k]);
-		tab[k] = NULL;
-		k--;
-	}
-	free(tab);
-	tab = NULL;
-	return (NULL);
-}
-
-static char	**ft_split_body(char const *s, char c, char **split)
-{
-	int	j;
-	int	k;
-	int	i;
-
-	i = 0;
-	j = 0;
-	k = 0;
-	while (s[i])
-	{
-		while (s[i + j] && s[i + j] != c)
-			j++;
-		if (j != 0)
-		{
-			split[k] = ft_strncpy_split(s + i, j + 1);
-			if (!split[k++])
-				return (free_tab(split, k - 1));
-			i += j - 1;
-			j = 0;
-		}
-		i++;
-	}
-	split[k] = 0;
-	return (split);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	char	**split;
-
-	if (s == NULL)
-		return (NULL);
-	split = malloc(sizeof(char *) * (count_words(s, c) + 1));
-	if (!split)
-		return (NULL);
-	return (ft_split_body(s, c, split));
-}
-
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
 	char	*str;
 
 	i = 0;
-	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	str = ft_malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
-		return (exit(139), NULL);
+		return (ft_black_hole(139), NULL);
 	while (s1 && *s1)
 	{
 		str[i++] = *s1;
@@ -127,7 +53,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str[i] = 0;
 	return (str);
 }
-
 
 char	*read_file(int fd)
 {
@@ -148,75 +73,33 @@ char	*read_file(int fd)
 	return (str);
 }
 
-t_vector2D  get_pos(char **map, char c)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while (map[i])
-    {
-        j = 0;
-        while(map[i][j])
-        {
-            if (map[i][j] == c)
-                return ((t_vector2D){j, i});
-            j++;
-        }
-        i++;
-    }
-    return ((t_vector2D){-1, -1});
-}
-
 int	is_char_in_range(t_vector2D pos, char **map)
 {
-	t_vector2D	it;
-	int			ok;
+	t_vector2D			it;
+	int					ok;
+	static t_vector2D	add[4]
+		= (t_vector2D [4]){{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+	int					check;
 
 	it = pos;
+	check = -1;
 	ok = 0;
-	while (map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
+	while (++check < 4)
 	{
-		if (map[pos.y][pos.x] == '1')
+		while (pos.x >= 0 && pos.y >= 0 && map[pos.y][pos.x]
+			&& map[pos.y][pos.x] != ' ')
 		{
-			ok++;
-			break;
+			if (map[pos.y][pos.x] == '1')
+			{
+				ok++;
+				break ;
+			}
+			pos.x += add[check].x;
+			pos.y += add[check].y;
 		}
-		pos.x++;
+		pos = it;
 	}
-	pos = it;
-	while (pos.x >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
-	{
-		if (map[pos.y][pos.x] == '1')
-		{
-			ok++;
-			break;
-		}
-		pos.x--;
-	}
-	pos = it;
-	while (map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
-	{
-		if (map[pos.y][pos.x] == '1')
-		{
-			ok++;
-			break;
-		}
-		pos.y++;
-	}
-	pos = it;
-	while (pos.y >= 0 && map[pos.y][pos.x] && map[pos.y][pos.x] != ' ')
-	{
-		if (map[pos.y][pos.x] == '1')
-		{
-			ok++;
-			break;
-		}
-		pos.y--;
-	}
-	if (ok == 4)
-		return (1);
-	return (0);
+	return (ok == 4);
 }
 
 int	is_player(char c)
@@ -225,77 +108,3 @@ int	is_player(char c)
 		return (1);
 	return (0);
 }
-
-int check_map(char **map, int start)
-{
-	t_vector2D	it;
-	t_vector2D	pt;
-	int			longest;
-
-	it = (t_vector2D){0, start};
-	pt = (t_vector2D){0, 0};
-	longest = 0;
-	while (map[it.y])
-	{
-		if (pt.y > 1024)
-		{
-			printf("Error\n%d size is to big, max 1024\n", pt.y);
-			exit(0);
-		}
-		it.x = 0;
-		pt.x = 0;
-		while (map[it.y][it.x])
-		{
-			if (map[it.y][it.x] == '0' || is_player(map[it.y][it.x]))
-			{
-				if (!is_char_in_range(it, map))
-				{
-					printf("Error\n");
-					exit(0);
-				}
-			}
-			else if (map[it.y][it.x] != '1' && map[it.y][it.x] != ' ')
-			{
-				printf("Error\n%c: Unrecognized token\n", map[it.y][it.x]);
-				exit(0);
-			}
-			pt.x++;
-			it.x++;
-		}
-		if (pt.x > longest)
-		{
-			longest = pt.x;
-			if (longest > 1024)
-			{
-				printf("Error\n%d size is to big, max 1024\n", longest);
-				exit(0);
-			}
-		}
-		printf(": %s \n",map[it.y]);
-		strcpy(_var()->map[pt.y], map[it.y]);
-		pt.y++;
-		it.y++;
-	}
-	_var()->map_width = longest;
-	_var()->map_height = pt.y;
-	_var()->map[pt.y][0] = 0;
-	return (1);
-}
-
-/*
-int main(int argc, char **argv)
-{
-    int     fd;
-    char    *str;
-    char    **map;
-
-    fd = open(argv[1], O_RDONLY);
-    str = read_file(fd);
-    map = ft_split(str, '\n');
-    //for (int i = 0; map[i]; i++)
-    //    printf("{%s}\n", map[i]);
-	char **new = resize_map(map);
-    //for (int i = 0; new[i]; i++)
-    //    printf("{%s}\n", new[i]);
-	printf("HEY-> %d\n", check_map(new));
-}*/

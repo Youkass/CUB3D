@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   includes.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/10/02 17:12:54 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/11/29 15:06:26 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ esc : 65307
 # define S 115
 # define D 100
 # define ESC 65307
+# define LEFT 65361
+# define RIGHT 65363
 # define WALL 1
 # define PLAYER 2
 # define VOID 3
