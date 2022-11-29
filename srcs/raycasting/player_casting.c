@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 19:41:41 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:03:39 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 static void	init_cast(t_obj *player, t_obj *my_player)
 {
 	_pc()->pos.x = player->x - my_player->x;
-	_pc()->pos.y = player->y -my_player->y;
-	_pc()->inv_det = 1.0 / (my_player->plane.x * my_player->dy -
-			my_player->dx * my_player->plane.y);
+	_pc()->pos.y = player->y - my_player->y;
+	_pc()->inv_det = 1.0 / (my_player->plane.x * my_player->dy - my_player->dx * my_player->plane.y);
 	_pc()->trans.x = _pc()->inv_det * (my_player->dy *
 			_pc()->pos.x - my_player->dx * _pc()->pos.y);
 	_pc()->trans.y = _pc()->inv_det * (-my_player->plane.y *

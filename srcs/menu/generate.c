@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:38:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 15:26:31 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:43:21 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,8 +188,8 @@ void	generate_button_state(void)
 	}
 	_menu()->p_state = ft_malloc(sizeof(t_button) * 4);
 	i = 0;
-	width = 64;
-	height =  64;
+	width = _menu()->buttons[PLAY]->w;
+	height =  _menu()->buttons[PLAY]->h;
 	while (i < 4)
 	{
 		if (i == 3)

@@ -42,7 +42,7 @@ void	ft_init_img()
 	img->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	if (!img->img)
 		ft_black_hole(139);
-	//ft_lstadd_back(&tmp, ft_new_node(&img->img));
+	ft_lstadd_back(&tmp, ft_new_node(&img->img));
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
 		&(img->line_length), &(img->endian));
 	img->bits_per_pixel /= 8;
@@ -412,8 +412,8 @@ void	hud(void)
 		ft_help_hud_else(weapon_id);
 	hud_hit_and_touch();
 	if (_var()->round_state == ROUND_WAIT_START)
-		draw_text(ft_itoa(_var()->time_start), pos(WIN_W / 2 - 42, 100),
-			WHITE);
+		draw_text(ft_itoa(_var()->time_start), pos(WIN_W / 2 - 26, WIN_H / 2 - 50),
+			RED);
 }
 
 void	set_spectate(void)

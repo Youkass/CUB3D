@@ -6,11 +6,18 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 20:37:13 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/29 18:44:47 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+int	is_wall(char c)
+{
+	if ((c >= '1' && c <= '9') || c == 'A' || c == 'B')
+		return (1);
+	return (0);
+}
 
 t_server_data	*_server(void)
 {
