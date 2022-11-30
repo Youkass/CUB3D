@@ -1,34 +1,54 @@
-srcs/main.c: Error!
-Error: TOO_MANY_FUNCS       (line: 127, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 155, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 181, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 207, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 215, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 244, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 267, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 294, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 305, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 318, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 328, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 354, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 368, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 384, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 398, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 406, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 430, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 456, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 463, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 476, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 498, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 523, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 534, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 562, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 589, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 606, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 625, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 643, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 671, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 699, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 725, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 742, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 754, col:   1):	Too many functions in file
+srcs/network/server_thread.c: Error!
+Error: TOO_MANY_FUNCS       (line: 118, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 141, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 160, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 179, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 179, col:  82):	line too long
+Error: EMPTY_LINE_FUNCTION  (line: 198, col:   1):	Empty line in function
+Error: TOO_MANY_FUNCS       (line: 201, col:   1):	Too many functions in file
+Error: TOO_FEW_TAB          (line: 207, col:  13):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line: 214, col:  13):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line: 221, col:   9):	Missing tabs for indent level
+Error: TOO_MANY_LINES       (line: 238, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 240, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 242, col:  82):	line too long
+Error: TOO_FEW_TAB          (line: 255, col:  13):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line: 256, col:   9):	Missing tabs for indent level
+Error: LINE_TOO_LONG        (line: 256, col:  85):	line too long
+Error: NO_SPC_AFR_PAR       (line: 256, col: 104):	Extra space after parenthesis (brace/bracket)
+Error: NO_SPC_BFR_PAR       (line: 256, col: 106):	Extra space before parenthesis (brace/bracket)
+Error: LINE_TOO_LONG        (line: 273, col:  92):	line too long
+Error: TOO_FEW_TAB          (line: 274, col:  13):	Missing tabs for indent level
+Error: LINE_TOO_LONG        (line: 274, col:  92):	line too long
+Error: TOO_MANY_LINES       (line: 284, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 286, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 288, col:  84):	line too long
+Error: TOO_FEW_TAB          (line: 291, col:   9):	Missing tabs for indent level
+Error: TOO_MANY_LINES       (line: 317, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 319, col:   1):	Too many functions in file
+Error: TOO_FEW_TAB          (line: 327, col:   9):	Missing tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 344, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 346, col:  85):	line too long
+Error: WRONG_SCOPE_COMMENT  (line: 348, col:   9):	Comment is invalid in this scope
+Error: TOO_MANY_FUNCS       (line: 361, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 377, col:  84):	line too long
+Error: WRONG_SCOPE_COMMENT  (line: 406, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line: 407, col:   5):	Comment is invalid in this scope
+Error: TOO_MANY_LINES       (line: 412, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 414, col:   1):	Too many functions in file
+Error: TOO_FEW_TAB          (line: 426, col:  13):	Missing tabs for indent level
+Error: LINE_TOO_LONG        (line: 428, col:  90):	line too long
+Error: TOO_FEW_TAB          (line: 429, col:  13):	Missing tabs for indent level
+Error: LINE_TOO_LONG        (line: 431, col:  82):	line too long
+Error: TOO_FEW_TAB          (line: 432, col:  13):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line: 441, col:  13):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line: 444, col:  13):	Missing tabs for indent level
+Error: TOO_MANY_LINES       (line: 448, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 450, col:   1):	Too many functions in file
+Error: TOO_MANY_LINES       (line: 478, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 480, col:   1):	Too many functions in file
+Error: SPACE_EMPTY_LINE     (line: 483, col:   1):	Space on empty line
+Error: TOO_MANY_FUNCS       (line: 509, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 530, col:   1):	Too many functions in file
+Error: TOO_MANY_LINES       (line: 572, col:   1):	Function has more than 25 lines
+Error: CONSECUTIVE_NEWLINES (line: 574, col:   1):	Consecutive newlines

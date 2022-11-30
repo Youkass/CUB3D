@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/29 18:44:47 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:12:46 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,8 @@ void	restart_state(t_client_thread	*c)
 	}
 }
 
-int	ft_init_server(t_server_data *data)
+static void	ft_init_data_server(t_server_data *data)
 {
-	int option;
-
-	option = 1;
-	data->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (data->socket < 0)
-	{
-		perror("Socket error\n");
-		ft_black_hole(1);
-	}
 	memset(&data->server, 0, sizeof(data->server));
 	memset(&data->round_state, 0, sizeof(data->round_state));
 	data->round_state[ROUND_PLAY] = data->nb_players;
@@ -68,13 +59,28 @@ int	ft_init_server(t_server_data *data)
 	data->clock_started = 0;
 	data->restart = 0;
 	data->round_end = 0;
-	if (setsockopt(data->socket, SOL_SOCKET, (SO_REUSEADDR), &option, sizeof(option)) < 0)
+}
+
+int	ft_init_server(t_server_data *data)
+{
+	int	option;
+
+	option = 1;
+	data->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (data->socket < 0)
+	{
+		perror("Socket error\n");
+		ft_black_hole(1);
+	}
+	ft_init_data_server(data);
+	if (setsockopt(data->socket, SOL_SOCKET, (SO_REUSEADDR),
+			&option, sizeof(option)) < 0)
 	{
 		printf("Socket error\n");
 		ft_black_hole(1);
 	}
 	if (bind(data->socket,
-		(const struct sockaddr *)&(data->server), 
+			(const struct sockaddr *)&(data->server),
 			sizeof(data->server)) < 0)
 		return (perror(""), EXIT_FAILURE);
 	if (listen(data->socket, data->nb_players) < 0)
@@ -91,7 +97,7 @@ void	ft_exit(int signal)
 	ft_black_hole(1);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_server_data	data;
 	int				i;
