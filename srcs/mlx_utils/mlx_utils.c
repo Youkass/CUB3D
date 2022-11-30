@@ -1,12 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */ /*   mlx_utils.c                                        :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*                                                        :::      ::::::::   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 12:34:41 by yobougre         ###   ########.fr       */
+/*   Created: 2022/11/30 12:21:06 by yobougre          #+#    #+#             */
+/*   Updated: 2022/11/30 12:21:07 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/cub.h"
 
@@ -42,7 +45,7 @@ void	ft_init_img()
 	img->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	if (!img->img)
 		ft_black_hole(139);
-	ft_lstadd_back(&tmp, ft_new_node(&img->img));
+	//ft_lstadd_back(&tmp, ft_new_node(&img->img));
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
 		&(img->line_length), &(img->endian));
 	img->bits_per_pixel /= 8;
@@ -261,7 +264,7 @@ void	update_bullets(void)
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point3F(_player()->shott[i].start_pos,
+		velo = velocity_get_point3f(_player()->shott[i].start_pos,
 			_player()->shott[i].velo.velo,
 				get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time)
@@ -294,7 +297,7 @@ void	update_bullets3F(void)
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point3F(_player()->shott[i].start_pos,
+		velo = velocity_get_point3f(_player()->shott[i].start_pos,
 			_player()->shott[i].velo.velo,
 				get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time)
@@ -412,8 +415,8 @@ void	hud(void)
 		ft_help_hud_else(weapon_id);
 	hud_hit_and_touch();
 	if (_var()->round_state == ROUND_WAIT_START)
-		draw_text(ft_itoa(_var()->time_start), pos(WIN_W / 2 - 26, WIN_H / 2 - 50),
-			RED);
+		draw_text(ft_itoa(_var()->time_start), pos(WIN_W / 2 - 42, 100),
+			WHITE);
 }
 
 void	set_spectate(void)

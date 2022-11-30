@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/29 18:44:33 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/30 12:22:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ int	ft_up_head(void)
 	_player()->pitch += 200 * _player()->move_speed;
 	if(_player()->pitch > 400)
 		_player()->pitch = 400;
-	_player()->norm_pitch = normalise_between2F(posf(-1000, 1000),
+	_player()->norm_pitch = normalise_between2f(posf(-1000, 1000),
 		posf(-1, 1), _player()->pitch);
 	//printf("==> %f\n", sin(_player()->pitch));
 	return (0);
@@ -176,7 +176,7 @@ int	ft_down_head(void)
 	_player()->pitch -= 200 * _player()->move_speed;
 	if(_player()->pitch < -400)
 		_player()->pitch = -400;
-	_player()->norm_pitch = normalise_between2F(posf(-1000, 1000),
+	_player()->norm_pitch = normalise_between2f(posf(-1000, 1000),
 		posf(-1, 1), _player()->pitch);
 	return (0);
 }
