@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 18:15:15 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/30 12:22:52 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,9 +274,9 @@ void	ft_play_shot_sound(t_obj player)
 	media = _media();
 	i = 0;
 	(void)volume;
-	dist = one_dist2F(posf(player.x, player.y),
+	dist = one_dist2f(posf(player.x, player.y),
 			posf(_player()->x, _player()->y));
-	volume = normalise_between2F(posf(0, 25), posf(0, 1), dist);
+	volume = normalise_between2f(posf(0, 25), posf(0, 1), dist);
 	if (dist >= 25)
 		volume = 0.1;
 	while (i < MAX_SHOT_SOUND)
