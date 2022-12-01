@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/30 17:50:59 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:55:34 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,8 @@ int	check_only(int nb, int r, int type)
 	return (0);
 }
 
-int	round_play(int round, t_send_server_game *data, t_client_thread *client, int is_finished)
+static int	round_play(int round, t_send_server_game *data,
+		t_client_thread *client, int is_finished)
 {
 	if (client->serv->round_state[ROUND_PLAY] >= client->serv->linked_players)
 	{
@@ -197,9 +198,8 @@ int	round_play(int round, t_send_server_game *data, t_client_thread *client, int
 	return (0);
 }
 
-static void	ft_round_end(t_send_server_game *data, t_client_thread *client)
+static void	ft_round_end(t_client_thread *client)
 {
-	(void)data;
 	if (client->round_state_send[ROUND_PLAY] != -1
 		&& client->serv->round_state[ROUND_PLAY] > 0)
 	{
@@ -236,15 +236,14 @@ int	round_end(t_send_server_game *data, t_client_thread *client)
 			++client->serv->team_data[TRED].wins;
 			--client->serv->team_data[TBLUE].looses;
 		}
-		ft_round_end(data, client);
+		ft_round_end(client);
 		return (1);
 	}
 	return (0);
 }
 
-static int	ft_first_big_if(t_send_server_game *data, t_client_thread *client)
+static int	ft_first_big_if(t_client_thread *client)
 {
-	(void)data;
 	if (client->serv->clock_started && get_time_server(client->serv->start,
 			client->serv->clock) >= 3000000
 		&& (!client->round_state_send[ROUND_WAIT_START]
@@ -253,9 +252,8 @@ static int	ft_first_big_if(t_send_server_game *data, t_client_thread *client)
 	return (0);
 }
 
-static void	ft_scnd_big_if(t_send_server_game *data, t_client_thread *client)
+static void	ft_scnd_big_if(t_client_thread *client)
 {
-	(void)data;
 	if ((client->serv->team_data[TRED].wins >= NB_ROUNDS
 			|| client->serv->team_data[TBLUE].wins >= NB_ROUNDS)
 		&& !client->round_state_send[ROUND_LEADERBOARD]
@@ -293,8 +291,8 @@ int	round_end_wait(t_send_server_game *data, t_client_thread *client)
 				client->serv->clock_started = 1;
 			}
 		}
-		if (ft_first_big_if(data, client))
-			ft_scnd_big_if(data, client);
+		if (ft_first_big_if(client))
+			ft_scnd_big_if(client);
 		data->round_state = ROUND_END_WAIT;
 		client->round_state_send[ROUND_END_WAIT] = 0;
 		client->round_state_send[ROUND_END] = -1;
@@ -354,7 +352,7 @@ int	round_start(int *round, t_send_server_game *data, t_client_thread *client)
 		if (client->round_state_send[ROUND_PLAY] == 0
 			&& client->serv->round_state[ROUND_PLAY]
 			< client->serv->linked_players)
-			client->serv->round_state[ROUND_PLAY]++;
+				client->serv->round_state[ROUND_PLAY]++;
 		client->round_state_send[ROUND_PLAY] = 1;
 		client->round_state_send[ROUND_WAIT_START] = -1;
 		client->round_state_send[ROUND_END_WAIT] = 0;
@@ -387,18 +385,17 @@ void	round_leaderboard(t_send_server_game *data, t_client_thread *client)
 	}
 }
 
-void	ft_send_all(t_send_server_game *data, t_client_thread *client, int *round)
+static void	ft_init_dt(t_client_thread *client, t_send_server_game *data)
 {
-	int	i;
-	int	j;
+	int					i;
+	int					j;
 
 	i = 0;
-	pthread_mutex_lock(client->mutex);
 	while (i < client->serv->linked_players)
 	{
 		data->player[i] = client->serv->player_data[i];
 		j = 0;
-		while (j < data->player[i].shoot_n)
+		while (j < _player()->shoot_n)
 		{
 			data->player[i].shott[j] = client->serv->player_data[i].shott[j];
 			data->player[i].shott[j].pos
@@ -407,15 +404,9 @@ void	ft_send_all(t_send_server_game *data, t_client_thread *client, int *round)
 		}
 		++i;
 	}
-	if (client->serv->restart)
-	{
-		client->restart = 1;
-		data->restart = 1;
-		*round = 0;
-	}
 }
 
-static void	ft_update_data(t_send_server_game *data, t_client_thread *client)
+static void	ft_next(t_client_thread *client, t_send_server_game *data)
 {
 	data->round_state = -1;
 	data->linked_players = client->serv->linked_players;
@@ -425,13 +416,32 @@ static void	ft_update_data(t_send_server_game *data, t_client_thread *client)
 	data->player_alive = client->serv->player_alive;
 }
 
+static int	ft_lock(t_client_thread *client, t_send_server_game data)
+{
+	if (send(client->socket, &data, sizeof(data), 0) < 0)
+		return (1);
+	pthread_mutex_lock(client->mutex);
+	client->is_send = 1;
+	client->is_recv = 0;
+	pthread_mutex_unlock(client->mutex);
+	return (0);
+}
+
 int	ft_send_all_data(t_client_thread *client)
 {
 	t_send_server_game	data;
 	static __thread int	round = 0;
 
-	ft_send_all(&data, client, &round);
-	ft_update_data(&data, client);
+	pthread_mutex_lock(client->mutex);
+	memset(&data, 0, sizeof(data));
+	ft_init_dt(client, &data);
+	if (client->serv->restart)
+	{
+		client->restart = 1;
+		data.restart = 1;
+		round = 0;
+	}
+	ft_next(client, &data);
 	round_play(round, &data, client, client->serv->round_end);
 	round_end_wait(&data, client);
 	round_leaderboard(&data, client);
@@ -439,14 +449,8 @@ int	ft_send_all_data(t_client_thread *client)
 	round_wait_start(&data, client);
 	round_start(&round, &data, client);
 	pthread_mutex_unlock(client->mutex);
-	if (send(client->socket, &data, sizeof(data), 0) < 0)
+	if (ft_lock(client, data))
 		return (1);
-	pthread_mutex_lock(client->mutex);
-	client->is_send = 1;
-	pthread_mutex_unlock(client->mutex);
-	pthread_mutex_lock(client->mutex);
-	client->is_recv = 0;
-	pthread_mutex_unlock(client->mutex);
 	return (0);
 }
 
@@ -540,7 +544,7 @@ void	check_team(t_client_thread *c)
 
 void	init_team_server(t_client_thread *c)
 {
-	int	i;
+	int			i;
 
 	if (c->id == 0)
 	{
@@ -645,15 +649,3 @@ void	*client_routine(void *client_t)
 	}
 	return (NULL);
 }
-/*
-tout le monde sur ROUND_PLAY.
-
-Quand thread sais la victoire passe a ROUND_END.
-
-Si round_end == NB PLAYER alors anoncer la victoire aux clients et passer
-chaque thread a ROUND_END_WAIT et enlever chacun ROUND_END au meme moment.
-
-Et ainsi de suite.
-
-
-*/

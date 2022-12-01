@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:24:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 19:34:04 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:29:44 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	ft_has_start(t_client_thread *client)
 int	ft_recv_first_data_lobby(t_client_thread *client, int nb)
 {
 	t_send_client	player;
-	
+
 	memset(&player, 0, sizeof(player));
 	if (ft_recv_one(client->socket, &player, 
 				sizeof(t_send_client)))
@@ -132,14 +132,16 @@ int	ft_player_team(t_client_thread *client, int id)
 int	ft_update(t_client_thread *client)
 {
 	pthread_mutex_lock(client->mutex);
-	if (client->player_data.team == TEAM_RED && client->serv->player_data[client->id].change_team == 1)
+	if (client->player_data.team == TEAM_RED
+		&& client->serv->player_data[client->id].change_team == 1)
 	{
 		arr_pop(&client->serv->teams[1], client->id);
 		if (!arr_push(&client->serv->teams[0], client->id))
 			client->serv->player_data[client->id].team = TEAM_VOID;
 		client->serv->player_data[client->id].change_team = 0;
 	}
-	else if (client->player_data.team == TEAM_BLUE && client->serv->player_data[client->id].change_team == 1)
+	else if (client->player_data.team == TEAM_BLUE
+		&& client->serv->player_data[client->id].change_team == 1)
 	{
 		arr_pop(&client->serv->teams[0], client->id);
 		if (!arr_push(&client->serv->teams[1], client->id))
