@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prototypes.h                                       :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:56:12 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -346,7 +346,6 @@ int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
 int ft_is_send(t_client_thread *client);
 int	check_only(int nb, int r, int type);
-int	round_play(int round, t_send_server_game *data, t_client_thread *client, int is_finished);
 int	round_end(t_send_server_game *data, t_client_thread *client);
 int	round_end_wait(t_send_server_game *data, t_client_thread *client);
 int	round_wait_start(t_send_server_game *data, t_client_thread *client);
