@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 16:47:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:51:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,37 @@ void	*ft_malloc(int size)
 	output = malloc(size);
 	tmp = _lst();
 	if (!output)
-		ft_black_hole(139); //TODO
+		ft_black_hole(139);
 	ft_lstadd_back(&tmp, ft_new_node(output));
 	return (output);
+}
+
+void	exit_say_error(int exit_code)
+{
+	if (exit_code == 11)
+		printf("Error\nInvalid numbers of arguments\n");
+	else if (exit_code == 10)
+		printf("Error\nMap to big: Max 1024 * 1024\n");
+	else if (exit_code == 12)
+		printf("Error\nMap not closed\n");
+	else if (exit_code == 13)
+		printf("Error\nInvalid numbers of arguments\n");
+	else if (exit_code == 14)
+		printf("Error\nUnrecognized argument\n");
+	else if (exit_code == 15)
+		printf("Error\nInvalid numbers of arguments\n");
+	else if (exit_code == 16)
+		printf("Error\nNumber not in color range (0-255)\n");
+	else if (exit_code == 17)
+		printf("Error\nToo many instructions\n");
+	else if (exit_code == 18)
+		printf("Error\nUnrecognized token\n");
+	else if (exit_code == 19)
+		printf("Error\nMap is not closed");
+	else if (exit_code == 20)
+		printf("Error\nInvalid path\n");
+	else if (exit_code == 21)
+		printf("Error\nInvalid syntax\n");
 }
 
 void	ft_black_hole(int exit_code)
@@ -156,6 +184,7 @@ void	ft_black_hole(int exit_code)
 	t_list	*tmp_3;
 	t_media	*media;
 
+	exit_say_error(exit_code);
 	tmp = _lst();
 	tmp_2 = _lstimg();
 	ft_lstclear_img(&tmp_2);

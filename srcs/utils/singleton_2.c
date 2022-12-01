@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   singleton_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:10:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/12/01 14:46:57 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

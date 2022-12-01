@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 23:35:37 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 16:30:40 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -618,6 +618,9 @@ void	init_var(void)
 	_var()->team_start = 0;
 	_var()->team_match = 0;
 	_var()->freeze = 0;
+	_var()->tex_mode = 0;
+	_var()->tex_dir = 0;
+	_var()->walk_tex = 0;
 	init_teams();
 	_var()->last_round_winner = -1;
 	ft_init_var_next();
