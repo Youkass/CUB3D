@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:53:07 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 14:56:08 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:23:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,12 @@ int	nearest_wall3d(t_vector3F	*closest)
 				->weapon_id]->range), posf(r.map.x - 0.5, r.map.y - 0.5));
 	closest->x = tmp.x;
 	closest->y = tmp.y;
-	if (one_dist2F(posf(_player()->x, _player()->y), tmp)
-		* ((normalise_between2F(posf(-1000, 1000), posf(-1, 1),
+	if (one_dist2f(posf(_player()->x, _player()->y), tmp)
+		* ((normalise_between2f(posf(-1000, 1000), posf(-1, 1),
 					_player()->pitch))) > 0.5)
 		return (0);
-	closest->z = one_dist2F(posf(_player()->x, _player()->y), tmp)
-		* -sin(normalise_between2F(posf(-960, 960), posf(-1, 1),
+	closest->z = one_dist2f(posf(_player()->x, _player()->y), tmp)
+		* -sin(normalise_between2f(posf(-960, 960), posf(-1, 1),
 				_player()->pitch)) * 1000;
 	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:10:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 14:46:57 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:23:01 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-t_obj	*_player2()
+t_obj	*_player2(void)
 {
 	static t_obj	*player2 = NULL;
 
@@ -26,7 +26,7 @@ t_obj	*_player2()
 /*
 -Singleton for player casting data
 */
-t_spritecasting	*_pc()
+t_spritecasting	*_pc(void)
 {
 	static t_spritecasting	*pc = NULL;
 
@@ -37,7 +37,7 @@ t_spritecasting	*_pc()
 	return (pc);
 }
 
-t_menu	*_menu()
+t_menu	*_menu(void)
 {
 	static t_menu	*menu = NULL;
 

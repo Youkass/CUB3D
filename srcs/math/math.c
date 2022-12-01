@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 17:43:05 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 14:50:51 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:43:16 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	normalise_between(t_vector2D r, t_vector2D t, int nb)
 		/ ((float)r.y - (float)r.x)) * t.y));
 }
 
-float	normalise_between2F(t_vector2F r, t_vector2F t, int nb)
+float	normalise_between2f(t_vector2F r, t_vector2F t, int nb)
 {
 	return (2 * (((nb - r.x) / (r.y - r.x)) * t.y) - 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   singleton.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/13 21:57:55 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/12/01 18:22:52 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 t_data	*_img(void)
 {
 	static t_data	*img = NULL;
-	
+
 	if (!img)
 	{
 		img = ft_malloc(sizeof(t_data));
@@ -62,11 +62,6 @@ t_obj	*_player(void)
 	static t_obj	player;
 
 	return (&player);
-	//if (!player)
-	//	player = ft_malloc(sizeof(t_obj));
-	//if (!player)
-	//	return (NULL);
-	//return (player);
 }
 
 /*
@@ -75,12 +70,14 @@ t_obj	*_player(void)
 t_raycasting	**_ray(void)
 {
 	static t_raycasting	**ray = NULL;
+	int					i;
 
 	if (!ray)
 	{
 		ray = ft_malloc(sizeof(t_raycasting *) * TH_RAY);
-		for (int i = 0; i < TH_RAY; i++)
-			ray[i] = ft_malloc(sizeof(t_raycasting));
+		i = 0;
+		while (i < TH_RAY)
+			ray[i++] = ft_malloc(sizeof(t_raycasting));
 	}
 	if (!ray)
 		return (NULL);
@@ -103,10 +100,9 @@ t_var	*_var(void)
 	return (var);
 }
 
-
 t_log	*_log(void)
 {
-	static t_log *log = NULL;
+	static t_log	*log = NULL;
 
 	if (log == NULL)
 	{

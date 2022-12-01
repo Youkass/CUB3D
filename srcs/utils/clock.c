@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clock.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/16 01:18:35 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:26:57 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ struct timeval	start_clock(void)
 	gettimeofday(&start, NULL);
 	return (start);
 }
-
 
 unsigned long	get_clock(struct timeval start)
 {

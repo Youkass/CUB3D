@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/01 17:05:25 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/01 18:17:49 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,12 +38,21 @@ SRCS		=	srcs/main.c\
 				srcs/utils/singleton.c\
 				srcs/utils/singleton_2.c\
 				srcs/utils/malloc_hooks_enum.c\
-				srcs/utils/key_hooks.c\
+				srcs/utils/hooks/key_hooks.c\
+				srcs/utils/hooks/key_hooks_2.c\
+				srcs/utils/hooks/movements.c\
+				srcs/utils/hooks/movements_2.c\
+				srcs/utils/hooks/escape.c\
 				srcs/utils/clock.c\
-				srcs/utils/garbage.c\
+				srcs/utils/garbage/garbage.c\
+				srcs/utils/garbage/garbage_2.c\
+				srcs/utils/garbage/garbage_3.c\
 				srcs/utils/list.c\
 				srcs/utils/collisions.c\
-				srcs/utils/sound.c\
+				srcs/utils/sounds/sound.c\
+				srcs/utils/sounds/sound_2.c\
+				srcs/utils/sounds/sound_3.c\
+				srcs/utils/sounds/sound_4.c\
 				srcs/drawing/draw_player.c\
 				srcs/drawing/draw_map.c\
 				srcs/drawing/draw_text.c\
@@ -90,9 +99,11 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/utils/clock.c\
 					srcs/utils/list.c\
 					srcs/utils/collisions.c\
-					srcs/utils/garbage.c\
 					srcs/tools.c\
 					srcs/shoot/shoot.c\
+					srcs/utils/garbage/garbage.c\
+					srcs/utils/garbage/garbage_2.c\
+					srcs/utils/garbage/garbage_3.c\
 					srcs/shoot/shoot_utils.c\
 					srcs/shoot/shoot_utils_2.c\
 					srcs/shoot/shoot_wall.c\
@@ -133,6 +144,9 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
 	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@mkdir -p $(OBJS_DIR)srcs/utils
+	@mkdir -p $(OBJS_DIR)srcs/utils/sounds
+	@mkdir -p $(OBJS_DIR)srcs/utils/garbage
+	@mkdir -p $(OBJS_DIR)srcs/utils/hooks
 	@mkdir -p $(OBJS_DIR)srcs/drawing
 	@mkdir -p $(OBJS_DIR)srcs/menu
 	@mkdir -p $(OBJS_DIR)srcs/math
@@ -152,6 +166,7 @@ $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/garbage
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
 	@mkdir -p $(OBJS_DIR_SERVER)miniaudio/extras/miniaudio_split/
 	@mkdir -p $(OBJS_DIR_SERVER)srcs

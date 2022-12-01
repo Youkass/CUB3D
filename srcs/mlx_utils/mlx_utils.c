@@ -1,10 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */ /*   mlx_utils.c                                        :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*                                                        :::      ::::::::   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/12 12:34:41 by yobougre         ###   ########.fr       */
+/*   Created: 2022/11/30 12:21:06 by yobougre          #+#    #+#             */
+/*   Updated: 2022/12/01 18:33:16 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +17,13 @@
 The following function will initialize our mlx pointer and our mlx window
 ===============================================================================
 */
-void	ft_init_mlx()
+void	ft_init_mlx(void)
 {
+	void	*win;
+
 	_mlx()->mlx = mlx_init();
-	_mlx()->mlx_win = mlx_new_window(_mlx()->mlx, WIN_W, WIN_H, PRG_NAME);
+	win = mlx_new_window(_mlx()->mlx, WIN_W, WIN_H, PRG_NAME);
+	_mlx()->mlx_win = win;
 }
 
 /*
@@ -31,7 +36,7 @@ The following function will initialize our frames inside the window
     }
 ===============================================================================
 */
-void	ft_init_img()
+void	ft_init_img(void)
 {
 	t_list	*tmp;
 	t_data	*img;
@@ -42,23 +47,14 @@ void	ft_init_img()
 	img->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	if (!img->img)
 		ft_black_hole(139);
-	//ft_lstadd_back(&tmp, ft_new_node(&img->img));
+	ft_lstadd_back(&tmp, ft_new_node(&img->img));
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
-		&(img->line_length), &(img->endian));
+			&(img->line_length), &(img->endian));
 	img->bits_per_pixel /= 8;
 	img->h = WIN_H;
 	img->w = WIN_W;
 }
 
-/*
-===============================================================================
-As you can see, if you followed the @Harm_smits tutorial, our pixel put function
-is quite different, in our pixel_put function you can see a condition that will
-prevent any segmentation fault that could  occure if you tried to put a pixel
-outside the window.
--> this function will be call by other functions before pushing the image into the window
-===============================================================================
-*/
 void	ft_pixel_put(float x, float y, int color)
 {
 	t_data	*img;
@@ -67,22 +63,26 @@ void	ft_pixel_put(float x, float y, int color)
 	img = _img();
 	if (x < 0 || y < 0 || x > WIN_W - 1 || y > WIN_H)
 		return ;
-	dst = img->addr + (int)(y * img->line_length + x * 
-		(img->bits_per_pixel / 8)); 
-	*( int*)dst = color;
+	dst = img->addr + (int)(y * img->line_length + x
+			* (img->bits_per_pixel / 8));
+	dst = color;
 }
 
-void	ft_reload_frame()
+void	ft_reload_frame(void)
 {
-	_img()->addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
-		&(_img()->line_length), &(_img()->endian));
+	void	*addr;
+
+	addr = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
+			&(_img()->line_length), &(_img()->endian));
+	_img()->addr = addr;
 }
 
 void	ft_fps(void)
 {
 	_var()->old_time = _var()->time;
 	_var()->time = get_clock(_var()->clock);
-	_var()->frame_time = (get_clock(_var()->clock) - _var()->old_time) / 1000000.0;
+	_var()->frame_time = (get_clock(_var()->clock) - _var()->old_time)
+	/ 1000000.0;
 	if (_var()->key[ctrl])
 		_player()->move_speed = _var()->frame_time * 5.0;
 	else
@@ -90,10 +90,6 @@ void	ft_fps(void)
 	_player()->rot_speed = _var()->frame_time * 2.0;
 }
 
-
-/*===============================================================================*/
-/* DRAW SKY UNDER																 */
-/*===============================================================================*/
 static void	ft_next_while_draw_sky(t_vector2D pt)
 {
 	while (pt.y < WIN_H)
@@ -107,10 +103,10 @@ static void	ft_next_while_draw_sky(t_vector2D pt)
 		}
 		pt.y++;
 	}
-	if ( _menu()->draw_pl[0].x != -1 &&  _menu()->draw_pl[0].y != -1)
+	if (_menu()->draw_pl[0].x != -1 && _menu()->draw_pl[0].y != -1)
 		ft_put_sprite_to_images(*_img(), _menu()->planets[0],
 			_menu()->draw_pl[0], (t_vector2D){_menu()->n * 48,
-				_menu()->ny * 48},  (t_vector2D){48, 48});
+			_menu()->ny * 48}, (t_vector2D){48, 48});
 }
 
 static void	ft_norme_while_draw_sky(int offst, int pitch, t_vector2D *pl_coord)
@@ -121,8 +117,8 @@ static void	ft_norme_while_draw_sky(int offst, int pitch, t_vector2D *pl_coord)
 	pt.y = 0;
 	while (pt.y < WIN_H / 2 + pitch)
 	{
-		tex.y = (((pt.y * 2 * WIN_W / (WIN_H)) / 4 )
-			- (pitch * 0.8)) + WIN_H / 2;
+		tex.y = (((pt.y * 2 * WIN_W / (WIN_H)) / 4)
+				- (pitch * 0.8)) + WIN_H / 2;
 		pt.x = 0;
 		while (pt.x < WIN_W)
 		{
@@ -145,11 +141,11 @@ static void	ft_norme_draw_sky(t_vector2D *pl_coord)
 	int		offset;
 	int		pitch;
 
-	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id <= 
-	_var()->linked_players)
+	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id
+		<= _var()->linked_players)
 	{
 		angle = atan2(_var()->o_player[_player()->spec_id].dy,
-			_var()->o_player[_player()->spec_id].dx);
+				_var()->o_player[_player()->spec_id].dx);
 		pitch = _var()->o_player[_player()->spec_id].pitch;
 	}
 	else
@@ -157,21 +153,20 @@ static void	ft_norme_draw_sky(t_vector2D *pl_coord)
 		angle = atan2(_player()->dy, _player()->dx);
 		pitch = _player()->pitch;
 	}
-	offset = (int)(angle * WIN_W* 2 / (M_PI * 2)) + (WIN_W / 2) * 2;
+	offset = (int)(angle * WIN_W * 2 / (M_PI * 2)) + (WIN_W / 2) * 2;
 	ft_norme_while_draw_sky(offset, pitch, pl_coord);
 }
 
 void	draw_sky(void)
 {
 	static t_vector2D	pl_coord[2] = {{2000, 500}, {1050, 500}};
+	t_vector2D			p;
 
-	_menu()->draw_pl[0] = pos(-1, -1);
-	_menu()->draw_pl[1] = pos(-1, -1);
+	p = pos(-1, -1);
+	_menu()->draw_pl[0] = p;
+	_menu()->draw_pl[1] = p;
 	ft_norme_draw_sky(pl_coord);
 }
-/*===============================================================================*/
-/* DRAW SKY UPSIDE																 */
-/*===============================================================================*/
 
 void	*ft_draw_void(void *r)
 {
@@ -213,9 +208,11 @@ void	draw_void_thread(void)
 {
 	static t_vector2D	r[10];
 	static int			started = 0;
+	t_vector2D			p;
 
-	_menu()->planets_pos[0] = (t_vector2D){-1, -1};
-	_menu()->planets_pos[1] = (t_vector2D){-1, -1};
+	p = pos(-1, -1);
+	_menu()->planets_pos[0] = p;
+	_menu()->planets_pos[1] = p;
 	if (!started)
 	{
 		for (int i = 0; i < 10; i++)
@@ -261,7 +258,7 @@ void	update_bullets(void)
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point3F(_player()->shott[i].start_pos,
+		velo = velocity_get_point3f(_player()->shott[i].start_pos,
 			_player()->shott[i].velo.velo,
 				get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time)
@@ -294,7 +291,7 @@ void	update_bullets3F(void)
 	while (i < _player()->shoot_n)
 	{
 		_player()->shott[i].n++;
-		velo = velocity_get_point3F(_player()->shott[i].start_pos,
+		velo = velocity_get_point3f(_player()->shott[i].start_pos,
 			_player()->shott[i].velo.velo,
 				get_time(_player()->shott[i].start_time));
 		if (get_time(_player()->shott[i].start_time)
@@ -341,15 +338,15 @@ static void	ft_help_hud_else_if(int index, unsigned long time_reload,
 	int weapon_id)
 {
 	index = normalise_between(pos(0,
-		_weapon()[weapon_id]->anim_reloadms), pos(0,
-			_weapon()[weapon_id]->reload_frames), time_reload);
+				_weapon()[weapon_id]->anim_reloadms), pos(0,
+				_weapon()[weapon_id]->reload_frames), time_reload);
 	ft_put_image_to_image_scale(*_img(),
 		_image()->weapons[weapon_id][RELOAD]
-			[index], pos(WIN_W / 2 -
-				(_image()->weapons[weapon_id][RELOAD]
-					[index].w * 2 / 4) + 200, WIN_H -
-						_image()->weapons[weapon_id][RELOAD]
-							[index].h * 2 + 50), posf(0.5, 0.5));
+	[index], pos(WIN_W / 2
+			- (_image()->weapons[weapon_id][RELOAD]
+			[index].w * 2 / 4) + 200, WIN_H -
+			_image()->weapons[weapon_id][RELOAD]
+		[index].h * 2 + 50), posf(0.5, 0.5));
 }
 
 static void	ft_help_hud_else(int weapon_id)
@@ -358,21 +355,21 @@ static void	ft_help_hud_else(int weapon_id)
 	_var()->reload_anim = 0;
 	ft_put_image_to_image_scale(*_img(),
 		_image()->weapons[weapon_id][NORMAL]
-			[0], pos(WIN_W / 2 -
-				(_image()->weapons[weapon_id][NORMAL]
-					[0].w * 2 / 4) + 200, WIN_H - _image()->weapons
-						[weapon_id][NORMAL][0].h * 2),
-							posf(0.5, 0.5));
+	[0], pos(WIN_W / 2
+			- (_image()->weapons[weapon_id][NORMAL]
+			[0].w * 2 / 4) + 200, WIN_H - _image()->weapons
+		[weapon_id][NORMAL][0].h * 2),
+		posf(0.5, 0.5));
 }
 
 void	hud_hit_and_touch(void)
 {
 	if (_player()->touched)
 		ft_put_image_to_image(*_img(), _image()->hitmarker, pos(WIN_W / 2 - 8,
-			WIN_H / 2 - 8));
+				WIN_H / 2 - 8));
 	else
 		ft_put_image_to_image(*_img(), _image()->crosshair, pos(WIN_W / 2 - 8,
-			WIN_H / 2 - 8));
+				WIN_H / 2 - 8));
 	if (_player()->touched == 1 && get_time(_var()->start_touch) > 100000)
 		_player()->touched = 0;
 
@@ -398,15 +395,15 @@ void	hud(void)
 	time_reload = get_time(_var()->reloadanim_start);
 	index = 0;
 	if (_player()->spectate && _player()->spec_id > 0 && _player()->spec_id
-	< _var()->linked_players)
+		< _var()->linked_players)
 		weapon_id = _var()->o_player[_player()->spec_id].weapon_id;
 	else
 		weapon_id = _player()->weapon_id;
 	if (_var()->shot_anim
-			&& time_attack < _weapon()[_player()->weapon_id]->reload_ms)
+		&& time_attack < _weapon()[_player()->weapon_id]->reload_ms)
 		ft_help_hud_if(index, time_attack, weapon_id);
 	else if (_var()->reload_anim
-			&& (int)time_reload < _weapon()[_player()->weapon_id]->anim_reloadms)
+		&& (int)time_reload < _weapon()[_player()->weapon_id]->anim_reloadms)
 		ft_help_hud_else_if(index, time_reload, weapon_id);
 	else
 		ft_help_hud_else(weapon_id);
@@ -429,7 +426,7 @@ void	set_spectate(void)
 		&& get_time(start) > 300000)
 	{
 		_player()->spectate = 1;
-		_player()->spec_id = - 1;
+		_player()->spec_id = -1;
 		while (i < _var()->linked_players)
 		{
 			if (_var()->o_player[i].team == _player()->team
@@ -442,21 +439,21 @@ void	set_spectate(void)
 
 static void	ft_loop_multi(void)
 {
-		char *str;
+	char *str;
 
-		ft_pong_client();
-		player_casting();
-		name_casting();
-		if (_player()->team == TEAM_RED)
-			str = ft_strjoin(ft_itoa(_team()[TEAM_RED]->win),
+	ft_pong_client();
+	player_casting();
+	name_casting();
+	if (_player()->team == TEAM_RED)
+		str = ft_strjoin(ft_itoa(_team()[TEAM_RED]->win),
 				ft_strjoin(" - ", ft_itoa(_team()[TEAM_BLUE]->win)));
-		else
-			str = ft_strjoin(ft_itoa(_team()[TEAM_BLUE]->win),
+	else
+		str = ft_strjoin(ft_itoa(_team()[TEAM_BLUE]->win),
 				ft_strjoin(" - ", ft_itoa(_team()[TEAM_RED]->win)));
-		draw_text_scale(str,
-			pos(WIN_W / 2 - (ft_strlen(str) * (42)) / 2, 100),
-				pos(1, 1), WHITE);
-		render_kill_log();
+	draw_text_scale(str,
+		pos(WIN_W / 2 - (ft_strlen(str) * (42)) / 2, 100),
+		pos(1, 1), WHITE);
+	render_kill_log();
 }
 
 static void	ft_if_round_end_wait(void)
@@ -501,8 +498,8 @@ void	draw_death(void)
 {
 	char					*str;
 
-	str = ft_strjoin("Spectating ", _var()->o_player[_player()->
-			spec_id].pseudo);
+	str = ft_strjoin("Spectating ", _var()->o_player[_player()
+			->spec_id].pseudo);
 	if (_player()->spectate && _player()->spec_id >= 0 && _player()->spec_id
 		<= _var()->linked_players)
 		draw_text(str, pos(WIN_W / 2 - ft_strlen(str), WIN_H - 100), WHITE);

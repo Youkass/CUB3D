@@ -26,18 +26,26 @@ t_list	*ft_lstlast(t_list *lst);
 void	ft_lst_dellast(t_list **lst);
 
 /* -------------------------------------------------------------------------- */
-/*                        FILE = srcs/utils/garbage.c                         */
+/*                    FILE = srcs/utils/garbage/garbage.c                     */
 /* -------------------------------------------------------------------------- */
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstclear_img(t_list **lst);
 void	ft_lstclear_media(t_list **lst);
 void	ft_lstadd_back(t_list **alst, t_list *new);
 t_list	*_lst(void);
+
+/* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/utils/garbage/garbage_2.c                    */
+/* -------------------------------------------------------------------------- */
 t_list	*_lstimg(void);
 t_list	*_lstmedia(void);
 t_list	*ft_new_node(void *content);
 void	*ft_malloc(int size);
 void	exit_say_error(int exit_code);
+
+/* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/utils/garbage/garbage_3.c                    */
+/* -------------------------------------------------------------------------- */
 void	ft_black_hole(int exit_code);
 
 /* -------------------------------------------------------------------------- */
@@ -69,6 +77,47 @@ void	ft_play_shot_sound(t_obj player);
 void	ft_play_own_shot(void);
 
 /* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/utils/hooks/movements_2.c                    */
+/* -------------------------------------------------------------------------- */
+void	crouch(int mode);
+int	ft_up_head(void);
+int	ft_right(void);
+int	ft_left(void);
+void	movements(void);
+
+/* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/utils/hooks/escape.c                      */
+/* -------------------------------------------------------------------------- */
+void	escape_menu(void);
+void	escape_game(void);
+void	escape_server(void);
+int	ft_escape(void);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/utils/hooks/key_hooks.c                     */
+/* -------------------------------------------------------------------------- */
+void	reload_hook(void);
+void	mouse_menu(void);
+void	crouch_sprint(void);
+void	key_hook(void);
+int	ft_game_hook(int keycode);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/utils/hooks/movements.c                     */
+/* -------------------------------------------------------------------------- */
+int	ft_down_head(void);
+int	ft_forward(void);
+int	ft_back(void);
+int	ft_strafe_left(void);
+int	ft_strafe_right(void);
+
+/* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/utils/hooks/key_hooks_2.c                    */
+/* -------------------------------------------------------------------------- */
+void	weapons(void);
+int	ft_is_wall(t_vector2D pos);
+
+/* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/utils/click.c                          */
 /* -------------------------------------------------------------------------- */
 void	click(void);
@@ -77,24 +126,6 @@ int	click_delay(void);
 void	replace_player(void);
 void	restart_player(void);
 int	is_neutral(void);
-
-/* -------------------------------------------------------------------------- */
-/*                       FILE = srcs/utils/key_hooks.c                        */
-/* -------------------------------------------------------------------------- */
-void	crouch(int	mode);
-void	key_hook(void);
-int	ft_game_hook(int keycode);
-int	ft_up_head(void);
-int	ft_down_head(void);
-int	ft_jump(void);
-int	ft_forward(void);
-int	ft_is_wall(t_vector2D pos);
-int	ft_back(void);
-int	ft_right(void);
-int	ft_strafe_left(void);
-int	ft_strafe_right(void);
-int	ft_left(void);
-int	ft_escape(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/utils/singleton.c                        */
@@ -189,6 +220,11 @@ void	draw_bul(void);
 void	bullet_casting(void);
 
 /* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/raycasting/spritecasting.c                   */
+/* -------------------------------------------------------------------------- */
+void	sprite_casting(void);
+
+/* -------------------------------------------------------------------------- */
 /*                   FILE = srcs/raycasting/name_casting.c                    */
 /* -------------------------------------------------------------------------- */
 void	name_casting(void);
@@ -236,19 +272,17 @@ t_server_data	*_server(void);
 void	restart_state(t_client_thread	*c);
 int	ft_init_server(t_server_data *data);
 void	ft_exit(int signal);
-int main(int ac, char **av);
+int	main(int ac, char **av);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network/server_thread.c                     */
 /* -------------------------------------------------------------------------- */
-void	ft_exit(int signal);
 int	ft_init_client_thread(t_server_data *data);
 int	ft_connect_clients(t_server_data *data);
 int	ft_recv_first_data(t_client_thread *client);
 int	ft_is_get(t_client_thread *client);
-int ft_is_send(t_client_thread *client);
+int	ft_is_send(t_client_thread *client);
 int	check_only(int nb, int r, int type);
-int	round_play(int round, t_send_server_game *data, t_client_thread *client, int is_finished);
 int	round_end(t_send_server_game *data, t_client_thread *client);
 int	round_end_wait(t_send_server_game *data, t_client_thread *client);
 int	round_wait_start(t_send_server_game *data, t_client_thread *client);
@@ -264,8 +298,8 @@ void	*client_routine(void *client_t);
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/math/vector/operator2D.c                    */
 /* -------------------------------------------------------------------------- */
-t_vector2D div_2D(t_vector2D a, t_vector2D b);
-t_vector2D mult_2D(t_vector2D a, t_vector2D b);
+t_vector2D div_2d(t_vector2D a, t_vector2D b);
+t_vector2D mult_2d(t_vector2D a, t_vector2D b);
 
 /* -------------------------------------------------------------------------- */
 /*                      FILE = srcs/math/vector/tools.c                       */
@@ -273,18 +307,18 @@ t_vector2D mult_2D(t_vector2D a, t_vector2D b);
 t_vector2F	dist_2f(t_vector2F a, t_vector2F b);
 t_vector3F	dist_3f(t_vector3F a, t_vector3F b);
 t_vector2F	velocity_ms(t_vector2F dist, float time_ms);
-t_vector3F	velocity_ms3F(t_vector3F dist, float time_ms);
-float	get_time_velo3F(float dist, float time_ms_per_unit);
+t_vector3F	velocity_ms3f(t_vector3F dist, float time_ms);
+float	get_time_velo3f(float dist, float time_ms_per_unit);
 t_vector2F	velocity_get_point(t_vector2F start, t_vector2F velo, int time_ms);
-t_vector3F	velocity_get_point3F(t_vector3F start, t_vector3F velo, int time_ms);
-float	one_dist2F(t_vector2F a, t_vector2F b);
-float	one_dist3F(t_vector3F a, t_vector3F b);
+t_vector3F	velocity_get_point3f(t_vector3F start, t_vector3F velo, int time_ms);
+float	one_dist2f(t_vector2F a, t_vector2F b);
+float	one_dist3f(t_vector3F a, t_vector3F b);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/math/vector/operator2F.c                    */
 /* -------------------------------------------------------------------------- */
-t_vector2F div_2F(t_vector2F a, t_vector2F b);
-t_vector2F mult_2F(t_vector2F a, t_vector2F b);
+t_vector2F div_2f(t_vector2F a, t_vector2F b);
+t_vector2F mult_2f(t_vector2F a, t_vector2F b);
 float	fdot(t_vector2F a, t_vector2F b);
 t_vector2F	sub_2f(t_vector2F a, t_vector2F b);
 t_vector2F	add_2f(t_vector2F a, t_vector2F b);
@@ -299,7 +333,7 @@ float	max_f(float a, float b);
 float	min_f(float a, float b);
 float	min(int a, int b);
 int	normalise_between(t_vector2D r, t_vector2D t, int nb);
-float	normalise_between2F(t_vector2F r, t_vector2F t, int nb);
+float	normalise_between2f(t_vector2F r, t_vector2F t, int nb);
 int mod(int a, int b);
 float	rad_to_deg(float rad);
 float	deg_to_rad(float deg);
@@ -359,6 +393,22 @@ void	parse_args(char **map);
 size_t	ft_strlen(const char *s);
 int	count_words(char const *s, char c);
 char	*ft_strncpy_split(char const *src, size_t n);
+
+/* -------------------------------------------------------------------------- */
+/*                            FILE = srcs/shoot.c                             */
+/* -------------------------------------------------------------------------- */
+t_vector2F	closest_point(t_vector2F a, t_vector2F b, t_vector2F c);
+int	is_shoot_touch(t_vector2F a, t_vector2F b, t_circle c, t_vector2F *closest);
+void	shoot_alone3f(void);
+void	shoot(void);
+int	nearest_wall3d(t_vector3F	*closest);
+void	init_shot3f(t_vector3F start, t_vector3F end);
+t_vector2F	closest_point(t_vector2F a, t_vector2F b, t_vector2F c);
+int	is_shoot_touch(t_vector2F a, t_vector2F b, t_circle c, t_vector2F *closest);
+void	shoot_alone3f(void);
+void	shoot(void);
+int	nearest_wall3d(t_vector3F *closest);
+void	init_shot3f(t_vector3F start, t_vector3F end);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/menu/render.c                          */

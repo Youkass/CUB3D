@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:53:24 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/19 17:24:51 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:29:49 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	click(void)
 
 int	click_update(void)
 {
-	if (_var()->click && get_time(_var()->start_click)> 170000)
+	if (_var()->click && get_time(_var()->start_click) > 170000)
 		_var()->click = 0;
 	return (0);
 }
@@ -28,14 +28,15 @@ int	click_update(void)
 int	click_delay(void)
 {
 	if (_var()->click == 1)
-		return(1);
+		return (1);
 	return (0);
 }
 
 void	replace_player(void)
 {
-	int	i;
-	int	dist;
+	int			i;
+	int			dist;
+	t_vector2F	plane;
 
 	i = 0;
 	_player()->is_start = 0;
@@ -65,7 +66,8 @@ void	replace_player(void)
 	_player()->is_dead = 0;
 	_player()->is_crouching = 0;
 	_player()->death_n = 0;
-	_player()->plane = (t_vector2F){0, -0.66};
+	plane = posf(0.01, -0.66);
+	_player()->plane = plane;
 	_player()->pitch = 0;
 	_player()->norm_pitch = 0;
 	dist = hypot(_player()->dx, _player()->dy);
@@ -77,8 +79,9 @@ void	replace_player(void)
 
 void	restart_player(void)
 {
-	double	dist;
-	int		i;
+	double		dist;
+	int			i;
+	t_vector2F	plane;
 
 	i = 0;
 	while (i < 4)
@@ -118,7 +121,8 @@ void	restart_player(void)
 	_player()->is_dead = 0;
 	_player()->is_crouching = 0;
 	_player()->death_n = 0;
-	_player()->plane = (t_vector2F){0, -0.66};
+	plane = posf(0.01, -0.66);
+	_player()->plane = plane;
 	_player()->pitch = 0;
 	_player()->norm_pitch = 0;
 	dist = hypot(_player()->dx, _player()->dy);

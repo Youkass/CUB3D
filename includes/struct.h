@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 16:31:15 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:18:08 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_obj t_obj;
 
 struct	s_server_data;
 typedef struct	s_server_data t_server_data;
+
 
 typedef struct s_list
 {
