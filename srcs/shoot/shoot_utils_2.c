@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 14:49:57 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 16:41:00 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:23:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	shoot_alone3f(void)
 	init_shot3f(pos3f(_player()->x, _player()->y, (_player()->z) + 100),
 		pos3f(_player()->x + _player()->dx * _weapon()[_player()->weapon_id]
 			->range, _player()->y + _player()->dy * _weapon()[_player()
-			->weapon_id]->range, _player()->z - ((sin(normalise_between2F(
+			->weapon_id]->range, _player()->z - ((sin(normalise_between2f(
 							posf(-960, 960), posf(-1, 1), _player()->pitch))
 					* 1000) * _weapon()[_player()->weapon_id]->range)));
 }
@@ -52,9 +52,9 @@ int	is_wall_closest(t_vector2F closest)
 
 	tmp = pos3f(0, 0, 0);
 	nearest_wall3d(&tmp);
-	wall_dist = one_dist2F(posf(_player()->x, _player()->y),
+	wall_dist = one_dist2f(posf(_player()->x, _player()->y),
 			posf(tmp.x, tmp.y));
-	if (wall_dist > one_dist2F(posf(_player()->x, _player()->y), closest))
+	if (wall_dist > one_dist2f(posf(_player()->x, _player()->y), closest))
 		return (1);
 	return (0);
 }

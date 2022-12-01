@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 16:41:15 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:23:32 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	no_player_touched(int touched, t_vector3F closest3f)
 				pos3f(_player()->x + _player()->dx * _weapon()[_player()
 					->weapon_id]->range, _player()->y + _player()->dy
 					* _weapon()[_player()->weapon_id]->range, _player()->z
-					- ((sin(normalise_between2F(posf(-960, 960), posf(-1, 1),
+					- ((sin(normalise_between2f(posf(-960, 960), posf(-1, 1),
 									_player()->pitch)) * 1000) * _weapon()
 					[_player()->weapon_id]->range)));
 	}
@@ -75,9 +75,9 @@ void	shoot(void)
 	{
 		if (is_player_can_kill(i, &closest))
 		{
-			closest3f = pos3f(closest.x, closest.y, one_dist2F(
+			closest3f = pos3f(closest.x, closest.y, one_dist2f(
 						posf(_player()->x, _player()->y), closest)
-					* -sin(normalise_between2F(posf(-960, 960), posf(-1, 1),
+					* -sin(normalise_between2f(posf(-960, 960), posf(-1, 1),
 							_player()->pitch)) * 1000);
 			if (is_touch_pl(closest3f, _var()->o_player[i]))
 				shoot_touched(i, &touched, closest3f);
@@ -95,7 +95,7 @@ void	init_shot3f(t_vector3F start, t_vector3F end)
 	int			time_vel;
 
 	dist = dist_3f(start, end);
-	time_vel = (int)get_time_velo3F(one_dist2F(posf(start.x, start.y),
+	time_vel = (int)get_time_velo3f(one_dist2f(posf(start.x, start.y),
 				posf(end.x, end.y)), 15000);
 	n = _player()->shoot_n;
 	_player()->shott[n].start_pos = start;
@@ -105,10 +105,10 @@ void	init_shot3f(t_vector3F start, t_vector3F end)
 	_player()->shott[n].shot = 1;
 	_player()->shott[n].velo.dist = dist;
 	_player()->shott[n].velo.time_ms = time_vel;
-	dist = velocity_ms3F(dist, time_vel);
+	dist = velocity_ms3f(dist, time_vel);
 	_player()->shott[n].velo.velo = dist;
 	_player()->shott[n].start_time = get_clock(_var()->clock);
-	dist = velocity_get_point3F(start, dist,
+	dist = velocity_get_point3f(start, dist,
 			get_time(get_clock(_var()->clock)));
 	_player()->shott[n].pos = dist;
 	_player()->shoot_n++;

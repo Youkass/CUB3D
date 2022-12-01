@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/01 16:30:40 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:18:17 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -515,7 +515,7 @@ int	mouse_rotate(void)
 	player->pitch -= delta.y * player->move_speed;
 	if (player->pitch > 500)
 		player->pitch = 500;
-	player->norm_pitch = normalise_between2F(vec, vec2, player->pitch);
+	player->norm_pitch = normalise_between2f(vec, vec2, player->pitch);
 	mlx_mouse_move(_mlx()->mlx, _mlx()->mlx_win, WIN_W / 2, WIN_H / 2);
 	return (0);
 }

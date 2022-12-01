@@ -162,16 +162,16 @@ void	render_kill_log()
 	while (tmp && i < 5)
 	{
 		log = (t_elem *)tmp->content;
-		if (_var()->o_player[log->ids[0]].team == TEAM_BLUE)
+		if (_var()->o_player[log->ids[0]].team == TEAM_RED)
 			draw_text_scale(
 				ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
-						" killed ", _var()->o_player[log->ids[1]].pseudo)),
-				pos(250, 15 + i * 20), pos(4, 4), BLUE);
+					" killed ", _var()->o_player[log->ids[1]].pseudo)),
+					pos(250, 10 + i * 20), pos(4, 4), RED);
 		else
 			draw_text_scale(
-				ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
-						" killed ", _var()->o_player[log->ids[1]].pseudo)),
-				pos(250, 15 + i * 20), pos(4, 4), RED);
+			ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
+				" killed ", _var()->o_player[log->ids[1]].pseudo)),
+				pos(250, 10 + i * 20), pos(4, 4), BLUE);
 		tmp = tmp->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 23:08:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 14:49:01 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:42:20 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 -	Divide two float vector.
 */
 
-t_vector2F div_2F(t_vector2F a, t_vector2F b)
+t_vector2F div_2f(t_vector2F a, t_vector2F b)
 {
 	t_vector2F vec;
 
@@ -29,7 +29,7 @@ t_vector2F div_2F(t_vector2F a, t_vector2F b)
 -	Multiply two float vector.
 */
 
-t_vector2F mult_2F(t_vector2F a, t_vector2F b)
+t_vector2F mult_2f(t_vector2F a, t_vector2F b)
 {
 	t_vector2F vec;
 
