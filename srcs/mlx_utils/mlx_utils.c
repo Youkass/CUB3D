@@ -412,8 +412,8 @@ void	hud(void)
 		ft_help_hud_else(weapon_id);
 	hud_hit_and_touch();
 	if (_var()->round_state == ROUND_WAIT_START)
-		draw_text(ft_itoa(_var()->time_start), pos(WIN_W / 2 - 42, 100),
-			WHITE);
+		draw_text(ft_itoa(_var()->time_start), pos(WIN_W / 2 - 42, WIN_H / 2),
+			RED);
 }
 
 void	set_spectate(void)

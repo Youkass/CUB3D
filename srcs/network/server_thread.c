@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:18:07 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/11/20 20:36:13 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/30 20:13:52 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -453,6 +453,20 @@ int	send_nb_players(t_client_thread *client)
 	return (0);
 }
 
+static void	help(t_vector2D n, t_client_thread *c)
+{
+	if (n.x >= c->nb_players / 2)
+	{
+		c->serv->team_data[TRED].round_state = LOOSE;
+		c->serv->team_data[TBLUE].round_state = WIN;
+	}
+	else if (n.y >= c->nb_players / 2)
+	{
+		c->serv->team_data[TBLUE].round_state = LOOSE;
+		c->serv->team_data[TRED].round_state = WIN;
+	}
+}
+
 void	check_team(t_client_thread *c)
 {
 	int			i;
@@ -471,16 +485,7 @@ void	check_team(t_client_thread *c)
 		}
 		i++;
 	}
-	if (n.x >= c->nb_players / 2)
-	{
-		c->serv->team_data[TRED].round_state = LOOSE;
-		c->serv->team_data[TBLUE].round_state = WIN;
-	}
-	else if (n.y >= c->nb_players / 2)
-	{
-		c->serv->team_data[TBLUE].round_state = LOOSE;
-		c->serv->team_data[TRED].round_state = WIN;
-	}
+	help(n, c);
 }
 
 void	init_team_server(t_client_thread *c)
