@@ -6,13 +6,13 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 21:50:20 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 19:24:24 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:43:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
 
-void	init_weapons(void)
+static void	ft_init_one(void)
 {
 	_weapon()[0]->name = ft_malloc(sizeof(char) * 6);
 	_weapon()[0]->name = "Rifle\0";
@@ -27,7 +27,6 @@ void	init_weapons(void)
 	_weapon()[0]->anim_reloadms = 800000;
 	_weapon()[0]->shot_frames = 3;
 	_weapon()[0]->reload_frames = 8;
-
 	_weapon()[1]->name = ft_malloc(sizeof(char) * 4);
 	_weapon()[1]->name = "Gun\0";
 	_weapon()[1]->id = 0;
@@ -40,8 +39,12 @@ void	init_weapons(void)
 	_weapon()[1]->footshot = 20;
 	_weapon()[1]->anim_reloadms = 600000;
 	_weapon()[1]->shot_frames = 6;
-	_weapon()[1]->reload_frames = 4;
+}
 
+void	init_weapons(void)
+{
+	ft_init_one();
+	_weapon()[1]->reload_frames = 4;
 	_weapon()[2]->name = ft_malloc(sizeof(char) * 6);
 	_weapon()[2]->name = "Knife\0";
 	_weapon()[2]->id = 0;

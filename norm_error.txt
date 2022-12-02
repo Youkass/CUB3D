@@ -1,35 +1,43 @@
-srcs/utils/singleton_2.c: Error!
-Error: TOO_MANY_FUNCS       (line:  91, col:   1):	Too many functions in file
-srcs/utils/singleton.c: Error!
-Error: TOO_MANY_FUNCS       (line:  88, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 101, col:   1):	Too many functions in file
-srcs/utils/clock.c: OK!
-srcs/utils/click.c: Error!
-Error: TOO_MANY_LINES       (line:  78, col:   1):	Function has more than 25 lines
-Error: TOO_MANY_LINES       (line: 133, col:   1):	Function has more than 25 lines
-Error: TOO_MANY_FUNCS       (line: 135, col:   1):	Too many functions in file
-srcs/utils/list.c: OK!
-srcs/utils/malloc_hooks_enum.c: Error!
-Error: EMPTY_LINE_EOF       (line:  14, col:   1):	Empty line at end of file
-srcs/utils/collisions.c: Error!
-Error: TOO_MANY_FUNCS       (line:  83, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 134, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 143, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 154, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 166, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 185, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 201, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 214, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 220, col:   1):	Too many functions in file
-srcs/utils/sounds/sound_2.c: OK!
-srcs/utils/sounds/sound.c: OK!
-srcs/utils/sounds/sound_3.c: OK!
-srcs/utils/sounds/sound_4.c: OK!
-srcs/utils/hooks/movements.c: OK!
-srcs/utils/hooks/key_hooks.c: OK!
-srcs/utils/hooks/movements_2.c: OK!
-srcs/utils/hooks/escape.c: OK!
-srcs/utils/hooks/key_hooks_2.c: OK!
-srcs/utils/garbage/garbage_2.c: OK!
-srcs/utils/garbage/garbage_3.c: OK!
-srcs/utils/garbage/garbage.c: OK!
+srcs/network_client/client.c: Error!
+Error: SPC_BEFORE_NL        (line:  18, col:  15):	Space before newline
+Error: TOO_FEW_TAB          (line:  26, col:  17):	Missing tabs for indent level
+Error: TOO_MANY_INSTR       (line:  26, col:  17):	Too many instructions on a single line
+Error: TOO_FEW_TAB          (line:  34, col:   9):	Missing tabs for indent level
+Error: TOO_MANY_TAB         (line:  43, col:  21):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  46, col:  21):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  58, col:  17):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  61, col:  17):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  64, col:  17):	Extra tabs for indent level
+Error: SPC_BEFORE_NL        (line:  84, col:  40):	Space before newline
+Error: TOO_FEW_TAB          (line:  89, col:   1):	Missing tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 131, col:   1):	Too many functions in file
+Error: SPACE_REPLACE_TAB    (line: 137, col:   5):	Found space when expecting tab
+Error: SPACE_REPLACE_TAB    (line: 138, col:   5):	Found space when expecting tab
+Error: TOO_MANY_FUNCS       (line: 159, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 175, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 180, col:   1):	Too many functions in file
+Error: NO_ARGS_VOID         (line: 180, col:  25):	Empty function argument requires void
+Error: TOO_FEW_TAB          (line: 194, col:   1):	Missing tabs for indent level
+Error: TOO_MANY_TAB         (line: 195, col:   1):	Extra tabs for indent level
+Error: TOO_FEW_TAB          (line: 198, col:   1):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line: 199, col:   1):	Missing tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 206, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 224, col:   1):	Too many functions in file
+Error: TOO_FEW_TAB          (line: 241, col:   1):	Missing tabs for indent level
+Error: TOO_MANY_FUNCS       (line: 251, col:   1):	Too many functions in file
+Error: TOO_MANY_LINES       (line: 298, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 300, col:   1):	Too many functions in file
+Error: SPACE_EMPTY_LINE     (line: 306, col:   1):	Space on empty line
+Error: NO_SPC_AFR_PAR       (line: 313, col:  29):	Extra space after parenthesis (brace/bracket)
+Error: LINE_TOO_LONG        (line: 313, col:  82):	line too long
+Error: SPACE_AFTER_KW       (line: 318, col:   5):	Missing space after keyword
+Error: SPC_BFR_PAR          (line: 318, col:   7):	Missing space before parenthesis (brace/bracket)
+Error: TOO_MANY_LINES       (line: 350, col:   1):	Function has more than 25 lines
+Error: EMPTY_LINE_EOF       (line: 351, col:   1):	Empty line at end of file
+srcs/network_client/network_utils.c: Error!
+Error: WRONG_SCOPE_COMMENT  (line:  39, col:  29):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  39, col:  29):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  46, col:  29):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  46, col:  29):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  49, col:  29):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  49, col:  29):	Comment is invalid in this scope

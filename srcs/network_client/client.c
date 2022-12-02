@@ -1,11 +1,12 @@
 /* ************************************************************************** */
-/*                                                                            */ /*                                                        :::      ::::::::   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 13:45:15 by yobougre          #+#    #+#             */
-/*   Updated: 2022/10/18 00:22:03 by yuro4ka          ###   ########.fr       */
+/*   Created: 2022/12/02 15:34:29 by yobougre          #+#    #+#             */
+/*   Updated: 2022/12/02 15:34:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +16,7 @@ char	*ft_get_ip_input(void)
 {
 	char	*buf;
 	int		r; 
-	printf("Enter Host Ip on the next line : \n");
+
 	buf = ft_malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buf)
 		return (NULL);
@@ -25,11 +26,59 @@ char	*ft_get_ip_input(void)
 	buf[r] = 0; return (buf);
 }
 
+static int	ft_init_client_first(void)
+{
+	if (recv(_var()->socket, &(_player()->id), sizeof(int), MSG_WAITALL) <= 0)
+		return (EXIT_FAILURE);
+	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int),
+		MSG_WAITALL) <= 0)
+		return (EXIT_FAILURE);
+	if (recv(_var()->socket, &(_var()->pid), sizeof(int), MSG_WAITALL) <= 0)
+		return (EXIT_FAILURE);
+	if (_player()->id == 0)
+	{
+		if (send(_var()->socket, &(_var()->map), sizeof(_var()->map), 0) <= 0)
+			return (EXIT_FAILURE);
+		if (send(_var()->socket, &(_var()->map_width),
+					sizeof(_var()->map_width), 0) <= 0)
+			return (EXIT_FAILURE);
+		if (send(_var()->socket, &(_var()->map_height),
+					sizeof(_var()->map_height), 0) <= 0)
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
+static int	ft_init_client_next(void)
+{
+	int	i;
+
+	i = 0;
+	if (recv(_var()->socket, &(_var()->map), sizeof(_var()->map),
+				MSG_WAITALL) <= 0)
+		return (EXIT_FAILURE);
+	if (recv(_var()->socket, &(_var()->map_width),
+				sizeof(_var()->map_width), MSG_WAITALL) <= 0)
+		return (EXIT_FAILURE);
+	if (recv(_var()->socket, &(_var()->map_height),
+				sizeof(_var()->map_height), MSG_WAITALL) <= 0)
+		return (EXIT_FAILURE);
+	while (i < _var()->map_height)
+	{
+		printf("=> %s\n", _var()->map[i]);
+		++i;
+	}
+	ft_malloc_map();
+	return (EXIT_SUCCESS);
+}
+
 int	ft_init_client(void)
 {
 	int			ret;
-	
-	_var()->socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	int			socket;
+
+	socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	_var()->socket = socket;
 	if (_var()->is_host == SERVER)
 		_var()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	else if (_var()->is_host == CLIENT) 
@@ -40,52 +89,18 @@ int	ft_init_client(void)
 		(const struct sockaddr *)&(_var()->client), sizeof(_var()->client));
 	if (ret < 0)
 		return (EXIT_FAILURE);
-	printf("je suis connecté\n");
-	if (recv(_var()->socket, &(_player()->id), sizeof(int), MSG_WAITALL) <= 0)
+	if (ft_init_client_first() == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	printf("je reçois mon id : %d\n", _player()->id);
-	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int),
-		MSG_WAITALL) <= 0)
-		return (EXIT_FAILURE);
-	if (recv(_var()->socket, &(_var()->pid), sizeof(int), MSG_WAITALL) <= 0)
-		return (EXIT_FAILURE);
-	if (_player()->id == 0)
-	{
-		if (send(_var()->socket, &(_var()->map), sizeof(_var()->map), 0) <= 0)
-			return (EXIT_FAILURE);
-		if (send(_var()->socket, &(_var()->map_width), sizeof(_var()->map_width), 0) <= 0)
-			return (EXIT_FAILURE);
-		if (send(_var()->socket, &(_var()->map_height), sizeof(_var()->map_height), 0) <= 0)
-			return (EXIT_FAILURE);
-		// send au serveur la map
-	}
 	if (_player()->id != 0)
 	{
-		if (recv(_var()->socket, &(_var()->map), sizeof(_var()->map), MSG_WAITALL) <= 0)
+		if (ft_init_client_next() == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		if (recv(_var()->socket, &(_var()->map_width), sizeof(_var()->map_width), MSG_WAITALL) <= 0)
-			return (EXIT_FAILURE);
-		if (recv(_var()->socket, &(_var()->map_height), sizeof(_var()->map_height), MSG_WAITALL) <= 0)
-			return (EXIT_FAILURE);
-		for (int i = 0; i < _var()->map_height; i++)
-			printf("=> %s\n", _var()->map[i]);
-		ft_malloc_map();
 	}
-	printf("je sors de la fonction\n");
 	return (EXIT_SUCCESS);
 }
 
-void	ft_copy_data_before_pong(t_obj *player)
+static void	ft_copy_data_first(t_obj *player)
 {
-	int	i;
-
-	i = 0;
-	while (i < (int)_player()->nr)
-	{
-		player->kill_round[i] = _player()->kill_round[i];
-		i++;
-	}
-	i = 0;
 	player->nr = _player()->nr;
 	player->is_crouching = _player()->is_crouching;
 	player->team = _player()->team;
@@ -111,6 +126,10 @@ void	ft_copy_data_before_pong(t_obj *player)
 	player->start_dead = _player()->start_dead;
 	player->death_n = _player()->death_n;
 	player->death_start = _player()->death_start;
+}
+
+static void	ft_copy_data_next(t_obj *player, int i)
+{
 	player->shooted = _player()->shooted;
 	player->old_plane = _player()->old_plane;
 	player->hb = _player()->hb;
@@ -135,15 +154,22 @@ void	ft_copy_data_before_pong(t_obj *player)
 		player->shott[i].pos = _player()->shott[i].pos;
 		i++;
 	}
-	memset(player->pseudo, 0, sizeof(player->pseudo));
-	strcpy(player->pseudo, _player()->pseudo);
 }
 
-void	print_data_recv(t_obj	*player)
+void	ft_copy_data_before_pong(t_obj *player)
 {
-	printf("-----RECV FROM %d-----\n", player->id);
-	printf("I RECEIVED :\n	POS = %f, %f\n	HEALTH = %d\n	ANGLE = %f\n	DIR = %f, %f\n	SHOOT_N = %d\n	EXCHANGE = %d\n\n",
-	player->x, player->y, player->health, player->angle, player->dx, player->dy, player->shoot_n, player->exchange);
+	int	i;
+
+	i = 0;
+	while (i < (int)_player()->nr)
+	{
+		player->kill_round[i] = _player()->kill_round[i];
+		i++;
+	}
+	ft_copy_data_first(player);
+	ft_copy_data_next(player, i);
+	memset(player->pseudo, 0, sizeof(player->pseudo));
+	strcpy(player->pseudo, _player()->pseudo);
 }
 
 void	restart_round(void)
