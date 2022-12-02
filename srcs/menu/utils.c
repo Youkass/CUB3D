@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/19 18:34:19 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:45:26 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vecto
 		it.x = 0;
 		while (it.x < lil.w)
 		{
-			if (p.x > 0 && p.y > 0)
+			if (p.x > 0 && p.y > 0 && rel_pos[0].x >= 0 && rel_pos[0].y > 0
+			&& rel_pos[0].x < WIN_W * 4 && rel_pos[0].y < WIN_H * _img()->line_length)
 				draw_pixel(&big, lil, pos((int)it.x, (int)it.y), rel_pos[0]);
 			rel_pos[0].x += 4;
 			p.x++;

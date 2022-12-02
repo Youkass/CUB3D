@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:21:06 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/01 18:33:16 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:46:56 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_pixel_put(float x, float y, int color)
 		return ;
 	dst = img->addr + (int)(y * img->line_length + x
 			* (img->bits_per_pixel / 8));
-	dst = color;
+	*(int *)dst = color;
 }
 
 void	ft_reload_frame(void)
@@ -311,7 +311,7 @@ static void	ft_help_hud_if(int index, unsigned long time_attack, int weapon_id)
 {
 	index = normalise_between(pos(0,
 		_weapon()[weapon_id]->reload_ms),
-			pos(0,  _weapon()[weapon_id]->shot_frames),
+			pos(0,  _weapon()[weapon_id]->shot_frames - 1),
 				time_attack);
 	if (weapon_id == KNIFE)
 		ft_put_image_to_image_scale(*_img(),
@@ -339,7 +339,7 @@ static void	ft_help_hud_else_if(int index, unsigned long time_reload,
 {
 	index = normalise_between(pos(0,
 				_weapon()[weapon_id]->anim_reloadms), pos(0,
-				_weapon()[weapon_id]->reload_frames), time_reload);
+				_weapon()[weapon_id]->reload_frames - 1), time_reload);
 	ft_put_image_to_image_scale(*_img(),
 		_image()->weapons[weapon_id][RELOAD]
 	[index], pos(WIN_W / 2
@@ -509,7 +509,6 @@ void	draw_death(void)
 
 int	ft_loop(void)
 {
-	printf("linked => %d\n", _var()->linked_players);
 	ft_call();
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 		ft_loop_multi();
