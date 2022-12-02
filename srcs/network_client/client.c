@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 15:34:29 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/02 15:34:31 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:36:13 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ static int	ft_init_client_next(void)
 int	ft_init_client(void)
 {
 	int			ret;
-	int			socket;
+	int			soc;
 
-	socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	_var()->socket = socket;
+	soc = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	_var()->socket = soc;
 	if (_var()->is_host == SERVER)
 		_var()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
 	else if (_var()->is_host == CLIENT) 
