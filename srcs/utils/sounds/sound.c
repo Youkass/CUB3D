@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/01 18:18:10 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:36:18 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ft_if_game(void)
 	if (ma_sound_is_playing(&(media->sound[MENU_MUSIC][0])))
 		ma_sound_stop(&(media->sound[MENU_MUSIC][0]));
 	if (_var()->alive[ft_check_enemie_team()] == 1
-		&& _var()->alive[ft_check_my_team()] == 1 && _var()->nb_player > 2)
+		&& _var()->alive[ft_check_my_team()] == 1 && _var()->linked_players > 2)
 	{
 		ma_sound_stop(&(media->sound[GAME_MUSIC][ASHES]));
 		ma_sound_stop(&(media->sound[GAME_MUSIC][_var()->ran_i]));
@@ -65,7 +65,7 @@ void	ft_play_music(int index)
 		ft_if_game();
 }
 
-void	play_shots_sound(int i, t_obj player, t_media *media)
+void	play_shots_sound(t_obj player, t_media *media)
 {
 	int	volume;
 	int	dist;
@@ -98,7 +98,7 @@ void	ft_play_shot_sound(t_obj player)
 	if (IS_MUSIC != 1)
 		return ;
 	media = _media();
-	play_shots_sound(i, player, media);
+	play_shots_sound(player, media);
 }
 
 void	ft_play_own_shot(void)
