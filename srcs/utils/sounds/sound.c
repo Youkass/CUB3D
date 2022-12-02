@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   sound.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
 /*   Updated: 2022/12/02 12:36:18 by yobougre         ###   ########.fr       */
@@ -67,7 +67,7 @@ void	ft_play_music(int index)
 
 void	play_shots_sound(t_obj player, t_media *media)
 {
-	int	volume;
+	float	volume;
 	int	dist;
 	int	i;
 
