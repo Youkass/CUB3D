@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sound.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/01 18:18:10 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:31:02 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	ft_play_music(int index)
 		ft_if_game();
 }
 
-void	play_shots_sound(int i, t_obj player, t_media *media)
+void	play_shots_sound(t_obj player, t_media *media)
 {
-	int	volume;
+	float	volume;
 	int	dist;
 	int	i;
 
@@ -98,7 +98,7 @@ void	ft_play_shot_sound(t_obj player)
 	if (IS_MUSIC != 1)
 		return ;
 	media = _media();
-	play_shots_sound(i, player, media);
+	play_shots_sound(player, media);
 }
 
 void	ft_play_own_shot(void)

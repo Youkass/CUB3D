@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_casting.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:08:36 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 17:20:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:30:22 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	sort_by_distance(t_obj *player)
 		j = i + 1;
 		while (j < _var()->linked_players)
 		{
-			swap_pl(player, i);
+			swap_pl(player, i, j);
 			j++;
 		}
 		i++;

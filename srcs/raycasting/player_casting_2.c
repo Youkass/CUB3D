@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_casting_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:02:24 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 17:03:48 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:30:09 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	nearest(t_obj *player)
 	return (0);
 }
 
-void	swap_pl(t_obj *player, int i)
+void	swap_pl(t_obj *player, int i, int j)
 {
 	t_obj	tmp;
 

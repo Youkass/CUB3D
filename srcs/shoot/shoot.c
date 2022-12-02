@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shoot.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
+/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 17:23:32 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:29:18 by denissereno      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	shoot(void)
 	i = 0;
 	touched = 0;
 	closest = posf(0, 0);
+	closest3f = pos3f(0, 0, 0);
 	singleplayer_shoot();
 	while (i < _var()->linked_players)
 	{
