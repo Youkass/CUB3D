@@ -6,12 +6,12 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 20:54:07 by darian            #+#    #+#             */
-/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/12/02 14:42:08 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
-# include "../includes/cub.h"
+#include <stdlib.h>
+#include "../includes/cub.h"
 
 static int	is_neg(int nb)
 {

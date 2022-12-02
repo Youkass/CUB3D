@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 00:53:24 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 17:29:49 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:34:49 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ int	click_delay(void)
 	return (0);
 }
 
-void	replace_player(void)
+static void	ft_replace_player(void)
 {
-	int			i;
-	int			dist;
-	t_vector2F	plane;
+	int	i;
 
-	i = 0;
 	_player()->is_start = 0;
 	_log()->log = NULL;
 	_var()->alive[TRED] = _var()->nb_player / 2;
@@ -57,6 +54,14 @@ void	replace_player(void)
 		_player()->full_ammo[i] = _weapon()[i]->full_ammo;
 		i++;
 	}
+}
+
+void	replace_player(void)
+{
+	int			dist;
+	t_vector2F	plane;
+
+	ft_replace_player();
 	_player()->shoot_n = 0;
 	_player()->z = 0;
 	_player()->dx = -1;
@@ -77,18 +82,8 @@ void	replace_player(void)
 	_player()->spec_id = -1;
 }
 
-void	restart_player(void)
+static void	ft_restart_player(void)
 {
-	double		dist;
-	int			i;
-	t_vector2F	plane;
-
-	i = 0;
-	while (i < 4)
-	{
-		_menu()->s_state[i].state = 0;
-		i++;
-	}
 	_player()->is_start = 0;
 	_log()->log = NULL;
 	_var()->alive[TRED] = _var()->nb_player / 2;
@@ -105,13 +100,6 @@ void	restart_player(void)
 	_player()->can_shoot = 1;
 	_player()->start_reload = get_clock(_var()->clock);
 	_player()->health = 100;
-	i = 0;
-	while (i < NB_WEAPONS)
-	{
-		_player()->ammo[i] = _weapon()[i]->ammo;
-		_player()->full_ammo[i] = _weapon()[i]->full_ammo;
-		i++;
-	}
 	_player()->shoot_n = 0;
 	_player()->z = 0;
 	_player()->dx = -1;
@@ -121,6 +109,13 @@ void	restart_player(void)
 	_player()->is_dead = 0;
 	_player()->is_crouching = 0;
 	_player()->death_n = 0;
+}
+
+static void	ft_restart_next(void)
+{
+	t_vector2F	plane;
+	double		dist;
+
 	plane = posf(0.01, -0.66);
 	_player()->plane = plane;
 	_player()->pitch = 0;
@@ -130,6 +125,27 @@ void	restart_player(void)
 	_player()->is_walking = 0;
 	_player()->spectate = 0;
 	_player()->spec_id = -1;
+}
+
+void	restart_player(void)
+{
+	int			i;
+
+	i = 0;
+	while (i < 4)
+	{
+		_menu()->s_state[i].state = 0;
+		i++;
+	}
+	i = 0;
+	while (i < NB_WEAPONS)
+	{
+		_player()->ammo[i] = _weapon()[i]->ammo;
+		_player()->full_ammo[i] = _weapon()[i]->full_ammo;
+		i++;
+	}
+	ft_restart_player();
+	ft_restart_next();
 }
 
 int	is_neutral(void)
