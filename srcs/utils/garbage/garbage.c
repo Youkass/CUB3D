@@ -6,12 +6,11 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/19 16:47:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:11:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "../../includes/cub.h"
+#include "../../../includes/cub.h"
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
@@ -87,89 +86,9 @@ t_list	*_lst(void)
 	{
 		lst = malloc(sizeof(t_list));
 		if (!lst)
-			ft_black_hole(1); //TODO this gotta be the first exit 
+			ft_black_hole(1);
 		lst->next = NULL;
 		lst->content = NULL;
 	}
 	return (lst);
-}
-
-t_list	*_lstimg(void)
-{
-	static t_list	*lst = NULL;
-
-	if (!lst)
-	{
-		lst = malloc(sizeof(t_list));
-		if (!lst)
-			ft_black_hole(139); //TODO this gotta be the first exit 
-		lst->next = NULL;
-		lst->content = NULL;
-	}
-	return (lst);
-}
-
-t_list	*_lstmedia(void)
-{
-	static t_list	*lst = NULL;
-
-	if (!lst)
-	{
-		lst = malloc(sizeof(t_list));
-		if (!lst)
-			ft_black_hole(139); //TODO this gotta be the first exit 
-		lst->next = NULL;
-		lst->content = NULL;
-	}
-	return (lst);
-}
-
-t_list	*ft_new_node(void *content)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (!node)
-		ft_black_hole(139); //TODO
-	node->content = content;
-	node->next = NULL;
-	return (node);
-}
-
-void	*ft_malloc(int size)
-{
-	void	*output;
-	t_list	*tmp;
-
-	output = malloc(size);
-	tmp = _lst();
-	if (!output)
-		ft_black_hole(139); //TODO
-	ft_lstadd_back(&tmp, ft_new_node(output));
-	return (output);
-}
-
-void	ft_black_hole(int exit_code)
-{
-	t_list	*tmp;
-	t_list	*tmp_2;
-	t_list	*tmp_3;
-	t_media	*media;
-
-	tmp = _lst();
-	tmp_2 = _lstimg();
-	ft_lstclear_img(&tmp_2);
-	if (IS_MUSIC == 1)
-	{
-		tmp_3 = _lstmedia();
-		media = _media();
-		ft_lstclear_media(&tmp_3);
-		ma_engine_uninit(&media->engine);
-	}
-	mlx_destroy_image(_mlx()->mlx, _img()->img);
-	mlx_destroy_window(_mlx()->mlx, _mlx()->mlx_win);
-	mlx_destroy_display(_mlx()->mlx);
-	free(_mlx()->mlx);
-	ft_lstclear(&tmp, free);
-	exit(exit_code);
 }

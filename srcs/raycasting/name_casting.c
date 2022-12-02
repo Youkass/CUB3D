@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 18:46:15 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/29 19:01:21 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:20:29 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,26 @@ static void	compute_draw(void)
 		_pc()->draw_end.x = WIN_W;
 }
 
+static void	draw_body(t_obj *player, int stripe)
+{
+	int	y;
+
+	y = _pc()->draw_start.y;
+	while (y < _pc()->draw_end.y)
+	{
+		_pc()->d = (y - _pc()->move_screen) * 256 - WIN_H * 128
+		+ _pc()->size.y * 128;
+		_pc()->tex.y = ((_pc()->d * _image()->pseudo_img[player->id].h)
+			/_pc()->size.y) / 256;
+		ft_put_pixel(_img(), &_image()->pseudo_img[player->id],
+			(t_vector2D){stripe, y}, _pc()->tex);
+		y++;
+	}
+}
+
 static void	draw(t_obj *player)
 {
 	int	stripe;
-	int	y;
 
 	compute_draw();
 	stripe = _pc()->draw_start.x;
@@ -60,19 +76,7 @@ static void	draw(t_obj *player)
 		[player->id].w / _pc()->size.x) / 256;
 		if (_pc()->trans.y > 0 && stripe > 0 && stripe < WIN_W
 			&& _pc()->trans.y < _var()->zbuffer[stripe])
-		{
-			y = _pc()->draw_start.y;
-			while (y < _pc()->draw_end.y)
-			{
-				_pc()->d = (y - _pc()->move_screen) * 256 - WIN_H
-				* 128 + _pc()->size.y * 128;
-				_pc()->tex.y = ((_pc()->d * _image()->pseudo_img[player->id].h)
-					/_pc()->size.y) / 256;
-				ft_put_pixel(_img(), &_image()->pseudo_img[player->id],
-					(t_vector2D){stripe, y}, _pc()->tex);
-				y++;
-			}
-		}
+			draw_body(player, stripe);
 		stripe++;
 	}
 }

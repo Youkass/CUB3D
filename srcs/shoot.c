@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 19:37:47 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/30 16:18:18 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:23:49 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	shoot_alone3f(void)
 }
 
 /*
-one_dist2F(posf(_player()->x, _player()->y), closest) * -sin(normalise_between
+one_dist2f(posf(_player()->x, _player()->y), closest) * -sin(normalise_between
 	2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000)
 
 This line allow us to compute the Z point of were the bullet will stop.
@@ -352,7 +352,7 @@ void	shoot_alone3f(void)
 }
 
 
-one_dist2F(posf(_player()->x, _player()->y), closest) * -sin(normalise_between
+one_dist2f(posf(_player()->x, _player()->y), closest) * -sin(normalise_between
 	2F(posf(-960, 960), posf(-1, 1), _player()->pitch)) * 1000)
 
 This line allow us to compute the Z point of were the bullet will stop.

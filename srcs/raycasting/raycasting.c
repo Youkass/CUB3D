@@ -6,58 +6,11 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/29 19:01:00 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:21:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
-
-void	init_ray(t_raycasting *r)
-{
-	r->draw_end = 0;
-	r->draw_start = 0;
-	r->cam.x = 2 * r->x / (double)WIN_W - 1;
-	r->dir.x = r->pl.dx + r->pl.plane.x * r->cam.x;
-	r->dir.y = r->pl.dy + r->pl.plane.y * r->cam.x;
-	r->map = (t_vector2D){(r->pl.x + 0.5), (r->pl.y + 0.5)};
-	if (r->dir.y == 0)
-		r->delta.x = 0;
-	else if (r->dir.x == 0)
-		r->delta.x = 1;
-	else
-		r->delta.x = fabs(1 / r->dir.x);
-	if (r->dir.x == 0)
-		r->delta.y = 0;
-	else if (r->dir.y == 0)
-		r->delta.y = 1;
-	else
-		r->delta.y = fabs(1 / r->dir.y);
-}
-
-void	init_dda(t_raycasting *r)
-{
-	r->hit = 0;
-	if (r->dir.x < 0)
-	{
-		r->step.x = -1;
-		r->side_dist.x = (((r->pl.x + 0.5)) - r->map.x) * r->delta.x;
-	}
-	else
-	{
-		r->step.x = 1;
-		r->side_dist.x = (r->map.x + 1 - ((r->pl.x + 0.5))) * r->delta.x;
-	}
-	if (r->dir.y < 0)
-	{
-		r->step.y = -1;
-		r->side_dist.y = ((r->pl.y + 0.5) - r->map.y) * r->delta.y;
-	}
-	else
-	{
-		r->step.y = 1;
-		r->side_dist.y = (r->map.y + 1 - (r->pl.y + 0.5)) * r->delta.y;
-	}
-}
 
 void	dda(t_raycasting *r)
 {
@@ -75,20 +28,7 @@ void	dda(t_raycasting *r)
 			r->map.y += r->step.y;
 			r->side = 1;
 		}
-		if (r->map.y < _var()->map_height && r->map.y >= 0
-			&& r->map.x < (int)ft_strlen(_var()->map[r->map.y]) && r->map.x >= 0
-			&& is_wall(_var()->map[r->map.y][r->map.x]))
-		{
-			if (_var()->map[r->map.y][r->map.x] >= '2' &&
-			_var()->map[r->map.y][r->map.x] <= '9')
-				r->tex_i = _var()->map[r->map.y][r->map.x] - 48;
-			else if (_var()->map[r->map.y][r->map.x] >= 'A' &&
-			_var()->map[r->map.y][r->map.x] <= 'B')
-				r->tex_i = _var()->map[r->map.y][r->map.x] - 57;
-			else
-				r->tex_i = -1;
-			r->hit = 1;
-		}
+		dda_condition(r);
 	}
 }
 

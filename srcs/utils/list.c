@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/23 17:55:39 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/13 21:16:59 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/12/01 17:26:17 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,3 @@ void	ft_lst_dellast(t_list **lst)
 	}
 	prec->next = NULL;
 }
-
-

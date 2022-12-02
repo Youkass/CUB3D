@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 23:38:58 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:21:19 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ void	*detect_neighbors(void)
 		it.y = 1;
 		while (it.y > -2)
 		{
-			if ((int)(_player()->x + it.x + 0.5) >= 0 && (int)(_player()->x + it.x + 0.5) < _var()->map_width
-			&& (int)(_player()->y + it.y + 0.5) >= 0 && (int)(_player()->y + it.y + 0.5) < _var()->map_height
-			&& is_wall( _var()->map[(int)(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x + 0.5)]))
-				_player()->hb.nb[n++] = (t_vector2D){(int)(_player()->x + it.x + 0.5), (int)(_player()->y + it.y + 0.5)};
+			if ((int)(_player()->x + it.x + 0.5) >= 0 && (int)(_player()->x
+				+ it.x + 0.5) < _var()->map_width && (int)(_player()->y + it.y
+					+ 0.5) >= 0 && (int)(_player()->y + it.y + 0.5)
+						< _var()->map_height && is_wall(_var()->map[(int)
+						(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x
+						+ 0.5)])) _player()->hb.nb[n++] = (t_vector2D){(int)
+				(_player()->x + it.x + 0.5), (int)(_player()->y + it.y + 0.5)};
 			it.y--;
 		}
 		it.x--;
@@ -49,7 +52,7 @@ int	is_neighbor(t_vector2D pos)
 			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
 t_vector2F	init_potential_dist(int up)
@@ -77,7 +80,7 @@ t_vector2F	init_potential_dist(int up)
 	{
 		dir = get_90_angle(1);
 		potential.y = _player()->y + (dir.y * _player()->move_speed);
-		potential.x = _player()->x + (dir.x * _player()->move_speed);	
+		potential.x = _player()->x + (dir.x * _player()->move_speed);
 	}
 	return (potential);
 }
@@ -107,7 +110,7 @@ overlaping the box.
 t_nb	*_nb(void)
 {
 	static t_nb	*img = NULL;
-	
+
 	if (!img)
 		img = ft_malloc(sizeof(t_nb));
 	if (!img)
@@ -119,10 +122,13 @@ void	*compute_nb(int i)
 {
 	float	overlap;
 
-	if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0 && is_wall(_var()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x]))
+	if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0
+		&& is_wall(_var()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x]))
 	{
-		_nb()->nearest[0].x = max_f((float)(_player()->hb.nb[i].x - 0.5), min_f(_nb()->potential.x,(float)_player()->hb.nb[i].x + 0.5));
-		_nb()->nearest[0].y = max_f((float)(_player()->hb.nb[i].y- 0.5), min_f(_nb()->potential.y,(float)_player()->hb.nb[i].y + 0.5));
+		_nb()->nearest[0].x = max_f((float)(_player()->hb.nb[i].x - 0.5),
+			min_f(_nb()->potential.x,(float)_player()->hb.nb[i].x + 0.5));
+		_nb()->nearest[0].y = max_f((float)(_player()->hb.nb[i].y- 0.5),
+			min_f(_nb()->potential.y,(float)_player()->hb.nb[i].y + 0.5));
 		_nb()->nearest[1].x = _nb()->nearest[0].x - _nb()->potential.x;
 		_nb()->nearest[1].y = _nb()->nearest[0].y - _nb()->potential.y;
 		overlap = _player()->hb.hit.r - mag(_nb()->nearest[1]);
@@ -130,8 +136,10 @@ void	*compute_nb(int i)
 			overlap = 0;
 		if (overlap > 0)
 		{
-			_nb()->potential.x = _nb()->potential.x - norm(_nb()->nearest[1]).x * overlap;
-			_nb()->potential.y = _nb()->potential.y - norm(_nb()->nearest[1]).y * overlap;
+			_nb()->potential.x = _nb()->potential.x
+			- norm(_nb()->nearest[1]).x * overlap;
+			_nb()->potential.y = _nb()->potential.y
+			- norm(_nb()->nearest[1]).y * overlap;
 			_player()->x = _nb()->potential.x;
 			_player()->y = _nb()->potential.y;
 			_nb()->ret = 1;
@@ -140,6 +148,7 @@ void	*compute_nb(int i)
 	}
 	return (NULL);
 }
+
 int	check_neighbor(int up)
 {
 	int				i;
@@ -163,8 +172,8 @@ int	circle_circle_col(t_obj *pl)
 
 	dist.x = fabsf(_player()->x - pl->x);
 	dist.y = fabsf(_player()->y - pl->y);
-	check = sqrt( (dist.x*dist.x) + (dist.y*dist.y) );
-	if (check <= 0.5+0.5)
+	check = sqrt((dist.x * dist.x) + (dist.y * dist.y));
+	if (check <= 1)
 		return (1);
 	return (0);
 }
@@ -185,8 +194,9 @@ int	circle_collide(void)
 		{
 			dist.x = _player()->x - _player2()->x;
 			dist.y = _player()->y - _player2()->y;
-			rad_sum  = 0.5 + 0.5;
-			length = sqrtf(dist.x * dist.x + dist.y * dist.y) || 1;
+			rad_sum = 0.5 + 0.5;
+			length = (sqrtf(dist.x * dist.x + dist.y * dist.y)
+					|| 1);
 			unit.x = dist.x / length;
 			unit.y = dist.y / length;
 
