@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:10:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 18:23:01 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:06:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,17 @@ t_menu	*_menu(void)
 t_weapon	**_weapon(void)
 {
 	static t_weapon	**weapon = NULL;
+	int				i;
 
 	if (!weapon)
 	{
 		weapon = ft_malloc(sizeof(t_weapon *) * NB_WEAPONS);
-		for (int i = 0; i < NB_WEAPONS; i++)
+		i = 0;
+		while (i < NB_WEAPONS)
+		{
 			weapon[i] = ft_malloc(sizeof(t_weapon));
+			++i;
+		}
 	}
 	if (!weapon)
 		return (NULL);
@@ -66,20 +71,24 @@ t_weapon	**_weapon(void)
 t_team	**_team(void)
 {
 	static t_team	**team = NULL;
+	int				i;
 
 	if (!team)
 	{
 		team = ft_malloc(sizeof(t_team *) * 3);
-		for (int i = 0; i < 3; i++)
+		i = 0;
+		while (i < 3)
+		{
 			team[i] = ft_malloc(sizeof(t_team));
+			++i;
+		}
 	}
 	if (!team)
 		return (NULL);
 	return (team);
 }
 
-
-t_image	*_image()
+t_image	*_image(void)
 {
 	static t_image	*image = NULL;
 

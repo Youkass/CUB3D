@@ -6,11 +6,32 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 14:27:04 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 18:21:19 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 14:03:01 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+static int	ft_if(t_vector2D it)
+{
+	if ((int)(_player()->x + it.x + 0.5) >= 0 && (int)(_player()->x
+				+ it.x + 0.5) < _var()->map_width && (int)(_player()->y + it.y
+					+ 0.5) >= 0 && (int)(_player()->y + it.y + 0.5)
+			< _var()->map_height && is_wall(_var()->map[(int)
+				(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x
+					+ 0.5)]))
+		return (1);
+	return (0);
+}
+
+static t_vector2D	ft_cal(t_vector2D it)
+{
+	t_vector2D	ret;
+
+	ret.x = (int)(_player()->x + it.x + 0.5);
+	ret.y = (int)(_player()->y + it.y + 0.5);
+	return (ret);
+}
 
 void	*detect_neighbors(void)
 {
@@ -26,13 +47,8 @@ void	*detect_neighbors(void)
 		it.y = 1;
 		while (it.y > -2)
 		{
-			if ((int)(_player()->x + it.x + 0.5) >= 0 && (int)(_player()->x
-				+ it.x + 0.5) < _var()->map_width && (int)(_player()->y + it.y
-					+ 0.5) >= 0 && (int)(_player()->y + it.y + 0.5)
-						< _var()->map_height && is_wall(_var()->map[(int)
-						(_player()->y + it.y + 0.5)][(int)(_player()->x + it.x
-						+ 0.5)])) _player()->hb.nb[n++] = (t_vector2D){(int)
-				(_player()->x + it.x + 0.5), (int)(_player()->y + it.y + 0.5)};
+			if (ft_if(it))
+				_player()->hb.nb[n++] = ft_cal(it);
 			it.y--;
 		}
 		it.x--;
@@ -53,6 +69,15 @@ int	is_neighbor(t_vector2D pos)
 		i++;
 	}
 	return (0);
+}
+
+static t_vector2F	ft_calf(t_vector2F dir)
+{
+	t_vector2F	ret;
+
+	ret.y = _player()->y + (dir.y * _player()->move_speed);
+	ret.x = _player()->x + (dir.x * _player()->move_speed);
+	return (ret);
 }
 
 t_vector2F	init_potential_dist(int up)
@@ -79,8 +104,7 @@ t_vector2F	init_potential_dist(int up)
 	else
 	{
 		dir = get_90_angle(1);
-		potential.y = _player()->y + (dir.y * _player()->move_speed);
-		potential.x = _player()->x + (dir.x * _player()->move_speed);
+		potential = ft_calf(dir);
 	}
 	return (potential);
 }
@@ -113,9 +137,30 @@ t_nb	*_nb(void)
 
 	if (!img)
 		img = ft_malloc(sizeof(t_nb));
-	if (!img)
-		return (NULL);
 	return (img);
+}
+
+static void	ft_compute_nb(float overlap)
+{
+	_nb()->potential.x = _nb()->potential.x
+	- norm(_nb()->nearest[1]).x * overlap;
+	_nb()->potential.y = _nb()->potential.y
+	- norm(_nb()->nearest[1]).y * overlap;
+	_player()->x = _nb()->potential.x;
+	_player()->y = _nb()->potential.y;
+	_nb()->ret = 1;
+}
+
+static t_vector2F	ft_cal_nearest(int i)
+{
+	t_vector2F	ret;
+	float		help;
+
+	help = min_f(_nb()->potential.x, (float)_player()->hb.nb[i].x + 0.5);
+	ret.x = max_f((float)(_player()->hb.nb[i].x - 0.5), help);
+	help = min_f(_nb()->potential.y, (float)_player()->hb.nb[i].y + 0.5);
+	ret.y = max_f((float)(_player()->hb.nb[i].y - 0.5), help);
+	return (ret);
 }
 
 void	*compute_nb(int i)
@@ -125,26 +170,14 @@ void	*compute_nb(int i)
 	if (_player()->hb.nb[i].y >= 0 && _player()->hb.nb[i].x >= 0
 		&& is_wall(_var()->map[_player()->hb.nb[i].y][_player()->hb.nb[i].x]))
 	{
-		_nb()->nearest[0].x = max_f((float)(_player()->hb.nb[i].x - 0.5),
-			min_f(_nb()->potential.x,(float)_player()->hb.nb[i].x + 0.5));
-		_nb()->nearest[0].y = max_f((float)(_player()->hb.nb[i].y- 0.5),
-			min_f(_nb()->potential.y,(float)_player()->hb.nb[i].y + 0.5));
+		_nb()->nearest[0] = ft_cal_nearest(i);
 		_nb()->nearest[1].x = _nb()->nearest[0].x - _nb()->potential.x;
 		_nb()->nearest[1].y = _nb()->nearest[0].y - _nb()->potential.y;
 		overlap = _player()->hb.hit.r - mag(_nb()->nearest[1]);
 		if (powf(_nb()->nearest[1].x, 2) + powf(_nb()->nearest[1].y, 2) < 0)
 			overlap = 0;
 		if (overlap > 0)
-		{
-			_nb()->potential.x = _nb()->potential.x
-			- norm(_nb()->nearest[1]).x * overlap;
-			_nb()->potential.y = _nb()->potential.y
-			- norm(_nb()->nearest[1]).y * overlap;
-			_player()->x = _nb()->potential.x;
-			_player()->y = _nb()->potential.y;
-			_nb()->ret = 1;
-			printf("queblo\n");
-		}
+			ft_compute_nb(overlap);
 	}
 	return (NULL);
 }
@@ -178,6 +211,12 @@ int	circle_circle_col(t_obj *pl)
 	return (0);
 }
 
+static void	ft_player_p(float rad_sum, t_vector2F unit)
+{
+	_player()->x = _player2()->x + (rad_sum + 0.01) * unit.x;
+	_player()->y = _player2()->y + (rad_sum + 0.01) * unit.y;
+}
+
 int	circle_collide(void)
 {
 	t_vector2F	dist;
@@ -195,13 +234,10 @@ int	circle_collide(void)
 			dist.x = _player()->x - _player2()->x;
 			dist.y = _player()->y - _player2()->y;
 			rad_sum = 0.5 + 0.5;
-			length = (sqrtf(dist.x * dist.x + dist.y * dist.y)
-					|| 1);
+			length = (sqrtf(dist.x * dist.x + dist.y * dist.y) || 1);
 			unit.x = dist.x / length;
 			unit.y = dist.y / length;
-
-			_player()->x = _player2()->x + (rad_sum + 0.01) * unit.x;
-			_player()->y = _player2()->y + (rad_sum + 0.01) * unit.y;
+			ft_player_p(rad_sum, unit);
 		}
 		i++;
 	}

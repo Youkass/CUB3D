@@ -1,28 +1,35 @@
-srcs/network/server_thread.c: Error!
-Error: TOO_MANY_FUNCS       (line: 118, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 141, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 160, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 179, col:   1):	Too many functions in file
+srcs/utils/singleton_2.c: Error!
+Error: TOO_MANY_FUNCS       (line:  91, col:   1):	Too many functions in file
+srcs/utils/singleton.c: Error!
+Error: TOO_MANY_FUNCS       (line:  88, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 101, col:   1):	Too many functions in file
+srcs/utils/clock.c: OK!
+srcs/utils/click.c: Error!
+Error: TOO_MANY_LINES       (line:  78, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_LINES       (line: 133, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 135, col:   1):	Too many functions in file
+srcs/utils/list.c: OK!
+srcs/utils/malloc_hooks_enum.c: Error!
+Error: EMPTY_LINE_EOF       (line:  14, col:   1):	Empty line at end of file
+srcs/utils/collisions.c: Error!
+Error: TOO_MANY_FUNCS       (line:  83, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 134, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 143, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 154, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 166, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 185, col:   1):	Too many functions in file
 Error: TOO_MANY_FUNCS       (line: 201, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 214, col:   1):	Too many functions in file
 Error: TOO_MANY_FUNCS       (line: 220, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 245, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 255, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 279, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 305, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 316, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 345, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 371, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 388, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 409, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 419, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 430, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 457, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 474, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 488, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 510, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 524, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 545, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 574, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 595, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 616, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 625, col:   1):	Too many functions in file
+srcs/utils/sounds/sound_2.c: OK!
+srcs/utils/sounds/sound.c: OK!
+srcs/utils/sounds/sound_3.c: OK!
+srcs/utils/sounds/sound_4.c: OK!
+srcs/utils/hooks/movements.c: OK!
+srcs/utils/hooks/key_hooks.c: OK!
+srcs/utils/hooks/movements_2.c: OK!
+srcs/utils/hooks/escape.c: OK!
+srcs/utils/hooks/key_hooks_2.c: OK!
+srcs/utils/garbage/garbage_2.c: OK!
+srcs/utils/garbage/garbage_3.c: OK!
+srcs/utils/garbage/garbage.c: OK!

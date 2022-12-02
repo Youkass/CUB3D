@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:21:06 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/01 18:33:16 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:11:21 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_pixel_put(float x, float y, int color)
 		return ;
 	dst = img->addr + (int)(y * img->line_length + x
 			* (img->bits_per_pixel / 8));
-	dst = color;
+	*(int *)dst = color;
 }
 
 void	ft_reload_frame(void)
@@ -509,7 +509,6 @@ void	draw_death(void)
 
 int	ft_loop(void)
 {
-	printf("linked => %d\n", _var()->linked_players);
 	ft_call();
 	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
 		ft_loop_multi();

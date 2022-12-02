@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/01 18:22:52 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:09:13 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ t_mlx	*_mlx(void)
 
 	if (!mlx)
 		mlx = ft_malloc(sizeof(t_mlx));
-	if (!mlx)
-		return (NULL);
 	return (mlx);
 }
 
