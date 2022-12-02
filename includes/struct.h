@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/29 18:41:30 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/01 17:18:08 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -485,6 +485,9 @@ typedef struct s_var
 	unsigned long		start_hit;
 	int					time_start;
 	unsigned char		colors[2][4];
+	int					tex_dir;
+	int					tex_mode;
+	int					walk_tex;
 }	t_var;
 
 typedef struct	s_image
@@ -668,6 +671,5 @@ typedef struct	s_ray_th
 	int			i;
 	t_obj		pl;
 }	t_ray_th;
-
 
 #endif
