@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 19:15:13 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:45:40 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@
 # include <pthread.h>
 # include "includes.h"
 
-struct s_obj;
-typedef struct s_obj t_obj;
+struct							s_obj;
+typedef struct s_obj			t_obj;
 
-struct	s_server_data;
-typedef struct	s_server_data t_server_data;
-
+struct							s_server_data;
+typedef struct s_server_data	t_server_data;
 
 typedef struct s_list
 {
@@ -31,7 +30,7 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-typedef struct	s_media
+typedef struct s_media
 {
 	ma_result			result;
 	ma_decoder			decoder;
@@ -75,7 +74,7 @@ typedef struct s_vector3F
 	float	z;
 }	t_vector3F;
 
-typedef struct	s_circle
+typedef struct s_circle
 {
 	t_vector2F	pos;
 	float		r;
@@ -107,63 +106,61 @@ typedef struct s_data
 	t_vector2D			pos;
 }	t_data;
 
-
-typedef struct	s_hit
+typedef struct s_hit
 {
 	int		shoot;
 	int		id;
 }	t_hit;
 
-typedef struct	s_weapon
+typedef struct s_weapon
 {
-	int		id;
-	char	*name;
-	int		power;
+	int					id;
+	char				*name;
+	int					power;
 	unsigned long		reload_ms;
-	int		full_ammo;
-	int		ammo;
-	int		range;
-	int		headshot;
-	int		footshot;
-	int		shot_frames;
-	int		reload_frames;
-	int		anim_shotms;
-	int		anim_reloadms;
+	int					full_ammo;
+	int					ammo;
+	int					range;
+	int					headshot;
+	int					footshot;
+	int					shot_frames;
+	int					reload_frames;
+	int					anim_shotms;
+	int					anim_reloadms;
 }	t_weapon;
 
-typedef struct	s_hitbox
+typedef struct s_hitbox
 {
 	t_circle	hit;
 	t_vector2D	nb[8];
 	int			n;
 }	t_hitbox;
 
-typedef struct	s_velo
+typedef struct s_velo
 {
 	t_vector2F	dist;
 	t_vector2F	velo;
 	int			time_ms;
 }	t_velo;
 
-typedef struct	s_velo3
+typedef struct s_velo3
 {
 	t_vector3F	dist;
 	t_vector3F	velo;
 	int			time_ms;
 }	t_velo3;
 
-typedef struct	s_elem
+typedef struct s_elem
 {
 	int				ids[2];
 	unsigned long	start;
 }	t_elem;
 
-typedef struct	s_log
+typedef struct s_log
 {
 	t_list			*log;
 	pthread_mutex_t	mutex;
 }	t_log;
-
 
 /*
  Le but de cette struct est d'en faire une liste chainée pour pouvoir display
@@ -179,91 +176,89 @@ typedef struct	s_log
  la maniere d'afficher).
 */
 
-typedef struct	s_shot
+typedef struct s_shot
 {
 	t_velo3			velo;
 	t_vector3F		start_pos;
 	t_vector3F		end_pos;
 	t_vector3F		pos;
-
 	unsigned long	start_time;
 	int				n;
 	int				weapon_type;
 	int				shot;
 }	t_shot;
 
-
-typedef struct	s_array
+typedef struct s_array
 {
 	int		*array;
 	size_t	n;
 	size_t	size;
-} t_array;
+}	t_array;
 
-
-struct	s_obj
+struct s_obj
 {
-	int			id;
-	int			team_id;
-	int			team;
-	float		x;
-	float		y;
-	float		z;
-	char		c;
-	float		dx;
-	float		dy;
-	float		da;
-	float		old_dx;
-	float		old_dy;
-	float		angle;
-	double		move_speed;
-	double		rot_speed;
-	int			is_walking;
-	int			is_dead;
+	int				id;
+	int				team_id;
+	int				team;
+	float			x;
+	float			y;
+	float			z;
+	char			c;
+	float			dx;
+	float			dy;
+	float			da;
+	float			old_dx;
+	float			old_dy;
+	float			angle;
+	double			move_speed;
+	double			rot_speed;
+	int				is_walking;
+	int				is_dead;
 	unsigned long	start_dead;
 	unsigned long	start_reload;
-	int			can_shoot;
-	int			death_n;
-	int			death_start;
-	int			weapon_id;
-	int			health;
-	int			ammo[NB_WEAPONS];
-	int			full_ammo[NB_WEAPONS];
-	char		pseudo[16];
-	t_vector2F	plane;
-	t_vector2F	old_plane;
-	t_hitbox	hb;
-	int			pitch;
-	int			norm_pitch;
-	t_shot		shott[MAX_BULLET];
-	int			shoot_n;
-	t_hit		shooted;
-	int			exchange;
-	int			is_shooting;
-	int			is_start;
-	int			change_team;
-	float		 scale;
-	int			money;
-	int			spectate;
-	int			spec_id;
-	int			kills;
-	int			deaths;
-	int			is_crouching;
-	int			kill_round[9];
-	int			kill_match[120];
-	int			nr;
-	int			nm;
-	int			kevlar; // entre 0 et 2. 0 = pas de Kevlar, 1 = Kevlar, 2 = Kevlar + casque
-	int			touched;
-	int			hitted;
+	int				can_shoot;
+	int				death_n;
+	int				death_start;
+	int				weapon_id;
+	int				health;
+	int				ammo[NB_WEAPONS];
+	int				full_ammo[NB_WEAPONS];
+	char			pseudo[16];
+	t_vector2F		plane;
+	t_vector2F		old_plane;
+	t_hitbox		hb;
+	int				pitch;
+	int				norm_pitch;
+	t_shot			shott[MAX_BULLET];
+	int				shoot_n;
+	t_hit			shooted;
+	int				exchange;
+	int				is_shooting;
+	int				is_start;
+	int				change_team;
+	float			scale;
+	int				money;
+	int				spectate;
+	int				spec_id;
+	int				kills;
+	int				deaths;
+	int				is_crouching;
+	int				kill_round[9];
+	int				kill_match[120];
+	int				nr;
+	int				nm;
+	int				kevlar;
+	int				touched;
+	int				hitted;
 };
 
-typedef struct	s_network_data
+typedef struct s_network_data
 {
 	t_obj				player;
 	int					socket;
 	int					is_host;
 }	t_network_data;
+
 typedef struct s_enum_key
 {
 	int	id;
@@ -332,37 +327,37 @@ typedef struct s_spritecasting
 
 typedef struct s_menu
 {
-	t_data		**buttons;
-	t_button	*s_state;
-	t_button	*o_state;
-	t_button	*p_state;
-	int			mute_s_state;
-	int			mute_m_state;
-	t_data		**bar;
-	t_data		logo;
-	t_data		bg;
-	t_data		img;
-	t_data		nb_p[4][3];
-	int			s_bar;
-	int			m_bar;
-	t_vector2D	pos_s_bar;
-	int			draging_s;
-	t_vector2D	pos_m_bar;
-	t_vector2D	double_pos[2];
-	int			draging_m;
-	int			mode;
-	t_data		wall;
-	t_data		planets[2];
-	t_vector2D	planets_pos[2];
-	int			n;
-	int			ny;
+	t_data			**buttons;
+	t_button		*s_state;
+	t_button		*o_state;
+	t_button		*p_state;
+	int				mute_s_state;
+	int				mute_m_state;
+	t_data			**bar;
+	t_data			logo;
+	t_data			bg;
+	t_data			img;
+	t_data			nb_p[4][3];
+	int				s_bar;
+	int				m_bar;
+	t_vector2D		pos_s_bar;
+	int				draging_s;
+	t_vector2D		pos_m_bar;
+	t_vector2D		double_pos[2];
+	int				draging_m;
+	int				mode;
+	t_data			wall;
+	t_data			planets[2];
+	t_vector2D		planets_pos[2];
+	int				n;
+	int				ny;
 	unsigned long	start;
-	t_data		wait;
-	t_vector2D	draw_pl[2];
-	int			n_ip;
+	t_data			wait;
+	t_vector2D		draw_pl[2];
+	int				n_ip;
 }	t_menu;
 
-typedef struct	s_rect
+typedef struct s_rect
 {
 	float	w;
 	float	h;
@@ -492,7 +487,7 @@ typedef struct s_var
 	int					ny;
 }	t_var;
 
-typedef struct	s_image
+typedef struct s_image
 {
 	t_data			alpha[255];
 	t_data			rifle;
@@ -516,7 +511,7 @@ typedef struct	s_image
 	t_data			textures[10];
 }	t_image;
 
-typedef struct	s_team
+typedef struct s_team
 {
 	int			win;
 	int			loose;
@@ -526,7 +521,7 @@ typedef struct	s_team
 	t_vector2D	player_spawn[5];
 }	t_team;
 
-typedef struct	s_player_stat
+typedef struct s_player_stat
 {
 	int	dead;
 	int	kills;
@@ -536,7 +531,7 @@ typedef struct	s_player_stat
 
 /*
 Round_state : 0 : Rien. 1 = Gagne. 2 : Perd*/
-typedef struct	s_team_serv
+typedef struct s_team_serv
 {
 	int				wins;
 	int				looses;
@@ -550,7 +545,7 @@ typedef struct s_player
 	int	y;
 }	t_player;
 
-typedef struct	s_nb
+typedef struct s_nb
 {
 	int			i;
 	int			ret;
@@ -558,21 +553,21 @@ typedef struct	s_nb
 	t_vector2F	potential;
 }	t_nb;
 
-typedef struct	s_data_plyr
+typedef struct s_data_plyr
 {
 	t_obj	player_data[MAX_PLAYER];
 	int		nb_linked;
 	int		nb_player;
 }	t_data_plyr;
 
-typedef struct	s_send_client
+typedef struct s_send_client
 {
 	t_obj		player;
 	int			start;
 	int			flag;
 }	t_send_client;
 
-typedef struct	s_send_client_game
+typedef struct s_send_client_game
 {
 	t_obj		player;
 	int			red_wins;
@@ -581,7 +576,7 @@ typedef struct	s_send_client_game
 	int			restart;
 }	t_send_client_game;
 
-typedef struct	s_send_server
+typedef struct s_send_server
 {
 	t_obj		player[MAX_PLAYER];
 	int			start;
@@ -589,7 +584,7 @@ typedef struct	s_send_server
 	int			linked_pl;
 }	t_send_server;
 
-typedef struct	s_send_server_game
+typedef struct s_send_server_game
 {
 	t_obj		player[MAX_PLAYER];
 	int			linked_players;
@@ -603,7 +598,7 @@ typedef struct	s_send_server_game
 	int			time;
 }	t_send_server_game;
 
-typedef struct	s_client_thread
+typedef struct s_client_thread
 {
 	pthread_mutex_t			*mutex;
 	pthread_mutex_t			*mutex_linked;
@@ -627,7 +622,7 @@ typedef struct	s_client_thread
 	int						round_state_send[N_RSTATE];
 }	t_client_thread;
 
-struct	s_server_data
+struct s_server_data
 {
 	struct sockaddr_in		server;
 	t_client_thread			clients[MAX_PLAYER];
@@ -660,14 +655,14 @@ struct	s_server_data
 	int						map_height;
 };
 
-typedef struct	s_intro
+typedef struct s_intro
 {
 	t_vector2D		double_pos[2];
 	unsigned long	check;
 	int				limite;
 }	t_intro;
 
-typedef struct	s_ray_th
+typedef struct s_ray_th
 {
 	t_vector2D	start_end;
 	int			i;
