@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:28:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 16:00:10 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:27:45 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	specials_args(char *str, int nb_types[16])
 		parse_new_textures(str, 8, &nb_types[14]);
 	else if (!strncmp(str, "B", 1))
 		parse_new_textures(str, 9, &nb_types[15]);
+	else if (!strncmp(str, "D", 1))
+		parse_new_textures(str, 10, &nb_types[16]);
 	else
 		return (0);
 	return (1);
@@ -97,7 +99,7 @@ int	get_args(char **map, int i, int *index, int nb_types[16])
 
 void	parse_args(char **map)
 {
-	int	nb_types[16];
+	int	nb_types[17];
 	int	index;
 	int	i;
 

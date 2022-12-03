@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prototypes.h                                       :+:      :+:    :+:   */
+/*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <yobougre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by yobougre          #+#    #+#             */
-/*   Updated: 2021/10/19 15:08:54 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:39:00 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -639,10 +639,8 @@ void	body_map(t_vector2D *pt, t_vector2D *it, char **map, int *longest);
 /* -------------------------------------------------------------------------- */
 /*                     FILE = ./srcs/parsing/parsing_3.c                      */
 /* -------------------------------------------------------------------------- */
-char	**ft_split(char const *s, char c);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*read_file(int fd);
-t_vector2D	get_pos(char **map, char c);
+void	team_data(int i);
+void	menu_pong(void);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = ./srcs/parsing/args_3.c                       */
