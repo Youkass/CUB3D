@@ -6,26 +6,11 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/20 17:14:07 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:58:11 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
-
-void plot_line (t_vector2D a, t_vector2D b, int color)
-{
-	int dx =  abs (b.x - a.x), sx = a.x < b.x ? 1 : -1;
-	int dy = -abs (b.y - a.y), sy = a.y < b.y ? 1 : -1; 
-	int err = dx + dy, e2; /* error value e_xy */
-	for (;;){  /* loop */
-	ft_pixel_put(a.x,a.y, color);
-	if (a.x == b.x && a.y == b.y) break;
-	e2 = 2 * err;
-	if (e2 >= dy) { err += dy; a.x += sx; } /* e_xy+e_x > 0 */
-	if (e2 <= dx) { err += dx; a.y += sy; } /* e_xy+e_y < 0 */
-  }
-}
-
 /*
 ===============================================================================
 this is the function that will draw our player on the 2D map.
@@ -52,7 +37,7 @@ t_vector2D	ft_scnd_vector(void)
 	t_vector2D	vector;
 
 	vector.x = ((_player()->x * (float)_var()->scale)
-		+ _var()->half_scale_offset) + _player()->dx * 10;
+			+ _var()->half_scale_offset) + _player()->dx * 10;
 	vector.y = (_player()->y * (float)_var()->scale)
 		+ (_player()->dy * 10) + _var()->half_scale;
 	return (vector);
@@ -104,7 +89,8 @@ int	ft_return_xp_2(void)
 
 int	ft_return_yp_2(void)
 {
-	return ((int)(_player2()->hb.hit.pos.y * _var()->scale) + _var()->half_scale);
+	return ((int)(_player2()->hb.hit.pos.y * _var()->scale)
+			+ _var()->half_scale);
 }
 
 float	ft_return_radius_2(void)

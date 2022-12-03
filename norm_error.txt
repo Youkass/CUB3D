@@ -1,43 +1,35 @@
-srcs/network_client/client.c: Error!
-Error: SPC_BEFORE_NL        (line:  18, col:  15):	Space before newline
-Error: TOO_FEW_TAB          (line:  26, col:  17):	Missing tabs for indent level
-Error: TOO_MANY_INSTR       (line:  26, col:  17):	Too many instructions on a single line
-Error: TOO_FEW_TAB          (line:  34, col:   9):	Missing tabs for indent level
-Error: TOO_MANY_TAB         (line:  43, col:  21):	Extra tabs for indent level
-Error: TOO_MANY_TAB         (line:  46, col:  21):	Extra tabs for indent level
-Error: TOO_MANY_TAB         (line:  58, col:  17):	Extra tabs for indent level
-Error: TOO_MANY_TAB         (line:  61, col:  17):	Extra tabs for indent level
-Error: TOO_MANY_TAB         (line:  64, col:  17):	Extra tabs for indent level
-Error: SPC_BEFORE_NL        (line:  84, col:  40):	Space before newline
-Error: TOO_FEW_TAB          (line:  89, col:   1):	Missing tabs for indent level
-Error: TOO_MANY_FUNCS       (line: 131, col:   1):	Too many functions in file
-Error: SPACE_REPLACE_TAB    (line: 137, col:   5):	Found space when expecting tab
-Error: SPACE_REPLACE_TAB    (line: 138, col:   5):	Found space when expecting tab
-Error: TOO_MANY_FUNCS       (line: 159, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 175, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 180, col:   1):	Too many functions in file
-Error: NO_ARGS_VOID         (line: 180, col:  25):	Empty function argument requires void
-Error: TOO_FEW_TAB          (line: 194, col:   1):	Missing tabs for indent level
-Error: TOO_MANY_TAB         (line: 195, col:   1):	Extra tabs for indent level
-Error: TOO_FEW_TAB          (line: 198, col:   1):	Missing tabs for indent level
-Error: TOO_FEW_TAB          (line: 199, col:   1):	Missing tabs for indent level
-Error: TOO_MANY_FUNCS       (line: 206, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 224, col:   1):	Too many functions in file
-Error: TOO_FEW_TAB          (line: 241, col:   1):	Missing tabs for indent level
-Error: TOO_MANY_FUNCS       (line: 251, col:   1):	Too many functions in file
-Error: TOO_MANY_LINES       (line: 298, col:   1):	Function has more than 25 lines
-Error: TOO_MANY_FUNCS       (line: 300, col:   1):	Too many functions in file
-Error: SPACE_EMPTY_LINE     (line: 306, col:   1):	Space on empty line
-Error: NO_SPC_AFR_PAR       (line: 313, col:  29):	Extra space after parenthesis (brace/bracket)
-Error: LINE_TOO_LONG        (line: 313, col:  82):	line too long
-Error: SPACE_AFTER_KW       (line: 318, col:   5):	Missing space after keyword
-Error: SPC_BFR_PAR          (line: 318, col:   7):	Missing space before parenthesis (brace/bracket)
-Error: TOO_MANY_LINES       (line: 350, col:   1):	Function has more than 25 lines
-Error: EMPTY_LINE_EOF       (line: 351, col:   1):	Empty line at end of file
-srcs/network_client/network_utils.c: Error!
-Error: WRONG_SCOPE_COMMENT  (line:  39, col:  29):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  39, col:  29):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  46, col:  29):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  46, col:  29):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  49, col:  29):	Comment is invalid in this scope
-Error: WRONG_SCOPE_COMMENT  (line:  49, col:  29):	Comment is invalid in this scope
+srcs/network/server_thread.c: Error!
+Error: TOO_MANY_FUNCS       (line: 118, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 141, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 160, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 179, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 201, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 220, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 245, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 255, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 279, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 305, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 316, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 345, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 371, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 388, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 409, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 419, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 430, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 457, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 474, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 488, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 510, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 524, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 545, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 574, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 595, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 616, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 625, col:   1):	Too many functions in file
+srcs/network/lobby.c: Error!
+Error: TOO_MANY_FUNCS       (line:  95, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 120, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 139, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 168, col:   1):	Too many functions in file
+srcs/network/server.c: Error!
+Error: TOO_MANY_FUNCS       (line:  93, col:   1):	Too many functions in file
