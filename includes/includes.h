@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 19:58:03 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:56:34 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,14 +178,10 @@ esc : 65307
 #  define NINE 57
 # endif
 
-# define _ 45
-
 # define ERASE 65288
 # define ENTER 65293
 
 # define PI 3.14159 
-# define P2 (PI/2)
-# define P3 (3*PI/2)
 # define DR 0.0174533
 # define WIN_H 900
 # define WIN_W 1440
@@ -210,11 +206,7 @@ esc : 65307
 # define MAX_BULLET 16
 
 # define MINIMAP_SIZE 10
-# define MINIMAP_OFFSET (WIN_W - MINIMAP_SIZE)
 
-# define uDiv 1
-# define vDiv 1
-# define vMove 0.0
 # define PLAY 0
 # define OPTIONS 1
 # define CREDITS 2
@@ -264,8 +256,6 @@ esc : 65307
 
 # define TMP_FILE ".tmp"
 # define CMD_PRINT_IP "hostname -i > .tmp"
-//# define CMD_PRINT_IP "127.0.0.1"
-//# define CMD_PRINT_IP "ipconfig getifaddr en0"
 # define MAX_PLAYER 10
 # define MAX_SHOT_SOUND 100
 # define HOST 1
