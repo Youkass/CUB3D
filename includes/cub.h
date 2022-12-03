@@ -603,8 +603,7 @@ void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_po
 t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vector2F scale);
 t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
 t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos);
-t_data	ft_put_sprite_to_images_scale(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size, t_vector2F scale);
-t_data	ft_put_sprite_to_images(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size);
+t_data	ft_put_sprite_to_images(t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size);
 void	draw_pixel_color(t_data *big, t_vector2D rel_pos, char pix[4]);
 void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
 void	draw_bar_fill(void);
@@ -620,7 +619,6 @@ void	drag_bar(void);
 /*                       FILE = srcs/menu/menu_lobby.c                        */
 /* -------------------------------------------------------------------------- */
 void	team_data(int i);
-void	get_pseudos(void);
 void	menu_pong(void);
 
 /* -------------------------------------------------------------------------- */
