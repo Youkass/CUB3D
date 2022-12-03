@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 20:06:20 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:19:47 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,4 @@ void	get_pseudos(void)
 void	menu_pong(void)
 {
 	get_pseudos();
-	if (_player()->team == TEAM_RED)
-	{
-		_player()->x = _team()[TEAM_RED]->team_spawn.x;
-		_player()->y = _team()[TEAM_RED]->team_spawn.y;
-	}
-	else if (_player()->team == TEAM_BLUE)
-	{
-		_player()->x = _team()[TEAM_BLUE]->team_spawn.x;
-		_player()->y = _team()[TEAM_BLUE]->team_spawn.y;
-	}
 }

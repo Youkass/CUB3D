@@ -508,7 +508,7 @@ typedef struct s_image
 	t_data			ammo;
 	t_data			*weapons[3][3];
 	t_data			dir[4];
-	t_data			textures[10];
+	t_data			textures[11];
 }	t_image;
 
 typedef struct s_team
