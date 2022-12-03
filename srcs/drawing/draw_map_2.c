@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:10:14 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 20:04:01 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:05:39 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ t_obj	*ft_copy_map_line(char *line, int index)
 			// _player()->x = i;
 			// _player()->y = index;
 			// _var()->nx++;
-			_team()[TEAM_RED]->team_spawn = pos(i, index);
+			_team()[TEAM_RED]->team_spawn = (t_vector2D){i, index};
 		}
 		else if (line[i] == 'Y')
 		{
 			printf("salam\n");
 			// _var()->ny++;
-			_team()[TEAM_BLUE]->team_spawn = pos(i, index);
+			_team()[TEAM_BLUE]->team_spawn = (t_vector2D){i, index};
 		}
 		new_line[i].c = line[i];
 		new_line[i].x = new_line[i - 1].x + _var()->scale;
