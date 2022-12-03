@@ -619,6 +619,7 @@ void	drag_bar(void);
 /*                       FILE = srcs/menu/menu_lobby.c                        */
 /* -------------------------------------------------------------------------- */
 void	team_data(int i);
+void	get_pseudos(void);
 void	menu_pong(void);
 
 /* -------------------------------------------------------------------------- */
