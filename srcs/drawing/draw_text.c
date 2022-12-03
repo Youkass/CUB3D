@@ -6,22 +6,17 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:20:26 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 17:03:06 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:26:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-//char	*colo(int r, int g, int b)
-//{
-//	return ((char[4]){127, 0, 255, 0});
-//	return ((char[4]){b, g, r, 0});
-//}
-
 int	is_allow_alpha(char c)
 {
 	if ((c < '0' || c > '9') && (c < 'A' && c > 'Z') && c != '_' && c != ' '
-	&& c != '(' && c != ')' && c != ':' && c != '.' && c != '\'' && c != '-')
+		&& c != '(' && c != ')' && c != ':' && c != '.' && c != '\'' && c
+		!= '-')
 		return (0);
 	return (1);
 }
@@ -45,7 +40,8 @@ void	draw_text(char *text, t_vector2D pos, char color[4])
 	while (i < len)
 	{
 		if (is_allow_alpha(text[i]))
-			ft_draw_char(*_img(), _image()->alpha[(int)char_up(text[i])], tmp, color);
+			ft_draw_char(*_img(),
+				_image()->alpha[(int)char_up(text[i])], tmp, color);
 		tmp.x += 42;
 		if (tmp.x + 42 >= WIN_W)
 		{
@@ -66,10 +62,8 @@ t_data	ft_draw_char(t_data big, t_data lil, t_vector2D pos, char color[4])
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
 	it = (t_vector2D){0, 0};
-	if (pos.x + lil.w > big.w
-	|| (pos.y) + lil.h > big.h)
+	if (pos.x + lil.w > big.w || (pos.y) + lil.h > big.h)
 		return (big);
-	(void)color;
 	while (it.y < lil.h)
 	{
 		it.x = 0;
@@ -89,19 +83,40 @@ t_data	ft_draw_char(t_data big, t_data lil, t_vector2D pos, char color[4])
 	return (big);
 }
 
-t_data	ft_draw_char_scale(t_data big, t_data lil, t_vector2D p, t_vector2D scale, char color[4])
+static int	ft_chk_draw(t_vector2D *it, t_vector2D p, t_data lil,
+		t_vector2D scale)
+{
+	t_data	big;
+
+	big = *_img();
+	*it = (t_vector2D){0, 0};
+	if (p.x + lil.w > big.w || (p.y) + lil.h > big.h)
+		return (1);
+	if (scale.x > 20 || scale.y > 20)
+		return (1);
+	return (0);
+}
+
+static void	ft_init_rel(t_vector2D *rel_pos, t_vector2D p)
+{
+	t_data	big;
+
+	big = *_img();
+	rel_pos[0] = (t_vector2D){p.x * 4, p.y * big.line_length};
+	rel_pos[1] = rel_pos[0];
+}
+
+static t_data	ft_draw_char_scale(t_data lil, t_vector2D p,
+		t_vector2D scale, char color[4])
 {
 	t_vector2D	rel_pos[2];
 	t_vector2D	it;
+	t_data		big;
 
-	rel_pos[0] = (t_vector2D){p.x * 4, p.y * big.line_length};
-	rel_pos[1] = rel_pos[0];
-	it = (t_vector2D){0, 0};
-	if (p.x + lil.w > big.w
-	|| (p.y) + lil.h > big.h)
-		return (big);
-	if (scale.x > 20 || scale.y > 20)
-		return (big);
+	big = *_img();
+	ft_init_rel(rel_pos, p);
+	if (ft_chk_draw(&it, p, lil, scale))
+		return (*_img());
 	while (it.y < lil.h)
 	{
 		it.x = 0;
@@ -121,7 +136,7 @@ t_data	ft_draw_char_scale(t_data big, t_data lil, t_vector2D p, t_vector2D scale
 	return (big);
 }
 
-void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char color[4])
+void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char c[4])
 {
 	t_vector2D	tmp;
 	int			i;
@@ -133,8 +148,8 @@ void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char color[4]
 	while (i < len)
 	{
 		if (is_allow_alpha(text[i]))
-			ft_draw_char_scale(*_img(), _image()->alpha[(int)char_up(text[i])],
-				tmp, scale, color);
+			ft_draw_char_scale(_image()->alpha[(int)char_up(text[i])],
+				tmp, scale, c);
 		tmp.x += 42 / scale.x;
 		if (tmp.x + 42 / scale.x >= WIN_W)
 		{
@@ -160,15 +175,18 @@ t_data	create_text_img(char *text, char color[4])
 	new.w = (len * 42) + 20;
 	new.h = 66;
 	new.img = mlx_new_image(_mlx()->mlx, new.w, new.h);
-	new.addr = mlx_get_data_addr(new.img, &new.bits_per_pixel, &new.line_length, &new.endian);
+	new.addr = mlx_get_data_addr(new.img, &new.bits_per_pixel,
+			&new.line_length, &new.endian);
 	while (i < len)
 	{
 		if (is_allow_alpha(text[i]))
-			ft_draw_char(new, _image()->alpha[(int)char_up(text[i])], pos, color);
+			ft_draw_char(new, _image()->alpha[(int)char_up(text[i])],
+				pos, color);
 		pos.x += 42;
 		i++;
 	}
-	new.addr = mlx_get_data_addr(new.img, &new.bits_per_pixel, &new.line_length, &new.endian);
+	new.addr = mlx_get_data_addr(new.img, &new.bits_per_pixel,
+			&new.line_length, &new.endian);
 	return (new);
 }
 

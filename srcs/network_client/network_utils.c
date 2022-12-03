@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:53:00 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/14 15:44:38 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:07:27 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ char	*ft_get_host_ip(void)
 	int		r;
 
 	if (system(CMD_PRINT_IP) < 0)
-		ft_black_hole(127); //TODO
+		ft_black_hole(127);
 	buf = NULL;
 	buf = ft_malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
 	fd = open(TMP_FILE, O_RDONLY);
 	if (fd < 0)
-		ft_black_hole(127); //TODO
+		ft_black_hole(127);
 	r = read(fd, buf, BUFFER_SIZE);
 	if (r < 0)
-		ft_black_hole(127); //TODO
+		ft_black_hole(127);
 	buf[r] = 0;
 	close(fd);
 	unlink(TMP_FILE);

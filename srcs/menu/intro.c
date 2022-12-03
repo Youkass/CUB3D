@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 01:57:27 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/12/02 13:43:21 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/12/03 17:06:19 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ t_vector2D	ft_draw_darian(void)
 	static unsigned long	start = 0;
 	static unsigned long	clock = 0;
 
-	printf("%d, %d\n", pos.x, pos.y);
 	if (!start)
 		ft_init_darian(&start, &clock, &pos);
 	if (pos.x < WIN_W / 2)
