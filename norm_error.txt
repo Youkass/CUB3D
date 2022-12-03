@@ -1,15 +1,44 @@
-srcs/menu/utils.c: Error!
-Error: LINE_TOO_LONG        (line:  63, col:  85):	line too long
-Error: TOO_MANY_FUNCS       (line:  85, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line:  97, col:   1):	Too many functions in file
-Error: LINE_TOO_LONG        (line:  97, col:  85):	line too long
-Error: TOO_MANY_FUNCS       (line: 140, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 168, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 196, col:   1):	Too many functions in file
-Error: EMPTY_LINE_FUNCTION  (line: 209, col:   1):	Empty line in function
-Error: TOO_MANY_FUNCS       (line: 212, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 218, col:   1):	Too many functions in file
-Error: LINE_TOO_LONG        (line: 218, col:  90):	line too long
-Error: TOO_MANY_FUNCS       (line: 246, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 254, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 276, col:   1):	Too many functions in file
+includes/includes.h: Error!
+Error: MACRO_NAME_CAPITAL   (line:  57, col:  58):	Macro name must be capitalized
+Error: PREPROC_CONSTANT     (line:  57, col:  62):	Preprocessor statement must only contain constant defines
+Error: PREPROC_CONSTANT     (line:  57, col:  63):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  57, col:  66):	Too many values on define
+Error: TOO_MANY_VALS        (line:  57, col:  69):	Too many values on define
+Error: PREPROC_CONSTANT     (line:  57, col:  72):	Preprocessor statement must only contain constant defines
+Error: PREPROC_CONSTANT     (line:  57, col:  78):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  57, col:  79):	Too many values on define
+Error: PREPROC_CONSTANT     (line:  57, col:  82):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  57, col:  83):	Too many values on define
+Error: TOO_MANY_VALS        (line:  57, col:  86):	Too many values on define
+Error: TOO_MANY_VALS        (line:  57, col:  89):	Too many values on define
+Error: TOO_MANY_VALS        (line:  57, col:  92):	Too many values on define
+Error: PREPROC_CONSTANT     (line:  58, col:  63):	Preprocessor statement must only contain constant defines
+Error: PREPROC_CONSTANT     (line:  58, col:  67):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  58, col:  68):	Too many values on define
+Error: TOO_MANY_VALS        (line:  58, col:  73):	Too many values on define
+Error: TOO_MANY_VALS        (line:  58, col:  77):	Too many values on define
+Error: PREPROC_CONSTANT     (line:  59, col:  66):	Preprocessor statement must only contain constant defines
+Error: PREPROC_CONSTANT     (line:  59, col:  70):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  59, col:  71):	Too many values on define
+Error: TOO_MANY_VALS        (line:  59, col:  74):	Too many values on define
+Error: TOO_MANY_VALS        (line:  59, col:  79):	Too many values on define
+Error: PREPROC_CONSTANT     (line:  60, col:  66):	Preprocessor statement must only contain constant defines
+Error: PREPROC_CONSTANT     (line:  60, col:  70):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  60, col:  71):	Too many values on define
+Error: TOO_MANY_VALS        (line:  60, col:  75):	Too many values on define
+Error: TOO_MANY_VALS        (line:  60, col:  80):	Too many values on define
+Error: PREPROC_CONSTANT     (line:  61, col:  68):	Preprocessor statement must only contain constant defines
+Error: PREPROC_CONSTANT     (line:  61, col:  72):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  61, col:  73):	Too many values on define
+Error: TOO_MANY_VALS        (line:  61, col:  78):	Too many values on define
+Error: TOO_MANY_VALS        (line:  61, col:  83):	Too many values on define
+Error: PREPROC_CONSTANT     (line:  62, col:  73):	Preprocessor statement must only contain constant defines
+Error: PREPROC_CONSTANT     (line:  62, col:  77):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  62, col:  78):	Too many values on define
+Error: TOO_MANY_VALS        (line:  62, col:  82):	Too many values on define
+Error: TOO_MANY_VALS        (line:  62, col:  86):	Too many values on define
+Error: PREPROC_CONSTANT     (line:  63, col:  75):	Preprocessor statement must only contain constant defines
+Error: PREPROC_CONSTANT     (line:  63, col:  79):	Preprocessor statement must only contain constant defines
+Error: TOO_MANY_VALS        (line:  63, col:  80):	Too many values on define
+Error: TOO_MANY_VALS        (line:  63, col:  85):	Too many values on define
+Error: TOO_MANY_VALS        (line:  63, col:  90):	Too many values on define

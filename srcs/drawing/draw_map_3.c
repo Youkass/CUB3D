@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:10:14 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 19:18:46 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:53:27 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_find_wall_scale(void)
 		ft_black_hole(22);
 	_var()->scale = 11;
 	_var()->half_scale = _var()->scale / 2;
-	_var()->half_scale_offset = _var()->half_scale + MINIMAP_OFFSET
+	_var()->half_scale_offset = _var()->half_scale + (MINIMAP_SIZE - WIN_W)
 	- _player()->x * _var()->scale - 350;
 }
 
