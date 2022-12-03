@@ -6,20 +6,11 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 12:00:34 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/01 17:24:29 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:51:38 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
-
-t_server_data	*_server(void)
-{
-	static t_server_data	*server = NULL;
-
-	if (!server)
-		server = ft_malloc(sizeof(t_server_data) * 1);
-	return (server);
-}
 
 void	restart_state(t_client_thread	*c)
 {

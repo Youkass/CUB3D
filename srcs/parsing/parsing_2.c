@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:01:02 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 17:25:02 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:20:47 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	is_wall(char c)
 
 int	is_player(char c)
 {
-	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == 'P')
+	if (c == 'X' || c == 'Y')
 		return (1);
 	return (0);
 }
@@ -66,6 +66,22 @@ static void	check(char c, t_vector2D it, char **map)
 		ft_black_hole(18);
 }
 
+void	get_team_pos(char c, t_vector2D pos)
+{
+	if (c == 'X')
+	{
+		_player()->x = pos.x;
+		_player()->y = pos.y;
+		_var()->nx++;
+		_team()[TEAM_RED]->team_spawn = pos;
+	}
+	else if (c == 'Y')
+	{
+		_var()->ny++;
+		_team()[TEAM_BLUE]->team_spawn = pos;
+	}
+}
+
 void	body_map(t_vector2D *pt, t_vector2D *it, char **map, int *longest)
 {
 	if (pt->y > 1024)
@@ -74,6 +90,7 @@ void	body_map(t_vector2D *pt, t_vector2D *it, char **map, int *longest)
 	pt->x = 0;
 	while (map[it->y][it->x])
 	{
+		get_team_pos(map[it->y][it->x], *it);
 		check(map[it->y][it->x], *it, map);
 		pt->x += 1;
 		it->x += 1;

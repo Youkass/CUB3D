@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 20:26:35 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:48:17 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,37 @@ static void	ft_cpy_tab(t_send_server o_player)
 
 	i = 0;
 	_var()->linked_players = o_player.linked_pl;
-	//printf("linked : %d\n", _var()->linked_players);
 	while (i < _var()->linked_players)
 	{
 		if (o_player.player[i].pseudo[0] != 0)
 			_var()->o_player[i] = o_player.player[i];
 		++i;
+	}
+}
+
+void	team_data(int i)
+{
+	t_data	txt;
+
+	if (_var()->o_player[i].team == TEAM_BLUE)
+	{
+		_var()->blue[_var()->n_blue] = _var()->o_player[i].id;
+		++_var()->n_blue;
+	}
+	else if (_var()->o_player[i].team == TEAM_RED)
+	{
+		_var()->red[_var()->n_red] = _var()->o_player[i].id;
+		++_var()->n_red;
+	}
+	else
+	{
+		_var()->neutral[_var()->n_neutral] = _var()->o_player[i].id;
+		++_var()->n_neutral;
+	}
+	if (!(_image()->pseudo_img[i].img))
+	{
+		txt = create_text_img(_var()->o_player[i].pseudo, WHITE);
+		_image()->pseudo_img[i] = txt;
 	}
 }
 
@@ -54,26 +79,7 @@ static void	ft_copy_new_data(t_send_server o_player)
 	_player()->team = _var()->o_player[_player()->id].team;
 	_player()->change_team = _var()->o_player[_player()->id].change_team;
 	while (i < _var()->linked_players)
-	{
-		if (_var()->o_player[i].team == TEAM_BLUE)
-		{
-			_var()->blue[_var()->n_blue] = _var()->o_player[i].id;
-			++_var()->n_blue;
-		}
-		else if (_var()->o_player[i].team == TEAM_RED)
-		{
-			_var()->red[_var()->n_red] = _var()->o_player[i].id;
-			++_var()->n_red;
-		}
-		else
-		{
-			_var()->neutral[_var()->n_neutral] = _var()->o_player[i].id;
-			++_var()->n_neutral;
-		}
-		if (!(_image()->pseudo_img[i].img))
-			_image()->pseudo_img[i] = create_text_img(_var()->o_player[i].pseudo, WHITE);
-		i++;
-	}
+		team_data(i++);
 }
 
 void	get_pseudos(void)
@@ -101,11 +107,6 @@ void	get_pseudos(void)
 		_menu()->mode = MENU_START;
 		return ;
 	}
-	// if (o_player.start)
-	// {
-	// 	recv(_var()->socket, &_var()->nb_player, sizeof(int), MSG_WAITALL);
-	// 	printf("jai recu => %d\n", _var()->nb_player);
-	// }
 	ft_copy_new_data(o_player);
 }
 

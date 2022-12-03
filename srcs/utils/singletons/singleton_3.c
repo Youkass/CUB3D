@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:08:36 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 16:09:10 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:52:01 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,13 @@ t_image	*_image(void)
 		memset(image, 0, sizeof(t_image));
 	}
 	return (image);
+}
+
+t_server_data	*_server(void)
+{
+	static t_server_data	*server = NULL;
+
+	if (!server)
+		server = ft_malloc(sizeof(t_server_data) * 1);
+	return (server);
 }

@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/03 17:43:13 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/03 19:11:56 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,18 +60,26 @@ SRCS		=	srcs/main.c\
 				srcs/utils/sounds/sound_3.c\
 				srcs/utils/sounds/sound_4.c\
 				srcs/drawing/draw_player.c\
+				srcs/drawing/draw_player_2.c\
 				srcs/drawing/draw_map.c\
+				srcs/drawing/draw_map_2.c\
+				srcs/drawing/draw_map_3.c\
 				srcs/drawing/draw_text.c\
+				srcs/drawing/draw_text_2.c\
 				srcs/menu/generate.c\
 				srcs/menu/generate_2.c\
 				srcs/menu/generate_3.c\
 				srcs/menu/generate_4.c\
 				srcs/menu/menu_lobby.c\
 				srcs/menu/loop.c\
+				srcs/menu/loop_2.c\
+				srcs/menu/loop_3.c\
+				srcs/menu/loop_4.c\
 				srcs/menu/render.c\
 				srcs/menu/utils.c\
 				srcs/menu/mouse_hook.c\
 				srcs/menu/intro.c\
+				srcs/menu/intro_2.c\
 				srcs/menu/dragbar.c\
 				srcs/menu/recv_utils.c\
 				srcs/parsing/parsing.c\
@@ -83,6 +91,9 @@ SRCS		=	srcs/main.c\
 				srcs/parsing/args_3.c\
 				srcs/network_client/network_utils.c\
 				srcs/network_client/client.c\
+				srcs/network_client/client_2.c\
+				srcs/network_client/client_3.c\
+				srcs/network_client/client_4.c\
 				srcs/math/math.c\
 				srcs/math/math_2.c\
 				srcs/math/vector/operator2D.c\
@@ -92,16 +103,30 @@ SRCS		=	srcs/main.c\
 				srcs/mlx_utils/hud.c\
 				srcs/mlx_utils/sky.c\
 				srcs/mlx_utils/sky_2.c\
-				srcs/init.c\
+				srcs/init/init.c\
+				srcs/init/init_2.c\
+				srcs/init/init_3.c\
+				srcs/init/init_4.c\
+				srcs/mouse.c\
+				srcs/key.c\
+				srcs/loop_hook.c\
+				srcs/clock_2.c\
+				srcs/dyn_array_2.c\
 				miniaudio/extras/miniaudio_split/miniaudio.c\
 				srcs/utils/click.c\
 				srcs/dyn_array.c
 
 SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/network/lobby.c\
+					srcs/network/lobby_2.c\
 					srcs/kill_log.c\
 				  	srcs/network_client/network_utils.c\
 				  	srcs/network/server_thread.c\
+					srcs/network/round_1.c\
+					srcs/network/round_2.c\
+					srcs/network/send.c\
+					srcs/network/init.c\
+					srcs/network/recv.c\
 					srcs/math/math.c\
 					srcs/math/math_2.c\
 					srcs/math/vector/operator2D.c\
@@ -162,6 +187,7 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
 	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@mkdir -p $(OBJS_DIR)srcs/utils
+	@mkdir -p $(OBJS_DIR)srcs/init
 	@mkdir -p $(OBJS_DIR)srcs/utils/singletons
 	@mkdir -p $(OBJS_DIR)srcs/utils/collisions
 	@mkdir -p $(OBJS_DIR)srcs/utils/sounds

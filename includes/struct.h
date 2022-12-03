@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 17:18:08 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:15:13 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,6 +488,8 @@ typedef struct s_var
 	int					tex_dir;
 	int					tex_mode;
 	int					walk_tex;
+	int					nx;
+	int					ny;
 }	t_var;
 
 typedef struct	s_image
@@ -520,8 +522,8 @@ typedef struct	s_team
 	int			loose;
 	int			players[5];
 	int			deaths;
-	t_vector2F	team_spawn;
-	t_vector2F	player_spawn[5];
+	t_vector2D	team_spawn;
+	t_vector2D	player_spawn[5];
 }	t_team;
 
 typedef struct	s_player_stat
