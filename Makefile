@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/03 19:35:55 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/03 20:06:00 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -248,7 +248,7 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/parsing
 	@mkdir -p $(OBJS_DIR)srcs/shoot
 	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
-	@mkdir -p $(OBJS_DIR)srcs/rayca@mkdir -p $(OBJS_DIR)srcs/raycastingsting
+	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@mkdir -p $(OBJS_DIR)srcs/utils
 	@mkdir -p $(OBJS_DIR)srcs/init
 	@mkdir -p $(OBJS_DIR)srcs/utils/singletons
