@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:06:54 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 19:07:17 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:48:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	mouse_rotate(void)
 	vec2.x = -1;
 	vec2.y = 1;
 	player = _player();
+	pos = (t_vector2D){0, 0};
 	mlx_mouse_get_pos(_mlx()->mlx, _mlx()->mlx_win, &pos.x, &pos.y);
 	delta.x = pos.x - WIN_W / 2;
 	delta.y = (pos.y - WIN_H / 2) * 25;
