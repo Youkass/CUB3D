@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:49:41 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 19:03:57 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:21:17 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_next_while_draw_sky(t_vector2D pt)
 		pt.y++;
 	}
 	if (_menu()->draw_pl[0].x != -1 && _menu()->draw_pl[0].y != -1)
-		ft_put_sprite_to_images(*_img(), _menu()->planets[0],
+		ft_put_sprite_to_images(_menu()->planets[0],
 			_menu()->draw_pl[0], (t_vector2D){_menu()->n * 48,
 			_menu()->ny * 48}, (t_vector2D){48, 48});
 }

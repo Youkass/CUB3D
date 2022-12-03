@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:46:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 16:50:50 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:06:27 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,12 @@ void	thread_sky(t_vector2D r[10])
 	while (i)
 		pthread_join(_var()->th_void[i--], NULL);
 	if (_menu()->planets_pos[0].x != -1 && _menu()->planets_pos[0].y != -1)
-		ft_put_sprite_to_images(*_img(),
-			_menu()->planets[0], _menu()->planets_pos[0],
+		ft_put_sprite_to_images(_menu()->planets[0], _menu()->planets_pos[0],
 			(t_vector2D){_menu()->n * 48,
 			_menu()->ny * 48}, (t_vector2D){48, 48});
 	if (_menu()->planets_pos[1].x != -1
 		&& _menu()->planets_pos[1].y != -1)
-		ft_put_sprite_to_images(*_img(),
-			_menu()->planets[0], _menu()->planets_pos[1],
+		ft_put_sprite_to_images(_menu()->planets[0], _menu()->planets_pos[1],
 			(t_vector2D){_menu()->n * 48,
 			_menu()->ny * 48}, (t_vector2D){48, 48});
 }

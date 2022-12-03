@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 21:50:20 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 19:20:19 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:26:18 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	ft_init_player_pos(void)
 {
 	int	i;
 
-	memset(_player(), 0, sizeof(t_obj));
 	_player()->team = TEAM_VOID;
 	memset(_var()->blue, 0, sizeof(_var()->blue));
 	memset(_var()->red, 0, sizeof(_var()->red));

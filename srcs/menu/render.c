@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:05:50 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 17:03:06 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:41:02 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,7 +287,7 @@ void	menu_lobby(void)
 	if (_var()->is_host == SERVER && is_neutral())
 	{
 		draw_text_scale("press (Space) to start", pos(WIN_W / 2 - 462,
-			WIN_H - 150), pos(2, 2), WHITE);
+				WIN_H - 150), pos(2, 2), WHITE);
 	}
 }
 

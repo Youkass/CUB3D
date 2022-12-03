@@ -1,35 +1,15 @@
-srcs/network/server_thread.c: Error!
-Error: TOO_MANY_FUNCS       (line: 118, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 141, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 160, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 179, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 201, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 220, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 245, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 255, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 279, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 305, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 316, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 345, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 371, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 388, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 409, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 419, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 430, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 457, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 474, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 488, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 510, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 524, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 545, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 574, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 595, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 616, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 625, col:   1):	Too many functions in file
-srcs/network/lobby.c: Error!
-Error: TOO_MANY_FUNCS       (line:  95, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 120, col:   1):	Too many functions in file
-Error: TOO_MANY_FUNCS       (line: 139, col:   1):	Too many functions in file
+srcs/menu/utils.c: Error!
+Error: LINE_TOO_LONG        (line:  63, col:  85):	line too long
+Error: TOO_MANY_FUNCS       (line:  85, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line:  97, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line:  97, col:  85):	line too long
+Error: TOO_MANY_FUNCS       (line: 140, col:   1):	Too many functions in file
 Error: TOO_MANY_FUNCS       (line: 168, col:   1):	Too many functions in file
-srcs/network/server.c: Error!
-Error: TOO_MANY_FUNCS       (line:  93, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 196, col:   1):	Too many functions in file
+Error: EMPTY_LINE_FUNCTION  (line: 209, col:   1):	Empty line in function
+Error: TOO_MANY_FUNCS       (line: 212, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 218, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 218, col:  90):	line too long
+Error: TOO_MANY_FUNCS       (line: 246, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 254, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 276, col:   1):	Too many functions in file

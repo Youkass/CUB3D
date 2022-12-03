@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:06:23 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/02 12:31:05 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:19:12 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	restart_button(void)
 */
 int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos)
 {
-	if (pos.x >= hitbox[0].x && pos.x <= hitbox[1].x &&
-		pos.y >= hitbox[0].y && pos.y <= hitbox[2].y)
+	if (pos.x >= hitbox[0].x && pos.x <= hitbox[1].x
+		&& pos.y >= hitbox[0].y && pos.y <= hitbox[2].y)
 	{
 		return (1);
 	}
@@ -72,17 +72,35 @@ void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_po
 		+ it.y * lil.line_length + 3];
 }
 
+static void	ft_init_rel(t_vector2D *rel_pos, t_vector2F *it, t_vector2D p)
+{
+	t_data	big;
+
+	big = *_img();
+	rel_pos[0] = (t_vector2D){p.x * 4, p.y * big.line_length};
+	rel_pos[1] = rel_pos[0];
+	*it = (t_vector2F){0, 0};
+}
+
+static int	ft_chk_put(t_data lil, t_vector2D p, t_vector2F scale)
+{
+	t_data	big;
+
+	big = *_img();
+	if (p.x + lil.w * scale.x > big.w || (p.y) + lil.h * scale.y > big.h)
+		return (1);
+	if (scale.x > 20 || scale.y > 20)
+		return (1);
+	return (0);
+}
+
 t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vector2F scale)
 {
 	t_vector2D	rel_pos[2];
 	t_vector2F	it;
 
-	rel_pos[0] = (t_vector2D){p.x * 4, p.y * big.line_length};
-	rel_pos[1] = rel_pos[0];
-	it = (t_vector2F){0, 0};
-	if (p.x + lil.w * scale.x > big.w || (p.y) + lil.h * scale.y > big.h )
-		return (big);
-	if (scale.x > 20 || scale.y > 20)
+	ft_init_rel(rel_pos, &it, p);
+	if (ft_chk_put(lil, p, scale))
 		return (big);
 	while (it.y < lil.h)
 	{
@@ -90,7 +108,8 @@ t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vecto
 		while (it.x < lil.w)
 		{
 			if (p.x > 0 && p.y > 0 && rel_pos[0].x >= 0 && rel_pos[0].y > 0
-			&& rel_pos[0].x < WIN_W * 4 && rel_pos[0].y < WIN_H * _img()->line_length)
+				&& rel_pos[0].x < WIN_W * 4 && rel_pos[0].y < WIN_H
+				* _img()->line_length)
 				draw_pixel(&big, lil, pos((int)it.x, (int)it.y), rel_pos[0]);
 			rel_pos[0].x += 4;
 			p.x++;
@@ -103,9 +122,6 @@ t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vecto
 	}
 	return (big);
 }
-
-
-
 
 /*
 -Fonction pour ecrire une image dans une plus grande image aux coordonnées
@@ -129,8 +145,7 @@ t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos)
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
 	it = (t_vector2D){0, 0};
-	if (pos.x + lil.w > big.w
-	|| (pos.y) + lil.h > big.h)
+	if (pos.x + lil.w > big.w || (pos.y) + lil.h > big.h)
 		return (big);
 	while (it.y < lil.h)
 	{
@@ -158,8 +173,7 @@ t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos)
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
 	it = (t_vector2D){0, 0};
-	if (pos.x + lil.w > big.w
-	|| (pos.y) + lil.h > big.h)
+	if (pos.x + lil.w > big.w || (pos.y) + lil.h > big.h)
 		return (big);
 	while (it.y < lil.h)
 	{
@@ -179,74 +193,53 @@ t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos)
 	return (big);
 }
 
-
-t_data	ft_put_sprite_to_images_scale(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size, t_vector2F scale)
+static int	ft_chk_sprite(t_vector2D *it, t_vector2D pos,
+		t_vector2D size, t_vector2D *rel_pos)
 {
-	t_vector2D	rel_pos[2];
-	t_vector2F	it;
-	t_vector2D	save;
+	t_data		big;
 
-	save = pos;
-	if (pos.x >= big.w || pos.y >= big.h || size.x + pos.x
-		> big.w || size.y + pos.y > big.h)
-		return (big);
+	big = *_img();
+	*it = (t_vector2D){0, 0};
 	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
 	rel_pos[1] = rel_pos[0];
-	it = (t_vector2F){0, 0};
-	if (pos.x + lil.w > big.w
-	|| (pos.y) + lil.h > big.h)
-		return (big);
-	while (it.y < size.y)
-	{
-		it.x = 0;
-		pos.x = save.x;
-		while (it.x < size.x)
-		{
-			if (size.x + it.x < big.w)
-				draw_pixel(&big, lil,(t_vector2D){(sp_pos.x + it.x), it.y + sp_pos.y}, rel_pos[0]);
-			rel_pos[0].x += 4;
-			pos.x++;
-			it.x += scale.x;
-		}
-		pos.y++;
-		rel_pos[0].y = pos.y * big.line_length;
-		rel_pos[0].x = rel_pos[1].x;
-		it.y += scale.y;
-	}
-	return (big);
+	if (pos.x >= big.w || pos.y >= big.h || size.x + pos.x
+		> big.w || size.y + pos.y > big.h)
+		return (1);
+	return (0);
 }
 
-t_data	ft_put_sprite_to_images(t_data big, t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size)
+static void	ft_incr(int *i, int *j)
+{
+	*i += 1;
+	*j += 1;
+}
+
+t_data	ft_put_sprite_to_images(t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size)
 {
 	t_vector2D	rel_pos[2];
 	t_vector2D	it;
 	t_vector2D	save;
 
 	save = pos;
-	if (pos.x >= big.w || pos.y >= big.h || size.x + pos.x
-		> big.w || size.y + pos.y > big.h)
-		return (big);
-	rel_pos[0] = (t_vector2D){pos.x * 4, pos.y * big.line_length};
-	rel_pos[1] = rel_pos[0];
-	it = (t_vector2D){0, 0};
+	if (ft_chk_sprite(&it, pos, size, rel_pos))
+		return (*_img());
 	while (it.y < size.y)
 	{
 		it.x = 0;
 		pos.x = save.x;
 		while (it.x < size.x)
 		{
-			if (size.x + it.x < big.w)
-				draw_pixel(&big, lil,(t_vector2D){(sp_pos.x + it.x), it.y + sp_pos.y}, rel_pos[0]);
+			if (size.x + it.x < (*_img()).w)
+				draw_pixel(_img(), lil, (t_vector2D){(sp_pos.x + it.x),
+					it.y + sp_pos.y}, rel_pos[0]);
 			rel_pos[0].x += 4;
-			pos.x++;
-			it.x++;
+			ft_incr(&pos.x, &it.x);
 		}
-		pos.y++;
-		rel_pos[0].y = pos.y * big.line_length;
+		ft_incr(&pos.y, &it.y);
+		rel_pos[0].y = pos.y * (*_img()).line_length;
 		rel_pos[0].x = rel_pos[1].x;
-		it.y++;
 	}
-	return (big);
+	return (*_img());
 }
 
 void	draw_pixel_color(t_data *big, t_vector2D rel_pos, char pix[4])

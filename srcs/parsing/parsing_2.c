@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:01:02 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 19:20:47 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:29:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	body_map(t_vector2D *pt, t_vector2D *it, char **map, int *longest)
 	pt->x = 0;
 	while (map[it->y][it->x])
 	{
-		get_team_pos(map[it->y][it->x], *it);
+		get_team_pos(map[it->y][it->x], *pt);
 		check(map[it->y][it->x], *it, map);
 		pt->x += 1;
 		it->x += 1;
