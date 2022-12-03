@@ -6,11 +6,11 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/02 13:09:13 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:08:55 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub.h"
+#include "../../../includes/cub.h"
 
 /*
 -Singleton for the image
@@ -80,33 +80,4 @@ t_raycasting	**_ray(void)
 	if (!ray)
 		return (NULL);
 	return (ray);
-}
-
-/*
--Singleton for all var
-*/
-t_var	*_var(void)
-{
-	static t_var	*var = NULL;
-
-	if (var == NULL)
-	{
-		var = ft_malloc(sizeof(t_var));
-		if (!var)
-			printf("le ft_malloc pet\n");
-	}
-	return (var);
-}
-
-t_log	*_log(void)
-{
-	static t_log	*log = NULL;
-
-	if (log == NULL)
-	{
-		log = ft_malloc(sizeof(t_log));
-		if (!log)
-			ft_black_hole(137);
-	}
-	return (log);
 }

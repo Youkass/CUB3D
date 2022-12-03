@@ -6,11 +6,30 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/18 23:55:42 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:55:05 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
+
+void	compute_hitbox_buttons(int i)
+{
+	int	hit;
+
+	hit = ft_hitbox(_menu()->s_state[i].hitbox, _var()->m_pos);
+	if (i == 0 && _menu()->s_state[0].state == 2)
+	{
+		_var()->nb_player = 1;
+		_var()->mode = GAME;
+	}
+	if (i == 1 && _menu()->s_state[1].state == 2)
+		_menu()->mode = MENU_PLAYER;
+	if (i == 2 && _menu()->s_state[2].state == 2)
+		_menu()->mode = MENU_OPTION;
+	if (i == 3 && _menu()->s_state[3].state == 2)
+		ft_black_hole(0);
+	_menu()->s_state[i].state = hit;
+}
 
 /*
 -Function that check if button is hover and change it state for menu_start.
@@ -25,23 +44,28 @@ void	check_button_state(void)
 		if (_menu()->s_state[i].state != 2 || (_menu()->s_state[i]
 				.state == 2 && get_clock(_menu()->s_state[i].clock)
 				> BUT_CL_TIME))
-		{
-			if (i == 0 && _menu()->s_state[0].state == 2)
-			{
-				_var()->nb_player = 1;
-				_var()->mode = GAME;
-			}
-			if (i == 1 && _menu()->s_state[1].state == 2)
-				_menu()->mode = MENU_PLAYER;
-			if (i == 2 && _menu()->s_state[2].state == 2)
-				_menu()->mode = MENU_OPTION;
-			if (i == 3 && _menu()->s_state[3].state == 2)
-				ft_black_hole(0); // TODO FREE TOUT ICI
-			_menu()->s_state[i].state = ft_hitbox(_menu()->s_state[i].hitbox,
-			_var()->m_pos);
-		}
+			compute_hitbox_buttons(i);
 		i++;
 	}
+}
+
+void	compute_hitbox_pl(int i)
+{
+	int	hit;
+
+	hit = ft_hitbox(_menu()->p_state[i].hitbox, _var()->m_pos);
+	if (i == 0 && _menu()->p_state[0].state == 2)
+	{
+		_var()->nb_player = 10;
+		_menu()->mode = MENU_PSEUDO;
+		_var()->is_host = SERVER;
+	}
+	if (i == 3 && _menu()->p_state[3].state == 2)
+	{
+		_menu()->mode = MENU_IP;
+		_var()->is_host = CLIENT;
+	}
+	_menu()->p_state[i].state = hit;
 }
 
 void	check_button_state_pl(void)
@@ -54,21 +78,7 @@ void	check_button_state_pl(void)
 		if (_menu()->p_state[i].state != 2 || (_menu()->p_state[i]
 				.state == 2 && get_clock(_menu()->p_state[i].clock)
 				> BUT_CL_TIME))
-		{
-			if (i == 0 && _menu()->p_state[0].state == 2)
-			{
-				_var()->nb_player = 10;
-				_menu()->mode = MENU_PSEUDO;
-				_var()->is_host = SERVER;
-			}
-			if (i == 3 && _menu()->p_state[3].state == 2)
-			{
-				_menu()->mode = MENU_IP;
-				_var()->is_host = CLIENT;
-			}
-			_menu()->p_state[i].state = 
-			ft_hitbox(_menu()->p_state[i].hitbox, _var()->m_pos);
-		}
+			compute_hitbox_pl(i);
 		i++;
 	}
 }
@@ -137,6 +147,7 @@ void	check_action_state_options(int i)
 void	check_button_state_options(void)
 {
 	int	i;
+	int	hit;
 
 	i = 0;
 	while (i < 7)
@@ -145,9 +156,9 @@ void	check_button_state_options(void)
 				.state == 2 && get_clock(_menu()->o_state[i].clock)
 				> BUT_CL_TIME))
 		{
+			hit = ft_hitbox(_menu()->o_state[i].hitbox, _var()->m_pos);
 			check_action_state_options(i);
-			_menu()->o_state[i].state = 
-			ft_hitbox(_menu()->o_state[i].hitbox, _var()->m_pos);
+			_menu()->o_state[i].state = hit;
 		}
 		i++;
 	}
@@ -174,6 +185,26 @@ void	planet_clock(void)
 	}
 }
 
+void	menu_call_hook(void)
+{
+	if (_menu()->mode == MENU_START)
+		menu_start();
+	else if (_menu()->mode == MENU_PLAYER)
+		menu_player();
+	else if (_menu()->mode == MENU_PSEUDO)
+		menu_pseudo();
+	else if (_menu()->mode == MENU_IP)
+		menu_ip();
+	else if (_menu()->mode == MENU_LOBBY)
+		menu_lobby();
+	else if (_menu()->mode == MENU_OPTION)
+		menu_option();
+	else if (_menu()->mode == MENU_LEADERBOARD)
+		menu_leaderboard();
+	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win,
+		_img()->img, 0, 0);
+}
+
 /*
 -Loop for menu displaying.
 */
@@ -197,24 +228,10 @@ int	menu_loop(void)
 		check_button_state_options();
 	mlx_mouse_get_pos(_mlx()->mlx, _mlx()->mlx_win,
 		&_var()->m_pos.x, &_var()->m_pos.y);
-	if (_menu()->mode == MENU_START)
-		menu_start();
-	else if (_menu()->mode == MENU_PLAYER)
-		menu_player();
-	else if (_menu()->mode == MENU_PSEUDO)
-		menu_pseudo();
-	else if (_menu()->mode == MENU_IP)
-		menu_ip();
-	else if (_menu()->mode == MENU_LOBBY)
-		menu_lobby();
-	else if (_menu()->mode == MENU_OPTION)
-		menu_option();
-	else if (_menu()->mode == MENU_LEADERBOARD)
-		menu_leaderboard();
-	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win,
-		_img()->img, 0, 0);
+	menu_call_hook();
 	return (0);
 }
+
 /*
 -Function for loop inputs.
 */
@@ -258,6 +275,32 @@ static int	get_nb_keycode(int k)
 	return ('0');
 }
 
+int	menu_hook_pseudo_2(int keycode, int *n)
+{
+	if (keycode == ENTER && *n > 3 && _var()->is_host == SERVER)
+	{
+		_menu()->mode = MENU_LOBBY;
+		_var()->mode = ONLINE_START;
+	}
+	if (keycode == ENTER && *n > 3 && _var()->is_host == CLIENT)
+	{
+		if (ft_init_client() == EXIT_FAILURE)
+		{
+			_player()->pseudo[0] = 0;
+			*n = 0;
+			_var()->ip[0] = 0;
+			_menu()->n_ip = 0;
+			_menu()->mode = MENU_START;
+			_var()->mode = MENU;
+			return (0);
+		}
+		printf("je passe en mode lobby\n");
+		_menu()->mode = MENU_LOBBY;
+		_var()->mode = MENU;
+	}
+	return (0);
+}
+
 int	menu_hook_pseudo(int keycode)
 {
 	static int	n = 0;
@@ -276,28 +319,67 @@ int	menu_hook_pseudo(int keycode)
 		n--;
 		_player()->pseudo[n] = 0;
 	}
-	if (keycode == ENTER && n > 3 && _var()->is_host == SERVER)
+	return (menu_hook_pseudo_2(keycode, &n));
+}
+
+int	menu_hook_ip_4(int keycode)
+{
+	if (keycode == ENTER && _menu()->n_ip > 2 && _var()->is_host == CLIENT)
 	{
-		_menu()->mode = MENU_LOBBY;
-		_var()->mode = ONLINE_START;
-	}
-	if (keycode == ENTER && n > 3 && _var()->is_host == CLIENT)
-	{
-		if (ft_init_client() == EXIT_FAILURE)
-		{
-			_player()->pseudo[0] = 0;
-			n = 0;
-			_var()->ip[0] = 0;
-			_menu()->n_ip = 0;
-			_menu()->mode = MENU_START;
-			_var()->mode = MENU;
-			return (0);
-		}
-		printf("je passe en mode lobby\n");
-		_menu()->mode = MENU_LOBBY;
+		_menu()->mode = MENU_PSEUDO;
 		_var()->mode = MENU;
 	}
 	return (0);
+}
+
+int	menu_hook_ip_3(int keycode)
+{
+	if (keycode == EIGHT && _menu()->n_ip + 1 < 16)
+	{
+		_var()->ip[_menu()->n_ip++] = '8';
+		_var()->ip[_menu()->n_ip] = 0;
+	}
+	if (keycode == NINE && _menu()->n_ip + 1 < 16)
+	{
+		_var()->ip[_menu()->n_ip++] = '9';
+		_var()->ip[_menu()->n_ip] = 0;
+	}
+	if (keycode == SPACE && _menu()->n_ip + 1 < 16)
+	{
+		_var()->ip[_menu()->n_ip++] = '.';
+		_var()->ip[_menu()->n_ip] = 0;
+	}
+	if (keycode == ERASE && _menu()->n_ip > 0)
+	{
+		_menu()->n_ip--;
+		_var()->ip[_menu()->n_ip] = 0;
+	}
+	return (menu_hook_ip_4(keycode));
+}
+
+int	menu_hook_ip_2(int keycode)
+{
+	if (keycode == FOUR && _menu()->n_ip + 1 < 16)
+	{
+		_var()->ip[_menu()->n_ip++] = '4';
+		_var()->ip[_menu()->n_ip] = 0;
+	}
+	if (keycode == FIVE && _menu()->n_ip + 1 < 16)
+	{
+		_var()->ip[_menu()->n_ip++] = '5';
+		_var()->ip[_menu()->n_ip] = 0;
+	}
+	if (keycode == SIX && _menu()->n_ip + 1 < 16)
+	{
+		_var()->ip[_menu()->n_ip++] = '6';
+		_var()->ip[_menu()->n_ip] = 0;
+	}
+	if (keycode == SEVEN && _menu()->n_ip + 1 < 16)
+	{
+		_var()->ip[_menu()->n_ip++] = '7';
+		_var()->ip[_menu()->n_ip] = 0;
+	}
+	return (menu_hook_ip_3(keycode));
 }
 
 int	menu_hook_ip(int keycode)
@@ -322,50 +404,5 @@ int	menu_hook_ip(int keycode)
 		_var()->ip[_menu()->n_ip++] = '3';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == FOUR && _menu()->n_ip + 1 < 16)
-	{
-		_var()->ip[_menu()->n_ip++] = '4';
-		_var()->ip[_menu()->n_ip] = 0;
-	}
-	if (keycode == FIVE && _menu()->n_ip + 1 < 16)
-	{
-		_var()->ip[_menu()->n_ip++] = '5';
-		_var()->ip[_menu()->n_ip] = 0;
-	}
-	if (keycode == SIX && _menu()->n_ip + 1 < 16)
-	{
-		_var()->ip[_menu()->n_ip++] = '6';
-		_var()->ip[_menu()->n_ip] = 0;
-	}
-	if (keycode == SEVEN && _menu()->n_ip + 1 < 16)
-	{
-		_var()->ip[_menu()->n_ip++] = '7';
-		_var()->ip[_menu()->n_ip] = 0;
-	}
-	if (keycode == EIGHT && _menu()->n_ip + 1 < 16)
-	{
-		_var()->ip[_menu()->n_ip++] = '8';
-		_var()->ip[_menu()->n_ip] = 0;
-	}
-	if (keycode == NINE && _menu()->n_ip + 1 < 16)
-	{
-		_var()->ip[_menu()->n_ip++] = '9';
-		_var()->ip[_menu()->n_ip] = 0;
-	}
-	if (keycode == SPACE && _menu()->n_ip + 1 < 16)
-	{
-		_var()->ip[_menu()->n_ip++] = '.';
-		_var()->ip[_menu()->n_ip] = 0;
-	}
-	if (keycode == ERASE && _menu()->n_ip > 0)
-	{
-		_menu()->n_ip--;
-		_var()->ip[_menu()->n_ip] = 0;
-	}
-	if (keycode == ENTER && _menu()->n_ip > 2 && _var()->is_host == CLIENT)
-	{
-		_menu()->mode = MENU_PSEUDO;
-		_var()->mode = MENU;
-	}
-	return (0);
+	return (menu_hook_ip_2(keycode));
 }

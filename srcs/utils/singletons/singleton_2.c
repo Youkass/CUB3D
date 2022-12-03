@@ -6,11 +6,11 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:10:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/02 14:06:15 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:09:01 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub.h"
+#include "../../../includes/cub.h"
 
 t_obj	*_player2(void)
 {
@@ -86,18 +86,4 @@ t_team	**_team(void)
 	if (!team)
 		return (NULL);
 	return (team);
-}
-
-t_image	*_image(void)
-{
-	static t_image	*image = NULL;
-
-	if (!image)
-	{
-		image = ft_malloc(sizeof(t_image));
-		if (!image)
-			return (NULL);
-		memset(image, 0, sizeof(t_image));
-	}
-	return (image);
 }
