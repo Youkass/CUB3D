@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/03 20:06:00 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/03 20:25:47 by yobougre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ RST			= \033[0m
 END			= \e[0m
 
 SRCS		=	srcs/main.c\
+				srcs/main_utils.c\
 				srcs/team.c\
 				srcs/tools.c\
 				srcs/shoot/shoot.c\
