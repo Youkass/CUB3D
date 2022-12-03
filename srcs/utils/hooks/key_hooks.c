@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/01 18:08:30 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:38:08 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,24 @@ void	crouch_sprint(void)
 		crouch(0);
 }
 
+void	open_door(void)
+{
+	t_vector2F	target;
+
+	target.x = _player()->x + (_player()->dx * 1);
+	target.y = _player()->y + (_player()->dy * 1);
+	if (_var()->map[(int)target.y][(int)target.x] == 'D' && !click_delay())
+	{
+		click();
+		_var()->map[(int)target.y][(int)target.x] = 'E';
+	}
+	else if (_var()->map[(int)target.y][(int)target.x] == 'E' && !click_delay())
+	{
+		click();
+		_var()->map[(int)target.y][(int)target.x] = 'D';
+	}
+}
+
 void	key_hook(void)
 {
 	if (_var()->key[esc])
@@ -91,6 +109,8 @@ void	key_hook(void)
 		movements();
 		weapons();
 	}
+	if (_var()->key[e])
+		open_door();
 	mouse_menu();
 	crouch_sprint();
 	if (_player()->id == 0 && _var()->key[maj] && _var()->mode == MENU)

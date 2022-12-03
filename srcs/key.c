@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:04:46 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 19:05:06 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:33:36 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	ft_get_key_next(int keycode)
 		_var()->key[f] = 1;
 	if (keycode == ESC)
 		_var()->key[esc] = 1;
+	if (keycode == E)
+		_var()->key[e] = 1;
 	if (keycode == ARR_UP)
 		_var()->key[up] = 1;
 	if (keycode == ARR_DOWN)
@@ -81,6 +83,8 @@ static void	ft_release_next(int keycode)
 		_var()->key[three] = 0;
 	if (keycode == F)
 		_var()->key[f] = 0;
+	if (keycode == E)
+		_var()->key[e] = 0;
 }
 
 int	ft_release(int keycode)

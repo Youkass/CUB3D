@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:04:04 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 17:06:40 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:28:05 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ void	dda_condition(t_raycasting *r)
 		else if (_var()->map[r->map.y][r->map.x] >= 'A'
 			&& _var()->map[r->map.y][r->map.x] <= 'B')
 			r->tex_i = _var()->map[r->map.y][r->map.x] - 57;
+		else if (_var()->map[r->map.y][r->map.x] == 'D')
+			r->tex_i = 10;
 		else
 			r->tex_i = -1;
 		r->hit = 1;

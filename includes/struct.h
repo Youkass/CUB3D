@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 19:15:13 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:23:59 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -513,7 +513,7 @@ typedef struct	s_image
 	t_data			ammo;
 	t_data			*weapons[3][3];
 	t_data			dir[4];
-	t_data			textures[10];
+	t_data			textures[11];
 }	t_image;
 
 typedef struct	s_team

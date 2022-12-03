@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/01 17:21:58 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:26:38 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	draw_wall(t_raycasting *r)
 	{
 		r->tex.y = (int)r->tex_pos & (128 - 1);
 		r->tex_pos += r->tex_step;
-		if (r->tex_i < 0 || r->tex_i > 9)
+		if (r->tex_i < 0 || r->tex_i > 10)
 			ft_put_pixel(_img(), &_menu()->wall, pos(r->x, r->y),
 				pos(r->tex.x, r->tex.y));
 		else
