@@ -6,7 +6,7 @@
 /*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 15:34:29 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/02 15:36:13 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 16:04:45 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_get_ip_input(void)
 {
 	char	*buf;
-	int		r; 
+	int		r;
 
 	buf = ft_malloc(sizeof(char) * BUFFER_SIZE);
 	if (!buf)
@@ -23,7 +23,8 @@ char	*ft_get_ip_input(void)
 	r = read(STDIN_FILENO, buf, BUFFER_SIZE);
 	if (r < 0)
 		return (NULL);
-	buf[r] = 0; return (buf);
+	buf[r] = 0;
+	return (buf);
 }
 
 static int	ft_init_client_first(void)
@@ -31,7 +32,7 @@ static int	ft_init_client_first(void)
 	if (recv(_var()->socket, &(_player()->id), sizeof(int), MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
 	if (recv(_var()->socket, &(_var()->nb_player), sizeof(int),
-		MSG_WAITALL) <= 0)
+			MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
 	if (recv(_var()->socket, &(_var()->pid), sizeof(int), MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
@@ -40,10 +41,10 @@ static int	ft_init_client_first(void)
 		if (send(_var()->socket, &(_var()->map), sizeof(_var()->map), 0) <= 0)
 			return (EXIT_FAILURE);
 		if (send(_var()->socket, &(_var()->map_width),
-					sizeof(_var()->map_width), 0) <= 0)
+				sizeof(_var()->map_width), 0) <= 0)
 			return (EXIT_FAILURE);
 		if (send(_var()->socket, &(_var()->map_height),
-					sizeof(_var()->map_height), 0) <= 0)
+				sizeof(_var()->map_height), 0) <= 0)
 			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
@@ -55,13 +56,13 @@ static int	ft_init_client_next(void)
 
 	i = 0;
 	if (recv(_var()->socket, &(_var()->map), sizeof(_var()->map),
-				MSG_WAITALL) <= 0)
+			MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
 	if (recv(_var()->socket, &(_var()->map_width),
-				sizeof(_var()->map_width), MSG_WAITALL) <= 0)
+			sizeof(_var()->map_width), MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
 	if (recv(_var()->socket, &(_var()->map_height),
-				sizeof(_var()->map_height), MSG_WAITALL) <= 0)
+			sizeof(_var()->map_height), MSG_WAITALL) <= 0)
 		return (EXIT_FAILURE);
 	while (i < _var()->map_height)
 	{
@@ -81,12 +82,12 @@ int	ft_init_client(void)
 	_var()->socket = soc;
 	if (_var()->is_host == SERVER)
 		_var()->client.sin_addr.s_addr = inet_addr(ft_get_host_ip());
-	else if (_var()->is_host == CLIENT) 
+	else if (_var()->is_host == CLIENT)
 		_var()->client.sin_addr.s_addr = inet_addr(_var()->ip);
 	_var()->client.sin_family = AF_INET;
 	_var()->client.sin_port = htons(30000);
 	ret = connect(_var()->socket,
-		(const struct sockaddr *)&(_var()->client), sizeof(_var()->client));
+			(const struct sockaddr *)&(_var()->client), sizeof(_var()->client));
 	if (ret < 0)
 		return (EXIT_FAILURE);
 	if (ft_init_client_first() == EXIT_FAILURE)
@@ -134,8 +135,8 @@ static void	ft_copy_data_next(t_obj *player, int i)
 	player->old_plane = _player()->old_plane;
 	player->hb = _player()->hb;
 	player->pitch = _player()->pitch;
-    player->health = _player()->health;
-    player->weapon_id = _player()->weapon_id;
+	player->health = _player()->health;
+	player->weapon_id = _player()->weapon_id;
 	i = 0;
 	while (i < NB_WEAPONS)
 	{
@@ -177,7 +178,7 @@ void	restart_round(void)
 	init_player_team();
 }
 
-void	render_kill_log()
+void	render_kill_log(void)
 {
 	int		i;
 	t_list	*tmp;
@@ -191,12 +192,12 @@ void	render_kill_log()
 		if (_var()->o_player[log->ids[0]].team == TEAM_RED)
 			draw_text_scale(
 				ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
-					" killed ", _var()->o_player[log->ids[1]].pseudo)),
-					pos(250, 10 + i * 20), pos(4, 4), RED);
+						" killed ", _var()->o_player[log->ids[1]].pseudo)),
+				pos(250, 10 + i * 20), pos(4, 4), RED);
 		else
 			draw_text_scale(
-			ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
-				" killed ", _var()->o_player[log->ids[1]].pseudo)),
+				ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
+						" killed ", _var()->o_player[log->ids[1]].pseudo)),
 				pos(250, 10 + i * 20), pos(4, 4), BLUE);
 		tmp = tmp->next;
 		i++;
@@ -238,7 +239,7 @@ void	get_data(int i, t_send_server_game serv)
 		_var()->alive[TRED]++;
 	if (_var()->o_player[i].kills < serv.player[i].kills)
 		ft_lstadd_back(&_log()->log, ft_lstnew((void *)new_log(serv.player
-			[i].id, serv.player[i].kill_round[serv.player[i].nr - 1])));
+				[i].id, serv.player[i].kill_round[serv.player[i].nr - 1])));
 	while (j < serv.player[i].shoot_n)
 	{
 		_var()->o_player[i].shott[j] = serv.player[i].shott[j];
@@ -248,27 +249,8 @@ void	get_data(int i, t_send_server_game serv)
 	_var()->o_player[i] = serv.player[i];
 }
 
-void	round_handling(int	*incremented, t_send_server_game serv)
+static void	ft_round_handling(int *incremented, t_send_server_game serv)
 {
-	if (_var()->alive[TBLUE] == 0 && !*incremented)
-	{
-		_var()->last_round_winner = TRED;
-		++_team()[TEAM_RED]->win;
-		++_team()[TEAM_BLUE]->loose;
-		*incremented = 1;
-	}
-	else if (_var()->alive[TRED] == 0 && !*incremented)
-	{
-		_var()->last_round_winner = TBLUE;
-		++_team()[TEAM_BLUE]->win;
-		++_team()[TEAM_RED]->loose;
-		*incremented = 1;
-	}
-	_var()->round_state = serv.round_state;
-	if (serv.round_state == ROUND_LEADERBOARD && serv.match_finished == 1)
-		_var()->match_finished = 1;
-	else if (_var()->round_state == ROUND_END_WAIT)
-		_var()->freeze = 1;
 	if (_var()->round_state == ROUND_WAIT_START)
 	{
 		replace_player();
@@ -293,52 +275,56 @@ void	round_handling(int	*incremented, t_send_server_game serv)
 		_menu()->mode = MENU_LOBBY;
 		_var()->freeze = 0;
 	}
+}
+
+void	round_handling(int *incremented, t_send_server_game serv)
+{
+	if (_var()->alive[TBLUE] == 0 && !*incremented)
+	{
+		_var()->last_round_winner = TRED;
+		++_team()[TEAM_RED]->win;
+		++_team()[TEAM_BLUE]->loose;
+		*incremented = 1;
+	}
+	else if (_var()->alive[TRED] == 0 && !*incremented)
+	{
+		_var()->last_round_winner = TBLUE;
+		++_team()[TEAM_BLUE]->win;
+		++_team()[TEAM_RED]->loose;
+		*incremented = 1;
+	}
+	_var()->round_state = serv.round_state;
+	if (serv.round_state == ROUND_LEADERBOARD && serv.match_finished == 1)
+		_var()->match_finished = 1;
+	else if (_var()->round_state == ROUND_END_WAIT)
+		_var()->freeze = 1;
+	ft_round_handling(incremented, serv);
 	if (serv.round_state == ROUND_WAIT_START)
 		_var()->time_start = serv.time;
 }
 
-void	ft_pong_client(void)
+static void	ft_if_not_send(void)
 {
-	t_send_server_game	serv;
-	t_send_client_game	client;
+	_var()->mode = MENU;
+	_menu()->mode = MENU_START;
+	restart_player();
+	mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
+}
+
+static int	ft_recv(int *incremented)
+{
 	int					i;
-	static int			incremented = 0;
-	
-	i = 0;
-	memset(&client, 0, sizeof(client));
-	ft_copy_data_before_pong(&client.player);
-	client.blue_wins = _team()[TEAM_BLUE]->win;
-	client.red_wins = _team()[TEAM_RED]->win;
-	client.round_end = 0;
-	if (incremented == 1 && ( _var()->alive[TRED] == 0 || _var()->alive[TBLUE] == 0))
-		incremented++;
-	if (incremented == 2)
-		client.round_end = 1;
-	client.restart = 0;
-	if(_var()->restart == 1)
-	{
-		client.restart = 1;
-		_var()->restart = 0;
-	}
-	if (send(_var()->socket, &client, sizeof(client), 0) <= 0)
-	{
-		_var()->mode = MENU;
-		_menu()->mode = MENU_START;
-		restart_player();
-		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
-		return ;
-	}
+	t_send_server_game	serv;
+
 	_player()->is_shooting = 0;
+	i = 0;
 	memset(&serv, 0, sizeof(serv));
 	_var()->alive[TRED] = 0;
 	_var()->alive[TBLUE] = 0;
 	if (recv(_var()->socket, &serv, sizeof(serv), MSG_WAITALL) <= 0)
 	{
-		_var()->mode = MENU;
-		_menu()->mode = MENU_START;
-		restart_player();
-		mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
-		return ;
+		ft_if_not_send();
+		return (1);
 	}
 	_var()->linked_players = serv.linked_players;
 	while (i < _var()->linked_players)
@@ -346,6 +332,41 @@ void	ft_pong_client(void)
 		get_data(i, serv);
 		++i;
 	}
-	round_handling(&incremented, serv);
+	round_handling(incremented, serv);
+	return (0);
 }
 
+static void	ft_pong_first(t_send_client_game *client)
+{
+	memset(client, 0, sizeof(*client));
+	ft_copy_data_before_pong(&client->player);
+}
+
+void	ft_pong_client(void)
+{
+	t_send_client_game	client;
+	static int			incremented = 0;
+
+	ft_pong_first(&client);
+	client.blue_wins = _team()[TEAM_BLUE]->win;
+	client.red_wins = _team()[TEAM_RED]->win;
+	client.round_end = 0;
+	if (incremented == 1 && (_var()->alive[TRED] == 0
+			|| _var()->alive[TBLUE] == 0))
+		incremented++;
+	if (incremented == 2)
+		client.round_end = 1;
+	client.restart = 0;
+	if (_var()->restart == 1)
+	{
+		client.restart = 1;
+		_var()->restart = 0;
+	}
+	if (send(_var()->socket, &client, sizeof(client), 0) <= 0)
+	{
+		ft_if_not_send();
+		return ;
+	}
+	if (ft_recv(&incremented))
+		return ;
+}

@@ -280,10 +280,10 @@ char	*ft_get_ip_input(void);
 int	ft_init_client(void);
 void	ft_copy_data_before_pong(t_obj *player);
 void	restart_round(void);
-void	render_kill_log();
+void	render_kill_log(void);
 void	update_health(int i, t_send_server_game serv);
 void	get_data(int i, t_send_server_game serv);
-void	round_handling(int	*incremented, t_send_server_game serv);
+void	round_handling(int *incremented, t_send_server_game serv);
 void	ft_pong_client(void);
 
 /* -------------------------------------------------------------------------- */
@@ -509,15 +509,22 @@ void	generate_button_state(void);
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/loop.c                           */
 /* -------------------------------------------------------------------------- */
+void	compute_hitbox_buttons(int i);
 void	check_button_state(void);
+void	compute_hitbox_pl(int i);
 void	check_button_state_pl(void);
 void	check_action_state_bar(int i);
 void	check_action_state_options(int i);
 void	check_button_state_options(void);
 void	planet_clock(void);
+void	menu_call_hook(void);
 int	menu_loop(void);
 int	menu_hook(int keycode);
+int	menu_hook_pseudo_2(int keycode, int *n);
 int	menu_hook_pseudo(int keycode);
+int	menu_hook_ip_4(int keycode);
+int	menu_hook_ip_3(int keycode);
+int	menu_hook_ip_2(int keycode);
 int	menu_hook_ip(int keycode);
 
 /* -------------------------------------------------------------------------- */
@@ -557,7 +564,6 @@ void	init_weapons(void);
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
 /* -------------------------------------------------------------------------- */
-void plot_line (t_vector2D a, t_vector2D b, int color);
 t_vector2D	ft_first_vector(void);
 t_vector2D	ft_scnd_vector(void);
 int	ft_return_xp(t_obj *player, t_obj *my_player);
@@ -576,7 +582,7 @@ t_obj	*ft_copy_map_line(char *line, int index);
 int	ft_malloc_map(void);
 void	ft_draw_wall(t_vector2D pos);
 void	ft_draw_floor(t_vector2D pos);
-void DrawCircle(int xp, int yp, float radius, int color);
+void	drawcircle(int xp, int yp, float radius, int color);
 void	draw_player_map(void);
 void	ft_draw_map(void);
 
@@ -587,8 +593,7 @@ int	is_allow_alpha(char c);
 char	char_up(char c);
 void	draw_text(char *text, t_vector2D pos, char color[4]);
 t_data	ft_draw_char(t_data big, t_data lil, t_vector2D pos, char color[4]);
-t_data	ft_draw_char_scale(t_data big, t_data lil, t_vector2D p, t_vector2D scale, char color[4]);
-void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char color[4]);
+void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char c[4]);
 t_data	create_text_img(char *text, char color[4]);
 void	draw_rectangle(t_vector2D a, t_vector2D size, char color[4]);
 
