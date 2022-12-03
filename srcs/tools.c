@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 22:16:19 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/20 14:52:26 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:51:38 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,24 @@ t_vector3F	pos3f(float x, float y, float z)
 	vec.y = y;
 	vec.z = z;
 	return (vec);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	new = ft_malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!new)
+		return (NULL);
+	while (s[i])
+	{
+		new[i] = s[i];
+		i++;
+	}
+	new[i] = 0;
+	return (new);
 }

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:00:21 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 20:27:54 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:44:25 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse_dir(char *str, int index, int *nb)
 	j = 0;
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
-	new = malloc(sizeof(char) * ft_strlen(str));
+	new = ft_malloc(sizeof(char) * ft_strlen(str));
 	while (str[i] && (str[i] != ' ' || str[i] == '\t'))
 		new[j++] = str[i++];
 	new[j] = 0;
@@ -43,7 +43,7 @@ void	parse_new_textures(char *str, int index, int *nb)
 	j = 0;
 	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
-	new = malloc(sizeof(char) * ft_strlen(str));
+	new = ft_malloc(sizeof(char) * ft_strlen(str));
 	while (str[i] && (str[i] != ' ' || str[i] == '\t'))
 		new[j++] = str[i++];
 	new[j] = 0;
