@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 16:34:23 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 16:53:24 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:53:37 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	draw_death(void)
 		<= _var()->linked_players)
 		draw_text(str, pos(WIN_W / 2 - ft_strlen(str), WIN_H - 100), WHITE);
 	else
-		draw_text("You are dead..", pos(WIN_W / 2 - 168, 100), WHITE);
+		draw_text("You are dead..", pos(WIN_W / 2 - 168, 300), WHITE);
 }
 
 void	ft_loop_multi(void)

@@ -49,6 +49,7 @@ t_team	**_team(void);
 t_var	*_var(void);
 t_log	*_log(void);
 t_image	*_image(void);
+t_server_data	*_server(void);
 
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/utils/garbage/garbage.c                     */
@@ -274,31 +275,79 @@ char	*ft_get_host_ip(void);
 t_obj	ft_get_data(t_obj *player);
 
 /* -------------------------------------------------------------------------- */
-/*                    FILE = srcs/network_client/client.c                     */
+/*                   FILE = srcs/network_client/client_4.c                    */
 /* -------------------------------------------------------------------------- */
 char	*ft_get_ip_input(void);
-int	ft_init_client(void);
-void	ft_copy_data_before_pong(t_obj *player);
+int	ft_init_client_first(void);
+
+/* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/network_client/client_2.c                    */
+/* -------------------------------------------------------------------------- */
 void	restart_round(void);
 void	render_kill_log(void);
 void	update_health(int i, t_send_server_game serv);
 void	get_data(int i, t_send_server_game serv);
+void	ft_round_handling(int *incremented, t_send_server_game serv);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/network_client/client.c                     */
+/* -------------------------------------------------------------------------- */
 void	round_handling(int *incremented, t_send_server_game serv);
 void	ft_pong_client(void);
 
 /* -------------------------------------------------------------------------- */
+/*                   FILE = srcs/network_client/client_3.c                    */
+/* -------------------------------------------------------------------------- */
+int	ft_init_client_next(void);
+int	ft_init_client(void);
+void	ft_copy_data_first(t_obj *player);
+void	ft_copy_data_next(t_obj *player, int i);
+void	ft_copy_data_before_pong(t_obj *player);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/network/recv.c                         */
+/* -------------------------------------------------------------------------- */
+void	ft_help_first_recv(t_client_thread *client, t_send_client_game data);
+int	ft_recv_first_data(t_client_thread *client);
+int	ft_is_get(t_client_thread *client);
+int	ft_is_send(t_client_thread *client);
+void	ft_next(t_client_thread *client, t_send_server_game *data);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/network/round_2.c                        */
+/* -------------------------------------------------------------------------- */
+int	round_play(int round, t_send_server_game *data, t_client_thread *c, int f);
+void	ft_round_end(t_client_thread *client);
+int	round_end(t_send_server_game *data, t_client_thread *client);
+int	ft_first_big_if(t_client_thread *client);
+void	ft_scnd_big_if(t_client_thread *client);
+
+/* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/network/lobby.c                         */
 /* -------------------------------------------------------------------------- */
-int	ft_recv_first_data_lobby(t_client_thread *client, int nb);
 int	ft_send_all_data_lobby(t_client_thread *client, int nb);
 int	ft_player_team(t_client_thread *client, int id);
 int	ft_update(t_client_thread *client);
 int	wait_lobby(t_client_thread *client);
 
 /* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/network/round_1.c                        */
+/* -------------------------------------------------------------------------- */
+int	round_end_wait(t_send_server_game *data, t_client_thread *client);
+int	ft_if_wait(t_client_thread *client);
+int	round_wait_start(t_send_server_game *data, t_client_thread *client);
+int	round_start(int *round, t_send_server_game *data, t_client_thread *client);
+void	round_leaderboard(t_send_server_game *data, t_client_thread *client);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/network/send.c                         */
+/* -------------------------------------------------------------------------- */
+int	ft_send_all_data(t_client_thread *client);
+int	send_nb_players(t_client_thread *client);
+
+/* -------------------------------------------------------------------------- */
 /*                        FILE = srcs/network/server.c                        */
 /* -------------------------------------------------------------------------- */
-t_server_data	*_server(void);
 void	restart_state(t_client_thread	*c);
 int	ft_init_server(t_server_data *data);
 void	ft_exit(int signal);
@@ -307,23 +356,29 @@ int	main(int ac, char **av);
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/network/server_thread.c                     */
 /* -------------------------------------------------------------------------- */
-int	ft_init_client_thread(t_server_data *data);
-int	ft_connect_clients(t_server_data *data);
-int	ft_recv_first_data(t_client_thread *client);
-int	ft_is_get(t_client_thread *client);
-int	ft_is_send(t_client_thread *client);
-int	check_only(int nb, int r, int type);
-int	round_end(t_send_server_game *data, t_client_thread *client);
-int	round_end_wait(t_send_server_game *data, t_client_thread *client);
-int	round_wait_start(t_send_server_game *data, t_client_thread *client);
-int	round_start(int *round, t_send_server_game *data, t_client_thread *client);
-void	round_leaderboard(t_send_server_game *data, t_client_thread *client);
-int	ft_send_all_data(t_client_thread *client);
-int	send_nb_players(t_client_thread *client);
-void	check_team(t_client_thread *c);
 void	init_team_server(t_client_thread *c);
 void	get_team_id(t_client_thread	*c);
+int	ft_routine(t_client_thread *client);
+int	ft_while_routine(t_client_thread *client);
 void	*client_routine(void *client_t);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/network/init.c                         */
+/* -------------------------------------------------------------------------- */
+int	ft_init_client_thread(t_server_data *data);
+int	ft_init_in_while(t_server_data *data, int i);
+int	ft_connect_clients(t_server_data *data);
+int	check_only(int nb, int r, int type);
+void	ft_init_dt(t_client_thread *client, t_send_server_game *data);
+
+/* -------------------------------------------------------------------------- */
+/*                       FILE = srcs/network/lobby_2.c                        */
+/* -------------------------------------------------------------------------- */
+int	ft_has_recv(t_client_thread *client, int nb);
+int	ft_has_sent(t_client_thread *client, int nb);
+int	ft_has_start(t_client_thread *client);
+int	ft_recv_first_data_lobby(t_client_thread *client, int nb);
+void	ft_send_next(t_send_server *o_player, t_client_thread *client, int nb);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/math/math_2.c                          */
@@ -400,6 +455,7 @@ int	is_empty(char *str);
 int	is_char_in_range(t_vector2D pos, char **map);
 int	is_wall(char c);
 int	is_player(char c);
+void	get_team_pos(char c, t_vector2D pos);
 void	body_map(t_vector2D *pt, t_vector2D *it, char **map, int *longest);
 
 /* -------------------------------------------------------------------------- */
@@ -431,6 +487,14 @@ void	parse_args(char **map);
 size_t	ft_strlen(const char *s);
 int	count_words(char const *s, char c);
 char	*ft_strncpy_split(char const *src, size_t n);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/dyn_array_2.c                          */
+/* -------------------------------------------------------------------------- */
+void	arr_fill(t_array *a, int value);
+void	print_arr(t_array *a);
+int	ft_in_array(t_array *a, int value);
+t_vector2F	get_90_angle(int dir);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/generate_2.c                        */
@@ -475,6 +539,13 @@ t_data	generate_image(char *path);
 void	gen_bar(void);
 
 /* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/menu/intro_2.c                         */
+/* -------------------------------------------------------------------------- */
+void	ft_open_intro_sprites(void);
+void	ft_intro_sprite_to_image(int i1, int i2, t_vector2D v1, t_vector2D v2);
+void	ft_init_youri(unsigned long *start, unsigned long *c, t_vector2D *pos);
+
+/* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/recv_utils.c                        */
 /* -------------------------------------------------------------------------- */
 int	ft_recv_players(t_send_server *o_player, int size);
@@ -488,10 +559,17 @@ void	gen_bgs(void);
 void	gen_menu_images(void);
 
 /* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/menu/loop_4.c                          */
+/* -------------------------------------------------------------------------- */
+void	compute_hitbox_buttons(int i);
+void	check_button_state(void);
+void	compute_hitbox_pl(int i);
+void	check_button_state_pl(void);
+void	check_action_state_bar(int i);
+
+/* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/intro.c                          */
 /* -------------------------------------------------------------------------- */
-void	ft_open_intro_sprites(void);
-void	ft_intro_sprite_to_image(int i1, int i2, t_vector2D v1, t_vector2D v2);
 t_vector2D	ft_draw_youri(void);
 t_vector2D	ft_draw_darian(void);
 void	ft_end_intro(t_vector2D *double_pos);
@@ -509,18 +587,6 @@ void	generate_button_state(void);
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/loop.c                           */
 /* -------------------------------------------------------------------------- */
-void	compute_hitbox_buttons(int i);
-void	check_button_state(void);
-void	compute_hitbox_pl(int i);
-void	check_button_state_pl(void);
-void	check_action_state_bar(int i);
-void	check_action_state_options(int i);
-void	check_button_state_options(void);
-void	planet_clock(void);
-void	menu_call_hook(void);
-int	menu_loop(void);
-int	menu_hook(int keycode);
-int	menu_hook_pseudo_2(int keycode, int *n);
 int	menu_hook_pseudo(int keycode);
 int	menu_hook_ip_4(int keycode);
 int	menu_hook_ip_3(int keycode);
@@ -553,13 +619,49 @@ void	drag_bar(void);
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/menu_lobby.c                        */
 /* -------------------------------------------------------------------------- */
+void	team_data(int i);
 void	get_pseudos(void);
 void	menu_pong(void);
 
 /* -------------------------------------------------------------------------- */
-/*                             FILE = srcs/init.c                             */
+/*                         FILE = srcs/menu/loop_2.c                          */
 /* -------------------------------------------------------------------------- */
-void	init_weapons(void);
+int	menu_loop(void);
+int	menu_hook(int keycode);
+int	is_nb_keycode(int k);
+int	get_nb_keycode(int k);
+int	menu_hook_pseudo_2(int keycode, int *n);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/menu/loop_3.c                          */
+/* -------------------------------------------------------------------------- */
+void	check_action_state_options(int i);
+void	check_button_state_options(void);
+void	planet_clock(void);
+void	menu_call_hook(void);
+
+/* -------------------------------------------------------------------------- */
+/*                             FILE = srcs/key.c                              */
+/* -------------------------------------------------------------------------- */
+void	get_key(int keycode);
+int	ft_release(int keycode);
+
+/* -------------------------------------------------------------------------- */
+/*                            FILE = srcs/mouse.c                             */
+/* -------------------------------------------------------------------------- */
+int	ft_expose(void *data);
+int	ft_rotate(double rot_speed);
+int	mouse_rotate(void);
+int	ft_mouse_release(int keycode);
+
+/* -------------------------------------------------------------------------- */
+/*                     FILE = srcs/drawing/draw_text_2.c                      */
+/* -------------------------------------------------------------------------- */
+int	is_allow_alpha(char c);
+char	char_up(char c);
+void	draw_text(char *text, t_vector2D pos, char color[4]);
+t_data	ft_draw_char(t_data big, t_data lil, t_vector2D pos, char color[4]);
+int	ft_chk_draw(t_vector2D *it, t_vector2D p, t_data lil, t_vector2D scale);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/drawing/draw_player.c                      */
@@ -569,6 +671,10 @@ t_vector2D	ft_scnd_vector(void);
 int	ft_return_xp(t_obj *player, t_obj *my_player);
 int	ft_return_yp(t_obj *player, t_obj *my_player);
 float	ft_return_radius(t_obj *player);
+
+/* -------------------------------------------------------------------------- */
+/*                    FILE = srcs/drawing/draw_player_2.c                     */
+/* -------------------------------------------------------------------------- */
 int	ft_return_xp_2(void);
 int	ft_return_yp_2(void);
 float	ft_return_radius_2(void);
@@ -576,26 +682,37 @@ float	ft_return_radius_2(void);
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/drawing/draw_map.c                       */
 /* -------------------------------------------------------------------------- */
-void	ft_find_wall_scale(void);
-void	ft_give_id(void);
-t_obj	*ft_copy_map_line(char *line, int index);
-int	ft_malloc_map(void);
-void	ft_draw_wall(t_vector2D pos);
-void	ft_draw_floor(t_vector2D pos);
-void	drawcircle(int xp, int yp, float radius, int color);
 void	draw_player_map(void);
 void	ft_draw_map(void);
 
 /* -------------------------------------------------------------------------- */
 /*                      FILE = srcs/drawing/draw_text.c                       */
 /* -------------------------------------------------------------------------- */
-int	is_allow_alpha(char c);
-char	char_up(char c);
-void	draw_text(char *text, t_vector2D pos, char color[4]);
-t_data	ft_draw_char(t_data big, t_data lil, t_vector2D pos, char color[4]);
 void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char c[4]);
 t_data	create_text_img(char *text, char color[4]);
 void	draw_rectangle(t_vector2D a, t_vector2D size, char color[4]);
+
+/* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/drawing/draw_map_2.c                      */
+/* -------------------------------------------------------------------------- */
+t_obj	*ft_copy_map_line(char *line, int index);
+int	ft_malloc_map(void);
+void	ft_draw_wall(t_vector2D pos);
+void	ft_draw_floor(t_vector2D pos);
+void	drawcircle(int xp, int yp, float radius, int color);
+
+/* -------------------------------------------------------------------------- */
+/*                      FILE = srcs/drawing/draw_map_3.c                      */
+/* -------------------------------------------------------------------------- */
+void	ft_find_wall_scale(void);
+void	ft_give_id(void);
+
+/* -------------------------------------------------------------------------- */
+/*                           FILE = srcs/clock_2.c                            */
+/* -------------------------------------------------------------------------- */
+void	walk_clock(void);
+void	death_clock(void);
+void	reload_clock(void);
 
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/team.c                             */
@@ -610,6 +727,41 @@ void	init_teams(void);
 t_vector2D	pos(int x, int y);
 t_vector2F	posf(float x, float y);
 t_vector3F	pos3f(float x, float y, float z);
+
+/* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/loop_hook.c                           */
+/* -------------------------------------------------------------------------- */
+int	ft_hook(int keycode);
+int	ft_mouse_hook(int keycode);
+int	ft_loop_hook(void);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/init/init_2.c                          */
+/* -------------------------------------------------------------------------- */
+void	ft_init_player2(void);
+void	generate_dsprite(void);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/init/init_3.c                          */
+/* -------------------------------------------------------------------------- */
+void	init_var(void);
+void	init_data_shot(t_obj *player);
+void	init_image(void);
+
+/* -------------------------------------------------------------------------- */
+/*                          FILE = srcs/init/init.c                           */
+/* -------------------------------------------------------------------------- */
+void	generate_dsprite_red(void);
+void	ft_init_player_pos(void);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/init/init_4.c                          */
+/* -------------------------------------------------------------------------- */
+void	ft_init_one(void);
+void	init_weapons(void);
+void	ft_init_key_next(void);
+void	init_key(void);
+void	ft_init_var_next(void);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/mlx_utils/mlx_utils.c                      */
@@ -672,10 +824,6 @@ int	kill_push(int value);
 int	arr_push(t_array *a, int value);
 void	arr_pop(t_array *a, int id);
 void	arr_destroy(t_array *a);
-void	arr_fill(t_array *a, int value);
-void	print_arr(t_array *a);
-int	ft_in_array(t_array *a, int value);
-t_vector2F	get_90_angle(int dir);
 
 /* -------------------------------------------------------------------------- */
 /*                     FILE = srcs/shoot/shoot_utils_2.c                      */
@@ -716,28 +864,8 @@ char	*ft_itoa(int n);
 /* -------------------------------------------------------------------------- */
 /*                             FILE = srcs/main.c                             */
 /* -------------------------------------------------------------------------- */
-void	get_key(int keycode);
-int	ft_release(int keycode);
-void	generate_dsprite(void);
-void	generate_dsprite_red(void);
-void	ft_init_player_pos(void);
-void	walk_clock(void);
-void	death_clock(void);
-void	reload_clock(void);
-void	ft_init_player2(void);
 void	ft_print_tab(char **s);
-int	ft_hook(int keycode);
-int	ft_mouse_hook(int keycode);
-int	ft_loop_hook(void);
-int	ft_mouse_release(int keycode);
-int	ft_expose(void *data);
-int	ft_rotate(double rot_speed);
-int	mouse_rotate(void);
 int	ft_game(void);
-void	init_key(void);
-void	init_var(void);
-void	init_data_shot(t_obj *player);
-void	init_image(void);
 void	ft_print_map(void);
 int	main(int argc, char **argv);
 

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:10:38 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 18:11:05 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:18:34 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,6 @@ void	exit_say_error(int exit_code)
 		printf("Error\nInvalid path\n");
 	else if (exit_code == 21)
 		printf("Error\nInvalid syntax\n");
+	else if (exit_code == 22)
+		printf("Error\nWrong teams positions given\n");
 }

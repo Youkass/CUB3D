@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 20:39:25 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 17:24:36 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:17:15 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ int	get_id_by_pseudo(char *pseudo)
 void	init_teams(void)
 {
 	int			i;
-	t_vector2F	p;
+	t_vector2D	p;
 
 	_team()[TEAM_RED]->loose = 0;
 	_team()[TEAM_RED]->win = 0;
-	p = posf(3, 3);
-	_team()[TEAM_RED]->team_spawn = p;
+	p = pos(3, 3);
 	i = 0;
 	while (i < _var()->linked_players / 2)
 	{
@@ -62,8 +61,7 @@ void	init_teams(void)
 	}
 	_team()[TEAM_BLUE]->loose = 0;
 	_team()[TEAM_BLUE]->win = 0;
-	p = posf(40, 9);
-	_team()[TEAM_BLUE]->team_spawn = p;
+	p = pos(40, 9);
 	i = 0;
 	while (i < _var()->linked_players / 2)
 	{
@@ -73,5 +71,3 @@ void	init_teams(void)
 	}
 	init_player_team();
 }
-
-// Coder Team update coté serveur

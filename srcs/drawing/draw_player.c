@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 14:57:36 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/03 16:58:11 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:10:01 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,21 +79,4 @@ int	ft_return_yp(t_obj *player, t_obj *my_player)
 float	ft_return_radius(t_obj *player)
 {
 	return ((player->hb.hit.r) * _var()->scale);
-}
-
-int	ft_return_xp_2(void)
-{
-	return ((int)(_player2()->hb.hit.pos.x
-		* _var()->scale) + _var()->half_scale_offset);
-}
-
-int	ft_return_yp_2(void)
-{
-	return ((int)(_player2()->hb.hit.pos.y * _var()->scale)
-			+ _var()->half_scale);
-}
-
-float	ft_return_radius_2(void)
-{
-	return ((_player2()->hb.hit.r) * _var()->scale);
 }

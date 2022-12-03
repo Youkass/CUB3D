@@ -3,43 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   intro.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 01:57:27 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/12/03 17:06:19 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 18:58:31 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
-
-void	ft_open_intro_sprites(void)
-{
-	_image()->intro_sprite[0] = generate_image("./img/intro/darian_1.xpm");
-	_image()->intro_sprite[1] = generate_image("./img/intro/darian_2.xpm");
-	_image()->intro_sprite[2] = generate_image("./img/intro/darian_3.xpm");
-	_image()->intro_sprite[3] = generate_image("./img/intro/youri_1.xpm");
-	_image()->intro_sprite[4] = generate_image("./img/intro/youri_2.xpm");
-	_image()->intro_sprite[5] = generate_image("./img/intro/youri_3.xpm");
-	_image()->intro_sprite[6] = generate_image("./img/intro/us_1.xpm");
-	_image()->intro_sprite[7] = generate_image("./img/intro/us_2.xpm");
-}
-
-void	ft_intro_sprite_to_image(int i1, int i2, t_vector2D v1, t_vector2D v2)
-{
-	ft_put_image_to_image_scale(*_img(),
-		_image()->intro_sprite[i1], v1, (t_vector2F){0.5, 0.5});
-	ft_put_image_to_image_scale(*_img(),
-		_image()->intro_sprite[i2], v2, (t_vector2F){0.5, 0.5});
-}
-
-static void	ft_init_youri(unsigned long *start, unsigned long *clock,
-	t_vector2D *pos)
-{
-		pos->x = WIN_W - 350;
-		pos->y = 50;
-		*clock = get_clock(_var()->clock);
-		*start = get_clock(_var()->clock);
-}
 
 t_vector2D	ft_draw_youri(void)
 {
