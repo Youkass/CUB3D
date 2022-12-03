@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 23:11:29 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/30 11:42:46 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:01:04 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,4 @@ t_vector3F	velocity_ms3f(t_vector3F dist, float time_ms)
 float	get_time_velo3f(float dist, float time_ms_per_unit)
 {
 	return (dist * time_ms_per_unit);
-}
-
-t_vector2F	velocity_get_point(t_vector2F start, t_vector2F velo, int time_ms)
-{
-	return (add_2f(start, posf(velo.x * time_ms, velo.y * time_ms)));
-}
-
-t_vector3F	velocity_get_point3f(t_vector3F start, t_vector3F velo, int time_ms)
-{
-	return (add_3f(start, pos3f(velo.x * time_ms, velo.y * time_ms, velo.z * time_ms)));
-}
-
-float	one_dist2f(t_vector2F a, t_vector2F b)
-{
-	return (sqrtf( powf(a.x - b.x, 2) + powf(a.y - b.y, 2)));
-}
-
-float	one_dist3f(t_vector3F a, t_vector3F b)
-{
-	return (sqrtf(powf(a.x - b.x, 3) + powf(a.y - b.y, 3) + powf(a.z - b.z, 3)));
 }

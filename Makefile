@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+         #
+#    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/02 13:47:06 by denissereno      ###   ########.fr        #
+#    Updated: 2022/12/03 17:43:13 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,13 @@ SRCS		=	srcs/main.c\
 				srcs/raycasting/name_casting.c\
 				srcs/raycasting/bullet_casting.c\
 				srcs/mlx_utils/mlx_utils.c\
+				srcs/mlx_utils/mlx_utils_2.c\
+				srcs/mlx_utils/mlx_utils_3.c\
 				srcs/mlx_utils/render.c\
-				srcs/utils/singleton.c\
-				srcs/utils/singleton_2.c\
+				srcs/utils/singletons/singleton.c\
+				srcs/utils/singletons/singleton_2.c\
+				srcs/utils/singletons/singleton_3.c\
+				srcs/utils/restart.c\
 				srcs/utils/malloc_hooks_enum.c\
 				srcs/utils/hooks/key_hooks.c\
 				srcs/utils/hooks/key_hooks_2.c\
@@ -48,7 +52,9 @@ SRCS		=	srcs/main.c\
 				srcs/utils/garbage/garbage_2.c\
 				srcs/utils/garbage/garbage_3.c\
 				srcs/utils/list.c\
-				srcs/utils/collisions.c\
+				srcs/utils/collisions/collisions.c\
+				srcs/utils/collisions/collisions_2.c\
+				srcs/utils/collisions/collisions_3.c\
 				srcs/utils/sounds/sound.c\
 				srcs/utils/sounds/sound_2.c\
 				srcs/utils/sounds/sound_3.c\
@@ -57,6 +63,9 @@ SRCS		=	srcs/main.c\
 				srcs/drawing/draw_map.c\
 				srcs/drawing/draw_text.c\
 				srcs/menu/generate.c\
+				srcs/menu/generate_2.c\
+				srcs/menu/generate_3.c\
+				srcs/menu/generate_4.c\
 				srcs/menu/menu_lobby.c\
 				srcs/menu/loop.c\
 				srcs/menu/render.c\
@@ -75,12 +84,16 @@ SRCS		=	srcs/main.c\
 				srcs/network_client/network_utils.c\
 				srcs/network_client/client.c\
 				srcs/math/math.c\
+				srcs/math/math_2.c\
 				srcs/math/vector/operator2D.c\
 				srcs/math/vector/operator2F.c\
 				srcs/math/vector/tools.c\
+				srcs/math/vector/tools_2.c\
+				srcs/mlx_utils/hud.c\
+				srcs/mlx_utils/sky.c\
+				srcs/mlx_utils/sky_2.c\
 				srcs/init.c\
 				miniaudio/extras/miniaudio_split/miniaudio.c\
-				srcs/new_raycaster.c\
 				srcs/utils/click.c\
 				srcs/dyn_array.c
 
@@ -90,15 +103,20 @@ SERVER_SRCS		= 	srcs/network/server.c\
 				  	srcs/network_client/network_utils.c\
 				  	srcs/network/server_thread.c\
 					srcs/math/math.c\
+					srcs/math/math_2.c\
 					srcs/math/vector/operator2D.c\
 					srcs/math/vector/operator2F.c\
 					srcs/math/vector/tools.c\
-					srcs/utils/singleton.c\
-					srcs/utils/singleton_2.c\
+					srcs/math/vector/tools_2.c\
+					srcs/utils/singletons/singleton.c\
+					srcs/utils/singletons/singleton_2.c\
+					srcs/utils/singletons/singleton_3.c\
 					srcs/utils/malloc_hooks_enum.c\
 					srcs/utils/clock.c\
 					srcs/utils/list.c\
-					srcs/utils/collisions.c\
+					srcs/utils/collisions/collisions.c\
+					srcs/utils/collisions/collisions_2.c\
+					srcs/utils/collisions/collisions_3.c\
 					srcs/tools.c\
 					srcs/shoot/shoot.c\
 					srcs/utils/garbage/garbage.c\
@@ -144,6 +162,8 @@ $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
 	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@mkdir -p $(OBJS_DIR)srcs/utils
+	@mkdir -p $(OBJS_DIR)srcs/utils/singletons
+	@mkdir -p $(OBJS_DIR)srcs/utils/collisions
 	@mkdir -p $(OBJS_DIR)srcs/utils/sounds
 	@mkdir -p $(OBJS_DIR)srcs/utils/garbage
 	@mkdir -p $(OBJS_DIR)srcs/utils/hooks
@@ -166,6 +186,8 @@ $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/singletons
+	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/collisions
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/garbage
 	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
 	@mkdir -p $(OBJS_DIR_SERVER)miniaudio/extras/miniaudio_split/
