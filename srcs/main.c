@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/03 19:07:06 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 20:28:27 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,10 @@ int	main(int argc, char **argv)
 	char	**buf;
 
 	(void)argc;
-	init_var();
-	printf("MUSIC : %d\n", IS_MUSIC);
-	fd = open(argv[1], O_RDONLY);
+	fd = ft_check_map_name(argv[1]);
 	if (fd < 0)
-		ft_black_hole(139);
+		return (1);
+	init_var();
 	ft_init_mlx();
 	buf = ft_split(read_file(fd), '\n');
 	parse_args(buf);
