@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/04 18:28:22 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:46:14 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_media
 	ma_engine			engine;
 	ma_sound			sound[NB_SOUND][5];
 	ma_sound			shot_sound[MAX_SHOT_SOUND];
+	ma_sound			knife_sound[MAX_SHOT_SOUND];
 	ma_sound_config		sound_config[NB_SOUND];
 }	t_media;
 

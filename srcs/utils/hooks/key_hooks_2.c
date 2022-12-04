@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:04:44 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 18:15:08 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:43:11 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ void	reload_hook(void)
 		_player()->ammo[_player()->weapon_id] += needed;
 		_var()->reload_anim = 1;
 		_var()->reloadanim_start = get_clock(_var()->clock);
+		ma_sound_set_volume(&_media()->sound[GAME_SOUND][1], 1);
+		ft_start_from_start(&_media()->sound[GAME_SOUND][1]);
 	}
 }
