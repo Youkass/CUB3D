@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/04 18:23:03 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/04 20:20:18 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,228 +16,246 @@ RED			= \033[0;31m
 RST			= \033[0m
 END			= \e[0m
 
+SRCS_B		=	srcs_bonus/main.c\
+				srcs_bonus/main_utils.c\
+				srcs_bonus/team.c\
+				srcs_bonus/tools.c\
+				srcs_bonus/shoot/shoot.c\
+				srcs_bonus/shoot/shoot_utils.c\
+				srcs_bonus/shoot/shoot_utils_2.c\
+				srcs_bonus/shoot/shoot_wall.c\
+				srcs_bonus/ft_itoa.c\
+				srcs_bonus/kill_log.c\
+				srcs_bonus/raycasting/raycasting_utils.c\
+				srcs_bonus/raycasting/raycasting.c\
+				srcs_bonus/raycasting/raycasting_2.c\
+				srcs_bonus/raycasting/player_casting.c\
+				srcs_bonus/raycasting/player_casting_2.c\
+				srcs_bonus/raycasting/player_casting_3.c\
+				srcs_bonus/raycasting/name_casting.c\
+				srcs_bonus/raycasting/bullet_casting.c\
+				srcs_bonus/mlx_utils/mlx_utils.c\
+				srcs_bonus/mlx_utils/mlx_utils_2.c\
+				srcs_bonus/mlx_utils/mlx_utils_3.c\
+				srcs_bonus/mlx_utils/render.c\
+				srcs_bonus/utils/singletons/singleton.c\
+				srcs_bonus/utils/singletons/singleton_2.c\
+				srcs_bonus/utils/singletons/singleton_3.c\
+				srcs_bonus/utils/restart.c\
+				srcs_bonus/utils/malloc_hooks_enum.c\
+				srcs_bonus/utils/hooks/key_hooks.c\
+				srcs_bonus/utils/hooks/key_hooks_2.c\
+				srcs_bonus/utils/hooks/movements.c\
+				srcs_bonus/utils/hooks/movements_2.c\
+				srcs_bonus/utils/hooks/escape.c\
+				srcs_bonus/utils/clock.c\
+				srcs_bonus/utils/garbage/garbage.c\
+				srcs_bonus/utils/garbage/garbage_2.c\
+				srcs_bonus/utils/garbage/garbage_3.c\
+				srcs_bonus/utils/list.c\
+				srcs_bonus/utils/collisions/collisions.c\
+				srcs_bonus/utils/collisions/collisions_2.c\
+				srcs_bonus/utils/collisions/collisions_3.c\
+				srcs_bonus/utils/sounds/sound.c\
+				srcs_bonus/utils/sounds/sound_2.c\
+				srcs_bonus/utils/sounds/sound_3.c\
+				srcs_bonus/utils/sounds/sound_4.c\
+				srcs_bonus/drawing/draw_player.c\
+				srcs_bonus/drawing/draw_player_2.c\
+				srcs_bonus/drawing/draw_map.c\
+				srcs_bonus/drawing/draw_map_2.c\
+				srcs_bonus/drawing/draw_map_3.c\
+				srcs_bonus/drawing/draw_text.c\
+				srcs_bonus/drawing/draw_text_2.c\
+				srcs_bonus/menu/generate.c\
+				srcs_bonus/menu/generate_2.c\
+				srcs_bonus/menu/generate_3.c\
+				srcs_bonus/menu/generate_4.c\
+				srcs_bonus/menu/menu_lobby.c\
+				srcs_bonus/menu/loop.c\
+				srcs_bonus/menu/loop_2.c\
+				srcs_bonus/menu/loop_3.c\
+				srcs_bonus/menu/loop_4.c\
+				srcs_bonus/menu/render.c\
+				srcs_bonus/menu/render_2.c\
+				srcs_bonus/menu/render_3.c\
+				srcs_bonus/menu/render_4.c\
+				srcs_bonus/menu/utils.c\
+				srcs_bonus/menu/utils_2.c\
+				srcs_bonus/menu/utils_3.c\
+				srcs_bonus/menu/mouse_hook.c\
+				srcs_bonus/menu/intro.c\
+				srcs_bonus/menu/intro_2.c\
+				srcs_bonus/menu/dragbar.c\
+				srcs_bonus/menu/recv_utils.c\
+				srcs_bonus/parsing/parsing.c\
+				srcs_bonus/parsing/parsing_2.c\
+				srcs_bonus/parsing/parsing_3.c\
+				srcs_bonus/parsing/parsing_4.c\
+				srcs_bonus/parsing/args.c\
+				srcs_bonus/parsing/args_2.c\
+				srcs_bonus/parsing/args_3.c\
+				srcs_bonus/network_client/network_utils.c\
+				srcs_bonus/network_client/client.c\
+				srcs_bonus/network_client/client_2.c\
+				srcs_bonus/network_client/client_3.c\
+				srcs_bonus/network_client/client_4.c\
+				srcs_bonus/math/math.c\
+				srcs_bonus/math/math_2.c\
+				srcs_bonus/math/vector/operator2D.c\
+				srcs_bonus/math/vector/operator2F.c\
+				srcs_bonus/math/vector/tools.c\
+				srcs_bonus/math/vector/tools_2.c\
+				srcs_bonus/mlx_utils/hud.c\
+				srcs_bonus/mlx_utils/sky.c\
+				srcs_bonus/mlx_utils/sky_2.c\
+				srcs_bonus/init/init.c\
+				srcs_bonus/init/init_2.c\
+				srcs_bonus/init/init_3.c\
+				srcs_bonus/init/init_4.c\
+				srcs_bonus/mouse.c\
+				srcs_bonus/key.c\
+				srcs_bonus/loop_hook.c\
+				srcs_bonus/clock_2.c\
+				srcs_bonus/dyn_array_2.c\
+				miniaudio/extras/miniaudio_split/miniaudio.c\
+				srcs_bonus/utils/click.c\
+				srcs_bonus/dyn_array.c
+
+SERVER_SRCS		= 	srcs_bonus/network/server.c\
+					srcs_bonus/network/lobby.c\
+					srcs_bonus/network/lobby_2.c\
+				  	srcs_bonus/network/server_thread.c\
+					srcs_bonus/network/round_1.c\
+					srcs_bonus/network/round_2.c\
+					srcs_bonus/network/send.c\
+					srcs_bonus/network/init.c\
+					srcs_bonus/network/recv.c\
+					srcs_bonus/main_utils.c\
+					srcs_bonus/team.c\
+					srcs_bonus/tools.c\
+					srcs_bonus/shoot/shoot.c\
+					srcs_bonus/shoot/shoot_utils.c\
+					srcs_bonus/shoot/shoot_utils_2.c\
+					srcs_bonus/shoot/shoot_wall.c\
+					srcs_bonus/ft_itoa.c\
+					srcs_bonus/kill_log.c\
+					srcs_bonus/raycasting/raycasting_utils.c\
+					srcs_bonus/raycasting/raycasting.c\
+					srcs_bonus/raycasting/raycasting_2.c\
+					srcs_bonus/raycasting/player_casting.c\
+					srcs_bonus/raycasting/player_casting_2.c\
+					srcs_bonus/raycasting/player_casting_3.c\
+					srcs_bonus/raycasting/name_casting.c\
+					srcs_bonus/raycasting/bullet_casting.c\
+					srcs_bonus/mlx_utils/mlx_utils.c\
+					srcs_bonus/mlx_utils/mlx_utils_2.c\
+					srcs_bonus/mlx_utils/mlx_utils_3.c\
+					srcs_bonus/mlx_utils/render.c\
+					srcs_bonus/utils/singletons/singleton.c\
+					srcs_bonus/utils/singletons/singleton_2.c\
+					srcs_bonus/utils/singletons/singleton_3.c\
+					srcs_bonus/utils/restart.c\
+					srcs_bonus/utils/malloc_hooks_enum.c\
+					srcs_bonus/utils/hooks/key_hooks.c\
+					srcs_bonus/utils/hooks/key_hooks_2.c\
+					srcs_bonus/utils/hooks/movements.c\
+					srcs_bonus/utils/hooks/movements_2.c\
+					srcs_bonus/utils/hooks/escape.c\
+					srcs_bonus/utils/clock.c\
+					srcs_bonus/utils/garbage/garbage.c\
+					srcs_bonus/utils/garbage/garbage_2.c\
+					srcs_bonus/utils/garbage/garbage_3.c\
+					srcs_bonus/utils/list.c\
+					srcs_bonus/utils/collisions/collisions.c\
+					srcs_bonus/utils/collisions/collisions_2.c\
+					srcs_bonus/utils/collisions/collisions_3.c\
+					srcs_bonus/utils/sounds/sound.c\
+					srcs_bonus/utils/sounds/sound_2.c\
+					srcs_bonus/utils/sounds/sound_3.c\
+					srcs_bonus/utils/sounds/sound_4.c\
+					srcs_bonus/drawing/draw_player.c\
+					srcs_bonus/drawing/draw_player_2.c\
+					srcs_bonus/drawing/draw_map.c\
+					srcs_bonus/drawing/draw_map_2.c\
+					srcs_bonus/drawing/draw_map_3.c\
+					srcs_bonus/drawing/draw_text.c\
+					srcs_bonus/drawing/draw_text_2.c\
+					srcs_bonus/menu/generate.c\
+					srcs_bonus/menu/generate_2.c\
+					srcs_bonus/menu/generate_3.c\
+					srcs_bonus/menu/generate_4.c\
+					srcs_bonus/menu/menu_lobby.c\
+					srcs_bonus/menu/loop.c\
+					srcs_bonus/menu/loop_2.c\
+					srcs_bonus/menu/loop_3.c\
+					srcs_bonus/menu/loop_4.c\
+					srcs_bonus/menu/render.c\
+					srcs_bonus/menu/render_2.c\
+					srcs_bonus/menu/render_3.c\
+					srcs_bonus/menu/render_4.c\
+					srcs_bonus/menu/utils.c\
+					srcs_bonus/menu/utils_2.c\
+					srcs_bonus/menu/utils_3.c\
+					srcs_bonus/menu/mouse_hook.c\
+					srcs_bonus/menu/intro.c\
+					srcs_bonus/menu/intro_2.c\
+					srcs_bonus/menu/dragbar.c\
+					srcs_bonus/menu/recv_utils.c\
+					srcs_bonus/parsing/parsing.c\
+					srcs_bonus/parsing/parsing_2.c\
+					srcs_bonus/parsing/parsing_3.c\
+					srcs_bonus/parsing/parsing_4.c\
+					srcs_bonus/parsing/args.c\
+					srcs_bonus/parsing/args_2.c\
+					srcs_bonus/parsing/args_3.c\
+					srcs_bonus/network_client/network_utils.c\
+					srcs_bonus/network_client/client.c\
+					srcs_bonus/network_client/client_2.c\
+					srcs_bonus/network_client/client_3.c\
+					srcs_bonus/network_client/client_4.c\
+					srcs_bonus/math/math.c\
+					srcs_bonus/math/math_2.c\
+					srcs_bonus/math/vector/operator2D.c\
+					srcs_bonus/math/vector/operator2F.c\
+					srcs_bonus/math/vector/tools.c\
+					srcs_bonus/math/vector/tools_2.c\
+					srcs_bonus/mlx_utils/hud.c\
+					srcs_bonus/mlx_utils/sky.c\
+					srcs_bonus/mlx_utils/sky_2.c\
+					srcs_bonus/init/init.c\
+					srcs_bonus/init/init_2.c\
+					srcs_bonus/init/init_3.c\
+					srcs_bonus/init/init_4.c\
+					srcs_bonus/mouse.c\
+					srcs_bonus/key.c\
+					srcs_bonus/loop_hook.c\
+					srcs_bonus/clock_2.c\
+					srcs_bonus/dyn_array_2.c\
+					miniaudio/extras/miniaudio_split/miniaudio.c\
+					srcs_bonus/utils/click.c\
+					srcs_bonus/dyn_array.c
+
 SRCS		=	srcs/main.c\
-				srcs/main_utils.c\
-				srcs/team.c\
-				srcs/tools.c\
-				srcs/shoot/shoot.c\
-				srcs/shoot/shoot_utils.c\
-				srcs/shoot/shoot_utils_2.c\
-				srcs/shoot/shoot_wall.c\
-				srcs/ft_itoa.c\
-				srcs/kill_log.c\
 				srcs/raycasting/raycasting_utils.c\
 				srcs/raycasting/raycasting.c\
-				srcs/raycasting/raycasting_2.c\
-				srcs/raycasting/player_casting.c\
-				srcs/raycasting/player_casting_2.c\
-				srcs/raycasting/player_casting_3.c\
-				srcs/raycasting/name_casting.c\
-				srcs/raycasting/bullet_casting.c\
 				srcs/mlx_utils/mlx_utils.c\
-				srcs/mlx_utils/mlx_utils_2.c\
-				srcs/mlx_utils/mlx_utils_3.c\
-				srcs/mlx_utils/render.c\
-				srcs/utils/singletons/singleton.c\
-				srcs/utils/singletons/singleton_2.c\
-				srcs/utils/singletons/singleton_3.c\
-				srcs/utils/restart.c\
-				srcs/utils/malloc_hooks_enum.c\
-				srcs/utils/hooks/key_hooks.c\
-				srcs/utils/hooks/key_hooks_2.c\
-				srcs/utils/hooks/movements.c\
-				srcs/utils/hooks/movements_2.c\
-				srcs/utils/hooks/escape.c\
+				srcs/utils/singleton.c\
+				srcs/utils/key_hooks.c\
 				srcs/utils/clock.c\
-				srcs/utils/garbage/garbage.c\
-				srcs/utils/garbage/garbage_2.c\
-				srcs/utils/garbage/garbage_3.c\
-				srcs/utils/list.c\
-				srcs/utils/collisions/collisions.c\
-				srcs/utils/collisions/collisions_2.c\
-				srcs/utils/collisions/collisions_3.c\
-				srcs/utils/sounds/sound.c\
-				srcs/utils/sounds/sound_2.c\
-				srcs/utils/sounds/sound_3.c\
-				srcs/utils/sounds/sound_4.c\
-				srcs/drawing/draw_player.c\
-				srcs/drawing/draw_player_2.c\
-				srcs/drawing/draw_map.c\
-				srcs/drawing/draw_map_2.c\
-				srcs/drawing/draw_map_3.c\
-				srcs/drawing/draw_text.c\
-				srcs/drawing/draw_text_2.c\
-				srcs/menu/generate.c\
-				srcs/menu/generate_2.c\
-				srcs/menu/generate_3.c\
-				srcs/menu/generate_4.c\
-				srcs/menu/menu_lobby.c\
-				srcs/menu/loop.c\
-				srcs/menu/loop_2.c\
-				srcs/menu/loop_3.c\
-				srcs/menu/loop_4.c\
-				srcs/menu/render.c\
-				srcs/menu/render_2.c\
-				srcs/menu/render_3.c\
-				srcs/menu/render_4.c\
-				srcs/menu/utils.c\
-				srcs/menu/utils_2.c\
-				srcs/menu/utils_3.c\
-				srcs/menu/mouse_hook.c\
-				srcs/menu/intro.c\
-				srcs/menu/intro_2.c\
-				srcs/menu/dragbar.c\
-				srcs/menu/recv_utils.c\
+				srcs/utils/math.c\
+				srcs/utils/garbage.c\
+				srcs/utils/utils.c\
+				srcs/utils/utils_2.c\
+				srcs/utils/movements.c\
 				srcs/parsing/parsing.c\
 				srcs/parsing/parsing_2.c\
-				srcs/parsing/parsing_3.c\
-				srcs/parsing/parsing_4.c\
+				srcs/parsing/split.c\
 				srcs/parsing/args.c\
-				srcs/parsing/args_2.c\
-				srcs/parsing/args_3.c\
-				srcs/network_client/network_utils.c\
-				srcs/network_client/client.c\
-				srcs/network_client/client_2.c\
-				srcs/network_client/client_3.c\
-				srcs/network_client/client_4.c\
-				srcs/math/math.c\
-				srcs/math/math_2.c\
-				srcs/math/vector/operator2D.c\
-				srcs/math/vector/operator2F.c\
-				srcs/math/vector/tools.c\
-				srcs/math/vector/tools_2.c\
-				srcs/mlx_utils/hud.c\
-				srcs/mlx_utils/sky.c\
-				srcs/mlx_utils/sky_2.c\
-				srcs/init/init.c\
-				srcs/init/init_2.c\
-				srcs/init/init_3.c\
-				srcs/init/init_4.c\
-				srcs/mouse.c\
-				srcs/key.c\
-				srcs/loop_hook.c\
-				srcs/clock_2.c\
-				srcs/dyn_array_2.c\
-				miniaudio/extras/miniaudio_split/miniaudio.c\
-				srcs/utils/click.c\
-				srcs/dyn_array.c
-
-SERVER_SRCS		= 	srcs/network/server.c\
-					srcs/network/lobby.c\
-					srcs/network/lobby_2.c\
-				  	srcs/network/server_thread.c\
-					srcs/network/round_1.c\
-					srcs/network/round_2.c\
-					srcs/network/send.c\
-					srcs/network/init.c\
-					srcs/network/recv.c\
-					srcs/main_utils.c\
-					srcs/team.c\
-					srcs/tools.c\
-					srcs/shoot/shoot.c\
-					srcs/shoot/shoot_utils.c\
-					srcs/shoot/shoot_utils_2.c\
-					srcs/shoot/shoot_wall.c\
-					srcs/ft_itoa.c\
-					srcs/kill_log.c\
-					srcs/raycasting/raycasting_utils.c\
-					srcs/raycasting/raycasting.c\
-					srcs/raycasting/raycasting_2.c\
-					srcs/raycasting/player_casting.c\
-					srcs/raycasting/player_casting_2.c\
-					srcs/raycasting/player_casting_3.c\
-					srcs/raycasting/name_casting.c\
-					srcs/raycasting/bullet_casting.c\
-					srcs/mlx_utils/mlx_utils.c\
-					srcs/mlx_utils/mlx_utils_2.c\
-					srcs/mlx_utils/mlx_utils_3.c\
-					srcs/mlx_utils/render.c\
-					srcs/utils/singletons/singleton.c\
-					srcs/utils/singletons/singleton_2.c\
-					srcs/utils/singletons/singleton_3.c\
-					srcs/utils/restart.c\
-					srcs/utils/malloc_hooks_enum.c\
-					srcs/utils/hooks/key_hooks.c\
-					srcs/utils/hooks/key_hooks_2.c\
-					srcs/utils/hooks/movements.c\
-					srcs/utils/hooks/movements_2.c\
-					srcs/utils/hooks/escape.c\
-					srcs/utils/clock.c\
-					srcs/utils/garbage/garbage.c\
-					srcs/utils/garbage/garbage_2.c\
-					srcs/utils/garbage/garbage_3.c\
-					srcs/utils/list.c\
-					srcs/utils/collisions/collisions.c\
-					srcs/utils/collisions/collisions_2.c\
-					srcs/utils/collisions/collisions_3.c\
-					srcs/utils/sounds/sound.c\
-					srcs/utils/sounds/sound_2.c\
-					srcs/utils/sounds/sound_3.c\
-					srcs/utils/sounds/sound_4.c\
-					srcs/drawing/draw_player.c\
-					srcs/drawing/draw_player_2.c\
-					srcs/drawing/draw_map.c\
-					srcs/drawing/draw_map_2.c\
-					srcs/drawing/draw_map_3.c\
-					srcs/drawing/draw_text.c\
-					srcs/drawing/draw_text_2.c\
-					srcs/menu/generate.c\
-					srcs/menu/generate_2.c\
-					srcs/menu/generate_3.c\
-					srcs/menu/generate_4.c\
-					srcs/menu/menu_lobby.c\
-					srcs/menu/loop.c\
-					srcs/menu/loop_2.c\
-					srcs/menu/loop_3.c\
-					srcs/menu/loop_4.c\
-					srcs/menu/render.c\
-					srcs/menu/render_2.c\
-					srcs/menu/render_3.c\
-					srcs/menu/render_4.c\
-					srcs/menu/utils.c\
-					srcs/menu/utils_2.c\
-					srcs/menu/utils_3.c\
-					srcs/menu/mouse_hook.c\
-					srcs/menu/intro.c\
-					srcs/menu/intro_2.c\
-					srcs/menu/dragbar.c\
-					srcs/menu/recv_utils.c\
-					srcs/parsing/parsing.c\
-					srcs/parsing/parsing_2.c\
-					srcs/parsing/parsing_3.c\
-					srcs/parsing/parsing_4.c\
-					srcs/parsing/args.c\
-					srcs/parsing/args_2.c\
-					srcs/parsing/args_3.c\
-					srcs/network_client/network_utils.c\
-					srcs/network_client/client.c\
-					srcs/network_client/client_2.c\
-					srcs/network_client/client_3.c\
-					srcs/network_client/client_4.c\
-					srcs/math/math.c\
-					srcs/math/math_2.c\
-					srcs/math/vector/operator2D.c\
-					srcs/math/vector/operator2F.c\
-					srcs/math/vector/tools.c\
-					srcs/math/vector/tools_2.c\
-					srcs/mlx_utils/hud.c\
-					srcs/mlx_utils/sky.c\
-					srcs/mlx_utils/sky_2.c\
-					srcs/init/init.c\
-					srcs/init/init_2.c\
-					srcs/init/init_3.c\
-					srcs/init/init_4.c\
-					srcs/mouse.c\
-					srcs/key.c\
-					srcs/loop_hook.c\
-					srcs/clock_2.c\
-					srcs/dyn_array_2.c\
-					miniaudio/extras/miniaudio_split/miniaudio.c\
-					srcs/utils/click.c\
-					srcs/dyn_array.c
-
+				srcs/parsing/args_2.c
 
 NAME		= cub3D
+NAME_B		= cub3D_bonus
 SERVER		= server
 AUDIO		= audio
 minilibx	= mlx/libmlx.a
@@ -254,51 +272,59 @@ CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra -g3
 MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -ldl -lpthread
 
-
 $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)
 	@mkdir -p $(OBJS_DIR)srcs/parsing
-	@mkdir -p $(OBJS_DIR)srcs/shoot
 	@mkdir -p $(OBJS_DIR)srcs/mlx_utils
 	@mkdir -p $(OBJS_DIR)srcs/raycasting
 	@mkdir -p $(OBJS_DIR)srcs/utils
-	@mkdir -p $(OBJS_DIR)srcs/init
-	@mkdir -p $(OBJS_DIR)srcs/utils/singletons
-	@mkdir -p $(OBJS_DIR)srcs/utils/collisions
-	@mkdir -p $(OBJS_DIR)srcs/utils/sounds
-	@mkdir -p $(OBJS_DIR)srcs/utils/garbage
-	@mkdir -p $(OBJS_DIR)srcs/utils/hooks
-	@mkdir -p $(OBJS_DIR)srcs/drawing
-	@mkdir -p $(OBJS_DIR)srcs/menu
-	@mkdir -p $(OBJS_DIR)srcs/math
-	@mkdir -p $(OBJS_DIR)srcs/math/vector
-	@mkdir -p $(OBJS_DIR)srcs/network_client
-	@mkdir -p $(OBJS_DIR)miniaudio/extras/miniaudio_split/
-	@mkdir -p $(OBJS_DIR)srcs
+	@$(CC) $(CC_FLAGS) -c $< -o $@
+	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
+
+$(OBJS_DIR_B)%.o : %.c includes_bonus/cub.h
+	@mkdir -p $(OBJS_DIR_B)
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/parsing
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/shoot
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/mlx_utils
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/raycasting
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/utils
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/init
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/utils/singletons
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/utils/collisions
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/utils/sounds
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/utils/garbage
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/utils/hooks
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/drawing
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/menu
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/math
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/math/vector
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus/network_client
+	@mkdir -p $(OBJS_DIR_B)miniaudio/extras/miniaudio_split/
+	@mkdir -p $(OBJS_DIR_B)srcs_bonus
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME)]${RST} '$<' $(END)"
 
 $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/raycasting
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/hooks
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/mlx_utils
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/math
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/drawing
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/shoot
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/menu
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/init
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/math/vector
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/network
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/parsing
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/singletons
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/collisions
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/garbage
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/utils/sounds
-	@mkdir -p $(OBJS_DIR_SERVER)srcs/network_client
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/raycasting
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/utils/hooks
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/mlx_utils
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/math
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/drawing
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/shoot
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/menu
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/init
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/math/vector
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/network
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/parsing
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/utils
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/utils/singletons
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/utils/collisions
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/utils/garbage
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/utils/sounds
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/network_client
 	@mkdir -p $(OBJS_DIR_SERVER)miniaudio/extras/miniaudio_split/
-	@mkdir -p $(OBJS_DIR_SERVER)srcs
+	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS_PREFIXED) maker
@@ -318,13 +344,13 @@ $(AUDIO): $(OBJECTS_PREFIXED) maker
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
 
 
-all: $(NAME)
+all: $(NAME) 
 
 server: $(SERVER)
 
 audio:	$(AUDIO)
 
-bonus:	$(NAME_B)
+bonus:	$(NAME_B) $(SERVER)
 
 maker:
 	@make -C mlx

@@ -5,104 +5,106 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 12:21:06 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/03 16:54:06 by dasereno         ###   ########.fr       */
+/*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
+/*   Updated: 2022/12/04 20:24:45 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-void	recompute_array_shot(int index)
+/*
+===============================================================================
+The following function will initialize our mlx pointer and our mlx window
+===============================================================================
+*/
+void	ft_init_mlx(void)
 {
-	while (index + 1 < _player()->shoot_n)
+	void	*win;
+
+	_mlx()->mlx = mlx_init();
+	if (!_mlx()->mlx)
 	{
-		_player()->shott[index] = _player()->shott[index + 1];
-		index++;
+		free(_mlx());
+		exit(0);
 	}
+	win = mlx_new_window(_mlx()->mlx, WIN_W, WIN_H, PRG_NAME);
+	if (!win)
+	{
+		mlx_destroy_display(_mlx()->mlx);
+		free(_mlx()->mlx);
+		free(_mlx());
+		exit(0);
+	}
+	_mlx()->mlx_win = win;
 }
 
-void	update_bullets3f(void)
+/*
+===============================================================================
+The following function will initialize our frames inside the window
+    if (argc != 2)
+    {
+        printf("Arguments error\n");
+        return (1);
+    }
+===============================================================================
+*/
+void	ft_init_img(void)
 {
-	int			i;
-	int			new_shoot_n;
-	t_vector3F	velo;
+	char	*tmp;
+	void	*img;
 
-	new_shoot_n = _player()->shoot_n;
-	i = 0;
-	while (i < _player()->shoot_n)
+	img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
+	_img()->img = img;
+	if (!_img()->img)
 	{
-		_player()->shott[i].n++;
-		velo = velocity_get_point3f(_player()->shott[i].start_pos,
-				_player()->shott[i].velo.velo,
-				get_time(_player()->shott[i].start_time));
-		if (get_time(_player()->shott[i].start_time)
-			>= (float)_player()->shott[i].velo.time_ms)
-		{
-			new_shoot_n--;
-			recompute_array_shot(i);
-		}
-		else
-			_player()->shott[i].pos = velo;
-		i++;
+		mlx_destroy_window(_mlx()->mlx, _mlx()->mlx_win);
+		mlx_destroy_display(_mlx()->mlx);
+		free(_mlx()->mlx);
+		free(_mlx());
+		exit(0);
 	}
-	_player()->shoot_n = new_shoot_n;
+	tmp = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
+			&(_img()->line_length), &(_img()->endian));
+	_img()->addr = tmp;
+	_img()->bits_per_pixel /= 8;
 }
 
-void	set_spectate(void)
-{
-	int						i;
-	static unsigned long	start = 0;
+// ============================================================================
+// As you can see, if you followed the @Harm_smits tutorial, our pixel put fct
+// is quite different, in our pixel_put function you can see a condition that
+// will prevent any segmentation fault that could  occure if you tried to put a 
+// pixel outside the window.
+// -> this function will be call by other functions before pushing the image 
+//into the window
+// ============================================================================
 
-	i = 0;
-	if (!start && _player()->is_dead)
-		start = get_clock(_var()->clock);
-	if (start && _player()->is_dead && _var()->alive[TRED] > 0
-		&& _var()->alive[TBLUE] > 0 && _var()->linked_players > 2
-		&& get_time(start) > 300000)
-	{
-		_player()->spectate = 1;
-		_player()->spec_id = -1;
-		while (i < _var()->linked_players)
-		{
-			if (_var()->o_player[i].team == _player()->team
-				&& _var()->o_player[i].is_dead == 0)
-				_player()->spec_id = i;
-			i++;
-		}
-	}
+void	ft_reload_frame(void)
+{
+	char	*tmp;
+	void	*img;
+
+	mlx_destroy_image(_mlx()->mlx, _img()->img);
+	img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
+	_img()->img = img;
+	tmp = mlx_get_data_addr(_img()->img, &(_img()->bits_per_pixel),
+			&(_img()->line_length), &(_img()->endian));
+	_img()->addr = tmp;
 }
 
-static void	ft_call(void)
+void	ft_fps(void)
 {
-	planet_clock();
-	draw_sky();
-	check_death();
-	death_clock();
-	reload_clock();
-	draw_rays();
-	walk_clock();
-	ft_play_music(GAME_MUSIC);
-	set_spectate();
+	_ray()->old_time = _ray()->time;
+	_ray()->time = get_clock(_ray()->clock);
+	_ray()->frame_time = (get_clock(_ray()->clock) - _ray()->old_time)
+	/ 1000000.0;
+	_player()->move_speed = _ray()->frame_time * 5.0;
+	_player()->rot_speed = _ray()->frame_time * 3.0;
 }
 
 int	ft_loop(void)
 {
-	ft_call();
-	if ((_var()->is_host == CLIENT || _var()->is_host == SERVER))
-		ft_loop_multi();
-	if (_player()->is_shooting > 0)
-		ft_play_own_shot();
-	update_bullets3f();
-	bullet_casting();
-	hud();
-	if (_var()->round_state == ROUND_END_WAIT)
-		ft_if_round_end_wait();
-	ft_draw_map();
-	render_health(pos(50, 250));
-	if (_player()->weapon_id != KNIFE)
-		ft_is_not_knife();
-	if (_player()->is_dead)
-		draw_death();
+	draw_void();
+	draw_rays();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);

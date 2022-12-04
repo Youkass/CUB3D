@@ -477,7 +477,7 @@ badd +22 ~/Desktop/FT_42/Cercle_4/network_test/includes/struct.h
 badd +23 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/network/client.c
 badd +45 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/utils/singleton.c
 badd +15 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/utils/singleton_2.c
-badd +135 ~/Desktop/FT_42/Cercle_4/CUB3D/includes/cub.h
+badd +135 ~/Desktop/FT_42/Cercle_4/CUB3D/includes_bonus/cub.h
 badd +50 ~/Desktop/FT_42/Cercle_4/CUB3D/srcs/network_client/network_utils.c
 badd +37 ~/Desktop/FT_42/Cercle_4/CUB3D/.note
 badd +69 ~/Desktop/FT_42/Cercle_4/CUB3D/.note.c

@@ -5,28 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 18:45:06 by dasereno         ###   ########.fr       */
+/*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
+/*   Updated: 2022/12/04 20:37:03 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "../includes/cub.h"
+#include <unistd.h>
 
-void	ft_print_tab(char **s)
+int	ft_mouse_release(int keycode)
 {
-	int	i;
-	int	line;
-
-	i = 0;
-	while (_var()->map[i])
-	{
-		printf("%s\n", s[i]);
-		line = ft_strlen(s[i]);
-		++i;
-	}
-	_var()->map_width = line;
-	_var()->map_height = i;
+	if (keycode == 1)
+		_var()->key.mouse = 0;
+	return (0);
 }
 
 int	ft_game(void)
@@ -35,46 +26,41 @@ int	ft_game(void)
 	mlx_hook(_mlx()->mlx_win, 3, 1L << 1, &ft_release, NULL);
 	mlx_loop_hook(_mlx()->mlx, &ft_loop_hook, NULL);
 	mlx_hook(_mlx()->mlx_win, 5, 1L << 3, &ft_mouse_release, NULL);
-	mlx_mouse_hook(_mlx()->mlx_win, &menu_mouse_hook, NULL);
-	mlx_expose_hook(_mlx()->mlx_win, ft_expose, &_var()->mode);
+	mlx_hook(_mlx()->mlx_win, 17, 0, ft_escape, NULL);
 	return (0);
 }
 
-static void	ft_call_functions(void)
+void	init_key(void)
 {
-	init_weapons();
-	ft_init_media();
-	ft_init_img();
-	_ray();
-	ft_init_player_pos();
-	ft_init_player2();
-	init_key();
-	_menu()->n_ip = 0;
-	gen_menu_images();
-	init_image();
+	_var()->key.a = 0;
+	_var()->key.d = 0;
+	_var()->key.esc = 0;
+	_var()->key.left = 0;
+	_var()->key.right = 0;
+	_var()->key.mouse = 0;
+	_var()->key.s = 0;
+	_var()->key.w = 0;
 }
 
-void	ft_print_map(void)
+t_data	generate_image(char *path)
 {
-	int	i;
-	int	j;
+	t_data	sprite;
 
-	i = 0;
-	printf("print_mao\n");
-	while (i < _var()->map_height)
-	{
-		j = 0;
-		while (j < _var()->map_width)
-			printf("%c", _var()->map[i][j++]);
-		printf("\n");
-		++i;
-	}
+	memset(&sprite, 0, sizeof(t_data));
+	if (!path)
+		return (sprite);
+	sprite.img = mlx_xpm_file_to_image(_mlx()->mlx, path,
+			&sprite.width, &sprite.height);
+	if (!sprite.img)
+		return (sprite);
+	sprite.addr = mlx_get_data_addr(sprite.img, &sprite.bits_per_pixel,
+			&sprite.line_length, &sprite.endian);
+	return (sprite);
 }
 
 int	main(int argc, char **argv)
 {
 	int		fd;
-	char	**buf;
 
 	if (argc != 2)
 	{
@@ -83,14 +69,17 @@ int	main(int argc, char **argv)
 	}
 	fd = ft_check_map_name(argv[1]);
 	if (fd < 0)
-		return (1);
-	init_var();
+		exit(1);
 	ft_init_mlx();
-	buf = ft_split(read_file(fd), '\n');
-	parse_args(buf);
-	ft_call_functions();
+	ft_init_img();
+	_ray()->clock = start_clock();
+	parse_args(ft_split(read_file(fd), '\n'));
+	if (!_var()->map)
+		ft_black_hole(139);
+	ft_init_player_pos();
+	init_key();
+	_var()->mode = GAME;
 	ft_game();
-	ft_print_map();
 	mlx_loop(_mlx()->mlx);
 	return (0);
 }

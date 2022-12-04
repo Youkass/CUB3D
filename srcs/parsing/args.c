@@ -6,116 +6,92 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:28:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 20:27:45 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/11/30 15:14:35 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-int	is_map(char *str)
+void	parse_dir(char *str, int index, int *nb)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*new;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != ' ' && str[i] != '\n' && is_wall(str[i]) && str[i] != '0'
-			&& !is_player(str[i]))
-			return (0);
+	i = 2;
+	j = 0;
+	while (str[i] && (str[i] == ' ' || str[i] == '\t'))
 		i++;
-	}
-	return (1);
+	new = ft_malloc(sizeof(char) * ft_strlen(str));
+	while (str[i] && (str[i] != ' ' || str[i] == '\t'))
+		new[j++] = str[i++];
+	new[j] = 0;
+	_var()->dir[index] = generate_image(new);
+	*nb += 1;
+	error_dir(new, index, nb, str);
+	return ;
 }
 
-int	mandatory_args(char *str, int nb_types[16])
+void	jump_spaces(int *i, char *str, int k)
 {
-	if (!strncmp(str, "NO", 2))
-		parse_dir(str, 0, &nb_types[0]);
-	else if (!strncmp(str, "SO", 2))
-		parse_dir(str, 1, &nb_types[1]);
-	else if (!strncmp(str, "WE", 2))
-		parse_dir(str, 2, &nb_types[2]);
-	else if (!strncmp(str, "EA", 2))
-		parse_dir(str, 3, &nb_types[3]);
-	else if (!strncmp(str, "F", 1))
-		parse_color(str, 0, &nb_types[4]);
-	else if (!strncmp(str, "C", 1))
-		parse_color(str, 1, &nb_types[5]);
-	else
-		return (0);
-	return (1);
-}
-
-int	specials_args(char *str, int nb_types[16])
-{
-	if (!strncmp(str, "2", 1))
-		parse_new_textures(str, 0, &nb_types[6]);
-	else if (!strncmp(str, "3", 1))
-		parse_new_textures(str, 1, &nb_types[7]);
-	else if (!strncmp(str, "4", 1))
-		parse_new_textures(str, 2, &nb_types[8]);
-	else if (!strncmp(str, "5", 1))
-		parse_new_textures(str, 3, &nb_types[9]);
-	else if (!strncmp(str, "6", 1))
-		parse_new_textures(str, 4, &nb_types[10]);
-	else if (!strncmp(str, "7", 1))
-		parse_new_textures(str, 5, &nb_types[11]);
-	else if (!strncmp(str, "8", 1))
-		parse_new_textures(str, 6, &nb_types[12]);
-	else if (!strncmp(str, "9", 1))
-		parse_new_textures(str, 7, &nb_types[13]);
-	else if (!strncmp(str, "A", 1))
-		parse_new_textures(str, 8, &nb_types[14]);
-	else if (!strncmp(str, "B", 1))
-		parse_new_textures(str, 9, &nb_types[15]);
-	else if (!strncmp(str, "D", 1))
-		parse_new_textures(str, 10, &nb_types[16]);
-	else
-		return (0);
-	return (1);
-}
-
-int	get_args(char **map, int i, int *index, int nb_types[16])
-{
-	if (!strncmp(map[i], ".", 1))
+	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
+		*i += 1;
+	if (str[*i] == ',')
+		*i += 1;
+	else if (k != 2)
 	{
-		if (!is_nb_args(nb_types))
-			ft_black_hole(13);
-		*index = i + 1;
-		return (0);
+		printf("Error\n");
+		ft_black_hole(1);
 	}
-	else if (!mandatory_args(map[i], nb_types))
-	{
-		if (!specials_args(map[i], nb_types))
-		{
-			if (is_nb_args(nb_types) && *index == -1)
-				*index = i;
-			else if (!is_empty(map[i]) && !is_map(map[i]))
-				ft_black_hole(14);
-		}
-	}
-	return (1);
+	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
+		*i += 1;
 }
 
-void	parse_args(char **map)
+void	is_error(int tmp, int k, int j)
 {
-	int	nb_types[17];
-	int	index;
-	int	i;
-
-	i = 0;
-	index = -1;
-	memset(&nb_types, 0, sizeof(nb_types));
-	while (map[i])
+	if (tmp > 255 || tmp < 0)
 	{
-		if (!get_args(map, i, &index, nb_types))
-			break ;
-		++i;
+		printf("Error\n%d is not in color range (0-255)\n", tmp);
+		ft_black_hole(1);
 	}
-	if (!is_nb_args(nb_types))
-		ft_black_hole(15);
-	while (is_empty(map[index]))
-		index++;
-	check_map(map, index);
-	ft_find_wall_scale();
+	else if (k > 3 || j > 3)
+	{
+		printf("Error\nToo many instructions\n");
+		ft_black_hole(1);
+	}
+}
+
+void	body_color(t_vector3D *it, char *str, int index)
+{
+	int		tmp;
+	char	buf[5];
+
+	it->y = 0;
+	buf[0] = 0;
+	while (str[it->x] && str[it->x] >= '0' && str[it->x] <= '9' && it->y < 4)
+		buf[it->y++] = str[it->x++];
+	buf[it->y] = 0;
+	tmp = atoi(buf);
+	jump_spaces(&it->x, str, it->z);
+	_var()->colors[index][it->z++] = tmp;
+	is_error(tmp, it->z, it->y);
+}
+
+void	parse_color(char *str, int index, int *nb)
+{
+	t_vector3D	it;
+
+	it.x = 1;
+	while (str[it.x] && (str[it.x] == ' ' || str[it.x] == '\t'))
+		it.x++;
+	it.z = 0;
+	*nb += 1;
+	while (str[it.x])
+		body_color(&it, str, index);
+	if (*nb > 1)
+	{
+		printf("Error\n[%c]: Already defined\n", str[0]);
+		ft_black_hole(1);
+	}
+	_var()->colors[index][it.z] = 100;
 }
