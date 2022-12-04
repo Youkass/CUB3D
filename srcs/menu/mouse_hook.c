@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_hook.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:04:44 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/05 19:42:25 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/12/04 19:27:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
