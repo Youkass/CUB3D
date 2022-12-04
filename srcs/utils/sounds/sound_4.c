@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:16:58 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 18:17:16 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:53:02 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_add_sound(int index_1, int index_2, char *path)
 			path, 0, NULL, NULL, &media->sound[index_1][index_2]);
 	if (media->result != MA_SUCCESS)
 		ft_black_hole(69);
+	ma_sound_set_volume(&media->sound[index_1][index_2], 0.5);
 	ft_lstadd_back(&tmp, ft_new_node(&media->sound[index_1][index_2]));
 }
 
@@ -64,7 +65,26 @@ void	ft_init_sound(void)
 				&(media->shot_sound[i]));
 		if (media->result != MA_SUCCESS)
 			ft_black_hole (1);
+		media->result = ma_sound_init_from_file(&(media->engine),
+				"sound/knife_sound.wav", 0, NULL, NULL,
+				&(media->knife_sound[i]));
+		if (media->result != MA_SUCCESS)
+			ft_black_hole (1);
 		ft_lstadd_back(&tmp, ft_new_node(&media->shot_sound[i]));
+		ft_lstadd_back(&tmp, ft_new_node(&media->knife_sound[i]));
+		++i;
+	}
+}
+
+void	ft_play_knife(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < MAX_SHOT_SOUND)
+	{
+		if (!ma_sound_is_playing(&(_media()->knife_sound[i])))
+			ft_start_from_start(&(_media()->knife_sound[i]));
 		++i;
 	}
 }

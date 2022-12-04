@@ -6,7 +6,7 @@
 /*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/02 14:38:44 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:55:23 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,24 @@ void	ft_play_music(int index)
 
 void	play_shots_sound(t_obj player, t_media *media)
 {
-	float	volume;
 	int		dist;
 	int		i;
 
-	(void)volume;
 	i = 0;
 	dist = one_dist2f(posf(player.x, player.y),
 			posf(_player()->x, _player()->y));
-	volume = normalise_between2f(posf(0, 25), posf(0, 1), dist);
-	if (dist >= 25)
-		volume = 0.1;
+	if (player.weapon_id == KNIFE)
+	{
+		if (dist < 3)
+			ft_play_knife();
+		return ;
+	}
 	while (i < MAX_SHOT_SOUND)
 	{
 		if (!ma_sound_is_playing(&(media->shot_sound[i])))
 		{
 			if (player.id != _player()->id)
-				ma_sound_set_volume(&(media->shot_sound[i]), 0.2);
+				ma_sound_set_volume(&(media->shot_sound[i]), 0.3);
 			ma_sound_start(&(media->shot_sound[i]));
 			return ;
 		}
@@ -110,6 +111,11 @@ void	ft_play_own_shot(void)
 		return ;
 	media = _media();
 	i = 0;
+	if (_player()->weapon_id == KNIFE)
+	{
+		ft_play_knife();
+		return ;
+	}
 	while (i < MAX_SHOT_SOUND)
 	{
 		if (!ma_sound_is_playing(&(media->shot_sound[i])))
