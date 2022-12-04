@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:56:21 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 18:57:43 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:27:22 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	compute_hitbox_buttons(int i)
 	}
 	if (i == 1 && _menu()->s_state[1].state == 2)
 		_menu()->mode = MENU_PLAYER;
-	if (i == 2 && _menu()->s_state[2].state == 2)
-		_menu()->mode = MENU_OPTION;
 	if (i == 3 && _menu()->s_state[3].state == 2)
 		ft_black_hole(0);
 	_menu()->s_state[i].state = hit;
