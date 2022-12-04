@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:56:21 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 19:03:35 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:40:12 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,36 @@ int	menu_hook(int keycode)
 
 int	is_nb_keycode(int k)
 {
-	if (k == ZERO || k == ONE || k == TWO || k == THREE || k == FOUR
-		|| k == FIVE || k == SIX || k == SEVEN || k == EIGHT || k == NINE)
+	if ((k == ZERO || k == ONE || k == TWO || k == THREE || k == FOUR
+			|| k == FIVE || k == SIX || k == SEVEN || k == EIGHT || k == NINE)
+		|| (k == ZERO_PAV || k == ONE_PAV || k == TWO_PAV || k == THREE_PAV
+			|| k == FOUR_PAV || k == FIVE_PAV || k == SIX_PAV || k == SEVEN_PAV
+			|| k == EIGHT_PAV || k == NINE_PAV))
 		return (1);
 	return (0);
 }
 
 int	get_nb_keycode(int k)
 {
-	if (k == ZERO)
+	if (k == ZERO || k == ZERO_PAV)
 		return ('0');
-	if (k == ONE)
+	if (k == ONE || k == ONE_PAV)
 		return ('1');
-	if (k == TWO)
+	if (k == TWO || k == TWO_PAV)
 		return ('2');
-	if (k == THREE)
+	if (k == THREE || k == THREE_PAV)
 		return ('3');
-	if (k == FOUR)
+	if (k == FOUR || k == FOUR_PAV)
 		return ('4');
-	if (k == FIVE)
+	if (k == FIVE || k == FIVE_PAV)
 		return ('5');
-	if (k == SIX)
+	if (k == SIX || k == SIX_PAV)
 		return ('6');
-	if (k == SEVEN)
+	if (k == SEVEN || k == SEVEN_PAV)
 		return ('7');
-	if (k == EIGHT)
+	if (k == EIGHT || k == EIGHT_PAV)
 		return ('8');
-	if (k == NINE)
+	if (k == NINE || k == NINE_PAV)
 		return ('9');
 	return ('0');
 }

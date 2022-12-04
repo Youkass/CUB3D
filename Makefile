@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/03 20:45:25 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/04 18:23:03 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,12 @@ SRCS		=	srcs/main.c\
 				srcs/menu/loop_3.c\
 				srcs/menu/loop_4.c\
 				srcs/menu/render.c\
+				srcs/menu/render_2.c\
+				srcs/menu/render_3.c\
+				srcs/menu/render_4.c\
 				srcs/menu/utils.c\
+				srcs/menu/utils_2.c\
+				srcs/menu/utils_3.c\
 				srcs/menu/mouse_hook.c\
 				srcs/menu/intro.c\
 				srcs/menu/intro_2.c\
@@ -126,14 +131,7 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/network/send.c\
 					srcs/network/init.c\
 					srcs/network/recv.c\
-					srcs/raycasting/raycasting_utils.c\
-					srcs/raycasting/raycasting.c\
-					srcs/raycasting/raycasting_2.c\
-					srcs/raycasting/player_casting.c\
-					srcs/raycasting/player_casting_2.c\
-					srcs/raycasting/player_casting_3.c\
-					srcs/raycasting/name_casting.c\
-					srcs/raycasting/bullet_casting.c\
+					srcs/main_utils.c\
 					srcs/team.c\
 					srcs/tools.c\
 					srcs/shoot/shoot.c\
@@ -142,6 +140,14 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/shoot/shoot_wall.c\
 					srcs/ft_itoa.c\
 					srcs/kill_log.c\
+					srcs/raycasting/raycasting_utils.c\
+					srcs/raycasting/raycasting.c\
+					srcs/raycasting/raycasting_2.c\
+					srcs/raycasting/player_casting.c\
+					srcs/raycasting/player_casting_2.c\
+					srcs/raycasting/player_casting_3.c\
+					srcs/raycasting/name_casting.c\
+					srcs/raycasting/bullet_casting.c\
 					srcs/mlx_utils/mlx_utils.c\
 					srcs/mlx_utils/mlx_utils_2.c\
 					srcs/mlx_utils/mlx_utils_3.c\
@@ -185,7 +191,12 @@ SERVER_SRCS		= 	srcs/network/server.c\
 					srcs/menu/loop_3.c\
 					srcs/menu/loop_4.c\
 					srcs/menu/render.c\
+					srcs/menu/render_2.c\
+					srcs/menu/render_3.c\
+					srcs/menu/render_4.c\
 					srcs/menu/utils.c\
+					srcs/menu/utils_2.c\
+					srcs/menu/utils_3.c\
 					srcs/menu/mouse_hook.c\
 					srcs/menu/intro.c\
 					srcs/menu/intro_2.c\

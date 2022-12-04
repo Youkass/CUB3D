@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:10:14 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 20:15:09 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 16:51:31 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ typedef struct	s_obj
 */
 t_obj	*ft_copy_map_line(char *line, int index)
 {
-	int		i;
-	t_obj	*new_line;
+	int			i;
+	t_vector2D	tmp;
+	t_obj		*new_line;
 
 	i = 1;
 	new_line = ft_malloc(sizeof(t_obj) * _var()->map_width);
@@ -42,20 +43,11 @@ t_obj	*ft_copy_map_line(char *line, int index)
 	new_line[0].y = _var()->scale * index;
 	while (line[i])
 	{
+		tmp = pos(i, index);
 		if (line[i] == 'X')
-		{
-			printf("salut\n");
-			// _player()->x = i;
-			// _player()->y = index;
-			// _var()->nx++;
-			_team()[TEAM_RED]->team_spawn = (t_vector2D){i, index};
-		}
+			_team()[TEAM_RED]->team_spawn = tmp;
 		else if (line[i] == 'Y')
-		{
-			printf("salam\n");
-			// _var()->ny++;
-			_team()[TEAM_BLUE]->team_spawn = (t_vector2D){i, index};
-		}
+			_team()[TEAM_BLUE]->team_spawn = tmp;
 		new_line[i].c = line[i];
 		new_line[i].x = new_line[i - 1].x + _var()->scale;
 		new_line[i].y = _var()->scale * index;
@@ -102,8 +94,8 @@ void	ft_draw_wall(t_vector2D pos)
 		{
 			if (var.j == 0 || var.j == _var()->scale - 1 || var.i == 0
 				|| var.i == _var()->scale - 1)
-				ft_put_pixel_color(_img(), colo(200, 142, 103), (pos.x + 1)
-					* _var()->scale + var.i, (pos.y + 1)
+				ft_put_pixel_color(_img(), (char [4]){200, 142, 103, 100},
+					(pos.x + 1) * _var()->scale + var.i, (pos.y + 1)
 					* _var()->scale + var.j);
 			var.j++;
 		}

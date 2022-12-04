@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:58:13 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 19:03:00 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:09:25 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	ft_open_intro_sprites(void)
 
 void	ft_intro_sprite_to_image(int i1, int i2, t_vector2D v1, t_vector2D v2)
 {
-	ft_put_image_to_image_scale(*_img(),
+	ft_put_img_to_img_scale(*_img(),
 		_image()->intro_sprite[i1], v1, (t_vector2F){0.5, 0.5});
-	ft_put_image_to_image_scale(*_img(),
+	ft_put_img_to_img_scale(*_img(),
 		_image()->intro_sprite[i2], v2, (t_vector2F){0.5, 0.5});
 }
 

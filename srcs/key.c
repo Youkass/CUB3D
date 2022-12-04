@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:04:46 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 20:33:36 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:40:30 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	get_key(int keycode)
 		_var()->key[s] = 1;
 	if (keycode == D)
 		_var()->key[d] = 1;
-	if (keycode == ONE)
+	if (keycode == ONE || keycode == ONE_PAV)
 		_var()->key[one] = 1;
-	if (keycode == TWO)
+	if (keycode == TWO || keycode == TWO_PAV)
 		_var()->key[two] = 1;
-	if (keycode == THREE)
+	if (keycode == THREE || keycode == THREE_PAV)
 		_var()->key[three] = 1;
 	ft_get_key_next(keycode);
 }
@@ -75,14 +75,12 @@ static void	ft_release_next(int keycode)
 		_var()->key[maj] = 0;
 	if (keycode == R)
 		_var()->key[r] = 0;
-	if (keycode == ONE)
+	if (keycode == ONE || keycode == ONE_PAV)
 		_var()->key[one] = 0;
-	if (keycode == TWO)
+	if (keycode == TWO || keycode == TWO_PAV)
 		_var()->key[two] = 0;
-	if (keycode == THREE)
+	if (keycode == THREE || keycode == THREE_PAV)
 		_var()->key[three] = 0;
-	if (keycode == F)
-		_var()->key[f] = 0;
 	if (keycode == E)
 		_var()->key[e] = 0;
 }

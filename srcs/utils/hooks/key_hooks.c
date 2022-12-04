@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/03 20:38:08 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:14:51 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,6 @@ typedef struct s_enum_key
 
 ===============================================================================
 */
-
-void	reload_hook(void)
-{
-	int	needed;
-
-	if (_var()->mode == GAME && _player()->full_ammo[_player()->weapon_id]
-		> 0 && _player()->ammo[_player()->weapon_id] < 15
-		&& _player()->weapon_id != KNIFE)
-	{
-		needed = abs(_player()->ammo[_player()->weapon_id] - 15);
-		if (_player()->full_ammo[_player()->weapon_id] <= needed)
-			needed = _player()->full_ammo[_player()->weapon_id];
-		_player()->full_ammo[_player()->weapon_id] -= needed;
-		_player()->ammo[_player()->weapon_id] += needed;
-		_var()->reload_anim = 1;
-		_var()->reloadanim_start = get_clock(_var()->clock);
-	}
-}
 
 void	mouse_menu(void)
 {

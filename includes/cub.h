@@ -67,12 +67,13 @@ t_list	*_lstimg(void);
 t_list	*_lstmedia(void);
 t_list	*ft_new_node(void *content);
 void	*ft_malloc(int size);
-void	exit_say_error(int exit_code);
 
 /* -------------------------------------------------------------------------- */
 /*                   FILE = srcs/utils/garbage/garbage_3.c                    */
 /* -------------------------------------------------------------------------- */
 void	ft_black_hole(int exit_code);
+void	exit_say_error_2(int exit_code);
+void	exit_say_error(int exit_code);
 
 /* -------------------------------------------------------------------------- */
 /*                FILE = srcs/utils/collisions/collisions_3.c                 */
@@ -163,7 +164,6 @@ int	ft_escape(void);
 /* -------------------------------------------------------------------------- */
 /*                    FILE = srcs/utils/hooks/key_hooks.c                     */
 /* -------------------------------------------------------------------------- */
-void	reload_hook(void);
 void	mouse_menu(void);
 void	crouch_sprint(void);
 void	open_door(void);
@@ -184,6 +184,7 @@ int	ft_strafe_right(void);
 /* -------------------------------------------------------------------------- */
 void	weapons(void);
 int	ft_is_wall(t_vector2D pos);
+void	reload_hook(void);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/utils/click.c                          */
@@ -454,7 +455,6 @@ int	is_empty(char *str);
 /*                      FILE = srcs/parsing/parsing_2.c                       */
 /* -------------------------------------------------------------------------- */
 int	is_char_in_range(t_vector2D pos, char **map);
-int	is_wall(char c);
 int	is_player(char c);
 void	get_team_pos(char c, t_vector2D pos);
 void	body_map(t_vector2D *pt, t_vector2D *it, char **map, int *longest);
@@ -488,6 +488,7 @@ void	parse_args(char **map);
 size_t	ft_strlen(const char *s);
 int	count_words(char const *s, char c);
 char	*ft_strncpy_split(char const *src, size_t n);
+int	is_wall(char c);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/dyn_array_2.c                          */
@@ -508,18 +509,6 @@ void	gen_menu_buttons(void);
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/menu/render.c                          */
 /* -------------------------------------------------------------------------- */
-void	draw_bg(char color[4]);
-int	perc(int a, int b);
-void	menu_start(void);
-void	menu_player(void);
-void	draw_lobby(void);
-void	draw_leaderboard(void);
-void	update_key(void);
-void	draw_pseudo_box(char	*pseudo, int i, int team);
-void	draw_pseudo_box_leader(char	*pseudo, int id, int i, int team);
-int	get_ratio(int kills, int deaths);
-void	sort_team(void);
-void	menu_lobby(void);
 void	menu_leaderboard(void);
 void	menu_pseudo(void);
 void	menu_ip(void);
@@ -569,12 +558,45 @@ void	check_button_state_pl(void);
 void	check_action_state_bar(int i);
 
 /* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/menu/render_2.c                         */
+/* -------------------------------------------------------------------------- */
+int	get_ratio(int kills, int deaths);
+void	sort_team(void);
+void	menu_lobby(void);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/menu/utils_2.c                         */
+/* -------------------------------------------------------------------------- */
+t_data	ft_put_img_to_img_scale(t_data b, t_data l, t_vector2D p, t_vector2F s);
+t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
+t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos);
+int	ft_chk_sprite(t_vector2D *it, t_vector2D pos, t_vector2D s, t_vector2D *r);
+
+/* -------------------------------------------------------------------------- */
+/*                         FILE = srcs/menu/utils_3.c                         */
+/* -------------------------------------------------------------------------- */
+void	restart_button(void);
+int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
+void	draw_pixel(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
+void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D r);
+void	ft_init_rel2(t_vector2D *rel_pos, t_vector2F *it, t_vector2D p);
+
+/* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/intro.c                          */
 /* -------------------------------------------------------------------------- */
 t_vector2D	ft_draw_youri(void);
 t_vector2D	ft_draw_darian(void);
 void	ft_end_intro(t_vector2D *double_pos);
 void	ft_intro(void);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/menu/render_3.c                         */
+/* -------------------------------------------------------------------------- */
+void	draw_lobby(void);
+void	draw_leaderboard(void);
+void	update_key(void);
+void	draw_pseudo_box(char	*pseudo, int i, int team);
+void	draw_pseudo_box_leader(char	*pseudo, int id, int i, int team);
 
 /* -------------------------------------------------------------------------- */
 /*                       FILE = srcs/menu/generate_4.c                        */
@@ -597,14 +619,7 @@ int	menu_hook_ip(int keycode);
 /* -------------------------------------------------------------------------- */
 /*                          FILE = srcs/menu/utils.c                          */
 /* -------------------------------------------------------------------------- */
-void	restart_button(void);
-int	ft_hitbox(t_vector2D hitbox[4], t_vector2D pos);
-void	draw_pixel(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
-void	draw_pixel_create(t_data *big, t_data lil, t_vector2D it, t_vector2D rel_pos);
-t_data	ft_put_image_to_image_scale(t_data big, t_data lil, t_vector2D p, t_vector2F scale);
-t_data	ft_put_image_to_image(t_data big, t_data lil, t_vector2D pos);
-t_data	ft_put_image_to_image_create(t_data big, t_data lil, t_vector2D pos);
-t_data	ft_put_sprite_to_images(t_data lil, t_vector2D pos, t_vector2D sp_pos, t_vector2D size);
+t_data	ft_put_sprt_to_img(t_data l, t_vector2D p, t_vector2D sp, t_vector2D s);
 void	draw_pixel_color(t_data *big, t_vector2D rel_pos, char pix[4]);
 void	draw_vertical_line(t_data *img, t_vector2D pos, int h);
 void	draw_bar_fill(void);
@@ -631,6 +646,15 @@ int	menu_hook(int keycode);
 int	is_nb_keycode(int k);
 int	get_nb_keycode(int k);
 int	menu_hook_pseudo_2(int keycode, int *n);
+
+/* -------------------------------------------------------------------------- */
+/*                        FILE = srcs/menu/render_4.c                         */
+/* -------------------------------------------------------------------------- */
+void	draw_bg(char color[4]);
+int	perc(int a, int b);
+void	menu_start(void);
+void	menu_player(void);
+void	ft_draw_lobby(int size_box, t_vector2D size_box_minus);
 
 /* -------------------------------------------------------------------------- */
 /*                         FILE = srcs/menu/loop_3.c                          */
@@ -688,6 +712,8 @@ void	ft_draw_map(void);
 /* -------------------------------------------------------------------------- */
 /*                      FILE = srcs/drawing/draw_text.c                       */
 /* -------------------------------------------------------------------------- */
+void	ft_init_rel(t_vector2D *rel_pos, t_vector2D p);
+t_data	ft_draw_char_scale(t_data lil, t_vector2D p, t_vector2D s, char c[4]);
 void	draw_text_scale(char *text, t_vector2D pos, t_vector2D scale, char c[4]);
 t_data	create_text_img(char *text, char color[4]);
 void	draw_rectangle(t_vector2D a, t_vector2D size, char color[4]);

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:54:09 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 18:55:07 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/03 21:13:56 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ void	render_kill_log(void)
 			draw_text_scale(
 				ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
 						" killed ", _var()->o_player[log->ids[1]].pseudo)),
-				pos(250, 10 + i * 20), pos(4, 4), RED);
+				pos(250, 10 + i * 20), pos(4, 4), (char [4]){0, 34, 250, 250});
 		else
 			draw_text_scale(
 				ft_strjoin(_var()->o_player[log->ids[0]].pseudo, ft_strjoin(
 						" killed ", _var()->o_player[log->ids[1]].pseudo)),
-				pos(250, 10 + i * 20), pos(4, 4), BLUE);
+				pos(250, 10 + i * 20), pos(4, 4),
+				(char [4]){255, 154, 0, 250});
 		tmp = tmp->next;
 		i++;
 	}

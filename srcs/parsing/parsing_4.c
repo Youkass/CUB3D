@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:02:03 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 16:03:43 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:17:38 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,11 @@ char	*ft_strncpy_split(char const *src, size_t n)
 	}
 	dest[i] = '\0';
 	return (dest);
+}
+
+int	is_wall(char c)
+{
+	if ((c >= '1' && c <= '9') || c == 'A' || c == 'B' || c == 'D')
+		return (1);
+	return (0);
 }

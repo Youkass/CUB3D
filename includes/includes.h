@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 20:56:34 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:35:44 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,6 @@ esc : 65307
 # ifndef IS_MUSIC
 #  define IS_MUSIC 1
 # endif
-
-# define colo(x, y, z) (char [4]){z, y, x, 100}
-# define RED colo(253, 92, 76)
-# define GREEN colo(0, 255, 0)
-# define BLUE colo(69, 154, 255)
-# define WHITE colo(238, 238, 238)
-# define DARK_GREY colo(71, 71, 71)
-# define LIGTH_GREY colo(100, 100, 100)
 
 # define MATCH 0
 # define WIN 1
@@ -177,6 +169,20 @@ esc : 65307
 #  define EIGHT 56
 #  define NINE 57
 # endif
+
+# define ZERO_PAV 65438
+# define ONE_PAV 65436
+# define TWO_PAV 65433
+# define THREE_PAV 65435
+# define FOUR_PAV 65430
+# define FIVE_PAV 65437
+# define SIX_PAV 65432
+# define SEVEN_PAV 65429
+# define EIGHT_PAV 65431
+# define NINE_PAV 65434
+
+# define DOT 46
+# define DOT_PAV 65439
 
 # define ERASE 65288
 # define ENTER 65293

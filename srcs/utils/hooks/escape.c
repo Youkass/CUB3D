@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:07:32 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 18:08:03 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:33:44 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	escape_menu(void)
 		_menu()->mode = MENU_PLAYER;
 	if (_menu()->mode == MENU_PSEUDO)
 		_menu()->mode = MENU_PLAYER;
+	if (_menu()->mode == MENU_LOBBY)
+		_menu()->mode = MENU_START;
 	click();
 }
 

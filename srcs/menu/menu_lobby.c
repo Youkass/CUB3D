@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/22 14:56:16 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 20:19:47 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 16:45:08 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void	team_data(int i)
 	}
 	if (!(_image()->pseudo_img[i].img))
 	{
-		txt = create_text_img(_var()->o_player[i].pseudo, WHITE);
+		txt = create_text_img(_var()->o_player[i].pseudo,
+				(char [4]){238, 238, 238, 250});
 		_image()->pseudo_img[i] = txt;
 	}
 }

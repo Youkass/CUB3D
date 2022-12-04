@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:06:05 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 20:21:15 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:39:01 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ int	ft_hook(int keycode)
 	if (_var()->mode == MENU)
 		menu_hook(keycode);
 	if (_var()->mode == MENU && _menu()->mode == MENU_PSEUDO)
-	{
 		menu_hook_pseudo(keycode);
-	}
 	if (_var()->mode == MENU && _menu()->mode == MENU_IP)
 		menu_hook_ip(keycode);
 	return (0);
