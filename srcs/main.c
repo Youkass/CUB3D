@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/03 20:28:27 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:45:06 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,11 @@ int	main(int argc, char **argv)
 	int		fd;
 	char	**buf;
 
-	(void)argc;
+	if (argc != 2)
+	{
+		printf("Error\nInvalid numbers of arguments\n");
+		exit(0);
+	}
 	fd = ft_check_map_name(argv[1]);
 	if (fd < 0)
 		return (1);
