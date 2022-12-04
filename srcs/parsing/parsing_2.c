@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 16:01:02 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/03 20:24:30 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:17:35 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ int	is_char_in_range(t_vector2D pos, char **map)
 		pos = it;
 	}
 	return (ok == 4);
-}
-
-int	is_wall(char c)
-{
-	if ((c >= '1' && c <= '9') || c == 'A' || c == 'B' || c == 'D')
-		return (1);
-	return (0);
 }
 
 int	is_player(char c)

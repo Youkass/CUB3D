@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 01:57:27 by yuro4ka           #+#    #+#             */
-/*   Updated: 2022/12/03 18:58:31 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:09:25 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ t_vector2D	ft_draw_youri(void)
 	if (!start)
 		ft_init_youri(&start, &clock, &pos);
 	if (pos.x > 430)
-		ft_put_image_to_image_scale(*_img(),
+		ft_put_img_to_img_scale(*_img(),
 			_image()->intro_sprite[3], pos, (t_vector2F){0.3, 0.3});
 	else
 	{
 		if (get_time(start) < 11008891)
-			ft_put_image_to_image_scale(*_img(),
+			ft_put_img_to_img_scale(*_img(),
 				_image()->intro_sprite[4], pos, (t_vector2F){0.3, 0.3});
 		else
-			ft_put_image_to_image_scale(*_img(),
+			ft_put_img_to_img_scale(*_img(),
 				_image()->intro_sprite[5], pos, (t_vector2F){0.3, 0.3});
 	}
 	if (get_time(clock) > 50 && pos.x > 430)
@@ -58,15 +58,15 @@ t_vector2D	ft_draw_darian(void)
 	if (!start)
 		ft_init_darian(&start, &clock, &pos);
 	if (pos.x < WIN_W / 2)
-		ft_put_image_to_image_scale(*_img(),
+		ft_put_img_to_img_scale(*_img(),
 			_image()->intro_sprite[0], pos, (t_vector2F){0.3, 0.3});
 	else
 	{
 		if (get_time(start) < 11008891)
-			ft_put_image_to_image_scale(*_img(),
+			ft_put_img_to_img_scale(*_img(),
 				_image()->intro_sprite[1], pos, (t_vector2F){0.3, 0.3});
 		else
-			ft_put_image_to_image_scale(*_img(),
+			ft_put_img_to_img_scale(*_img(),
 				_image()->intro_sprite[2], pos, (t_vector2F){0.3, 0.3});
 	}
 	if (get_time(clock) > 500 && pos.x < WIN_W / 2)
@@ -88,13 +88,13 @@ void	ft_end_intro(t_vector2D *double_pos)
 		pos_logo.y = -100;
 		++start;
 	}
-	ft_put_image_to_image_scale(*_img(),
+	ft_put_img_to_img_scale(*_img(),
 		_menu()->logo, pos_logo,
 		(t_vector2F){0.15, 0.15});
-	ft_put_image_to_image_scale(*_img(),
+	ft_put_img_to_img_scale(*_img(),
 		_image()->intro_sprite[2], double_pos[0],
 		(t_vector2F){0.3, 0.3});
-	ft_put_image_to_image_scale(*_img(),
+	ft_put_img_to_img_scale(*_img(),
 		_image()->intro_sprite[5], double_pos[1],
 		(t_vector2F){0.3, 0.3});
 	if (double_pos[1].x > 260)

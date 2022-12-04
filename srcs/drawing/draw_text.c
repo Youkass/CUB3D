@@ -6,13 +6,13 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 18:20:26 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 19:11:41 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:21:17 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-static void	ft_init_rel(t_vector2D *rel_pos, t_vector2D p)
+void	ft_init_rel(t_vector2D *rel_pos, t_vector2D p)
 {
 	t_data	big;
 
@@ -21,8 +21,7 @@ static void	ft_init_rel(t_vector2D *rel_pos, t_vector2D p)
 	rel_pos[1] = rel_pos[0];
 }
 
-static t_data	ft_draw_char_scale(t_data lil, t_vector2D p,
-		t_vector2D scale, char color[4])
+t_data	ft_draw_char_scale(t_data lil, t_vector2D p, t_vector2D s, char c[4])
 {
 	t_vector2D	rel_pos[2];
 	t_vector2D	it;
@@ -30,7 +29,7 @@ static t_data	ft_draw_char_scale(t_data lil, t_vector2D p,
 
 	big = *_img();
 	ft_init_rel(rel_pos, p);
-	if (ft_chk_draw(&it, p, lil, scale))
+	if (ft_chk_draw(&it, p, lil, s))
 		return (*_img());
 	while (it.y < lil.h)
 	{
@@ -38,15 +37,15 @@ static t_data	ft_draw_char_scale(t_data lil, t_vector2D p,
 		while (it.x < lil.w)
 		{
 			if (lil.addr[it.x * 4 + it.y * lil.line_length] < 0)
-				draw_pixel_color(&big, rel_pos[0], color);
+				draw_pixel_color(&big, rel_pos[0], c);
 			rel_pos[0].x += 4;
 			p.x++;
-			it.x += scale.x;
+			it.x += s.x;
 		}
 		p.y++;
 		rel_pos[0].y = p.y * big.line_length;
 		rel_pos[0].x = rel_pos[1].x;
-		it.y += scale.y;
+		it.y += s.y;
 	}
 	return (big);
 }

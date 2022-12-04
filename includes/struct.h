@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 20:45:40 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:28:22 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -412,7 +412,8 @@ typedef enum s_key
 	right = 42,
 	space = 43,
 	ctrl = 44,
-	maj = 45
+	maj = 45,
+	dot = 46
 }	t_key;
 
 typedef struct s_var

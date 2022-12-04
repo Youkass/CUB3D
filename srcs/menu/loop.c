@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 12:05:00 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/03 18:56:45 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 18:37:25 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ int	menu_hook_ip_4(int keycode)
 
 int	menu_hook_ip_3(int keycode)
 {
-	if (keycode == EIGHT && _menu()->n_ip + 1 < 16)
+	if ((keycode == EIGHT || keycode == EIGHT_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '8';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == NINE && _menu()->n_ip + 1 < 16)
+	if ((keycode == NINE || keycode == NINE_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '9';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == SPACE && _menu()->n_ip + 1 < 16)
+	if ((keycode == DOT || keycode == DOT_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '.';
 		_var()->ip[_menu()->n_ip] = 0;
@@ -70,22 +70,22 @@ int	menu_hook_ip_3(int keycode)
 
 int	menu_hook_ip_2(int keycode)
 {
-	if (keycode == FOUR && _menu()->n_ip + 1 < 16)
+	if ((keycode == FOUR || keycode == FOUR_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '4';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == FIVE && _menu()->n_ip + 1 < 16)
+	if ((keycode == FIVE || keycode == FIVE_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '5';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == SIX && _menu()->n_ip + 1 < 16)
+	if ((keycode == SIX || keycode == SIX_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '6';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == SEVEN && _menu()->n_ip + 1 < 16)
+	if ((keycode == SEVEN || keycode == SEVEN_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '7';
 		_var()->ip[_menu()->n_ip] = 0;
@@ -95,22 +95,22 @@ int	menu_hook_ip_2(int keycode)
 
 int	menu_hook_ip(int keycode)
 {
-	if (keycode == ZERO && _menu()->n_ip + 1 < 16)
+	if ((keycode == ZERO || keycode == ZERO_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '0';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == ONE && _menu()->n_ip + 1 < 16)
+	if ((keycode == ONE || keycode == ONE_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '1';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == TWO && _menu()->n_ip + 1 < 16)
+	if ((keycode == TWO || keycode == TWO_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '2';
 		_var()->ip[_menu()->n_ip] = 0;
 	}
-	if (keycode == THREE && _menu()->n_ip + 1 < 16)
+	if ((keycode == THREE || keycode == THREE_PAV) && _menu()->n_ip + 1 < 16)
 	{
 		_var()->ip[_menu()->n_ip++] = '3';
 		_var()->ip[_menu()->n_ip] = 0;
