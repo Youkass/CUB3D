@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 19:43:10 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 16:01:26 by dasereno         ###   ########.fr       */
+/*   Created: 2022/11/29 15:30:32 by dasereno          #+#    #+#             */
+/*   Updated: 2022/11/29 18:18:30 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,102 +19,92 @@
 #include <unistd.h>
 #include "../../includes/cub.h"
 
-int	check_map(char **map, int start)
+size_t	ft_strlen(const char *s)
 {
-	t_vector2D	it;
-	t_vector2D	pt;
-	int			longest;
-
-	it = (t_vector2D){0, start};
-	pt = (t_vector2D){0, 0};
-	longest = 0;
-	while (map[it.y])
-	{
-		body_map(&pt, &it, map, &longest);
-		strcpy(_var()->map[pt.y], map[it.y]);
-		pt.y++;
-		it.y++;
-	}
-	_var()->map_width = longest;
-	_var()->map_height = pt.y;
-	_var()->map[pt.y][0] = 0;
-	return (1);
-}
-
-int	get_longest_line(char **map)
-{
-	int	i;
-	int	max;
+	size_t	i;
 
 	i = 0;
-	max = 0;
-	while (map[i])
-	{
-		if (ft_strlen(map[i]) > (size_t)max)
-			max = ft_strlen(map[i]);
+	if (!s)
+		return (0);
+	while (s[i])
 		i++;
-	}
-	if (i > 1024)
-		ft_black_hole(10);
-	return (max);
+	return (i);
 }
 
-char	*copy_line_and_add(char *str, int size)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
-	char	*new;
+	char	*str;
 
 	i = 0;
-	new = ft_malloc(sizeof(char) * (size + 1));
-	while (str[i])
+	str = ft_malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+		return (ft_black_hole(139), NULL);
+	while (s1 && *s1)
 	{
-		if (str[i] == ' ')
-			new[i] = 'Z';
-		else
-			new[i] = str[i];
-		i++;
+		str[i++] = *s1;
+		s1++;
 	}
-	while (i < size)
-		new[i++] = 'Z';
-	new[i] = 0;
-	return (new);
+	while (s2 && *s2)
+	{
+		str[i++] = *s2;
+		s2++;
+	}
+	str[i] = 0;
+	return (str);
 }
 
-char	**resize_map(char **map)
+char	*read_file(int fd)
 {
-	int		max;
-	int		i;
-	char	**new;
+	int		read_val;
+	char	*str;
+	char	*tmp;
+	char	buff[1085];
 
-	max = get_longest_line(map);
-	if (max > 1024)
-		ft_black_hole(10);
-	new = ft_malloc(sizeof(char *) * 100);
-	i = 0;
-	while (map[i])
+	str = NULL;
+	read_val = 1;
+	while (read_val)
 	{
-		new[i] = copy_line_and_add(map[i], max);
-		i++;
+		read_val = read(fd, buff, 1084);
+		buff[read_val] = 0;
+		tmp = str;
+		str = ft_strjoin(tmp, buff);
 	}
-	new[i] = NULL;
-	return (new);
+	return (str);
 }
 
-void	copy_map_static(void)
+int	is_char_in_range(t_vector2D pos, char **map)
 {
-	int	i;
-	int	j;
+	t_vector2D			it;
+	int					ok;
+	static t_vector2D	add[4]
+		= (t_vector2D [4]){{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+	int					check;
 
-	i = 0;
-	while (_var()->before_map[i])
+	it = pos;
+	check = -1;
+	ok = 0;
+	while (++check < 4)
 	{
-		j = 0;
-		while (_var()->before_map[i][j])
+		while (pos.x >= 0 && pos.y >= 0 && map[pos.y][pos.x]
+			&& map[pos.y][pos.x] != ' ')
 		{
-			_var()->map[i][j] = _var()->before_map[i][j];
-			j++;
+			if (map[pos.y][pos.x] == '1')
+			{
+				ok++;
+				break ;
+			}
+			pos.x += add[check].x;
+			pos.y += add[check].y;
 		}
-		_var()->map[i][j] = 0;
-		i++;
+		pos = it;
 	}
+	return (ok == 4);
+}
+
+int	is_player(char c)
+{
+	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == 'P')
+		return (1);
+	return (0);
 }

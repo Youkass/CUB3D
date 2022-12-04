@@ -5,67 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 15:59:52 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 16:00:47 by dasereno         ###   ########.fr       */
+/*   Created: 2022/11/29 18:05:31 by dasereno          #+#    #+#             */
+/*   Updated: 2022/12/04 20:34:55 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
-
-void	jump_spaces(int *i, char *str, int k)
-{
-	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
-		*i += 1;
-	if (str[*i] == ',')
-		*i += 1;
-	else if (k != 2)
-		ft_black_hole(21);
-	while (str[*i] && (str[*i] == ' ' || str[*i] == '\t'))
-		*i += 1;
-}
-
-void	is_error(int tmp, int k, int j)
-{
-	if (tmp > 255 || tmp < 0)
-		ft_black_hole(16);
-	else if (k > 3 || j > 3)
-		ft_black_hole(17);
-}
-
-void	parse_color(char *str, int index, int *nb)
-{
-	t_vector3D	it;
-	int			tmp;
-	char		buf[5];
-
-	it.x = 1;
-	while (str[it.x] && (str[it.x] == ' ' || str[it.x] == '\t'))
-		it.x++;
-	it.z = 0;
-	*nb += 1;
-	while (str[it.x])
-	{
-		it.y = 0;
-		buf[0] = 0;
-		while (str[it.x] && str[it.x] >= '0' && str[it.x] <= '9' && it.y < 4)
-			buf[it.y++] = str[it.x++];
-		buf[it.y] = 0;
-		tmp = atoi(buf);
-		jump_spaces(&it.x, str, it.z);
-		_var()->colors[index][it.z++] = tmp;
-		is_error(tmp, it.z, it.y);
-	}
-	if (*nb > 1)
-		ft_black_hole(17);
-	_var()->colors[index][it.z] = 100;
-}
 
 int	is_nb_args(int	*tab)
 {
 	int	i;
 
 	i = 0;
-	while (i < 16)
+	while (i < 6)
 	{
 		if (tab[i++] != 1)
 			return (0);
@@ -85,4 +37,67 @@ int	is_empty(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int	is_map(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\n' && str[i] != '1' && str[i] != '0'
+			&& !is_player(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	arg_check(char *str, int nb_types[6], int *index, int i)
+{
+	if (!strncmp(str, "NO", 2))
+		parse_dir(str, 0, &nb_types[0]);
+	else if (!strncmp(str, "SO", 2))
+		parse_dir(str, 2, &nb_types[2]);
+	else if (!strncmp(str, "WE", 2))
+		parse_dir(str, 1, &nb_types[1]);
+	else if (!strncmp(str, "EA", 2))
+		parse_dir(str, 3, &nb_types[3]);
+	else if (!strncmp(str, "F", 1))
+		parse_color(str, 0, &nb_types[4]);
+	else if (!strncmp(str, "C", 1))
+		parse_color(str, 1, &nb_types[5]);
+	else if (is_nb_args(nb_types) && *index == -1)
+		*index = i;
+	else if (!is_empty(str) && !is_map(str))
+	{
+		printf("Error\n%s Unrecognized argument\n", str);
+		ft_black_hole(0);
+	}
+}
+
+void	parse_args(char **map)
+{
+	int	nb_types[6];
+	int	index;
+	int	i;
+
+	i = 0;
+	index = -1;
+	memset(&_img()->map, 0, sizeof(_img()->map));
+	memset(&nb_types, 0, sizeof(nb_types));
+	while (map[i])
+	{
+		arg_check(map[i], nb_types, &index, i);
+		++i;
+	}
+	if (!is_nb_args(nb_types))
+	{
+		printf("Error\nToo many arguments\n");
+		ft_black_hole(1);
+	}
+	while (is_empty(map[index]))
+		index++;
+	check_map(map, index);
 }
