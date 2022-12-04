@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 20:42:46 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:55:51 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ t_data	*_img(void)
 	static t_data	*img = NULL;
 
 	if (!img)
+	{
+		memset(&img, 0, sizeof(img));
 		img = ft_malloc(sizeof(t_data));
+	}
 	if (!img)
 		return (NULL);
 	return (img);
@@ -34,7 +37,10 @@ t_mlx	*_mlx(void)
 	static t_mlx	*mlx = NULL;
 
 	if (!mlx)
+	{
+		memset(&mlx, 0, sizeof(mlx));
 		mlx = ft_malloc(sizeof(t_mlx));
+	}
 	if (!mlx)
 		return (NULL);
 	return (mlx);
@@ -48,7 +54,10 @@ t_obj	*_player(void)
 	static t_obj	*player = NULL;
 
 	if (!player)
+	{
+		memset(&player, 0, sizeof(player));
 		player = ft_malloc(sizeof(t_obj));
+	}
 	if (!player)
 		return (NULL);
 	return (player);
@@ -62,7 +71,10 @@ t_raycasting	*_ray(void)
 	static t_raycasting	*ray = NULL;
 
 	if (!ray)
+	{
+		memset(&ray, 0, sizeof(ray));
 		ray = ft_malloc(sizeof(t_raycasting));
+	}
 	if (!ray)
 		return (NULL);
 	return (ray);
@@ -76,7 +88,10 @@ t_var	*_var(void)
 	static t_var	*var = NULL;
 
 	if (!var)
+	{
+		memset(&var, 0, sizeof(var));
 		var = ft_malloc(sizeof(t_var));
+	}
 	if (!var)
 		return (NULL);
 	return (var);

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/04 18:35:44 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 22:20:03 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ esc : 65307
 # endif
 
 # ifndef IS_MUSIC
-#  define IS_MUSIC 1
+#  define IS_MUSIC 0
 # endif
 
 # define MATCH 0

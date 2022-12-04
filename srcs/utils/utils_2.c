@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:12:42 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/29 18:21:55 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:58:18 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_init_player_pos(void)
 {
 	_player()->x = 5;
 	_player()->y = 3;
+	_player()->angle = 0;
 	_ray()->time = 0;
 	_ray()->old_time = 0;
 	_player()->hb.hit.radius = 0.5;

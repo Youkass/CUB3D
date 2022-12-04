@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/04 20:43:02 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:56:52 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	ft_black_hole(int exit_code)
 	mlx_destroy_window(_mlx()->mlx, _mlx()->mlx_win);
 	mlx_destroy_display(_mlx()->mlx);
 	free(_mlx()->mlx);
-	free(_var());
 	ft_lstclear(&tmp, free);
 	exit(exit_code);
 }
