@@ -211,7 +211,7 @@ void	ft_put_pixel_color_unsigned(t_data *a, unsigned char c[4], int x, int y);
 /* -------------------------------------------------------------------------- */
 void	put_pixel_from_mode(t_obj *player, int stripe, int y);
 void	choose_mode(t_obj *player, t_obj *my_player);
-int	nearest(t_obj *player);
+int	nearest(t_obj *player, int i, int j);
 void	swap_pl(t_obj *player, int i, int j);
 int	compute_distance(t_vector2F a, t_vector2F b);
 
