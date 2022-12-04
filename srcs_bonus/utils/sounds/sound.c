@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 12:10:09 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 22:25:41 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	play_shots_sound(t_obj player, t_media *media)
 	int		i;
 
 	i = 0;
+	if (IS_MUSIC != 1)
+		return ;
 	dist = one_dist2f(posf(player.x, player.y),
 			posf(_player()->x, _player()->y));
 	if (player.weapon_id == KNIFE)

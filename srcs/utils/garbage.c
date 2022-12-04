@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 20:39:46 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 20:55:37 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	*ft_malloc(int size)
 
 	output = malloc(size);
 	tmp = _lst();
-	memset(&output, 0, sizeof(output));
 	if (!output)
 		ft_black_hole(139);
 	ft_lstadd_back(&tmp, ft_new_node(output));

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 21:50:20 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 22:31:22 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ static void	ft_init_player_pos_next(void)
 	_player()->dx = -0.50;
 	_player()->shooted.id = -1;
 	_player()->plane = vec;
+	_player()->angle = 0;
 	_player()->hb.hit.r = 0.5;
 	generate_dsprite();
 	generate_dsprite_red();

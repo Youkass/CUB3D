@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:16:58 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 22:25:14 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void	ft_play_knife(void)
 	int	i;
 
 	i = 0;
+	if (IS_MUSIC != 1)
+		return ;
 	while (i < MAX_SHOT_SOUND)
 	{
 		if (!ma_sound_is_playing(&(_media()->knife_sound[i])))
