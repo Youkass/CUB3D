@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:15:56 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/01 18:16:45 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/04 19:16:29 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ void	ft_check_end_songs(void)
 	if (IS_MUSIC != 1)
 		return ;
 	media = _media();
+	if (ma_sound_is_playing(&(media->sound[GAME_MUSIC][ASHES])))
+		ma_sound_stop(&(media->sound[GAME_MUSIC][ASHES]));
+	if (ma_sound_is_playing(&(media->sound[GAME_MUSIC][MORTAL])))
+		ma_sound_stop(&(media->sound[GAME_MUSIC][MORTAL]));
 	if (ma_sound_is_playing(&(media->sound[ROUND_MUSIC][GAME_WIN])))
 		ma_sound_stop(&(media->sound[ROUND_MUSIC][GAME_WIN]));
 	if (ma_sound_is_playing(&(media->sound[ROUND_MUSIC][GAME_LOST])))
