@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_casting_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denissereno <denissereno@student.42.fr>    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 17:02:24 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/02 13:30:09 by denissereno      ###   ########.fr       */
+/*   Updated: 2022/12/04 19:24:45 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	choose_mode(t_obj *player, t_obj *my_player)
 		_var()->tex_mode = 2;
 }
 
-int	nearest(t_obj *player)
+int	nearest(t_obj *player, int i, int j)
 {
 	if (compute_distance((t_vector2F){player->x, player->y},
 		(t_vector2F){_var()->sort_player[j].x, _var()->sort_player[j]
@@ -61,7 +61,7 @@ void	swap_pl(t_obj *player, int i, int j)
 {
 	t_obj	tmp;
 
-	if (nearest(player))
+	if (nearest(player, i, j))
 	{
 		tmp = _var()->sort_player[i];
 		_var()->sort_player[i] = _var()->sort_player[j];
