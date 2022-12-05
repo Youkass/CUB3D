@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:07:31 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:48:09 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	replace_player(void)
 	_player()->dx = -1;
 	_player()->shooted.id = -1;
 	_player()->shooted.shoot = 0;
-	_player()->dy = 0;
+	_player()->dy = 0.001;
 	_player()->is_dead = 0;
 	_player()->is_crouching = 0;
 	_player()->death_n = 0;
@@ -85,7 +85,7 @@ static void	ft_restart_player(void)
 	_player()->dx = -1;
 	_player()->shooted.id = -1;
 	_player()->shooted.shoot = 0;
-	_player()->dy = 0;
+	_player()->dy = 0.001;
 	_player()->is_dead = 0;
 	_player()->is_crouching = 0;
 	_player()->death_n = 0;

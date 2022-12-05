@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yobougre <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:03:44 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/05 18:13:16 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:45:24 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,22 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 		i++;
 	}
 	return (0);
+}
+
+void	rev_tab(unsigned char *tab, int size)
+{
+	int	i;
+	int	j;
+	int	tmp;
+
+	i = 0;
+	j = size - 1;
+	while (i < j)
+	{
+		tmp = tab[i];
+		tab[i] = tab[j];
+		tab[j] = tmp;
+		i++;
+		j--;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/11/29 15:33:40 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:59:20 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,8 @@ void	dda(void)
 	max = 0;
 	while (!_ray()->hit)
 	{
-		if (max > 5000)
-		{
-			_player()->y -= 0.3;
+		if (max > 1000)
 			return ;
-		}
 		check();
 		max++;
 	}

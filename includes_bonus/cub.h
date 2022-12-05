@@ -206,6 +206,7 @@ int	intersects(t_circle circle, t_rect rect);
 void	ft_put_pixel(t_data *a, t_data *b, t_vector2D pos_a, t_vector2D pos_b);
 void	ft_put_pixel_color(t_data *a, char color[4], int x, int y);
 void	ft_put_pixel_color_unsigned(t_data *a, unsigned char c[4], int x, int y);
+void	draw_rays(void);
 
 /* -------------------------------------------------------------------------- */
 /*              FILE = srcs_bonus/raycasting/player_casting_2.c               */
@@ -237,7 +238,6 @@ void	dda(t_raycasting *r);
 void	compute_drawing_data(t_raycasting *r);
 void	draw_wall(t_raycasting *r);
 void	*ray_draw(void *t);
-void	draw_rays(void);
 
 /* -------------------------------------------------------------------------- */
 /*                FILE = srcs_bonus/raycasting/raycasting_2.c                 */

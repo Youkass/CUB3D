@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 16:43:03 by yobougre          #+#    #+#             */
-/*   Updated: 2022/11/29 17:34:15 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:37:43 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	get_directional_texture(void)
 		if (degree < 0)
 			degree += 360;
 		if (degree < 180)
-			_ray()->tex_i = 2;
+			_ray()->tex_i = 3;
 		else
-			_ray()->tex_i = 0;
+			_ray()->tex_i = 1;
 		_ray()->perp_wall_dist = (_ray()->side_dist.x - _ray()->delta.x);
 	}
 	else
@@ -53,9 +53,9 @@ void	get_directional_texture(void)
 		if (degree < 0)
 			degree += 360;
 		if (degree > 180)
-			_ray()->tex_i = 1;
+			_ray()->tex_i = 0;
 		else
-			_ray()->tex_i = 3;
+			_ray()->tex_i = 2;
 		_ray()->perp_wall_dist = (_ray()->side_dist.y - _ray()->delta.y);
 	}
 }
