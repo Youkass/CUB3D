@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:21:06 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:10:50 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,16 @@ int	ft_loop(void)
 		ft_play_own_shot();
 	update_bullets3f();
 	bullet_casting();
-	hud();
 	if (_var()->round_state == ROUND_END_WAIT)
 		ft_if_round_end_wait();
-	ft_draw_map();
 	render_health(pos(50, 250));
 	if (_player()->weapon_id != KNIFE)
 		ft_is_not_knife();
 	if (_player()->is_dead)
 		draw_death();
+	usleep(50);
+	hud();
+	ft_draw_map();
 	mlx_put_image_to_window(_mlx()->mlx, _mlx()->mlx_win, _img()->img, 0, 0);
 	ft_reload_frame();
 	return (0);

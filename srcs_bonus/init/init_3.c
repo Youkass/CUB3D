@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:01:34 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:04:38 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 void	init_var(void)
 {
-	memset(_var(), 0, sizeof(t_var));
-	if (pthread_mutex_init(&_log()->mutex, NULL))
-		ft_black_hole(137);
 	memset(&_var()->map, 0, sizeof(_var()->map));
 	_var()->mode = MENU;
 	_menu()->mode = INTRO;

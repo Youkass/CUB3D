@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:56:21 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:07:50 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 */
 int	menu_loop(void)
 {
+	mlx_mouse_show(_mlx()->mlx, _mlx()->mlx_win);
 	ft_play_music(MENU_MUSIC);
 	if (_menu()->mode == INTRO)
 		ft_intro();

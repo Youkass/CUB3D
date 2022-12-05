@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/04 22:20:03 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 15:33:31 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ esc : 65307
 # include <signal.h>
 # include <string.h>
 # include <time.h>
+# include <X11/Xlib.h>
+# include <X11/extensions/Xfixes.h>
+# include <X11/Xutil.h>
+# include <X11/extensions/XShm.h>
+# include <X11/XKBlib.h>
 # include <poll.h>
 # ifndef MINIAUDIO_IMPLEMENTATION
 #  define MINIAUDIO_IMPLEMENTATION
@@ -53,6 +58,8 @@ esc : 65307
 # ifndef IS_MUSIC
 #  define IS_MUSIC 0
 # endif
+
+# define MLX_MAX_EVENT 36
 
 # define MATCH 0
 # define WIN 1

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:06:54 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:07:23 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 int	ft_expose(void *data)
 {
-	int	*mode;
+	int			*mode;
+	t_xvar		*var;
+	t_win_list	*win;
 
 	mode = (int *)data;
 	if (*mode == GAME)
 	{
-		mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+		var = (t_xvar *)_mlx()->mlx;
+		win = (t_win_list *)_mlx()->mlx_win;
+		XFixesHideCursor(var->display, win->window);
 		mlx_mouse_move(_mlx()->mlx, _mlx()->mlx_win, WIN_W / 2, WIN_H / 2);
 	}
 	return (0);

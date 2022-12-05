@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:46:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:41:55 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,15 @@ void	*ft_draw_void(void *r)
 
 void	thread_sky(t_vector2D r[10])
 {
-	int	i;
+	int				i;
+	pthread_attr_t	tattr;
 
+	pthread_attr_init(&tattr);
+	pthread_attr_setdetachstate(&tattr, PTHREAD_CREATE_DETACHED);
 	i = 0;
 	while (i < 10)
 	{
-		pthread_create(&_var()->th_void[i], NULL, ft_draw_void, &r[i]);
+		pthread_create(&_var()->th_void[i], &tattr, ft_draw_void, &r[i]);
 		i++;
 	}
 	while (i)

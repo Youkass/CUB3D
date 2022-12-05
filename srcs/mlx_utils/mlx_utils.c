@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/05 14:32:37 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:44:33 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ The following function will initialize our mlx pointer and our mlx window
 void	ft_init_mlx(void)
 {
 	void	*win;
-	
+
 	_lst();
 	_mlx()->mlx = mlx_init();
 	if (!_mlx()->mlx)
