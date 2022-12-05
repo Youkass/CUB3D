@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 16:43:03 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/05 18:15:31 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:41:38 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,14 @@ void	ft_put_pixel_color_unsigned(t_data *a, unsigned char c[4], int x, int y)
 
 void	draw_rays(void)
 {
-	static t_ray_th	r[TH_RAY];
+	static t_ray_th	r;
 	static int		started = 0;
-	int				i;
-	pthread_attr_t	tattr;
 
-	pthread_attr_init(&tattr);
-	pthread_attr_setdetachstate(&tattr, PTHREAD_CREATE_DETACHED);
 	if (!started)
 	{
-		i = -1;
-		while (++i < TH_RAY)
-		{
-			r[i].start_end = (t_vector2D){(WIN_W / TH_RAY) * i,
-				(WIN_W / TH_RAY) * (i + 1)};
-			r[i].i = i;
-		}
+		r.start_end = pos(0, WIN_W);
+		r.i = 0;
 	}
-	i = -1;
-	while (++i < TH_RAY)
-	{
-		r[i].pl = *_player();
-		pthread_create(&_var()->th[i], &tattr, ray_draw, &r[i]);
-	}
-	while (i)
-		pthread_join(_var()->th[i], NULL);
+	r.pl = *_player();
+	ray_draw((void *)&r);
 }
