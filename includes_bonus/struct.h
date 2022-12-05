@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/04 19:46:14 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:01:43 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,7 +487,50 @@ typedef struct s_var
 	int					walk_tex;
 	int					nx;
 	int					ny;
+	pthread_mutex_t		mutex;
 }	t_var;
+
+typedef struct	s_event_list
+{
+	int		mask;
+	int		(*hook)();
+	void	*param;
+}				t_event_list;
+
+typedef struct	s_win_list
+{
+	Window				window;
+	GC					gc;
+	struct s_win_list	*next;
+	int					(*mouse_hook)();
+	int					(*key_hook)();
+	int					(*expose_hook)();
+	void				*mouse_param;
+	void				*key_param;
+	void				*expose_param;
+	t_event_list		hooks[MLX_MAX_EVENT];
+}				t_win_list;
+
+typedef struct	s_xvar
+{
+	Display		*display;
+	Window		root;
+	int			screen;
+	int			depth;
+	Visual		*visual;
+	Colormap	cmap;
+	int			private_cmap;
+	t_win_list	*win_list;
+	int			(*loop_hook)();
+	void		*loop_param;
+	int			use_xshm;
+	int			pshm_format;
+	int			do_flush;
+	int			decrgb[6];
+	Atom		wm_delete_window;
+	Atom		wm_protocols;
+	int 		end_loop;
+}				t_xvar;
 
 typedef struct s_image
 {
@@ -666,9 +709,9 @@ typedef struct s_intro
 
 typedef struct s_ray_th
 {
-	t_vector2D	start_end;
-	int			i;
-	t_obj		pl;
+	t_vector2D		start_end;
+	int				i;
+	t_obj			pl;
 }	t_ray_th;
 
 #endif

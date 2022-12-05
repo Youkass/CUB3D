@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 18:48:55 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:44:59 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,19 @@ int	ft_init_in_while(t_server_data *data, int i)
 
 int	ft_connect_clients(t_server_data *data)
 {
-	int	i;
+	int				i;
+	pthread_attr_t	tattr;
 
+	pthread_attr_init(&tattr);
+	pthread_attr_setdetachstate(&tattr, PTHREAD_CREATE_DETACHED);
 	i = 0;
 	data->linked_players = 0;
 	while (i < data->nb_players)
 	{
 		if (ft_init_in_while(data, i) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
-		if (pthread_create(&(data->clients[i].thread_id), NULL, client_routine,
-				&(data->clients[i])))
+		if (pthread_create(&(data->clients[i].thread_id), &tattr,
+				client_routine, &(data->clients[i])))
 			return (EXIT_FAILURE);
 		i++;
 	}

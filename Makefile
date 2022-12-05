@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/04 22:19:57 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/05 17:16:25 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -378,8 +378,8 @@ OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_AUDIO = $(addprefix $(OBJS_DIR_AUDIO), $(OBJS_AUDIO))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
-CC_FLAGS	= -Wall -Werror -Wextra
-MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -ldl -lpthread  
+CC_FLAGS	= -Wall -Werror -Wextra -g3
+MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -ldl -lpthread -lXfixes
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)
@@ -410,7 +410,6 @@ $(OBJS_DIR_B)%.o : %.c includes_bonus/cub.h
 	@mkdir -p $(OBJS_DIR_B)srcs_bonus/network_client
 	@mkdir -p $(OBJS_DIR_B)miniaudio/extras/miniaudio_split/
 	@mkdir -p $(OBJS_DIR_B)srcs_bonus
-	printf "salut\n"
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME_B)]${RST} '$<' $(END)"
 

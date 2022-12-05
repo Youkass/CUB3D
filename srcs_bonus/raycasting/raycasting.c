@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:05:40 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,11 @@ void	draw_wall(t_raycasting *r)
 
 void	*ray_draw(void *t)
 {
-	t_ray_th	r;
+	t_ray_th		r;
 
 	r = *(t_ray_th *)t;
+	if (!_ray()[r.i])
+		return (NULL);
 	_ray()[r.i]->x = r.start_end.x;
 	if (_player()->spectate && _player()->spec_id >= 0
 		&& _player()->spec_id <= _var()->nb_player)
@@ -103,36 +105,4 @@ void	*ray_draw(void *t)
 		_ray()[r.i]->x++;
 	}
 	return (NULL);
-}
-
-/*
--Algorithm to draw raycasting.
-*/
-
-void	draw_rays(void)
-{
-	static t_ray_th	r[TH_RAY];
-	static int		started = 0;
-	int				i;
-
-	if (!started)
-	{
-		i = 0;
-		while (i < TH_RAY)
-		{
-			r[i].start_end = (t_vector2D){(WIN_W / TH_RAY) * i,
-				(WIN_W / TH_RAY) * (i + 1)};
-			r[i].i = i;
-			i++;
-		}
-	}
-	i = 0;
-	while (i < TH_RAY)
-	{
-		r[i].pl = *_player();
-		pthread_create(&_var()->th[i], NULL, ray_draw, &r[i]);
-		i++;
-	}
-	while (i)
-		pthread_join(_var()->th[i--], NULL);
 }

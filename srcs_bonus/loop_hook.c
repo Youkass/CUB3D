@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 19:06:05 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:05:52 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ int	ft_mouse_hook(int keycode)
 		menu_mouse_hook(keycode);
 	return (0);
 }
-/*===========================================================================*/
 
 static void	ft_loop_hook_next(void)
 {
+	t_xvar		*var;
+	t_win_list	*win;
+
 	ft_fps();
 	key_hook();
 	if (_var()->mode == GAME_START_ONLINE)
@@ -46,7 +48,9 @@ static void	ft_loop_hook_next(void)
 		ft_loop();
 		if (!_var()->freeze || _player()->spectate)
 		{
-			mlx_mouse_hide(_mlx()->mlx, _mlx()->mlx_win);
+			var = (t_xvar *)_mlx()->mlx;
+			win = (t_win_list *)_mlx()->mlx_win;
+			XFixesHideCursor(var->display, win->window);
 			mouse_rotate();
 		}
 		else

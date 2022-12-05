@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:08:36 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:37:33 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ t_var	*_var(void)
 	if (var == NULL)
 	{
 		var = ft_malloc(sizeof(t_var));
-		if (!var)
-			printf("le ft_malloc pet\n");
+		memset(var, 0, sizeof(t_var));
 	}
 	return (var);
 }
