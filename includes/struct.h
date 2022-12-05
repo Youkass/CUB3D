@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/04 20:26:47 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:37:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,7 @@ typedef struct s_var
 	int				map_width;
 	unsigned char	colors[2][4];
 	t_data			dir[4];
+	int				fd;
 }	t_var;
 
 typedef struct s_player

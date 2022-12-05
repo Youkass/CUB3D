@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 14:29:30 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/05 14:32:37 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:50:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 The following function will initialize our mlx pointer and our mlx window
 ===============================================================================
 */
-void	ft_init_mlx(void)
+void	ft_init_mlx(int fd)
 {
 	void	*win;
 	
@@ -26,6 +26,7 @@ void	ft_init_mlx(void)
 	if (!_mlx()->mlx)
 	{
 		free(_mlx());
+		close(fd);
 		exit(0);
 	}
 	win = mlx_new_window(_mlx()->mlx, WIN_W, WIN_H, PRG_NAME);
@@ -37,6 +38,7 @@ void	ft_init_mlx(void)
 		exit(0);
 	}
 	_mlx()->mlx_win = win;
+	_var()->fd = fd;
 }
 
 /*
@@ -94,12 +96,8 @@ void	ft_reload_frame(void)
 
 void	ft_fps(void)
 {
-	_ray()->old_time = _ray()->time;
-	_ray()->time = get_clock(_ray()->clock);
-	_ray()->frame_time = (get_clock(_ray()->clock) - _ray()->old_time)
-	/ 1000000.0;
-	_player()->move_speed = _ray()->frame_time * 5.0;
-	_player()->rot_speed = _ray()->frame_time * 3.0;
+	_player()->move_speed = 0.05;
+	_player()->rot_speed = 0.05;
 }
 
 int	ft_loop(void)

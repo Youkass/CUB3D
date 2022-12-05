@@ -6,27 +6,40 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:32:57 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/05 15:59:06 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:54:42 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-struct timeval	start_clock(void)
+int	ft_space(char c)
 {
-	struct timeval	start;
-
-	gettimeofday(&start, NULL);
-	return (start);
+	if (c == ' ' || c == '\n' || c == '\t' || c == '\r' || c == '\f'
+		|| c == '\v')
+		return (1);
+	return (0);
 }
 
-unsigned long	get_clock(struct timeval start)
+int	ft_atoi(char *nbr)
 {
-	struct timeval	stop;
+	int			nega;
+	long long	output;
+	int			i;
 
-	gettimeofday(&stop, NULL);
-	return ((stop.tv_sec - start.tv_sec) * 1000000
-		+ stop.tv_usec - start.tv_usec);
+	output = 0;
+	i = 0;
+	nega = 1;
+	while (ft_space(nbr[i]))
+		i++;
+	if (nbr[i] == '-' || nbr[i] == '+')
+	{
+		if (nbr[i] == '-')
+			nega *= -1;
+		i++;
+	}
+	while (nbr[i] >= '0' && nbr[i] <= '9')
+		output = (output * 10) + (nbr[i++] - 48);
+	return (output * nega);
 }
 
 void	ft_black_hole(int exit_code)
@@ -46,6 +59,7 @@ void	ft_black_hole(int exit_code)
 		mlx_destroy_image(_mlx()->mlx, _img()->img);
 	mlx_destroy_window(_mlx()->mlx, _mlx()->mlx_win);
 	mlx_destroy_display(_mlx()->mlx);
+	close(_var()->fd);
 	free(_mlx()->mlx);
 	ft_lstclear(&tmp, free);
 	exit(exit_code);
