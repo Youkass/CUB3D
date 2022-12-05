@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:30:32 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/29 18:18:30 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:53:42 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	str = ft_malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!str)
-		return (ft_black_hole(139), NULL);
 	while (s1 && *s1)
 	{
 		str[i++] = *s1;
@@ -66,6 +64,8 @@ char	*read_file(int fd)
 	while (read_val)
 	{
 		read_val = read(fd, buff, 1084);
+		if (read_val < 0)
+			ft_black_hole(5);
 		buff[read_val] = 0;
 		tmp = str;
 		str = ft_strjoin(tmp, buff);

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 20:55:37 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:32:15 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_list	*_lst(void)
 	{
 		lst = malloc(sizeof(t_list));
 		if (!lst)
-			ft_black_hole(1);
+			exit(1);
 		lst->next = NULL;
 		lst->content = NULL;
 	}
