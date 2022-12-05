@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 12:52:24 by rmechety          #+#    #+#             */
-/*   Updated: 2022/12/05 20:15:45 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 21:05:58 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -926,7 +926,6 @@ char			*ft_itoa(int n);
 /* -------------------------------------------------------------------------- */
 void			ft_print_tab(char **s);
 int				ft_game(void);
-void			ft_print_map(void);
 int				main(int argc, char **argv);
 
 #endif

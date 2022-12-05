@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 18:10:38 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:44:00 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_list	*_lstimg(void)
 	{
 		lst = malloc(sizeof(t_list));
 		if (!lst)
-			ft_black_hole(139);
+			ft_black_hole(42);
 		lst->next = NULL;
 		lst->content = NULL;
 	}
@@ -35,7 +35,7 @@ t_list	*_lstmedia(void)
 	{
 		lst = malloc(sizeof(t_list));
 		if (!lst)
-			ft_black_hole(139);
+			ft_black_hole(42);
 		lst->next = NULL;
 		lst->content = NULL;
 	}
@@ -48,7 +48,7 @@ t_list	*ft_new_node(void *content)
 
 	node = malloc(sizeof(t_list));
 	if (!node)
-		ft_black_hole(139);
+		ft_black_hole(42);
 	node->content = content;
 	node->next = NULL;
 	return (node);
@@ -62,7 +62,7 @@ void	*ft_malloc(int size)
 	output = malloc(size);
 	tmp = _lst();
 	if (!output)
-		ft_black_hole(139);
+		ft_black_hole(42);
 	ft_lstadd_back(&tmp, ft_new_node(output));
 	return (output);
 }

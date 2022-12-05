@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 16:53:48 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:25:10 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:44:00 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_init_img(void)
 	(void)tmp;
 	img->img = mlx_new_image(_mlx()->mlx, WIN_W, WIN_H);
 	if (!img->img)
-		ft_black_hole(139);
+		ft_black_hole(42);
 	ft_lstadd_back(&tmp, ft_new_node(img->img));
 	img->addr = mlx_get_data_addr(img->img, &(img->bits_per_pixel),
 			&(img->line_length), &(img->endian));

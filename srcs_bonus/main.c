@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/05 20:29:26 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 21:05:53 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,6 @@ static void	ft_call_functions(void)
 	init_image();
 }
 
-void	ft_print_map(void)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	printf("print_mao\n");
-	while (i < _var()->map_height)
-	{
-		j = 0;
-		while (j < _var()->map_width)
-			printf("%c", _var()->map[i][j++]);
-		printf("\n");
-		++i;
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	int		fd;
@@ -92,7 +75,6 @@ int	main(int argc, char **argv)
 	parse_args(buf);
 	ft_call_functions();
 	ft_game();
-	ft_print_map();
 	mlx_loop(_mlx()->mlx);
 	return (0);
 }

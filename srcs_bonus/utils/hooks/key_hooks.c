@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:55:05 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 20:14:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 21:10:11 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	open_door(void)
 {
 	t_vector2F	target;
 
-	target.x = _player()->x + (_player()->dx * 1);
-	target.y = _player()->y + (_player()->dy * 1);
+	target.x = _player()->x + (_player()->dx * 1.5);
+	target.y = _player()->y + (_player()->dy * 1.5);
 	if (_var()->map[(int)target.y][(int)target.x] == 'D' && !click_delay())
 	{
 		click();

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:55:08 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/05 18:05:40 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:59:53 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	dda(t_raycasting *r)
 {
+	int	max;
+
+	max = 0;
 	while (!r->hit)
 	{
 		if (r->side_dist.x < r->side_dist.y)
@@ -28,6 +31,9 @@ void	dda(t_raycasting *r)
 			r->map.y += r->step.y;
 			r->side = 1;
 		}
+		max++;
+		if (max > 1000)
+			break ;
 		dda_condition(r);
 	}
 }

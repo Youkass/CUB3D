@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/05 18:47:40 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 21:05:09 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_data	generate_image(char *path)
 	sprite.img = mlx_xpm_file_to_image(_mlx()->mlx, path,
 			&sprite.width, &sprite.height);
 	if (!sprite.img)
-		return (sprite);
+		ft_black_hole(50);
 	sprite.addr = mlx_get_data_addr(sprite.img, &sprite.bits_per_pixel,
 			&sprite.line_length, &sprite.endian);
 	return (sprite);
@@ -74,7 +74,7 @@ int	main(int argc, char **argv)
 	ft_init_img();
 	parse_args(ft_split(read_file(fd), '\n'));
 	if (!_var()->map)
-		ft_black_hole(139);
+		ft_black_hole(42);
 	ft_init_player_pos();
 	init_key();
 	_var()->mode = GAME;

@@ -5,12 +5,19 @@ EA ./img/blocks/composter.xpm
 F 117, 142, 79
 C 135, 245, 251
 D ./img/blocks/door.xpm
-
-111
-101
-101
-101
-101
-101
-101
-111
+2 ./img/blocks/block.xpm
+3 ./img/blocks/chiseled.xpm
+4 ./img/blocks/command.xpm
+5 ./img/blocks/composter.xpm
+6 ./img/blocks/cracked.xpm
+7 ./img/blocks/deadtube.xpm
+8 ./img/blocks/deepslate.xpm
+9 ./img/blocks/iron.xpm
+A ./img/blocks/polished.xpm
+B ./img/blocks/sandstone.xpm
+.
+11111111111111111
+100000000000000001
+1XY00000D000000001
+100000000000000001
+111111111111111111

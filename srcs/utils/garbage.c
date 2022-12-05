@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/05 20:29:39 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:44:00 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_list	*ft_new_node(void *content)
 	if (!node)
 	{
 		printf("in new_node\n");
-		ft_black_hole(139);
+		ft_black_hole(42);
 	}
 	node->content = content;
 	node->next = NULL;
