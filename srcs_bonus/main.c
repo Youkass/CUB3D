@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:32:59 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/05 18:01:38 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:29:26 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int	main(int argc, char **argv)
 	fd = ft_check_map_name(argv[1]);
 	if (fd < 0)
 		return (1);
+	_lst();
 	init_var();
 	ft_init_mlx();
 	buf = ft_split(read_file(fd), '\n');

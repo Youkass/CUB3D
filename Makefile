@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/05 18:43:02 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/05 19:55:49 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,112 +15,6 @@ GRN			= \033[0;32m
 RED			= \033[0;31m
 RST			= \033[0m
 END			= \e[0m
-
-SRCS_AUDIO		=	srcs_bonus/main.c\
-				srcs_bonus/main_utils.c\
-				srcs_bonus/team.c\
-				srcs_bonus/tools.c\
-				srcs_bonus/shoot/shoot.c\
-				srcs_bonus/shoot/shoot_utils.c\
-				srcs_bonus/shoot/shoot_utils_2.c\
-				srcs_bonus/shoot/shoot_wall.c\
-				srcs_bonus/ft_itoa.c\
-				srcs_bonus/kill_log.c\
-				srcs_bonus/raycasting/raycasting_utils.c\
-				srcs_bonus/raycasting/raycasting.c\
-				srcs_bonus/raycasting/raycasting_2.c\
-				srcs_bonus/raycasting/player_casting.c\
-				srcs_bonus/raycasting/player_casting_2.c\
-				srcs_bonus/raycasting/player_casting_3.c\
-				srcs_bonus/raycasting/name_casting.c\
-				srcs_bonus/raycasting/bullet_casting.c\
-				srcs_bonus/mlx_utils/mlx_utils.c\
-				srcs_bonus/mlx_utils/mlx_utils_2.c\
-				srcs_bonus/mlx_utils/mlx_utils_3.c\
-				srcs_bonus/mlx_utils/render.c\
-				srcs_bonus/utils/singletons/singleton.c\
-				srcs_bonus/utils/singletons/singleton_2.c\
-				srcs_bonus/utils/singletons/singleton_3.c\
-				srcs_bonus/utils/restart.c\
-				srcs_bonus/utils/malloc_hooks_enum.c\
-				srcs_bonus/utils/hooks/key_hooks.c\
-				srcs_bonus/utils/hooks/key_hooks_2.c\
-				srcs_bonus/utils/hooks/movements.c\
-				srcs_bonus/utils/hooks/movements_2.c\
-				srcs_bonus/utils/hooks/escape.c\
-				srcs_bonus/utils/clock.c\
-				srcs_bonus/utils/garbage/garbage.c\
-				srcs_bonus/utils/garbage/garbage_2.c\
-				srcs_bonus/utils/garbage/garbage_3.c\
-				srcs_bonus/utils/list.c\
-				srcs_bonus/utils/collisions/collisions.c\
-				srcs_bonus/utils/collisions/collisions_2.c\
-				srcs_bonus/utils/collisions/collisions_3.c\
-				srcs_bonus/utils/sounds/sound.c\
-				srcs_bonus/utils/sounds/sound_2.c\
-				srcs_bonus/utils/sounds/sound_3.c\
-				srcs_bonus/utils/sounds/sound_4.c\
-				srcs_bonus/drawing/draw_player.c\
-				srcs_bonus/drawing/draw_player_2.c\
-				srcs_bonus/drawing/draw_map.c\
-				srcs_bonus/drawing/draw_map_2.c\
-				srcs_bonus/drawing/draw_map_3.c\
-				srcs_bonus/drawing/draw_text.c\
-				srcs_bonus/drawing/draw_text_2.c\
-				srcs_bonus/menu/generate.c\
-				srcs_bonus/menu/generate_2.c\
-				srcs_bonus/menu/generate_3.c\
-				srcs_bonus/menu/generate_4.c\
-				srcs_bonus/menu/menu_lobby.c\
-				srcs_bonus/menu/loop.c\
-				srcs_bonus/menu/loop_2.c\
-				srcs_bonus/menu/loop_3.c\
-				srcs_bonus/menu/loop_4.c\
-				srcs_bonus/menu/render.c\
-				srcs_bonus/menu/render_2.c\
-				srcs_bonus/menu/render_3.c\
-				srcs_bonus/menu/render_4.c\
-				srcs_bonus/menu/utils.c\
-				srcs_bonus/menu/utils_2.c\
-				srcs_bonus/menu/utils_3.c\
-				srcs_bonus/menu/mouse_hook.c\
-				srcs_bonus/menu/intro.c\
-				srcs_bonus/menu/intro_2.c\
-				srcs_bonus/menu/dragbar.c\
-				srcs_bonus/menu/recv_utils.c\
-				srcs_bonus/parsing/parsing.c\
-				srcs_bonus/parsing/parsing_2.c\
-				srcs_bonus/parsing/parsing_3.c\
-				srcs_bonus/parsing/parsing_4.c\
-				srcs_bonus/parsing/args.c\
-				srcs_bonus/parsing/args_2.c\
-				srcs_bonus/parsing/args_3.c\
-				srcs_bonus/network_client/network_utils.c\
-				srcs_bonus/network_client/client.c\
-				srcs_bonus/network_client/client_2.c\
-				srcs_bonus/network_client/client_3.c\
-				srcs_bonus/network_client/client_4.c\
-				srcs_bonus/math/math.c\
-				srcs_bonus/math/math_2.c\
-				srcs_bonus/math/vector/operator2D.c\
-				srcs_bonus/math/vector/operator2F.c\
-				srcs_bonus/math/vector/tools.c\
-				srcs_bonus/math/vector/tools_2.c\
-				srcs_bonus/mlx_utils/hud.c\
-				srcs_bonus/mlx_utils/sky.c\
-				srcs_bonus/mlx_utils/sky_2.c\
-				srcs_bonus/init/init.c\
-				srcs_bonus/init/init_2.c\
-				srcs_bonus/init/init_3.c\
-				srcs_bonus/init/init_4.c\
-				srcs_bonus/mouse.c\
-				srcs_bonus/key.c\
-				srcs_bonus/loop_hook.c\
-				srcs_bonus/clock_2.c\
-				srcs_bonus/dyn_array_2.c\
-				miniaudio/extras/miniaudio_split/miniaudio.c\
-				srcs_bonus/utils/click.c\
-				srcs_bonus/dyn_array.c
 
 SRCS_B		=	srcs_bonus/main.c\
 				srcs_bonus/main_utils.c\
@@ -364,19 +258,16 @@ SRCS		=	srcs/main.c\
 NAME		= cub3D
 NAME_B		= cub3D_bonus
 SERVER		= server
-AUDIO		= cub3D_bonus
 minilibx	= mlx/libmlx.a
 OBJS_DIR	= objs/
 OBJS_DIR_B	= objs_b/
 OBJS_DIR_SERVER	= objs_server/
-OBJS_DIR_AUDIO	= objs_audio/
 OBJS		= $(SRCS:.c=.o)
 OBJS_B		= $(SRCS_B:.c=.o)
 OBJS_AUDIO		= $(SRCS_B:.c=.o)
 OBJS_SERVER		= $(SERVER_SRCS:.c=.o)
 OBJECTS_PREFIXED = $(addprefix $(OBJS_DIR), $(OBJS))
 OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
-OBJECTS_PREFIXED_AUDIO = $(addprefix $(OBJS_DIR_AUDIO), $(OBJS_AUDIO))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra -g3
@@ -414,29 +305,6 @@ $(OBJS_DIR_B)%.o : %.c includes_bonus/cub.h
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 	@printf	"\033[2K\r${BLU}[BUILD - $(NAME_B)]${RST} '$<' $(END)"
 
-$(OBJS_DIR_AUDIO)%.o : %.c includes_bonus/cub.h
-	@mkdir -p $(OBJS_DIR_AUDIO)
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/parsing
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/shoot
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/mlx_utils
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/raycasting
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/utils
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/init
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/utils/singletons
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/utils/collisions
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/utils/sounds
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/utils/garbage
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/utils/hooks
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/drawing
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/menu
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/math
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/math/vector
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus/network_client
-	@mkdir -p $(OBJS_DIR_AUDIO)miniaudio/extras/miniaudio_split/
-	@mkdir -p $(OBJS_DIR_AUDIO)srcs_bonus
-	@$(CC) $(CC_FLAGS) -c $< -o $@
-	@printf	"\033[2K\r${BLU}[BUILD - $(AUDIO)]${RST} '$<' $(END)"
-
 $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR_SERVER)
 	@mkdir -p $(OBJS_DIR_SERVER)srcs_bonus/raycasting
@@ -472,16 +340,11 @@ $(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
 	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) $(MLB_FLAGS)
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(SERVER)$(END)\n"
 
-$(AUDIO): $(OBJECTS_PREFIXED_AUDIO) maker
-	@$(CC) -o $(AUDIO) $(OBJECTS_PREFIXED_AUDIO) $(CC_FLAGS) $(MLB_FLAGS)
-	@printf "\033[2K\r\033[0;32m[END]\033[0m $(AUDIO)$(END)\n"
-
 
 all: $(NAME) 
 
 server: $(SERVER)
 
-# audio:	$(AUDIO)
 
 bonus:	$(NAME_B) $(SERVER)
 
@@ -504,4 +367,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re server bonus

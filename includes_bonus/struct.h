@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:30:30 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/05 18:01:43 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 20:16:19 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -490,14 +490,14 @@ typedef struct s_var
 	pthread_mutex_t		mutex;
 }	t_var;
 
-typedef struct	s_event_list
+typedef struct s_event_list
 {
 	int		mask;
 	int		(*hook)();
 	void	*param;
 }				t_event_list;
 
-typedef struct	s_win_list
+typedef struct s_win_list
 {
 	Window				window;
 	GC					gc;
@@ -511,7 +511,7 @@ typedef struct	s_win_list
 	t_event_list		hooks[MLX_MAX_EVENT];
 }				t_win_list;
 
-typedef struct	s_xvar
+typedef struct s_xvar
 {
 	Display		*display;
 	Window		root;
@@ -529,7 +529,7 @@ typedef struct	s_xvar
 	int			decrgb[6];
 	Atom		wm_delete_window;
 	Atom		wm_protocols;
-	int 		end_loop;
+	int			end_loop;
 }				t_xvar;
 
 typedef struct s_image
