@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:28:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/05 17:54:31 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:45:19 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	parse_color(char *str, int index, int *nb)
 		printf("Error\n[%c]: Already defined\n", str[0]);
 		ft_black_hole(1);
 	}
-	_var()->colors[index][it.z] = 100;
+	rev_tab(_var()->colors[index], 3);
+	_var()->colors[index][3] = 100;
 }

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:31:18 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/05 15:33:31 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:46:13 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ esc : 65307
 # endif
 
 # ifndef IS_MUSIC
-#  define IS_MUSIC 0
+#  define IS_MUSIC 1
 # endif
 
 # define MLX_MAX_EVENT 36

@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 16:52:53 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/29 16:57:34 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:45:48 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ int	ft_forward(void)
 		_player()->y += (_player()->dy * (_player()->move_speed));
 		_player()->x += (_player()->dx * (_player()->move_speed));
 	}
-	else
-	{
-		_player()->y -= (_player()->dy * (_player()->move_speed));
-		_player()->x -= (_player()->dx * (_player()->move_speed));
-	}
 	return (0);
 }
 
@@ -41,11 +36,6 @@ int	ft_back(void)
 	{
 		_player()->y -= (_player()->dy * (_player()->move_speed));
 		_player()->x -= (_player()->dx * (_player()->move_speed));
-	}
-	else
-	{
-		_player()->y += (_player()->dy * (_player()->move_speed));
-		_player()->x += (_player()->dx * (_player()->move_speed));
 	}
 	return (0);
 }
@@ -63,11 +53,6 @@ int	ft_strafe_left(void)
 		_player()->y += (dir.y * _player()->move_speed);
 		_player()->x += (dir.x * _player()->move_speed);
 	}
-	else
-	{
-		_player()->y -= (dir.y * _player()->move_speed);
-		_player()->x -= (dir.x * _player()->move_speed);
-	}
 	return (0);
 }
 
@@ -83,11 +68,6 @@ int	ft_strafe_right(void)
 	{
 		_player()->y -= (dir.y * _player()->move_speed);
 		_player()->x -= (dir.x * _player()->move_speed);
-	}
-	else
-	{
-		_player()->y += (dir.y * _player()->move_speed);
-		_player()->x += (dir.x * _player()->move_speed);
 	}
 	return (0);
 }

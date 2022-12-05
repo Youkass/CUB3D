@@ -6,41 +6,25 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:31 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/05 18:08:06 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 19:05:17 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
-t_vector2F	set_position(char c)
+void	set_position(char c, t_vector2D it)
 {
 	if (c == 'N')
-	{
-		_player()->dx = -1;
-		_player()->dy = 0.01;
-		return ((t_vector2F){0, -0.66});
-	}
+		set_pos(it, (t_vector2F){0.01, -1}, (t_vector2F){0.66, 0});
 	else if (c == 'S')
-	{
-		_player()->dx = 1;
-		_player()->dy = 0.01;
-		return ((t_vector2F){0, 0.66});
-	}
+		set_pos(it, (t_vector2F){0.01, 1}, (t_vector2F){-0.66, 0});
 	else if (c == 'W')
-	{
-		_player()->dx = 0.01;
-		_player()->dy = -1;
-		return ((t_vector2F){0.66, 0});
-	}
+		set_pos(it, (t_vector2F){-1, 0.01}, (t_vector2F){0, -0.66});
 	else
-	{
-		_player()->dx = 0.01;
-		_player()->dy = 1;
-		return ((t_vector2F){-0.66, 0});
-	}
+		set_pos(it, (t_vector2F){1, 0.01}, (t_vector2F){0, 0.66});
 }
 
-static void	check(char c, t_vector2D it, char **map)
+static void	check(char c, t_vector2D it, char **map, t_vector2D pt)
 {
 	if (c == '0' || is_player(c))
 	{
@@ -50,7 +34,7 @@ static void	check(char c, t_vector2D it, char **map)
 			ft_black_hole(0);
 		}
 		if (is_player(c))
-			_ray()->plane = set_position(c);
+			set_position(c, pt);
 	}
 	else if (c != '1' && c != ' ')
 	{
@@ -70,7 +54,7 @@ void	body_map(t_vector2D *pt, t_vector2D *it, char **map, int *longest)
 	pt->x = 0;
 	while (map[it->y][it->x])
 	{
-		check(map[it->y][it->x], *it, map);
+		check(map[it->y][it->x], *it, map, *pt);
 		pt->x += 1;
 		it->x += 1;
 	}

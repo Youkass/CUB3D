@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:12:42 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/05 17:49:00 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:47:45 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ void	draw_void(void)
 
 void	ft_init_player_pos(void)
 {
-	_player()->x = 5;
-	_player()->y = 3;
 	_player()->angle = 0;
 	_ray()->time = 0;
 	_ray()->old_time = 0;
