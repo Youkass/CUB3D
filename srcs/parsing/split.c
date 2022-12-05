@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:10:11 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/05 14:56:12 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:11:49 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,17 @@ void	*free_tab(char **tab, int k)
 	return (NULL);
 }
 
-static char	**ft_split_body(char const *s, char c, char **split)
+static char	**ft_split_body(char const *s, char c)
 {
-	int	j;
-	int	k;
-	int	i;
+	int		j;
+	int		k;
+	int		i;
+	char	**split;
 
 	i = 0;
 	j = 0;
 	k = 0;
+	split = ft_malloc(sizeof(char *) * (count_words(s, c) + 1));
 	while (s[i])
 	{
 		while (s[i + j] && s[i + j] != c)
@@ -73,6 +75,7 @@ static char	**ft_split_body(char const *s, char c, char **split)
 		if (j != 0)
 		{
 			split[k] = ft_strncpy_split(s + i, j + 1);
+			++k;
 			i += j - 1;
 			j = 0;
 		}
@@ -84,10 +87,7 @@ static char	**ft_split_body(char const *s, char c, char **split)
 
 char	**ft_split(char const *s, char c)
 {
-	char	**split;
-
 	if (s == NULL)
 		return (NULL);
-	split = ft_malloc(sizeof(char *) * (count_words(s, c) + 1));
-	return (ft_split_body(s, c, split));
+	return (ft_split_body(s, c));
 }

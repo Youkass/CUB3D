@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:05:31 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/04 20:34:55 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:13:54 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ int	is_map(char *str)
 
 void	arg_check(char *str, int nb_types[6], int *index, int i)
 {
-	if (!strncmp(str, "NO", 2))
+	if (!ft_strncmp(str, "NO", 2))
 		parse_dir(str, 0, &nb_types[0]);
-	else if (!strncmp(str, "SO", 2))
+	else if (!ft_strncmp(str, "SO", 2))
 		parse_dir(str, 2, &nb_types[2]);
-	else if (!strncmp(str, "WE", 2))
+	else if (!ft_strncmp(str, "WE", 2))
 		parse_dir(str, 1, &nb_types[1]);
-	else if (!strncmp(str, "EA", 2))
+	else if (!ft_strncmp(str, "EA", 2))
 		parse_dir(str, 3, &nb_types[3]);
-	else if (!strncmp(str, "F", 1))
+	else if (!ft_strncmp(str, "F", 1))
 		parse_color(str, 0, &nb_types[4]);
-	else if (!strncmp(str, "C", 1))
+	else if (!ft_strncmp(str, "C", 1))
 		parse_color(str, 1, &nb_types[5]);
 	else if (is_nb_args(nb_types) && *index == -1)
 		*index = i;
@@ -85,8 +85,8 @@ void	parse_args(char **map)
 
 	i = 0;
 	index = -1;
-	memset(&_img()->map, 0, sizeof(_img()->map));
-	memset(&nb_types, 0, sizeof(nb_types));
+	ft_memset(&_img()->map, 0, sizeof(_img()->map));
+	ft_memset(&nb_types, 0, sizeof(nb_types));
 	while (map[i])
 	{
 		arg_check(map[i], nb_types, &index, i);

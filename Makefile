@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/05 17:16:25 by dasereno         ###   ########.fr        #
+#    Updated: 2022/12/05 18:43:02 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -353,6 +353,7 @@ SRCS		=	srcs/main.c\
 				srcs/utils/garbage.c\
 				srcs/utils/utils.c\
 				srcs/utils/utils_2.c\
+				srcs/utils/utils_3.c\
 				srcs/utils/movements.c\
 				srcs/parsing/parsing.c\
 				srcs/parsing/parsing_2.c\
