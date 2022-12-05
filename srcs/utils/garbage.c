@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 13:09:39 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/05 14:32:15 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:01:02 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ t_list	*ft_new_node(void *content)
 
 	node = malloc(sizeof(t_list));
 	if (!node)
+	{
+		printf("in new_node\n");
 		ft_black_hole(139);
+	}
 	node->content = content;
 	node->next = NULL;
 	return (node);
@@ -79,7 +82,10 @@ void	*ft_malloc(int size)
 	output = malloc(size);
 	tmp = _lst();
 	if (!output)
-		ft_black_hole(139);
+	{
+		ft_lstclear(&tmp, free);
+		exit(139);
+	}
 	ft_lstadd_back(&tmp, ft_new_node(output));
 	return (output);
 }

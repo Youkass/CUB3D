@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/05 14:56:42 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:10:17 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_data	generate_image(char *path)
 {
 	t_data	sprite;
 
-	memset(&sprite, 0, sizeof(t_data));
+	ft_memset(&sprite, 0, sizeof(t_data));
 	if (!path)
 		return (sprite);
 	sprite.img = mlx_xpm_file_to_image(_mlx()->mlx, path,
@@ -70,9 +70,8 @@ int	main(int argc, char **argv)
 	fd = ft_check_map_name(argv[1]);
 	if (fd < 0)
 		exit(1);
-	ft_init_mlx();
+	ft_init_mlx(fd);
 	ft_init_img();
-	_ray()->clock = start_clock();
 	parse_args(ft_split(read_file(fd), '\n'));
 	if (!_var()->map)
 		ft_black_hole(139);

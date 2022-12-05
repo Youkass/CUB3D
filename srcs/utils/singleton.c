@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 20:55:51 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:10:53 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_data	*_img(void)
 
 	if (!img)
 	{
-		memset(&img, 0, sizeof(img));
+		ft_memset(&img, 0, sizeof(img));
 		img = ft_malloc(sizeof(t_data));
 	}
 	if (!img)
@@ -38,7 +38,7 @@ t_mlx	*_mlx(void)
 
 	if (!mlx)
 	{
-		memset(&mlx, 0, sizeof(mlx));
+		ft_memset(&mlx, 0, sizeof(mlx));
 		mlx = ft_malloc(sizeof(t_mlx));
 	}
 	if (!mlx)
@@ -55,7 +55,7 @@ t_obj	*_player(void)
 
 	if (!player)
 	{
-		memset(&player, 0, sizeof(player));
+		ft_memset(&player, 0, sizeof(player));
 		player = ft_malloc(sizeof(t_obj));
 	}
 	if (!player)
@@ -72,7 +72,7 @@ t_raycasting	*_ray(void)
 
 	if (!ray)
 	{
-		memset(&ray, 0, sizeof(ray));
+		ft_memset(&ray, 0, sizeof(ray));
 		ray = ft_malloc(sizeof(t_raycasting));
 	}
 	if (!ray)
@@ -85,14 +85,13 @@ t_raycasting	*_ray(void)
 */
 t_var	*_var(void)
 {
-	static t_var	*var = NULL;
+	static t_var	var;
+	static int		i = 0;
 
-	if (!var)
+	if (!i)
 	{
-		memset(&var, 0, sizeof(var));
-		var = ft_malloc(sizeof(t_var));
+		++i;
+		ft_memset(&var, 0, sizeof(var));
 	}
-	if (!var)
-		return (NULL);
-	return (var);
+	return (&var);
 }
