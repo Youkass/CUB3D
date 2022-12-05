@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 17:45:56 by yobougre          #+#    #+#             */
-/*   Updated: 2022/12/04 20:55:51 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 16:01:40 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,13 @@ t_raycasting	*_ray(void)
 */
 t_var	*_var(void)
 {
-	static t_var	*var = NULL;
+	static t_var	var;
+	static int		i = 0;
 
-	if (!var)
+	if (!i)
 	{
+		++i;
 		memset(&var, 0, sizeof(var));
-		var = ft_malloc(sizeof(t_var));
 	}
-	if (!var)
-		return (NULL);
-	return (var);
+	return (&var);
 }
