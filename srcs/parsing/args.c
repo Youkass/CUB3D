@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 22:28:01 by dasereno          #+#    #+#             */
-/*   Updated: 2022/12/05 16:14:04 by yobougre         ###   ########.fr       */
+/*   Updated: 2022/12/05 17:54:31 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	body_color(t_vector3D *it, char *str, int index)
 	while (str[it->x] && str[it->x] >= '0' && str[it->x] <= '9' && it->y < 4)
 		buf[it->y++] = str[it->x++];
 	buf[it->y] = 0;
-	tmp = atoi(buf);
+	tmp = ft_atoi(buf);
 	jump_spaces(&it->x, str, it->z);
 	_var()->colors[index][it->z++] = tmp;
 	is_error(tmp, it->z, it->y);

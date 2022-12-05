@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:31 by dasereno          #+#    #+#             */
-/*   Updated: 2022/11/29 18:23:09 by dasereno         ###   ########.fr       */
+/*   Updated: 2022/12/05 18:08:06 by yobougre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	check_map(char **map, int start)
 	while (map[it.y])
 	{
 		body_map(&pt, &it, map, &longest);
-		strcpy(_var()->map[pt.y], map[it.y]);
+		ft_strcpy(_var()->map[pt.y], map[it.y]);
 		pt.y++;
 		it.y++;
 	}
