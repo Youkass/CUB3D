@@ -1,3 +1,0 @@
-add hitmarker
-add host button
-need to retest restart partie
