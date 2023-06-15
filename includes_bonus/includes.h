@@ -56,7 +56,7 @@ esc : 65307
 # endif
 
 # ifndef IS_MUSIC
-#  define IS_MUSIC 0
+#  define IS_MUSIC 1
 # endif
 
 # define MLX_MAX_EVENT 36
