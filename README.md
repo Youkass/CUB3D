@@ -24,6 +24,8 @@ CONTROLS:
 
 We have a hitbox functionality, so if you aim the head you'll inflict more damage.
 
+PS: Multiplayer is available on linux only.
+
 HAVE FUN, AND PLEASE WAIT FOR THE FINAL VERSION.
 
 Curly Squad. 🥦
