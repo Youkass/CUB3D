@@ -6,7 +6,7 @@
 /*   By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 13:29:24 by denissereno       #+#    #+#             */
-/*   Updated: 2022/12/05 21:05:09 by dasereno         ###   ########.fr       */
+/*   Updated: 2023/12/21 14:17:29 by dasereno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ int	main(int argc, char **argv)
 	ft_init_mlx(fd);
 	ft_init_img();
 	parse_args(ft_split(read_file(fd), '\n'));
-	if (!_var()->map)
-		ft_black_hole(42);
 	ft_init_player_pos();
 	init_key();
 	_var()->mode = GAME;

@@ -6,7 +6,7 @@
 #    By: dasereno <dasereno@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:04:45 by youbougre         #+#    #+#              #
-#    Updated: 2022/12/05 20:37:13 by dasereno         ###   ########.fr        #
+#    Updated: 2023/12/22 13:17:09 by dasereno         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,7 +118,6 @@ SRCS_B		=	srcs_bonus/main.c\
 				srcs_bonus/loop_hook.c\
 				srcs_bonus/clock_2.c\
 				srcs_bonus/dyn_array_2.c\
-				miniaudio/extras/miniaudio_split/miniaudio.c\
 				srcs_bonus/utils/click.c\
 				srcs_bonus/dyn_array.c
 
@@ -232,7 +231,6 @@ SERVER_SRCS		= 	srcs_bonus/network/server.c\
 					srcs_bonus/loop_hook.c\
 					srcs_bonus/clock_2.c\
 					srcs_bonus/dyn_array_2.c\
-					miniaudio/extras/miniaudio_split/miniaudio.c\
 					srcs_bonus/utils/click.c\
 					srcs_bonus/dyn_array.c
 
@@ -259,6 +257,7 @@ NAME		= cub3D
 NAME_B		= cub3D_bonus
 SERVER		= server
 minilibx	= mlx/libmlx.a
+miniaudio	= miniaudio/libminiaudio.a
 OBJS_DIR	= objs/
 OBJS_DIR_B	= objs_b/
 OBJS_DIR_SERVER	= objs_server/
@@ -271,7 +270,7 @@ OBJECTS_PREFIXED_B = $(addprefix $(OBJS_DIR_B), $(OBJS_B))
 OBJECTS_PREFIXED_SERVER = $(addprefix $(OBJS_DIR_SERVER), $(OBJS_SERVER))
 CC			= gcc
 CC_FLAGS	= -Wall -Werror -Wextra
-MLB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -lXext -lX11 -lz -lm -pthread -ldl -lpthread -lXfixes
+LIB_FLAGS	= -O3 -L /usr/X11/lib -Lincludes -L./mlx -lmlx -Imlx -L./miniaudio -lminiaudio -Iminiaudio -lXext -lX11 -lz -lm -pthread -ldl -lpthread -lXfixes
 
 $(OBJS_DIR)%.o : %.c includes/cub.h
 	@mkdir -p $(OBJS_DIR)
@@ -329,15 +328,15 @@ $(OBJS_DIR_SERVER)%.o : %.c includes/cub.h
 	@$(CC) $(CC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJECTS_PREFIXED) maker
-	@$(CC) -o $(NAME) $(OBJECTS_PREFIXED) $(CC_FLAGS) $(MLB_FLAGS)
+	@$(CC) -o $(NAME) $(OBJECTS_PREFIXED) $(CC_FLAGS) $(LIB_FLAGS)
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME)$(END)\n"
 
 $(NAME_B): $(OBJECTS_PREFIXED_B) maker
-	@$(CC) -o $(NAME_B) $(OBJECTS_PREFIXED_B) $(CC_FLAGS) $(MLB_FLAGS)
+	@$(CC) -o $(NAME_B) $(OBJECTS_PREFIXED_B) $(CC_FLAGS) $(LIB_FLAGS)
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(NAME_B)$(END)\n"
 
 $(SERVER): $(OBJECTS_PREFIXED_SERVER) maker
-	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) $(MLB_FLAGS)
+	@$(CC) -o $(SERVER) $(OBJECTS_PREFIXED_SERVER) $(CC_FLAGS) $(LIB_FLAGS)
 	@printf "\033[2K\r\033[0;32m[END]\033[0m $(SERVER)$(END)\n"
 
 
@@ -350,6 +349,7 @@ bonus:	$(NAME_B) $(SERVER)
 
 maker:
 	@make -C mlx
+	@make -C miniaudio
 
 clean:
 	@rm -rf $(OBJS_DIR)
@@ -359,7 +359,7 @@ clean:
 
 fclean: clean
 	@make clean -C mlx
-	@make clean -C miniaudio 
+	@make clean -C miniaudio
 	@rm -f $(NAME)
 	@rm -f $(NAME_B)
 	@rm -f $(SERVER)

@@ -30,6 +30,7 @@ all: $(NAME)
 
 clean:
 		$(RM) $(OBJ)
+		$(RM) $(NAME)
 
 fclean: clean
 		$(RM) $(NAME)
